@@ -11,6 +11,7 @@ import SplashScreen from './src/Screen/SplashScreen/Index'
 import NoInternet from './src/Screen/NoInternet/Index'
 
 // Pages
+import LivePage from './src/Screen/LivePage/Index'
 import Home from './src/Screen/Home/Index'
 import ContentList from './src/Screen/ContentList/Index'
 
@@ -50,6 +51,7 @@ const App = () => {
           <Stack.Screen name="NoInternet" component={NoInternet} />
         ) : (
           <>
+            <Stack.Screen name="LivePage" component={LivePage} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="ContentList" component={ContentList} />
           </>

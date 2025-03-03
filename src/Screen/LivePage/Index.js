@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, StatusBar, } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, StatusBar, Animated } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
@@ -7,16 +7,18 @@ import Slider from '@react-native-community/slider';
 import TrackPlayer, { State, usePlaybackState, useProgress, Capability, Event } from 'react-native-track-player';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { base_url } from '../../../App';
+import * as Animatable from 'react-native-animatable';
 
 const Index = () => {
 
     const navigation = useNavigation();
-    // const isFocused = useIsFocused();
+    const isFocused = useIsFocused();
     const playbackState = usePlaybackState();
     // const progress = useProgress();
     const [spinner, setSpinner] = useState(false);
-    const [allContent, setAllContent] = useState([]);
+    const [allContent, setAllContent] = useState(null);
     const [currentTrack, setCurrentTrack] = useState(null);
     const [volume, setVolume] = useState(0.7);
 
@@ -32,7 +34,7 @@ const Index = () => {
             });
             const responseData = await response.json();
             if (responseData.status === 200) {
-                // console.log("Podcast Data: ", responseData.data.recent_podcast);
+                console.log("Podcast Data: ", responseData.data.recent_podcast);
                 setSpinner(false);
                 setAllContent(responseData.data.recent_podcast);
             }
@@ -43,14 +45,21 @@ const Index = () => {
     };
 
     useEffect(() => {
-        getPodcastData();
+        if (isFocused) {
+            // getPodcastData();
+            setAllContent({
+                id: 0,
+                name: 'ଦ୍ଵାରଫିଟା ଓ ମଙ୍ଗଳ ଆଳତି',
+                podcast_music: require('../../assets/audio/dwaraphita.mp3'),
+            });
+        }
         if (currentTrack) {
             const initializeVolume = async () => {
                 await TrackPlayer.setVolume(volume); // Set default volume
             };
             initializeVolume();
         }
-    }, []);
+    }, [isFocused]);
 
     useEffect(() => {
         const setup = async () => {
@@ -90,13 +99,14 @@ const Index = () => {
 
     const togglePlayback = async (track) => {
         try {
-            if (currentTrack !== track.id) {
+            const storedPodcastData = await AsyncStorage.getItem('currentPodcast');
+            if (!storedPodcastData || JSON.parse(storedPodcastData).id !== track.id) {
                 // console.log("Current Track ID:", currentTrack, "Selected Track ID:", track.id.toString());
                 await TrackPlayer.reset();
                 await TrackPlayer.add({
                     id: track.id.toString(),
                     url: track.podcast_music,
-                    title: track.podcast_prepair.podcast_name,
+                    title: track.name,
                     artist: 'Unknown Artist',
                 });
                 // setCurrentMusic(track);
@@ -126,8 +136,11 @@ const Index = () => {
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
                     {/* Top Header */}
                     <View style={styles.header}>
-                        <TouchableOpacity onPressIn={() => navigation.navigate('ContentList')}>
-                            <AntDesign name="bars" size={26} color="#fff" />
+                        <TouchableOpacity onPressIn={() => navigation.navigate('PreviousProgram')} style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 6, borderRadius: 6 }}>
+                            <MaterialCommunityIcons name="page-previous-outline" size={25} color="#f5ebd0" />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPressIn={() => navigation.navigate('ContentList')} style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 6, borderRadius: 6 }}>
+                            <AntDesign name="bars" size={26} color="#f5ebd0" />
                         </TouchableOpacity>
                     </View>
 
@@ -136,15 +149,13 @@ const Index = () => {
                         <Image source={require('../../assets/image/jaga.png')} style={styles.image} />
                         <View style={styles.podcastCardContainer}>
                             <LinearGradient
-                                colors={['#FF512F', '#DD2476']} // Stylish Gradient
+                                colors={['#FFC500', '#c9170a']} // Stylish Gradient
                                 style={styles.podcastCardBackground}
                             >
-                                <View style={styles.podcastCard}>
-                                    <Text style={styles.podcastHeading}>🎙️ {allContent?.podcast_prepair?.podcast_name || "Podcast Name"}</Text>
-                                    <Text style={styles.podcastDescription}>
-                                        {allContent?.description || "Engaging podcast description goes here... Stay tuned!"}
-                                    </Text>
-                                </View>
+                                <ImageBackground source={require('../../assets/image/textBG.png')} style={styles.podcastCard}>
+                                    <Text style={styles.podcastHeading}>🎙️ ଦ୍ଵାରଫିଟା ଓ ମଙ୍ଗଳ ଆଳତି</Text>
+                                    <Text style={styles.podcastDescription}>Started on 5:15 AM to 6:00 AM</Text>
+                                </ImageBackground>
                             </LinearGradient>
                         </View>
                     </View>
@@ -152,9 +163,9 @@ const Index = () => {
                     {/* Player Controls */}
                     <View style={styles.playerContainer}>
                         {/* Live Badge */}
-                        <View style={styles.liveBadge}>
+                        <Animatable.View animation="pulse" iterationCount="infinite" style={styles.liveBadge}>
                             <Text style={styles.liveText}>Live</Text>
-                        </View>
+                        </Animatable.View>
 
                         {/* Play Button */}
                         <View style={styles.playButtonContainer}>
@@ -206,9 +217,12 @@ const styles = StyleSheet.create({
     },
     header: {
         position: 'absolute',
-        top: 40,
-        right: 20,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '92%',
+        alignSelf: 'center',
+        top: 30,
+        // right: 20,
         padding: 8,
         borderRadius: 10,
     },
@@ -224,11 +238,11 @@ const styles = StyleSheet.create({
         top: '23%',
     },
     image: {
-        width: 280,
-        height: 280,
+        width: 300,
+        height: 300,
         resizeMode: 'contain',
-        backgroundColor: 'rgba(59, 58, 58, 0.5)',
-        borderRadius: 150,
+        // backgroundColor: 'rgba(59, 58, 58, 0.5)',
+        // borderRadius: 150,
     },
     textContainer: {
         width: '90%',
@@ -310,7 +324,7 @@ const styles = StyleSheet.create({
     podcastCardContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 10,
+        // marginTop: 10,
     },
     podcastCardBackground: {
         width: '90%',
@@ -323,10 +337,10 @@ const styles = StyleSheet.create({
         elevation: 8, // For Android shadow
     },
     podcastCard: {
-        backgroundColor: '#fff', // White Background for Contrast
+        // backgroundColor: '#fff', // White Background for Contrast
         borderRadius: 12,
         paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
         alignItems: 'center',
     },
     podcastHeading: {
@@ -350,7 +364,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
     },
     podcastDescription: {
-        fontSize: 14,
+        fontSize: 13,
         color: '#555',
         textAlign: 'center',
         fontStyle: 'italic',

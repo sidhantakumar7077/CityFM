@@ -14,6 +14,8 @@ import NoInternet from './src/Screen/NoInternet/Index'
 import LivePage from './src/Screen/LivePage/Index'
 import Home from './src/Screen/Home/Index'
 import ContentList from './src/Screen/ContentList/Index'
+import ContentListHome from './src/Screen/ContentListHome/Index'
+import PreviousProgram from './src/Screen/PreviousProgram/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -44,16 +46,18 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#c9170a" barStyle="light-content" />
+      <StatusBar backgroundColor="#4B7100" barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
         {!isConnected ? (
           <Stack.Screen name="NoInternet" component={NoInternet} />
         ) : (
           <>
-            <Stack.Screen name="LivePage" component={LivePage} />
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="LivePage" component={LivePage} />
             <Stack.Screen name="ContentList" component={ContentList} />
+            <Stack.Screen name="ContentListHome" component={ContentListHome} />
+            <Stack.Screen name="PreviousProgram" component={PreviousProgram} />
           </>
         )}
       </Stack.Navigator>

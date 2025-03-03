@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, ActivityIndicator, StyleSheet, StatusBar, Animated, Easing } from 'react-native';
+import { View, Text, FlatList, Image, ImageBackground, TouchableOpacity, ActivityIndicator, StyleSheet, StatusBar, Animated, Easing } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 import { base_url } from '../../../App';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import TrackPlayer, { State, usePlaybackState, useProgress } from 'react-native-track-player';
 import Slider from '@react-native-community/slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,6 +26,7 @@ const Index = () => {
       setupPlayer();
       const checkAsyncStorage = async () => {
         const storedPodcastData = await AsyncStorage.getItem('currentPodcast');
+        console.log("object", storedPodcastData);
         if (storedPodcastData) {
           setCurrentTrack(JSON.parse(storedPodcastData).id);
         }
@@ -131,11 +133,11 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden={true} />
+      <StatusBar translucent={false} backgroundColor="#c9170a" barStyle="light-content" />
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <AntDesign name="arrowleft" size={24} color="#fff" />
+          <FontAwesome5 name="arrow-left" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>🔥 Trending Podcasts</Text>
         <View style={{ width: 40 }} />
@@ -144,64 +146,67 @@ const Index = () => {
       {loading ? (
         <ActivityIndicator size="large" color="#ff3b3b" style={{ marginTop: 50 }} />
       ) : (
-        <View style={{ flex: 1 }}>
+        <View style={{ width: '94%', alignSelf: 'center', flex: 1 }}>
           {currentTrack ? (
-            <View style={styles.activePodcast}>
-              <Text style={{ color: '#ff3b3b', fontSize: 16, fontWeight: 'bold' }}>Now Playing</Text>
-              <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold', marginTop: 5 }}>
-                {allPodcasts.find((podcast) => podcast.id === currentTrack).podcast_prepair.podcast_name}
-              </Text>
-              {/* Add here controls for that podcast */}
-              <Slider
-                style={{ width: '80%', height: 6, marginTop: 20, marginBottom: 10, alignSelf: 'center' }}
-                value={progress.position}
-                minimumValue={0}
-                maximumValue={progress.duration}
-                thumbTintColor="red"
-                minimumTrackTintColor="#ed0716"
-                maximumTrackTintColor="#ffb700"
-                onSlidingComplete={async (value) => {
-                  await TrackPlayer.seekTo(value);
-                }}
-              />
-              <View style={styles.controls}>
-                <TouchableOpacity onPress={handleBackward} style={styles.controlButton}>
-                  <Ionicons name="play-back" size={20} color="#fff" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => togglePlayback(allPodcasts.find((podcast) => podcast.id === currentTrack))} style={styles.playPauseButton}>
-                  <Ionicons name={playbackState.state === State.Playing ? "pause" : "play"} size={30} color="#fff" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleForward} style={styles.controlButton}>
-                  <Ionicons name="play-forward" size={20} color="#fff" />
-                </TouchableOpacity>
-              </View>
-            </View>
-          ) : null}
-          <FlatList
-            data={allPodcasts}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => {
-              const isPlaying = currentTrack === item.id && playbackState.state === State.Playing;
-              return (
-                <View style={[styles.card, isPlaying ? styles.activeCard : {}]}>
-                  <Image source={{ uri: item.podcast_image }} style={styles.image} />
-                  <View style={styles.details}>
-                    <Text style={styles.title}>{item.podcast_prepair.podcast_name}</Text>
-                    <Text style={styles.description} numberOfLines={2}>{item.description}</Text>
-                    <Animated.View style={isPlaying ? { transform: [{ scale: glowAnim }] } : {}}>
-                      <TouchableOpacity onPress={() => togglePlayback(item)} style={styles.playButton}>
-                        <Ionicons
-                          name={isPlaying ? 'pause' : 'play'}
-                          size={22}  // Smaller icon size
-                          color="#fff"
-                        />
-                      </TouchableOpacity>
-                    </Animated.View>
-                  </View>
+            <LinearGradient colors={['#FFC500', '#c9170a']} style={styles.podcastCardBackground}>
+              <ImageBackground source={require('../../assets/image/textBG.png')} style={styles.activePodcast}>
+                <Text style={{ color: '#ff3b3b', fontSize: 16, fontWeight: 'bold' }}>Now Playing</Text>
+                <Text style={{ color: '#000', fontSize: 16, fontWeight: 'bold', marginTop: 5 }}>
+                  {allPodcasts.find((podcast) => podcast.id === currentTrack).podcast_prepair.podcast_name}
+                </Text>
+                <Slider
+                  style={{ width: '80%', height: 6, marginTop: 20, marginBottom: 10, alignSelf: 'center' }}
+                  value={progress.position}
+                  minimumValue={0}
+                  maximumValue={progress.duration}
+                  thumbTintColor="red"
+                  minimumTrackTintColor="#ed0716"
+                  maximumTrackTintColor="#ffb700"
+                  onSlidingComplete={async (value) => {
+                    await TrackPlayer.seekTo(value);
+                  }}
+                />
+                <View style={styles.controls}>
+                  <TouchableOpacity onPress={handleBackward} style={styles.controlButton}>
+                    <Ionicons name="play-back" size={20} color="#fff" />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => togglePlayback(allPodcasts.find((podcast) => podcast.id === currentTrack))} style={styles.playPauseButton}>
+                    <Ionicons name={playbackState.state === State.Playing ? "pause" : "play"} size={30} color="#fff" />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={handleForward} style={styles.controlButton}>
+                    <Ionicons name="play-forward" size={20} color="#fff" />
+                  </TouchableOpacity>
                 </View>
-              );
-            }}
-          />
+              </ImageBackground>
+            </LinearGradient>
+          ) : null}
+          <View style={{ flex: 1 }}>
+            <FlatList
+              data={allPodcasts}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => {
+                const isPlaying = currentTrack === item.id && playbackState.state === State.Playing;
+                return (
+                  <View style={[styles.card, isPlaying ? styles.activeCard : {}]}>
+                    <Image source={{ uri: item.podcast_image }} style={styles.image} />
+                    <View style={styles.details}>
+                      <Text style={styles.title}>{item.podcast_prepair.podcast_name}</Text>
+                      <Text style={styles.description} numberOfLines={2}>{item.description}</Text>
+                      <Animated.View style={isPlaying ? { transform: [{ scale: glowAnim }] } : {}}>
+                        <TouchableOpacity onPress={() => togglePlayback(item)} style={styles.playButton}>
+                          <Ionicons
+                            name={isPlaying ? 'pause' : 'play'}
+                            size={22}  // Smaller icon size
+                            color="#fff"
+                          />
+                        </TouchableOpacity>
+                      </Animated.View>
+                    </View>
+                  </View>
+                );
+              }}
+            />
+          </View>
         </View>
       )}
     </View>
@@ -213,18 +218,19 @@ export default Index;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#181818',
-    paddingHorizontal: 15,
+    backgroundColor: '#FFC500',
+    // paddingHorizontal: 15,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 15,
-    backgroundColor: '#292929',
+    backgroundColor: '#fff',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     paddingHorizontal: 10,
+    elevation: 10,
   },
   backButton: {
     padding: 10,
@@ -232,22 +238,34 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   headerTitle: {
-    color: '#ffcc00',
+    color: '#c9170a',
     fontSize: 20,
     fontWeight: 'bold',
   },
+  podcastCardBackground: {
+    borderRadius: 15,
+    padding: 4, // Creates a border effect
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8, // For Android shadow
+},
   activePodcast: {
     height: 180,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    resizeMode: 'cover',
+    // backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
     borderRadius: 15,
     marginVertical: 8,
-    padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#ff3b3b',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.6,
     shadowRadius: 10,
+    elevation: 8,
   },
   controls: {
     flexDirection: 'row',
@@ -259,7 +277,7 @@ const styles = StyleSheet.create({
   },
   controlButton: {
     padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#ff3b3b',
     borderRadius: 50,
     shadowColor: '#ff6b6b',
     shadowOffset: { width: 0, height: 5 },
@@ -282,7 +300,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'red',
     borderRadius: 15,
     marginVertical: 8,
     padding: 12,
@@ -294,8 +312,8 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   activeCard: {
-    borderColor: '#ff3b3b',
-    borderWidth: 2,
+    borderColor: '#fff',
+    borderWidth: 4,
     shadowColor: '#ff3b3b',
     shadowRadius: 10,
     elevation: 15,
@@ -303,7 +321,7 @@ const styles = StyleSheet.create({
   image: {
     width: 80,
     height: 80,
-    borderRadius: 15,
+    borderRadius: 8,
   },
   details: {
     flex: 1,
@@ -315,7 +333,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   description: {
-    color: '#bbb',
+    color: '#e0e0de',
     fontSize: 13,
     marginTop: 4,
   },

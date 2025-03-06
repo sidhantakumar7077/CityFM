@@ -1,19 +1,25 @@
 import React, { useRef, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, ScrollView, ImageBackground, TouchableOpacity, Animated, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, ScrollView, ImageBackground, TouchableOpacity, Animated, FlatList, TouchableHighlight } from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Calendar } from 'react-native-calendars';
+import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 
 // Sample Data for Menu Items (Grouped into Rows)
 const menuItems = [
-    { id: '1', title: 'Prarthana', image: require('../../assets/image/demoLogo.png') },
-    { id: '2', title: 'Daily Prediction', image: require('../../assets/image/demoLogo.png') },
-    { id: '3', title: 'Fix your Muhurta', image: require('../../assets/image/demoLogo.png') },
-    { id: '4', title: 'Janma Kundali', image: require('../../assets/image/demoLogo.png') },
-    { id: '5', title: 'Panchanga', image: require('../../assets/image/demoLogo.png') },
-    { id: '6', title: 'Festivals', image: require('../../assets/image/demoLogo.png') },
-    { id: '7', title: 'Pooja', image: require('../../assets/image/demoLogo.png') },
-    { id: '8', title: 'Kundali Matching', image: require('../../assets/image/demoLogo.png') },
+    { id: '1', title: 'About Temple', image: require('../../assets/image/demoLogo.png') },
+    { id: '2', title: 'Shree Khetra', image: require('../../assets/image/demoLogo.png') },
+    { id: '3', title: 'Matha & Ashram', image: require('../../assets/image/demoLogo.png') },
+    { id: '4', title: 'Festivals', image: require('../../assets/image/demoLogo.png') },
+    { id: '5', title: '36 Nijoga', image: require('../../assets/image/demoLogo.png') },
+    { id: '6', title: 'Besha', image: require('../../assets/image/demoLogo.png') },
+    { id: '7', title: 'Darshan Facility', image: require('../../assets/image/demoLogo.png') },
+    { id: '8', title: 'Maha Prasad', image: require('../../assets/image/demoLogo.png') },
 ];
 
 const prarthanaData = [
@@ -37,6 +43,33 @@ const eventTypes = [
     { icon: '〰️', name: 'Ekadashi' }
 ];
 
+const data = [
+    { id: '1', icon: 'hotel', label: 'Accomodation', color: '#4CAF50' },
+    { id: '2', icon: 'gittip', label: 'Donation', color: '#F44336' },
+    { id: '3', icon: 'gift', label: 'Offering', color: '#9C27B0' },
+    { id: '4', icon: 'credit-card', label: 'Darshan Booking', color: '#FF9800' },
+];
+
+const features = [
+    { id: '1', icon: 'car', label: 'Parking' },
+    { id: '2', icon: 'shoe-prints', label: 'Locker & Shoes Stand' },
+    { id: '3', icon: 'tint', label: 'Drinking Water' },
+    { id: '4', icon: 'map-marked-alt', label: 'Root Map' },
+    { id: '5', icon: 'utensils', label: 'Free Food' },
+    { id: '6', icon: 'search', label: 'Lost & Found' },
+    { id: '8', icon: 'street-view', label: 'Ratha Yatra Mela' },
+    { id: '9', icon: 'toilet', label: 'Toilet' },
+    { id: '10', icon: 'umbrella-beach', label: 'Beaches' },
+    { id: '11', icon: 'life-ring', label: 'Life Guard Booth' },
+    { id: '12', icon: 'phone-alt', label: 'Emergency Contact' },
+    { id: '13', icon: 'charging-station', label: 'Charging Station' },
+    { id: '14', icon: 'gas-pump', label: 'Petrol Pump' },
+    { id: '15', icon: 'hotel', label: 'Hotel/Dharmashala' },
+    { id: '16', icon: 'utensils', label: 'Restaurant' },
+    { id: '17', icon: 'bus', label: 'Bus Stand/Railway Station' },
+    { id: '7', icon: 'wheelchair', label: 'Physical Handicap & Senior Citizen' },
+];
+
 // Function to group items into rows
 const groupItemsIntoRows = (items, itemsPerRow) => {
     const rows = [];
@@ -50,6 +83,7 @@ const Index = () => {
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
+    const navigation = useNavigation();
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -70,12 +104,17 @@ const Index = () => {
     return (
         <SafeAreaView style={styles.container}>
             {/* Animated Header */}
-            <Animated.View style={[styles.header, { backgroundColor: isScrolled ? '#4B7100' : 'transparent' }]}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Image source={require('../../assets/image/demoLogo.png')} style={styles.logo} />
-                    <Text style={styles.headerText}>PRATIHARI NIJOGA</Text>
-                </View>
-                <Fontisto name="player-settings" size={20} color="#fff" />
+            <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
+                <LinearGradient
+                    colors={isScrolled ? ['#4B7100', '#2E4D00'] : ['transparent', 'transparent']}
+                    style={styles.gradient}
+                >
+                    <View style={styles.headerContent}>
+                        <Image source={require('../../assets/image/demoLogo.png')} style={styles.logo} />
+                        <Text style={styles.headerText}>Shree Jagannatha Dham</Text>
+                    </View>
+                    <Fontisto name="player-settings" size={20} color="#fff" />
+                </LinearGradient>
             </Animated.View>
 
             <ScrollView
@@ -87,7 +126,12 @@ const Index = () => {
                 overScrollMode="never" // Prevents overscroll glow on Android
             >
                 {/* Header Image */}
-                <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} />
+                <View style={styles.headerContainer}>
+                    <ImageBackground
+                        source={require('../../assets/image/mangala_alati.jpg')}
+                        style={styles.headerImage}
+                    />
+                </View>
 
                 {/* Panchanga Box */}
                 <View style={styles.panchangaBox}>
@@ -108,7 +152,7 @@ const Index = () => {
                     </View>
 
                     {/* View Panchanga Button */}
-                    <TouchableOpacity style={styles.viewButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={styles.viewButton}>
                         <Text style={styles.viewText}>VIEW ALL NITI</Text>
                         <MaterialCommunityIcons name="hand-pointing-right" size={30} color="#D49100" />
                     </TouchableOpacity>
@@ -121,7 +165,7 @@ const Index = () => {
                         {groupedMenuItems.map((row, rowIndex) => (
                             <View key={rowIndex} style={styles.rowContainer}>
                                 {row.map((item) => (
-                                    <TouchableOpacity key={item.id} style={styles.menuItem}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} key={item.id} style={styles.menuItem}>
                                         <Image source={item.image} style={styles.menuImage} />
                                         <Text style={styles.menuText}>{item.title}</Text>
                                     </TouchableOpacity>
@@ -131,38 +175,85 @@ const Index = () => {
                     </View>
                 </ScrollView>
 
+                {/* FM Block-1 */}
                 <View style={styles.panchangaBox}>
                     <View style={styles.row}>
                         <View style={styles.iconCircle}>
-                            <Text style={styles.iconText}>5</Text>
+                            <MaterialCommunityIcons name="radio-fm" color={'#000'} size={25} />
                         </View>
-                        <View style={styles.textContainer}>
+                        <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={styles.textContainer}>
                             <View style={styles.titleRow}>
-                                <Text style={styles.title}>Panchami <Text style={styles.subText}>Shukla Paksha</Text></Text>
+                                <Text style={styles.title}>Online FM </Text>
                                 <View style={styles.nowBadge}>
-                                    <Text style={styles.nowText}>NOW</Text>
+                                    <Text style={styles.nowText}>NEW</Text>
                                 </View>
                             </View>
-                            <Text style={styles.time}>upto 03:17 pm on 4th</Text>
-                        </View>
+                            <Text style={styles.time}>Shree Jagannatha FM Channel</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={{ width: '97%', height: 1, marginBottom: 5, backgroundColor: '#EAEAEA' }} />
                     <View style={styles.row}>
                         <View style={styles.iconCircle}>
-                            <Text style={styles.iconText}>5</Text>
+                            <Ionicons name="tv-outline" color={'#000'} size={25} />
                         </View>
-                        <View style={styles.textContainer}>
+                        <TouchableOpacity style={styles.textContainer}>
                             <View style={styles.titleRow}>
-                                <Text style={styles.title}>Panchami <Text style={styles.subText}>Shukla Paksha</Text></Text>
+                                <Text style={styles.title}>Shree Jagannatha TV</Text>
                                 <View style={styles.nowBadge}>
-                                    <Text style={styles.nowText}>NOW</Text>
+                                    <Text style={styles.nowText}>NEW</Text>
                                 </View>
                             </View>
-                            <Text style={styles.time}>upto 03:17 pm on 4th</Text>
+                            <Text style={styles.time}>Live Telecast From Shree Mandira</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                {/* FM Block-2 */}
+                <View style={{ marginTop: 10, width: '95%', alignSelf: 'center', backgroundColor: 'white', borderRadius: 10, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 5, flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ width: '49%', alignItems: 'center' }}>
+                        <View style={[styles.iconCircle, { marginRight: 0 }]}>
+                            <MaterialCommunityIcons name="radio-fm" color={'#000'} size={25} />
+                        </View>
+                        <View style={styles.titleRow}>
+                            <Text style={{ fontSize: 11, fontFamily: 'Lora-Bold', color: '#333', }}>Online</Text>
+                        </View>
+                    </View>
+                    <View style={{ backgroundColor: '#EAEAEA', width: 1, height: 50 }} />
+                    <View style={{ width: '49%', alignItems: 'center' }}>
+                        <View style={[styles.iconCircle, { marginRight: 0 }]}>
+                            <Ionicons name="tv-outline" color={'#000'} size={25} />
+                        </View>
+                        <View style={styles.titleRow}>
+                            <Text style={{ fontSize: 11, fontFamily: 'Lora-Bold', color: '#333', }}>Live</Text>
                         </View>
                     </View>
                 </View>
-                <View style={{ width: '96%', alignSelf: 'center', marginTop: 15 }}>
+
+                {/* Online Part */}
+                <View style={styles.onlineContainer}>
+                    {data.map((item) => (
+                        <TouchableOpacity key={item.id} style={styles.onlineCard}>
+                            <View style={[styles.onlineIconCircle, { backgroundColor: item.color }]}>
+                                <FontAwesome name={item.icon} size={22} color="#fff" />
+                            </View>
+                            <Text style={styles.onlineLabel}>{item.label}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+
+                {/* All Menu For RAtha Yatra */}
+                <View style={styles.menuContainer}>
+                    {features.map((item) => (
+                        <TouchableOpacity key={item.id} style={styles.menuCard}>
+                            <View style={styles.menuIconCircle}>
+                                <FontAwesome5 name={item.icon} size={20} color="#4B7100" />
+                            </View>
+                            <Text style={{ fontSize: 12, color: '#333', textAlign: 'center', fontFamily: 'Lora-Bold', }}>{item.label}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+
+                {/* <View style={{ width: '96%', alignSelf: 'center', marginTop: 15 }}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={prarthanaData}
@@ -181,7 +272,8 @@ const Index = () => {
                             )
                         }}
                     />
-                </View>
+                </View> */}
+
                 {/* Calendar Section */}
                 <View style={styles.calendarContainer}>
                     <Calendar
@@ -209,6 +301,7 @@ const Index = () => {
                         }}
                     />
                 </View>
+
                 {/* Event Legend Section */}
                 <View style={styles.eventContainer}>
                     <Text style={styles.eventTitle}>Event's</Text>
@@ -226,6 +319,34 @@ const Index = () => {
                     />
                 </View>
             </ScrollView>
+
+            <View style={{ padding: 0, height: 56, borderRadius: 0, backgroundColor: '#f7faf0', alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', margin: 0 }}>
+                    <View style={{ padding: 0, width: '36%' }}>
+                        <TouchableHighlight activeOpacity={0.6} underlayColor="#DDDDDD" style={{ backgroundColor: '#f7faf0', padding: 10, flexDirection: 'column', alignItems: 'center' }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <FontAwesome name="home" color={'#000'} size={23} />
+                                <Text style={{ color: '#000', fontSize: 11, fontFamily: 'Lora-BoldItalic', marginTop: 4, height: 17 }}>HOME</Text>
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={{ padding: 0, width: '23%' }}>
+                        <View style={{ backgroundColor: '#f7faf0', padding: 8, height: 90, flexDirection: 'column', alignItems: 'center', bottom: 25, borderRadius: 100 }}>
+                            <TouchableHighlight activeOpacity={0.6} underlayColor="#DDDDDD" style={{ backgroundColor: '#c9170a', height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 60 }}>
+                                <MaterialCommunityIcons style={{}} name="podcast" color={'#fff'} size={40} />
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                    <View style={{ padding: 0, width: '36%' }}>
+                        <TouchableHighlight activeOpacity={0.6} underlayColor="#DDDDDD" style={{ backgroundColor: '#f7faf0', padding: 10, flexDirection: 'column', alignItems: 'center' }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <MaterialIcons name="work-history" color={'#000'} size={21} />
+                                <Text style={{ color: '#000', fontSize: 11, fontFamily: 'Lora-BoldItalic', marginTop: 4, height: 17 }}>CITY</Text>
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+            </View>
         </SafeAreaView>
     );
 };
@@ -242,26 +363,44 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        height: 70,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 15,
         zIndex: 10,
+    },
+    gradient: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+    },
+    headerContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     logo: {
         width: 40,
         height: 40,
+        marginRight: 10,
+        resizeMode: 'contain',
     },
     headerText: {
+        fontSize: 18,
+        fontFamily: 'Lora-Bold',
         color: 'white',
-        fontFamily: 'PlayfairDisplay-SemiBold',
-        fontSize: 20,
-        marginLeft: 10,
+        textTransform: 'uppercase'
+    },
+    headerContainer: {
+        width: '100%', // Match with `panchangaBox`
+        height: 200,
+        alignSelf: 'center',
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        overflow: 'hidden', // Ensures the image does not bleed outside the rounded corners
     },
     headerImage: {
         width: '100%',
-        height: 200,
+        height: '100%',
         backgroundColor: '#4B7100',
     },
     panchangaBox: {
@@ -350,7 +489,7 @@ const styles = StyleSheet.create({
     },
     menuItem: {
         alignItems: 'center',
-        marginHorizontal: 10,
+        marginRight: 20,
         width: 80
     },
     menuImage: {
@@ -409,7 +548,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 15,
-        marginTop: 10,
+        marginTop: 15,
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 5,
@@ -448,5 +587,70 @@ const styles = StyleSheet.create({
         fontFamily: 'Lora-Regular',
         color: '#333',
     },
-
+    onlineContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        padding: 10,
+    },
+    onlineCard: {
+        width: '24%', // Four items per row
+        aspectRatio: 1, // Ensures a square shape
+        backgroundColor: '#F8F8F8',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        paddingVertical: 5
+    },
+    onlineIconCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 5,
+    },
+    onlineLabel: {
+        fontSize: 11,
+        fontFamily: 'Lora-Bold',
+        color: '#333',
+        textAlign: 'center',
+    },
+    menuContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        padding: 10,
+        backgroundColor: '#fff',
+        width: '95%',
+        alignSelf: 'center',
+        borderRadius: 10,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        paddingBottom: 70
+    },
+    menuCard: {
+        width: '22%', // 4 items per row
+        aspectRatio: 1, // Ensures a square shape
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 8,
+    },
+    menuIconCircle: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: '#E8F5E9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 5,
+    }
 });

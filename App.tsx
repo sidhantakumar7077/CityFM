@@ -16,6 +16,8 @@ import Home from './src/Screen/Home/Index'
 import ContentList from './src/Screen/ContentList/Index'
 import ContentListHome from './src/Screen/ContentListHome/Index'
 import PreviousProgram from './src/Screen/PreviousProgram/Index'
+import ParkingPage from './src/Screen/ParkingPage/Index'
+import AllNitePage from './src/Screen/AllNitePage/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +60,8 @@ const App = () => {
             <Stack.Screen name="ContentList" component={ContentList} />
             <Stack.Screen name="ContentListHome" component={ContentListHome} />
             <Stack.Screen name="PreviousProgram" component={PreviousProgram} />
+            <Stack.Screen name="ParkingPage" component={ParkingPage} />
+            <Stack.Screen name="AllNitePage" component={AllNitePage} />
           </>
         )}
       </Stack.Navigator>

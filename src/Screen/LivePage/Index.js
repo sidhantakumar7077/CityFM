@@ -7,6 +7,7 @@ import Slider from '@react-native-community/slider';
 import TrackPlayer, { State, usePlaybackState, useProgress, Capability, Event } from 'react-native-track-player';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { base_url } from '../../../App';
 import * as Animatable from 'react-native-animatable';
@@ -128,14 +129,20 @@ const Index = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content" />
-            {/* Background Image */}
+            {/* Header Section */}
+            <LinearGradient colors={['#4B7100', '#2E4D00']} style={styles.header}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <MaterialIcons name="arrow-back-ios" size={20} color="white" />
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>BACK</Text>
+            </LinearGradient>
+
             <ImageBackground source={require('../../assets/image/ratha.jpeg')} style={styles.background}>
                 {/* Gradient Overlay */}
                 <LinearGradient colors={['transparent', '#FFBE00']} style={styles.gradient} />
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
                     {/* Top Header */}
-                    <View style={styles.header}>
+                    <View style={styles.menuHeader}>
                         <TouchableOpacity onPressIn={() => navigation.navigate('PreviousProgram')} style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 6, borderRadius: 6 }}>
                             <MaterialCommunityIcons name="page-previous-outline" size={25} color="#f5ebd0" />
                         </TouchableOpacity>
@@ -143,7 +150,6 @@ const Index = () => {
                             <AntDesign name="bars" size={26} color="#f5ebd0" />
                         </TouchableOpacity>
                     </View>
-
                     {/* Centered Image Section */}
                     <View style={styles.content}>
                         <Image source={require('../../assets/image/jaga.png')} style={styles.image} />
@@ -159,7 +165,6 @@ const Index = () => {
                             </LinearGradient>
                         </View>
                     </View>
-
                     {/* Player Controls */}
                     <View style={styles.playerContainer}>
                         {/* Live Badge */}
@@ -195,6 +200,7 @@ const Index = () => {
                     </View>
                 </View>
             </ImageBackground>
+
         </View>
     );
 };
@@ -204,7 +210,29 @@ export default Index;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#F8F8F8',
     },
+    /* Header Styles */
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#4B7100',
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        elevation: 5,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+    },
+    backButton: {
+        padding: 5,
+    },
+    headerTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+        marginLeft: 10,
+    },
+    /* Background image container */
     background: {
         flex: 1,
     },
@@ -215,22 +243,16 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
-    header: {
+    menuHeader: {
         position: 'absolute',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '92%',
+        width: '95%',
         alignSelf: 'center',
-        top: 30,
+        top: 0,
         // right: 20,
         padding: 8,
         borderRadius: 10,
-    },
-    headerText: {
-        color: '#fff',
-        fontSize: 18,
-        marginLeft: 10,
-        fontWeight: 'bold',
     },
     content: {
         alignItems: 'center',
@@ -243,83 +265,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         // backgroundColor: 'rgba(59, 58, 58, 0.5)',
         // borderRadius: 150,
-    },
-    textContainer: {
-        width: '90%',
-        alignItems: 'center',
-        marginTop: 8,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#fff',
-    },
-    subtitle: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#fff',
-        textAlign: 'center',
-        marginTop: 10
-    },
-    playerContainer: {
-        backgroundColor: '#c9170a',
-        padding: 20,
-        alignItems: 'center',
-        width: '90%',
-        borderRadius: 15,
-        position: 'absolute',
-        bottom: 30,
-        elevation: 5, // Shadow for depth
-    },
-
-    liveBadge: {
-        position: 'absolute',
-        top: 10,
-        left: 15,
-        backgroundColor: '#FFBE00',
-        paddingHorizontal: 8,
-        paddingVertical: 3,
-        borderRadius: 10,
-    },
-
-    liveText: {
-        color: '#fff',
-        fontSize: 11,
-        fontWeight: 'bold',
-    },
-
-    playButtonContainer: {
-        position: 'absolute',
-        top: -25, // Moves button slightly out of the container
-        backgroundColor: '#c9170a',
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // elevation: 6, // Shadow for floating effect
-    },
-
-    playButton: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    sliderContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '80%',
-        marginTop: 40,
-    },
-
-    slider: {
-        flex: 1,
-        marginHorizontal: 10,
-        thumbTintColor: '#fff',
     },
     podcastCardContainer: {
         alignItems: 'center',
@@ -350,24 +295,65 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         letterSpacing: 1.2,
     },
-    podcastTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#222',
-        marginTop: 5,
-        textAlign: 'center',
-    },
-    divider: {
-        width: '80%',
-        height: 2,
-        backgroundColor: '#FF512F',
-        marginVertical: 8,
-    },
     podcastDescription: {
         fontSize: 13,
         color: '#555',
         textAlign: 'center',
         fontStyle: 'italic',
         marginTop: 6,
+    },
+    playerContainer: {
+        backgroundColor: '#c9170a',
+        padding: 20,
+        alignItems: 'center',
+        width: '90%',
+        borderRadius: 15,
+        position: 'absolute',
+        bottom: 30,
+        elevation: 5, // Shadow for depth
+    },
+    liveBadge: {
+        position: 'absolute',
+        top: 10,
+        left: 15,
+        backgroundColor: '#FFBE00',
+        paddingHorizontal: 8,
+        paddingVertical: 3,
+        borderRadius: 10,
+    },
+    liveText: {
+        color: '#fff',
+        fontSize: 11,
+        fontWeight: 'bold',
+    },
+    playButtonContainer: {
+        position: 'absolute',
+        top: -25, // Moves button slightly out of the container
+        backgroundColor: '#c9170a',
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // elevation: 6, // Shadow for floating effect
+    },
+    playButton: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    sliderContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '80%',
+        marginTop: 40,
+    },
+    slider: {
+        flex: 1,
+        marginHorizontal: 10,
+        thumbTintColor: '#fff',
     },
 });

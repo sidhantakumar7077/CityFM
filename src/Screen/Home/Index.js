@@ -1,14 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, ScrollView, ImageBackground, TouchableOpacity, Animated, FlatList, TouchableHighlight } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, ScrollView, ImageBackground, TouchableOpacity, Animated, FlatList, TouchableHighlight, Dimensions } from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Calendar } from 'react-native-calendars';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation, useIsFocused } from '@react-navigation/native'
+import Modal from 'react-native-modal';
+
+const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 // Sample Data for Menu Items (Grouped into Rows)
 const menuItems = [
@@ -70,6 +75,44 @@ const features = [
     { id: '7', icon: 'wheelchair', label: 'Physical Handicap & Senior Citizen' },
 ];
 
+const sliderData = [
+    {
+        id: 1,
+        image: 'https://i.pinimg.com/736x/a9/20/0d/a9200d2079ff66d583f09d59263feeb8.jpg',
+        title: 'Nearby Temple 1',
+        description: 'This is a description for item 1.',
+        buttonText: 'Try Now',
+    },
+    {
+        id: 2,
+        image: 'https://www.toshaliresort.com/images/resource/jagannath-temple-puri.jpg',
+        title: 'Nearby Temple 2',
+        description: 'This is a description for item 2.',
+        buttonText: 'Explore',
+    },
+    {
+        id: 3,
+        image: 'https://i.pinimg.com/736x/49/8b/d5/498bd56d3aa85ed59abb64804b684c91.jpg',
+        title: 'Nearby Temple 3',
+        description: 'This is a description for item 3.',
+        buttonText: 'Discover',
+    },
+    {
+        id: 4,
+        image: 'https://www.mistay.in/travel-blog/content/images/2022/11/PuriTemple.jpeg',
+        title: 'Nearby Temple 4',
+        description: 'This is a description for item 4.',
+        buttonText: 'Explore',
+    },
+    {
+        id: 5,
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiUyi7x_evyNcYKUGG4qj7ATgSXEBPE-ivU5L9FPCMNxq9_ZGa-KO8cyCQ1qCttXocW5njeMKKgxqega9hsYksx3QmUarClaYDXivUkLTNF3si2HD-ISncG6uFWym2WKJi78PjYHeEokJcp/s1600/puri+jaganatha.jpg',
+        title: 'Nearby Temple 5',
+        description: 'This is a description for item 5.',
+        buttonText: 'Discover',
+    },
+];
+
 // Function to group items into rows
 const groupItemsIntoRows = (items, itemsPerRow) => {
     const rows = [];
@@ -84,6 +127,11 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -100,6 +148,10 @@ const Index = () => {
 
     // Group items into 2 rows
     const groupedMenuItems = groupItemsIntoRows(menuItems, 4); // 4 items per row
+
+    const [expanded, setExpanded] = useState(false);
+    const itemsPerRow = 4;
+    const maxVisibleItems = 2 * itemsPerRow; // Show 2 rows initially
 
     return (
         <SafeAreaView style={styles.container}>
@@ -133,30 +185,29 @@ const Index = () => {
                     />
                 </View>
 
-                {/* Panchanga Box */}
-                <View style={styles.panchangaBox}>
-                    {/* Panchami */}
-                    <View style={styles.row}>
-                        <View style={styles.iconCircle}>
-                            <Text style={styles.iconText}>5</Text>
-                        </View>
-                        <View style={styles.textContainer}>
-                            <View style={styles.titleRow}>
-                                <Text style={styles.title}>Panchami <Text style={styles.subText}>Shukla Paksha</Text></Text>
-                                <View style={styles.nowBadge}>
-                                    <Text style={styles.nowText}>NOW</Text>
+                {/* Current Niti Box */}
+                <ScrollView style={{ paddingVertical: 10, paddingHorizontal: 5, alignSelf: 'center' }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ backgroundColor: '#fff', padding: 15, borderRadius: 10, marginRight: 10, width: 300, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
+                            <View style={{ marginTop: 10 }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                    <Text style={{ fontSize: 16, fontFamily: 'Lora-Bold', marginRight: 10 }}>Panchami Shukla Paksha</Text>
+                                    <View style={{ backgroundColor: 'red', borderRadius: 5, paddingHorizontal: 6, paddingTop: 0.7, paddingBottom: 2 }}>
+                                        <Text style={{ color: 'white', fontFamily: 'Lora-Bold', fontSize: 11 }}>LIVE</Text>
+                                    </View>
                                 </View>
+                                <Text style={{ fontSize: 12, color: 'gray', marginTop: 5, fontFamily: 'Lora-Bold' }}>upto 03:17 pm on 4th</Text>
                             </View>
-                            <Text style={styles.time}>upto 03:17 pm on 4th</Text>
                         </View>
-                    </View>
+                        <TouchableOpacity style={{ backgroundColor: '#fff', padding: 15, borderRadius: 10, marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, shadowRadius: 5, elevation: 5, justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 16, fontFamily: 'Lora-Bold', marginRight: 5 }}>View All Niti</Text>
+                                <MaterialCommunityIcons name="hand-pointing-right" size={30} color="#D49100" />
+                            </View>
+                        </TouchableOpacity>
 
-                    {/* View Panchanga Button */}
-                    <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={styles.viewButton}>
-                        <Text style={styles.viewText}>VIEW ALL NITI</Text>
-                        <MaterialCommunityIcons name="hand-pointing-right" size={30} color="#D49100" />
-                    </TouchableOpacity>
-                </View>
+                    </View>
+                </ScrollView>
 
                 {/* New Horizontal Scrolling Menu Section */}
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.menuScrollView}>
@@ -241,16 +292,42 @@ const Index = () => {
                     ))}
                 </View>
 
+                {/* Nearby Temple */}
+                <View style={styles.nearbyContainer}>
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        data={sliderData}
+                        horizontal
+                        keyExtractor={(key) => {
+                            return key.id
+                        }}
+                        renderItem={(content) => {
+                            return (
+                                <View style={styles.sliderCard}>
+
+                                </View>
+                            )
+                        }}
+                    />
+                </View>
+
                 {/* All Menu For RAtha Yatra */}
                 <View style={styles.menuContainer}>
-                    {features.map((item) => (
-                        <TouchableOpacity key={item.id} style={styles.menuCard}>
-                            <View style={styles.menuIconCircle}>
-                                <FontAwesome5 name={item.icon} size={20} color="#4B7100" />
-                            </View>
-                            <Text style={{ fontSize: 12, color: '#333', textAlign: 'center', fontFamily: 'Lora-Bold', }}>{item.label}</Text>
+                    <View style={styles.menuSecondContainer}>
+                        {(expanded ? features : features.slice(0, maxVisibleItems)).map((item) => (
+                            <TouchableOpacity key={item.id} style={styles.menuCard}>
+                                <View style={styles.menuIconCircle}>
+                                    <FontAwesome5 name={item.icon} size={20} color="#4B7100" />
+                                </View>
+                                <Text style={{ fontSize: 12, color: '#333', textAlign: 'center', fontFamily: 'Lora-Bold', }}>{item.label}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                    {features.length > maxVisibleItems && (
+                        <TouchableOpacity onPress={() => setExpanded(!expanded)} style={{ alignSelf: 'center', marginTop: expanded ? 40 : 10 }}>
+                            <AntDesign name={expanded ? 'upcircleo' : 'downcircleo'} size={30} color="#4B7100" />
                         </TouchableOpacity>
-                    ))}
+                    )}
                 </View>
 
                 {/* <View style={{ width: '96%', alignSelf: 'center', marginTop: 15 }}>
@@ -302,7 +379,7 @@ const Index = () => {
                     />
                 </View>
 
-                {/* Event Legend Section */}
+                {/* Calendar Event Section */}
                 <View style={styles.eventContainer}>
                     <Text style={styles.eventTitle}>Event's</Text>
                     <FlatList
@@ -318,6 +395,26 @@ const Index = () => {
                         )}
                     />
                 </View>
+
+                {/* Temples Worldwide */}
+                <View style={{ width: width * 0.9, backgroundColor: '#fff', borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5, alignSelf: 'center', marginVertical: 15 }}>
+                    {/* Offer Image */}
+                    <View style={{ width: 120, height: 140, borderRadius: 12, overflow: 'hidden' }}>
+                        <Image
+                            source={{ uri: 'https://i.pinimg.com/736x/a9/20/0d/a9200d2079ff66d583f09d59263feeb8.jpg' }}
+                            style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
+                        />
+                    </View>
+
+                    {/* Offer Text */}
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginTop: 10, color: '#333' }}>Watch & Earn!</Text>
+                    <Text style={{ fontSize: 14, textAlign: 'center', color: 'gray', marginTop: 5 }}>On XStream Play & Get a Chance to Win an iPhone 15</Text>
+
+                    {/* CTA Button */}
+                    <TouchableOpacity style={{ backgroundColor: '#1E1E1E', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5, marginTop: 15 }}>
+                        <Text style={{ color: '#fff', fontSize: 14, fontWeight: 'bold' }}>START WATCHING</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
 
             <View style={{ padding: 0, height: 56, borderRadius: 0, backgroundColor: '#f7faf0', alignItems: 'center' }}>
@@ -332,7 +429,7 @@ const Index = () => {
                     </View>
                     <View style={{ padding: 0, width: '23%' }}>
                         <View style={{ backgroundColor: '#f7faf0', padding: 8, height: 90, flexDirection: 'column', alignItems: 'center', bottom: 25, borderRadius: 100 }}>
-                            <TouchableHighlight activeOpacity={0.6} underlayColor="#DDDDDD" style={{ backgroundColor: '#c9170a', height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 60 }}>
+                            <TouchableHighlight onPress={toggleModal} activeOpacity={0.6} underlayColor="#DDDDDD" style={{ backgroundColor: '#c9170a', height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 60 }}>
                                 <MaterialCommunityIcons style={{}} name="podcast" color={'#fff'} size={40} />
                             </TouchableHighlight>
                         </View>
@@ -347,7 +444,45 @@ const Index = () => {
                     </View>
                 </View>
             </View>
-        </SafeAreaView>
+
+            {/* Menu Modal */}
+            <Modal
+                isVisible={isModalVisible}
+                animationIn="slideInUp" // Animates from bottom to top
+                animationOut="slideOutDown"
+                backdropOpacity={0.5}
+                onBackdropPress={toggleModal}
+                style={{ margin: 0, justifyContent: 'flex-end' }} // Align to bottom
+            >
+                <View style={{
+                    backgroundColor: '#fff',
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20,
+                    paddingTop: 10,
+                    minHeight: height * 0.4, // 40% of screen height
+                    alignItems: 'center'
+                }}>
+                    {/* Close Button */}
+                    <View onPress={toggleModal} style={{ alignSelf: 'flex-end', marginBottom: 10, position: 'absolute', alignSelf: 'center', top: -45 }}>
+                        <TouchableOpacity onPress={toggleModal} style={{ backgroundColor: '#f0eded', padding: 7, borderRadius: 40 }}>
+                            <Fontisto name={'close-a'} size={18} color="#000" />
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Modal Content */}
+                    <View style={styles.menuModalContainer}>
+                        {features.map((item) => (
+                            <TouchableOpacity key={item.id} style={styles.menuCard}>
+                                <View style={styles.menuIconCircle}>
+                                    <FontAwesome5 name={item.icon} size={20} color="#4B7100" />
+                                </View>
+                                <Text style={{ fontSize: 12, color: '#333', textAlign: 'center', fontFamily: 'Lora-Bold', }}>{item.label}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </View>
+            </Modal>
+        </SafeAreaView >
     );
 };
 
@@ -402,6 +537,18 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: '#4B7100',
+    },
+    nitiSection: {
+        width: 300,
+        backgroundColor: '#fff',
+        // borderWidth:1,
+        padding: 15,
+        borderRadius: 10,
+        marginRight: 10,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
     },
     panchangaBox: {
         marginTop: 10,
@@ -621,11 +768,17 @@ const styles = StyleSheet.create({
         color: '#333',
         textAlign: 'center',
     },
-    menuContainer: {
+    menuModalContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        padding: 10,
+        padding: 8,
+        backgroundColor: '#fff',
+        width: '97%',
+        alignSelf: 'center',
+        paddingBottom: 60
+    },
+    menuContainer: {
         backgroundColor: '#fff',
         width: '95%',
         alignSelf: 'center',
@@ -635,7 +788,13 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
-        paddingBottom: 70
+        paddingBottom: 10
+    },
+    menuSecondContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        padding: 10,
     },
     menuCard: {
         width: '22%', // 4 items per row
@@ -652,5 +811,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 5,
+    },
+    nearbyContainer: {
+        marginBottom: 10,
+        width: '95%',
+        alignSelf: 'center',
+        backgroundColor: '#fff',
+        paddingLeft: 20,
+        paddingVertical: 20,
+        borderRadius: 10,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    sliderCard: {
+        width: 170,
+        height: 250,
+        backgroundColor: '#E8F5E9',
+        marginRight: 20,
+        borderRadius: 15,
+        alignItems: 'center'
     }
 });

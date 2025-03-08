@@ -191,18 +191,19 @@ const Index = () => {
                         <View style={{ backgroundColor: '#fff', padding: 15, borderRadius: 10, marginRight: 10, width: 300, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
                             <View style={{ marginTop: 10 }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                                    <Text style={{ fontSize: 16, fontFamily: 'Lora-Bold', marginRight: 10 }}>Panchami Shukla Paksha</Text>
+                                    {/* <Text style={{ fontSize: 16, fontFamily: 'Lora-Bold', marginRight: 10 }}>DyaraPhita & Mangal Alati</Text> */}
                                     <View style={{ backgroundColor: 'red', borderRadius: 5, paddingHorizontal: 6, paddingTop: 0.7, paddingBottom: 2 }}>
-                                        <Text style={{ color: 'white', fontFamily: 'Lora-Bold', fontSize: 11 }}>LIVE</Text>
+                                        <Text style={{ color: 'white', fontFamily: 'Lora-Bold', fontSize: 10 }}>CURRENT NITI</Text>
                                     </View>
                                 </View>
-                                <Text style={{ fontSize: 12, color: 'gray', marginTop: 5, fontFamily: 'Lora-Bold' }}>upto 03:17 pm on 4th</Text>
+                                <Text style={{ fontSize: 16, fontFamily: 'Lora-Bold', marginRight: 10 }}>Dwara Phita & Mangal Alati</Text>
+                                <Text style={{ fontSize: 12, color: 'gray', marginTop: 5, fontFamily: 'Lora-Bold' }}>Niti Start Time: 04:05 am</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={{ backgroundColor: '#fff', padding: 15, borderRadius: 10, marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, shadowRadius: 5, elevation: 5, justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={{ backgroundColor: '#fff', padding: 15, borderRadius: 10, marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, shadowRadius: 5, elevation: 5, justifyContent: 'center', alignItems: 'center' }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 16, fontFamily: 'Lora-Bold', marginRight: 5 }}>View All Niti</Text>
-                                <MaterialCommunityIcons name="hand-pointing-right" size={30} color="#D49100" />
+                                {/* <MaterialCommunityIcons name="hand-pointing-right" size={30} color="#D49100" /> */}
                             </View>
                         </TouchableOpacity>
 

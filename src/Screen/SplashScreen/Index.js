@@ -5,7 +5,7 @@ const Index = () => {
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                <Image style={styles.logo} source={require('../../assets/image/splashScreen.png')} />
+                <Image style={styles.logo} source={require('../../assets/image/splashScreen1.png')} />
             </View>
         </View>
     )
@@ -24,5 +24,6 @@ const styles = StyleSheet.create({
     logo: {
         height: '100%',
         width: '100%',
+        // resizeMode: 'contain',
     },
 })

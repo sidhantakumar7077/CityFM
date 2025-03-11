@@ -13,6 +13,7 @@ import NoInternet from './src/Screen/NoInternet/Index'
 // Pages
 import LivePage from './src/Screen/LivePage/Index'
 import Home from './src/Screen/Home/Index'
+import Home_2 from './src/Screen/Home_2/Index'
 import ContentList from './src/Screen/ContentList/Index'
 import ContentListHome from './src/Screen/ContentListHome/Index'
 import PreviousProgram from './src/Screen/PreviousProgram/Index'
@@ -48,13 +49,14 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#4B7100" barStyle="light-content" />
+      <StatusBar backgroundColor="#ba62f5" barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
         {!isConnected ? (
           <Stack.Screen name="NoInternet" component={NoInternet} />
         ) : (
           <>
+            <Stack.Screen name="Home_2" component={Home_2} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="LivePage" component={LivePage} />
             <Stack.Screen name="ContentList" component={ContentList} />

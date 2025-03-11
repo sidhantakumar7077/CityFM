@@ -113,6 +113,36 @@ const sliderData = [
     },
 ];
 
+const menuSections = [
+    {
+        title: 'Tours',
+        items: [
+            { id: '1', icon: 'landmark', label: 'Tour' },
+            { id: '2', icon: 'calendar-alt', label: 'Events' },
+            { id: '3', icon: 'leaf', label: 'Wildlife' },
+            { id: '4', icon: 'water', label: 'Waterfall' }
+        ]
+    },
+    {
+        title: 'Experiences',
+        items: [
+            { id: '5', icon: 'spa', label: 'Experience' },
+            { id: '6', icon: 'pray', label: 'Worship' },
+            { id: '7', icon: 'swimmer', label: 'Lake' },
+            { id: '8', icon: 'ship', label: 'Boat Ride' }
+        ]
+    },
+    {
+        title: 'Where To Stay',
+        items: [
+            { id: '9', icon: 'hotel', label: 'Hotels' },
+            { id: '10', icon: 'home', label: 'Rural Home Stay' },
+            { id: '11', icon: 'place-of-worship', label: 'Dharamshala' },
+            { id: '12', icon: 'umbrella-beach', label: 'Resort' }
+        ]
+    }
+];
+
 // Function to group items into rows
 const groupItemsIntoRows = (items, itemsPerRow) => {
     const rows = [];
@@ -471,16 +501,57 @@ const Index = () => {
                     </View>
 
                     {/* Modal Content */}
-                    <View style={styles.menuModalContainer}>
-                        {features.map((item) => (
-                            <TouchableOpacity key={item.id} style={styles.menuCard}>
-                                <View style={styles.menuIconCircle}>
-                                    <FontAwesome5 name={item.icon} size={20} color="#4B7100" />
+                    <FlatList
+                        data={menuSections}
+                        keyExtractor={(item) => item.title}
+                        renderItem={({ item }) => (
+                            <View style={{
+                                backgroundColor: '#F8F9FA',
+                                borderRadius: 10,
+                                paddingVertical: 10,
+                                paddingHorizontal: 15,
+                                marginBottom: 15
+                            }}>
+                                <Text style={{
+                                    fontSize: 16,
+                                    fontWeight: 'bold',
+                                    color: '#333',
+                                    marginBottom: 10
+                                }}>{item.title}</Text>
+
+                                <View style={{
+                                    flexDirection: 'row',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    {item.items.map((menuItem) => (
+                                        <TouchableOpacity key={menuItem.id} style={{
+                                            width: '22%',
+                                            alignItems: 'center',
+                                            marginBottom: 10
+                                        }}>
+                                            <View style={{
+                                                width: 50,
+                                                height: 50,
+                                                borderRadius: 25,
+                                                backgroundColor: '#E8F5E9',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                marginBottom: 5
+                                            }}>
+                                                <FontAwesome5 name={menuItem.icon} size={20} color="#4B7100" />
+                                            </View>
+                                            <Text style={{
+                                                fontSize: 12,
+                                                color: '#333',
+                                                textAlign: 'center'
+                                            }}>{menuItem.label}</Text>
+                                        </TouchableOpacity>
+                                    ))}
                                 </View>
-                                <Text style={{ fontSize: 12, color: '#333', textAlign: 'center', fontFamily: 'Lora-Bold', }}>{item.label}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
+                            </View>
+                        )}
+                    />
                 </View>
             </Modal>
         </SafeAreaView >

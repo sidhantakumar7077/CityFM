@@ -61,13 +61,13 @@ const HomeScreen = () => {
     ];
 
     const conveniences = [
-        { id: '1', icon: 'car', label: 'Parking' },
-        { id: '2', icon: 'user-lock', label: 'Locker' },
-        { id: '3', icon: 'shoe-prints', label: 'Shoes Stand' },
+        // { id: '1', icon: 'car', label: 'Parking' },
+        // { id: '2', icon: 'user-lock', label: 'Locker' },
+        // { id: '3', icon: 'shoe-prints', label: 'Shoes Stand' },
         { id: '4', icon: 'tint', label: 'Drinking Water' },
         { id: '12', icon: 'phone-alt', label: 'Emergency Contact' },
-        { id: '18', icon: 'wheelchair', label: 'Physical Handicap & Senior Citizen' },
-        { id: '5', icon: 'map-marked-alt', label: 'route Map' },
+        { id: '18', icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen' },
+        { id: '5', icon: 'map-marked-alt', label: 'Route Map' },
         { id: '6', icon: 'utensils', label: 'Free Food' },
         { id: '7', icon: 'search', label: 'Lost & Found' },
         // { id: '8', icon: 'street-view', label: 'Ratha Yatra Mela' },
@@ -83,18 +83,18 @@ const HomeScreen = () => {
     ];
 
     const templeInfo = [
-        { id: '1', icon: 'layer-group', label: 'About Temple' },
-        { id: '2', icon: 'layer-group', label: 'History' },
-        { id: '3', icon: 'layer-group', label: 'Shree Khetra' },
-        { id: '12', icon: 'layer-group', label: 'Ratha yatra' },
-        { id: '13', icon: 'layer-group', label: 'Nabakalebala' },
-        { id: '4', icon: 'layer-group', label: 'Matha & Ashram' },
-        { id: '5', icon: 'layer-group', label: 'Festivals' },
-        { id: '6', icon: 'layer-group', label: '36 Nijoga' },
-        { id: '7', icon: 'layer-group', label: 'Besha' },
-        { id: '8', icon: 'layer-group', label: 'Darshan Facility' },
-        { id: '9', icon: 'layer-group', label: 'Donation' },
-        { id: '10', icon: 'layer-group', label: 'Hundi Collection' },
+        { id: '1', image: require('../../assets/image/temple_about.png'), label: 'About Temple' },
+        // { id: '2', image: require('../../assets/image/history.png'), label: 'History' },
+        { id: '3', image: require('../../assets/image/shreekhetra.png'), label: 'Shree Khetra' },
+        { id: '12', image: require('../../assets/image/ratha_yatra.png'), label: 'Ratha yatra' },
+        { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
+        { id: '4', image: require('../../assets/image/mathha.png'), label: 'Matha & Ashram' },
+        { id: '5', image: require('../../assets/image/festival.png'), label: 'Festivals' },
+        { id: '6', image: require('../../assets/image/nijoga.png'), label: '36 Nijoga' },
+        { id: '7', image: require('../../assets/image/besha.png'), label: 'Besha' },
+        { id: '8', image: require('../../assets/image/darshan.png'), label: 'Darshan Facility' },
+        // { id: '9', image: require('../../assets/image/temple_about.png'), label: 'Donation' },
+        // { id: '10', image: require('../../assets/image/temple_about.png'), label: 'Hundi Collection' },
     ];
 
     const eventTypes = [
@@ -107,6 +107,12 @@ const HomeScreen = () => {
         { icon: '🙏', name: 'Sankashti Chaturthi' },
         { icon: '🕉️', name: 'Shasti' },
         { icon: '〰️', name: 'Ekadashi' }
+    ];
+
+    const extraItems = [
+        { id: '1', title: 'Bhakta Nibas', description: 'Temple Owned Properties For Pligrimas to stay', image: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png', large: true },
+        { id: '2', title: 'Parking', description: '2, 3, 4 Wheelers', image: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' },
+        { id: '3', title: 'Locker & Shoes', description: 'Free Stand Service', image: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' },
     ];
 
     const navigation = useNavigation();
@@ -145,7 +151,7 @@ const HomeScreen = () => {
 
                 {/* Current Niti Box */}
                 <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
                         <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '90%' }}>
@@ -216,7 +222,7 @@ const HomeScreen = () => {
                         </View>
                         <View style={{ width: '36%', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                <TouchableOpacity style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 15 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 15 }}>
                                     <FontAwesome6 name="radio" size={18} color="#6A0DAD" />
                                 </TouchableOpacity>
                                 <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 18, color: '#6A0DAD' }}>Radio</Text>
@@ -238,8 +244,79 @@ const HomeScreen = () => {
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Quick Services</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} />
 
-                    {/* Services Grid */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
+                        {serviceData.map((item, index) => (
+                            <View key={index} style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity style={{
+                                    backgroundColor: item.color,
+                                    width: 60,
+                                    height: 60,
+                                    borderRadius: 15,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    elevation: 3,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.2,
+                                    shadowRadius: 3,
+                                }}>
+                                    <MaterialCommunityIcons name={item.icon} size={33} color="white" />
+                                </TouchableOpacity>
+                                <Text style={{
+                                    fontSize: 12,
+                                    color: '#333',
+                                    marginTop: 5,
+                                    textAlign: 'center',
+                                    fontWeight: '500',
+                                }}>{item.title}</Text>
+                            </View>
+                        ))}
+                    </View>
+
+                    {/* Grid Layout */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                        {/* Left Large Card */}
+                        <View style={{
+                            width: '47%', height: 200, backgroundColor: '#fff', borderRadius: 12, padding: 15,
+                            shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3
+                        }}>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>{extraItems[0].title}</Text>
+                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>{extraItems[0].description}</Text>
+                            <Image source={{ uri: extraItems[0].image }} style={{ width: 70, height: 80, position: 'absolute', right: 0, bottom: 0 }} />
+                        </View>
+
+                        {/* Right Two Small Cards */}
+                        <View style={{ width: '50%', justifyContent: 'space-between' }}>
+                            {extraItems.slice(1).map((item) => (
+                                <View key={item.id} style={{
+                                    height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15,
+                                    shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10
+                                }}>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{item.title}</Text>
+                                    <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>{item.description}</Text>
+                                    <Image source={{ uri: item.image }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ width: '47%', height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
+                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Donate Now</Text>
+                            <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
+                        </View>
+                        <View style={{ width: '50%', justifyContent: 'space-between' }}>
+                            <View style={{ height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}>
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Colection</Text>
+                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>₹5,30,000</Text>
+                                <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
+                            </View>
+                        </View>
+                    </View>
+
+                    {/* Services Grid */}
+                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
                         {serviceData.map((item, index) => (
                             <View key={index} style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity style={{
@@ -266,7 +343,7 @@ const HomeScreen = () => {
                                 }}>{item.title}</Text>
                             </View>
                         ))}
-                    </View>
+                    </View> */}
                 </View>
 
                 {/* Nearby Temple */}
@@ -417,7 +494,8 @@ const HomeScreen = () => {
                                 paddingVertical: 15,
                                 marginBottom: 10,
                             }}>
-                                <FontAwesome5 name={item.icon} size={24} color="#8753A2" />
+                                {/* <FontAwesome5 name={item.icon} size={24} color="#8753A2" /> */}
+                                <Image source={item.image} style={{ width: 40, height: 40 }} />
                                 <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
                             </View>
                         ))}
@@ -447,13 +525,76 @@ const HomeScreen = () => {
                     </TouchableOpacity> */}
                     </ImageBackground>
                 </View>
+
+                {/* Extra Section */}
+                <View style={{ padding: 15 }}>
+                    {/* Title Section */}
+                    <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Extra</Text>
+                    <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18, elevation: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, backgroundColor: '#fff', padding: 10, borderRadius: 15 }}>
+                        {serviceData.map((item, index) => (
+                            <View key={index} style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity style={{
+                                    backgroundColor: item.color,
+                                    width: 75,
+                                    height: 75,
+                                    borderRadius: 15,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    elevation: 3,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.2,
+                                    shadowRadius: 3,
+                                }}>
+                                    <MaterialCommunityIcons name={item.icon} size={37} color="white" />
+                                </TouchableOpacity>
+                                <Text style={{
+                                    fontSize: 12,
+                                    color: '#333',
+                                    marginTop: 5,
+                                    textAlign: 'center',
+                                    fontWeight: '500',
+                                }}>{item.title}</Text>
+                            </View>
+                        ))}
+                    </View>
+
+                    {/* Grid Layout */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                        {/* Left Large Card */}
+                        <View style={{
+                            width: '47%', height: 200, backgroundColor: '#fff', borderRadius: 12, padding: 15,
+                            shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3
+                        }}>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>{extraItems[0].title}</Text>
+                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>{extraItems[0].description}</Text>
+                            <Image source={{ uri: extraItems[0].image }} style={{ width: 70, height: 80, position: 'absolute', right: 0, bottom: 0 }} />
+                        </View>
+
+                        {/* Right Two Small Cards */}
+                        <View style={{ width: '50%', justifyContent: 'space-between' }}>
+                            {extraItems.slice(1).map((item) => (
+                                <View key={item.id} style={{
+                                    height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15,
+                                    shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10
+                                }}>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{item.title}</Text>
+                                    <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>{item.description}</Text>
+                                    <Image source={{ uri: item.image }} style={{ width: 40, height: 40, position: 'absolute', right: 0, bottom: 0 }} />
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+                </View>
             </ScrollView>
             {/* Ratha Yatra Button */}
-            <View style={{ width: 70, height: 70, position: 'absolute', bottom: 20, right: 20, borderRadius: 100, overflow: 'hidden', elevation: 5 }}>
+            {/* <View style={{ width: 70, height: 70, position: 'absolute', bottom: 20, right: 20, borderRadius: 100, overflow: 'hidden', elevation: 5 }}>
                 <TouchableOpacity style={{ backgroundColor: 'transparent', flex: 1 }}>
                     <Image source={require('../../assets/image/ratha1.jpg')} style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </SafeAreaView>
     );
 };

@@ -2,31 +2,38 @@ import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 const parkingList = [
     {
         id: '1',
-        parking_name: 'Gadadhar High School',
-        parking_address: 'Gadadhar High School, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
+        parking_name: 'Purushottam Bhakta Nivas',
+        parking_address: 'Near Old Jail , Puri',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
         map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
     },
     {
         id: '2',
-        parking_name: 'Barabati Kalyani Mandap',
-        parking_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
+        parking_name: 'Neeladri Bhakta Nivas',
+        parking_address: 'Near Town Police Station, Grand Road, Puri',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
         map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
     },
     {
         id: '3',
-        parking_name: 'Loknath Temple Parking',
-        parking_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
+        parking_name: 'Nilachala Bhakta And Yatri Nivas',
+        parking_address: 'In front of Town Police Station, Grand Road, Puri',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
         map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
-    }
+    },
+    {
+        id: '4',
+        parking_name: 'Shree Gundicha Bhakta Nivas',
+        parking_address: 'Near Shree Gundicha Temple, Grand Road, Puri',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
+        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
+    },
 ];
 
 const Index = () => {
@@ -75,38 +82,49 @@ const Index = () => {
             >
                 {/* Header Image */}
                 <View style={styles.headerContainer}>
-                    <ImageBackground
-                        source={require('../../assets/image/mangala_alati.jpg')}
-                        style={styles.headerImage}
-                    />
+                    <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} />
                 </View>
                 {/* Parking List */}
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={parkingList}
                     scrollEnabled={false}
-                    numColumns={2}
                     contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
                     keyExtractor={(key) => {
                         return key.id
                     }}
-                    renderItem={(park) => {
+                    renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity onPress={() => openMap(park.item.map_url)} style={styles.mostPPlrItem}>
-                                <View style={{ width: '100%', height: 110, borderRadius: 10 }}>
-                                    <Image source={{ uri: park.item.image }} style={styles.mostPPImage} />
-                                </View>
-                                <View style={{ margin: 10, width: '90%', alignItems: 'flex-start', justifyContent: 'center' }}>
-                                    <View style={{ width: '100%' }}>
-                                        <Text style={{ color: '#000', fontSize: 15, fontWeight: '500', textTransform: 'capitalize' }}>{park.item.parking_name}</Text>
+                            <TouchableOpacity onPress={() => openMap(item.map_url)} style={styles.bhaktanibasbox}>
+                                {/* Image Section */}
+                                <Image source={{ uri: item.image }} style={styles.bhaktanibasImage} />
+
+                                {/* Details Section */}
+                                <View style={{ padding: 10 }}>
+                                    <Text style={{ color: '#000', fontSize: 16, fontWeight: 'bold' }}>{item.parking_name}</Text>
+
+                                    {/* Address */}
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                                        <MaterialIcons name="location-on" size={18} color="#555" />
+                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5 }}>{item.parking_address}</Text>
                                     </View>
-                                    <Text style={{ color: '#000', fontSize: 13, fontWeight: '300', textTransform: 'capitalize' }}>{park.item.parking_address.length > 40 ? `${park.item.parking_address.substring(0, 40)}...` : park.item.parking_address}</Text>
+
+                                    {/* Email */}
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                                        <MaterialIcons name="email" size={16} color="#555" />
+                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5 }}>Demo@gmail.com</Text>
+                                    </View>
+
+                                    {/* Phone */}
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                                        <FontAwesome name="phone" size={16} color="#555" />
+                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5 }}>+91 9876543210</Text>
+                                    </View>
                                 </View>
                             </TouchableOpacity>
                         )
                     }}
                 />
-                <View style={{ height: 500 }} />
             </ScrollView>
         </View>
     );
@@ -165,42 +183,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#4B7100',
     },
     /* List Styles */
-    mostPPlrItem: {
+    bhaktanibasbox: {
         backgroundColor: '#fff',
-        width: '48%',
-        borderRadius: 10,
+        width: '95%',
+        alignSelf: 'center',
+        borderRadius: 12,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 13,
-        elevation: 5,
-        marginBottom: 10,
-        marginHorizontal: '1.3%'
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
+        marginBottom: 15,
+        overflow: 'hidden',
+        padding: 10
     },
-    mostPPImage: {
-        height: '100%',
+    bhaktanibasImage: {
+        height: 140,
         width: '100%',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        resizeMode: 'cover'
-    },
-    hotBtm: {
-        position: 'absolute',
-        top: 10,
-        left: 6,
-        backgroundColor: '#f00062',
-        padding: 2,
-        borderRadius: 6
-    },
-    saveBtm: {
-        position: 'absolute',
-        top: 10,
-        right: 6,
-        backgroundColor: '#fff',
-        width: 26,
-        height: 26,
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
+        resizeMode: 'cover',
+        borderRadius: 10
     },
 });

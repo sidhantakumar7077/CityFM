@@ -55,12 +55,12 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#4B7100', '#2E4D00'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Back</Text>
+                        <Text style={styles.headerText}>Parking</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -75,10 +75,19 @@ const Index = () => {
             >
                 {/* Header Image */}
                 <View style={styles.headerContainer}>
-                    <ImageBackground
-                        source={require('../../assets/image/mangala_alati.jpg')}
-                        style={styles.headerImage}
-                    />
+                    {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
+                        <View style={{ width: '75%' }}>
+                            <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold', }}>Pitch-perfect Travel Offers</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5 }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
+                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                                <Text style={{ color: '#4B0082', fontWeight: 'bold' }}>Book Now →</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ width: '22%', alignItems: 'center' }}>
+                            <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+                        </View>
+                    </View>
                 </View>
                 {/* Parking List */}
                 <FlatList
@@ -130,7 +139,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 15,
+        paddingVertical: 12,
         paddingHorizontal: 15,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
@@ -146,14 +155,15 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     headerText: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'Lora-Bold',
         color: 'white',
         textTransform: 'uppercase'
     },
     headerContainer: {
-        width: '100%', // Match with `panchangaBox`
+        width: '100%',
         height: 200,
+        backgroundColor: '#ba62f5',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,

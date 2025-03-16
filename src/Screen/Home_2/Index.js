@@ -79,7 +79,7 @@ const Index = () => {
         { id: '15', icon: 'hotel', label: 'Hotel/Dharmashala' },
         { id: '16', icon: 'utensils', label: 'Restaurant' },
         { id: '17', icon: 'bus', label: 'Bus Stand/Railway Station' },
-        { id: '19', icon: 'layer-group', label: 'Bhakta Nibasha' },
+        { id: '19', icon: 'layer-group', label: 'ATM' },
     ];
 
     const templeInfo = [
@@ -275,7 +275,7 @@ const Index = () => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                         {/* Left Large Card */}
                         <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ width: '47%', height: 200, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>Bhakta Nibas</Text>
+                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Bhakta Nibas</Text>
                             <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Temple owned properties for pilgrimas to stay</Text>
                             <Image source={require('../../assets/image/hotel.png')} style={{ width: 80, height: 90, position: 'absolute', right: 0, bottom: 0 }} />
                         </TouchableOpacity>
@@ -297,7 +297,7 @@ const Index = () => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ width: '47%', height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
+                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
                             <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Donate Now</Text>
                             <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
                         </View>

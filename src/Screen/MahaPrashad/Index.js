@@ -55,7 +55,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Maha Prashad</Text>
+                        {isScrolled && <Text style={styles.headerText}>Maha Prashad</Text>}
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -73,10 +73,10 @@ const Index = () => {
                     {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold', }}>Pitch-perfect Travel Offers</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5 }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Pitch-perfect Travel Offers</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
                             <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontWeight: 'bold' }}>Book Now →</Text>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
@@ -176,9 +176,9 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 16,
-        fontFamily: 'Lora-Bold',
+        fontFamily: 'FiraSans-Regular',
         color: 'white',
-        textTransform: 'uppercase'
+        textTransform: 'capitalize'
     },
     headerContainer: {
         width: '100%',
@@ -219,13 +219,14 @@ const styles = StyleSheet.create({
     },
     nitiName: {
         fontSize: 14,
-        fontWeight: 'bold',
+        fontFamily: 'FiraSans-Regular',
         textTransform: 'uppercase',
         marginBottom: 2,
     },
     nitiTime: {
         fontSize: 13,
         color: '#666',
+        fontFamily: 'FiraSans-Regular'
     },
     nitiStatus: {
         fontWeight: 'bold',

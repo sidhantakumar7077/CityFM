@@ -1,39 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
+import Swiper from 'react-native-swiper';
 
-const parkingList = [
-    {
-        id: '1',
-        parking_name: 'Purushottam Bhakta Nivas',
-        parking_address: 'Near Old Jail , Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
-    },
-    {
-        id: '2',
-        parking_name: 'Neeladri Bhakta Nivas',
-        parking_address: 'Near Town Police Station, Grand Road, Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
-    },
-    {
-        id: '3',
-        parking_name: 'Nilachala Bhakta And Yatri Nivas',
-        parking_address: 'In front of Town Police Station, Grand Road, Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
-    },
-    {
-        id: '4',
-        parking_name: 'Shree Gundicha Bhakta Nivas',
-        parking_address: 'Near Shree Gundicha Temple, Grand Road, Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
-    },
+const { width } = Dimensions.get('window');
+
+const images = [
+    'https://www.drishtiias.com/images/uploads/1618820610_image6.jpg',
+    'https://images.hindustantimes.com/img/2022/04/04/550x309/04843c2a-b455-11ec-a4f3-fc37f02059fa_1649103982597.jpg',
 ];
 
 const Index = () => {
@@ -67,7 +44,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        {isScrolled && <Text style={styles.headerText}>Bhakta Nibas</Text>}
+                        {isScrolled && <Text style={styles.headerText}>Nearby Temple</Text>}
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -95,53 +72,46 @@ const Index = () => {
                         </View>
                     </View>
                 </View>
-                {/* Parking List */}
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={parkingList}
-                    scrollEnabled={false}
-                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
-                    keyExtractor={(key) => {
-                        return key.id
-                    }}
-                    renderItem={({ item }) => {
-                        return (
-                            <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibasDetails')} style={styles.bhaktanibasbox}>
-                                {/* Image Section */}
-                                <Image source={{ uri: item.image }} style={styles.bhaktanibasImage} />
 
-                                {/* Details Section */}
-                                <View style={{ padding: 10 }}>
-                                    <Text style={{ color: '#000', fontSize: 16, fontFamily: 'FiraSans-Regular' }}>{item.parking_name}</Text>
-
-                                    {/* Address */}
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                        <MaterialIcons name="location-on" size={18} color="#555" />
-                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5, fontFamily: 'FiraSans-Regular' }}>{item.parking_address}</Text>
-                                    </View>
-
-                                    {/* Email */}
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                        <MaterialIcons name="email" size={16} color="#555" />
-                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5, fontFamily: 'FiraSans-Regular' }}>Demo@gmail.com</Text>
-                                    </View>
-
-                                    {/* Phone */}
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                        <FontAwesome name="phone" size={16} color="#555" />
-                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5, fontFamily: 'FiraSans-Regular' }}>+91 9876543210</Text>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    }}
-                />
+                <View style={{ flex: 1, width: '100%', alignSelf: 'center', marginTop: 10 }}>
+                    <View onPress={() => navigation.navigate('BhaktaNibasDetails')} style={styles.bhaktanibasbox}>
+                        <Swiper
+                            style={{ height: 200 }}
+                            showsPagination={false}
+                            autoplay={true}
+                            autoplayTimeout={5}
+                            activeDotColor="#ff6347"
+                        >
+                            {images.map((image, index) => (
+                                <Image key={index} source={{ uri: image }} style={styles.bhaktanibasImage} />
+                            ))}
+                        </Swiper>
+                    </View>
+                    <View style={[styles.bhaktanibasbox, { padding: 10 }]}>
+                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Lingaraj Temple</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Bhubaneswar, Odisha</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Contact: 1234567890</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Email: demo@gmail.com</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Address: Bhubaneswar, Odisha</Text>
+                    </View>
+                    <View style={[styles.bhaktanibasbox, { flexDirection: 'row', justifyContent: 'space-between', padding: 10 }]}>
+                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Direction</Text>
+                        <TouchableOpacity onPress={() => openMap('https://maps.app.goo.gl/vH465ENw5tS48ZB49')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesome5 name="directions" size={30} color="#666" />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.bhaktanibasbox, { padding: 10 }]}>
+                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Story In This Temple</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus in lectus pretium ultricies. Nullam nec purus in lectus pretium ultricies.</Text>
+                    </View>
+                </View>
+                <View style={{ height: 200 }}></View>
             </ScrollView>
         </View>
-    );
-};
+    )
+}
 
-export default Index;
+export default Index
 
 const styles = StyleSheet.create({
     container: {
@@ -194,7 +164,7 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#4B7100',
     },
-    /* List Styles */
+    // main content
     bhaktanibasbox: {
         backgroundColor: '#fff',
         width: '95%',
@@ -207,12 +177,12 @@ const styles = StyleSheet.create({
         elevation: 3,
         marginBottom: 15,
         overflow: 'hidden',
-        padding: 10
+        padding: 8
     },
     bhaktanibasImage: {
-        height: 140,
+        height: 200,
         width: '100%',
         resizeMode: 'cover',
         borderRadius: 10
     },
-});
+})

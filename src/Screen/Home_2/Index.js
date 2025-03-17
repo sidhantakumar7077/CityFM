@@ -61,25 +61,21 @@ const Index = () => {
     ];
 
     const conveniences = [
-        // { id: '1', icon: 'car', label: 'Parking' },
-        // { id: '2', icon: 'user-lock', label: 'Locker' },
-        // { id: '3', icon: 'shoe-prints', label: 'Shoes Stand' },
-        { id: '4', icon: 'tint', label: 'Drinking Water' },
-        { id: '12', icon: 'phone-alt', label: 'Emergency Contact' },
-        { id: '18', icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen' },
-        { id: '5', icon: 'map-marked-alt', label: 'Route Map' },
-        { id: '6', icon: 'utensils', label: 'Free Food' },
-        { id: '7', icon: 'search', label: 'Lost & Found' },
-        // { id: '8', icon: 'street-view', label: 'Ratha Yatra Mela' },
-        { id: '9', icon: 'toilet', label: 'Toilet' },
-        { id: '10', icon: 'umbrella-beach', label: 'Beaches' },
-        { id: '11', icon: 'life-ring', label: 'Life Guard Booth' },
-        { id: '13', icon: 'charging-station', label: 'Charging Station' },
-        { id: '14', icon: 'gas-pump', label: 'Petrol Pump' },
-        { id: '15', icon: 'hotel', label: 'Hotel/Dharmashala' },
-        { id: '16', icon: 'utensils', label: 'Restaurant' },
-        { id: '17', icon: 'bus', label: 'Bus Stand/Railway Station' },
-        { id: '19', icon: 'layer-group', label: 'ATM' },
+        { id: '1', icon: 'tint', label: 'Drinking Water', page: 'DrinkingWater' },
+        { id: '2', icon: 'phone-alt', label: 'Emergency Contact', page: '' },
+        { id: '3', icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen', page: '' },
+        { id: '4', icon: 'map-marked-alt', label: 'Route Map', page: '' },
+        { id: '5', icon: 'utensils', label: 'Free Food', page: 'FreeFood' },
+        { id: '6', icon: 'search', label: 'Lost & Found', page: '' },
+        { id: '7', icon: 'toilet', label: 'Toilet', page: 'Toilet' },
+        { id: '8', icon: 'umbrella-beach', label: 'Beaches', page: 'Beaches' },
+        { id: '9', icon: 'life-ring', label: 'Life Guard Booth', page: 'LifeGuardBooth' },
+        { id: '10', icon: 'charging-station', label: 'Charging Station', page: 'ChargingStation' },
+        { id: '11', icon: 'gas-pump', label: 'Petrol Pump', page: 'PetrolPump' },
+        { id: '12', icon: 'hotel', label: 'Hotel/Dharmashala', page: 'Dharmashala' },
+        { id: '13', icon: 'utensils', label: 'Restaurant', page: 'Restaurant' },
+        { id: '14', icon: 'bus', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop' },
+        { id: '15', icon: 'layer-group', label: 'ATM', page: 'Atm' },
     ];
 
     const templeInfo = [
@@ -249,25 +245,25 @@ const Index = () => {
                             <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ backgroundColor: '#B09ECF', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
                                 <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>Darshan</Text>
+                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ backgroundColor: '#E9A93F', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
                                 <MaterialCommunityIcons name={'food-apple'} size={33} color="white" />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>MahaPrashad</Text>
+                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity style={{ backgroundColor: '#92C362', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
                                 <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>Panji</Text>
+                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity style={{ backgroundColor: '#87B5D8', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ backgroundColor: '#87B5D8', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
                                 <MaterialCommunityIcons name={'gift'} size={33} color="white" />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>Offering</Text>
+                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Offering</Text>
                         </View>
                     </View>
 
@@ -276,7 +272,7 @@ const Index = () => {
                         {/* Left Large Card */}
                         <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ width: '47%', height: 200, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
                             <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Bhakta Nibas</Text>
-                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Temple owned properties for pilgrimas to stay</Text>
+                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>Temple owned properties for pilgrimas to stay</Text>
                             <Image source={require('../../assets/image/hotel.png')} style={{ width: 80, height: 90, position: 'absolute', right: 0, bottom: 0 }} />
                         </TouchableOpacity>
 
@@ -284,12 +280,12 @@ const Index = () => {
                         <View style={{ width: '50%', justifyContent: 'space-between' }}>
                             <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Parking</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>2, 3, 4 Wheelers</Text>
+                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>2, 3, 4 Wheelers</Text>
                                 <Image source={require('../../assets/image/demo.png')} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Free Stand service</Text>
+                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>Free Stand service</Text>
                                 <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
                             </TouchableOpacity>
                         </View>
@@ -298,14 +294,14 @@ const Index = () => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ width: '47%', height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
                             <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
-                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Donate Now</Text>
+                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>Donate Now</Text>
                             <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
                         </View>
                         <View style={{ width: '50%', justifyContent: 'space-between' }}>
                             <View style={{ height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Colection</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>12th Jan</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4 }}>₹5,30,000</Text>
+                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>12th Jan</Text>
+                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>₹5,30,000</Text>
                                 <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
                             </View>
                         </View>
@@ -358,10 +354,10 @@ const Index = () => {
                         renderItem={(content) => {
                             return (
                                 <View style={{ flex: 1, alignItems: 'flex-start' }}>
-                                    <View style={styles.sliderCard}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('NearbyTemple')} style={styles.sliderCard}>
                                         <Image style={{ width: '100%', height: '100%', borderRadius: 15 }} source={{ uri: content.item.image }} />
-                                    </View>
-                                    <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#333', marginTop: 10, marginLeft: 10 }}>{content.item.title}</Text>
+                                    </TouchableOpacity>
+                                    <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Regular', color: '#333', marginTop: 10, marginLeft: 10 }}>{content.item.title}</Text>
                                 </View>
                             )
                         }}
@@ -377,7 +373,7 @@ const Index = () => {
                     {/* Grid Layout */}
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                         {(expanded ? conveniences : conveniences.slice(0, maxVisibleItems)).map((item) => (
-                            <View key={item.id} style={{
+                            <TouchableOpacity onPress={() => item.page !== '' && navigation.navigate(item.page)} key={item.id} style={{
                                 width: '30%',
                                 backgroundColor: '#F6F0FC',
                                 borderWidth: 0.7,
@@ -390,7 +386,7 @@ const Index = () => {
                             }}>
                                 <FontAwesome5 name={item.icon} size={24} color="#8753A2" />
                                 <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                     </View>
                     {conveniences.length > maxVisibleItems && (

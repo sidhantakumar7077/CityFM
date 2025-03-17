@@ -5,25 +5,56 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 
-const parkingList = [
+const mainLockerShoesStand = [
     {
         id: '1',
-        parking_name: 'Gadadhar High School',
-        parking_address: 'Gadadhar High School, Puri, Odisha 752001',
+        locker_name: 'Barabati Kalyani Mandap',
+        locker_address: 'Barabati Kalyani Mandap, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
+    },
+    {
+        id: '2',
+        locker_name: 'Barabati Kalyani Mandap',
+        locker_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
+    },
+    {
+        id: '3',
+        locker_name: 'Loknath Temple Parking',
+        locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
+    },
+    {
+        id: '4',
+        locker_name: 'Loknath Temple Parking',
+        locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
+    }
+];
+
+const lockerShoesStand = [
+    {
+        id: '1',
+        locker_name: 'Barabati Kalyani Mandap',
+        locker_address: 'Barabati Kalyani Mandap, Puri, Odisha 752001',
         image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
         map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
     },
     {
         id: '2',
-        parking_name: 'Barabati Kalyani Mandap',
-        parking_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
+        locker_name: 'Barabati Kalyani Mandap',
+        locker_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
         image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
         map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
     },
     {
         id: '3',
-        parking_name: 'Loknath Temple Parking',
-        parking_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
+        locker_name: 'Loknath Temple Parking',
+        locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
         image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
         map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
     }
@@ -60,7 +91,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Locker & Shoes</Text>
+                        {isScrolled && <Text style={styles.headerText}>Locker & Shoes</Text>}
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -75,13 +106,12 @@ const Index = () => {
             >
                 {/* Header Image */}
                 <View style={styles.headerContainer}>
-                    {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold', }}>Pitch-perfect Travel Offers</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5 }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Pitch-perfect Travel Offers</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
                             <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontWeight: 'bold' }}>Book Now →</Text>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
@@ -89,33 +119,43 @@ const Index = () => {
                         </View>
                     </View>
                 </View>
-                {/* Parking List */}
+                {/* Main Locker & Shoes Stands */}
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={parkingList}
+                    data={mainLockerShoesStand}
                     scrollEnabled={false}
                     numColumns={2}
-                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
-                    keyExtractor={(key) => {
-                        return key.id
-                    }}
-                    renderItem={(park) => {
-                        return (
-                            <TouchableOpacity onPress={() => openMap(park.item.map_url)} style={styles.mostPPlrItem}>
-                                <View style={{ width: '100%', height: 110, borderRadius: 10 }}>
-                                    <Image source={{ uri: park.item.image }} style={styles.mostPPImage} />
-                                </View>
-                                <View style={{ margin: 10, width: '90%', alignItems: 'flex-start', justifyContent: 'center' }}>
-                                    <View style={{ width: '100%' }}>
-                                        <Text style={{ color: '#000', fontSize: 15, fontWeight: '500', textTransform: 'capitalize' }}>{park.item.parking_name}</Text>
-                                    </View>
-                                    <Text style={{ color: '#000', fontSize: 13, fontWeight: '300', textTransform: 'capitalize' }}>{park.item.parking_address.length > 40 ? `${park.item.parking_address.substring(0, 40)}...` : park.item.parking_address}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    }}
+                    contentContainerStyle={{ width: '95%', alignSelf: 'center', marginTop: 8 }}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => openMap(item.map_url)} style={{ width: '48%', margin: '1%', backgroundColor: '#fff', borderRadius: 12, padding: 10, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
+                            <Image source={{ uri: item.image }} style={styles.lockerImage} />
+                            <View style={{ marginTop: 10 }}>
+                                <Text style={{ color: '#000', fontSize: 15, fontFamily: 'FiraSans-Regular' }}>{item.locker_name}</Text>
+                                <Text style={{ color: '#666', fontSize: 12, fontFamily: 'FiraSans-Regular' }}>
+                                    {item.locker_address.length > 25 ? `${item.locker_address.substring(0, 25)}...` : item.locker_address}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
                 />
-                <View style={{ height: 500 }} />
+                {/* Locker & Shoes Stands */}
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={lockerShoesStand}
+                    scrollEnabled={false}
+                    contentContainerStyle={{ width: '95%', alignSelf: 'center', marginTop: 8 }}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <View style={[styles.secondLocker, { flexDirection: 'row', justifyContent: 'space-between' }]}>
+                            <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>{item.locker_name}</Text>
+                            <TouchableOpacity onPress={() => openMap(item.map_url)} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <FontAwesome5 name="directions" size={30} color="#666" />
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                />
+                <View style={{ height: 100 }} />
             </ScrollView>
         </View>
     );
@@ -156,9 +196,9 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 16,
-        fontFamily: 'Lora-Bold',
+        fontFamily: 'FiraSans-Regular',
         color: 'white',
-        textTransform: 'uppercase'
+        textTransform: 'capitalize'
     },
     headerContainer: {
         width: '100%',
@@ -212,5 +252,25 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    lockerImage: {
+        height: 100,
+        width: '100%',
+        resizeMode: 'cover',
+        borderRadius: 10
+    },
+    secondLocker: {
+        backgroundColor: '#fff',
+        width: '100%',
+        alignSelf: 'center',
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
+        marginBottom: 15,
+        overflow: 'hidden',
+        padding: 8
     },
 });

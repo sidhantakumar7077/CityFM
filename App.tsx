@@ -24,6 +24,23 @@ import MahaPrashad from './src/Screen/MahaPrashad/Index'
 import BhaktaNibas from './src/Screen/BhaktaNibas/Index'
 import BhaktaNibasDetails from './src/Screen/BhaktaNibasDetails/Index'
 import Locker_shoes from './src/Screen/Locker_shoes/Index'
+import NearbyTemple from './src/Screen/NearbyTemple/Index'
+import DrinkingWater from './src/Screen/DrinkingWater/Index'
+import EmergencyContact from './src/Screen/EmergencyContact/Index'
+import FreeFood from './src/Screen/FreeFood/Index'
+import RouteMap from './src/Screen/RouteMap/Index'
+import RathaYatraMela from './src/Screen/RathaYatraMela/Index'
+import LostFound from './src/Screen/LostFound/Index'
+import Toilet from './src/Screen/Toilet/Index'
+import Beaches from './src/Screen/Beaches/Index'
+import BusRailwayStop from './src/Screen/BusRailwayStop/Index'
+import ChargingStation from './src/Screen/ChargingStation/Index'
+import PetrolPump from './src/Screen/PetrolPump/Index'
+import Dharmashala from './src/Screen/Dharmashala/Index'
+import Restaurant from './src/Screen/Restaurant/Index'
+import Atm from './src/Screen/Atm/Index'
+import LifeGuardBooth from './src/Screen/LifeGuardBooth/Index'
+import Offering from './src/Screen/Offering/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +91,23 @@ const App = () => {
             <Stack.Screen name="BhaktaNibas" component={BhaktaNibas} />
             <Stack.Screen name="BhaktaNibasDetails" component={BhaktaNibasDetails} />
             <Stack.Screen name="Locker_shoes" component={Locker_shoes} />
+            <Stack.Screen name="NearbyTemple" component={NearbyTemple} />
+            <Stack.Screen name="DrinkingWater" component={DrinkingWater} />
+            <Stack.Screen name="EmergencyContact" component={EmergencyContact} />
+            <Stack.Screen name="FreeFood" component={FreeFood} />
+            <Stack.Screen name="RathaYatraMela" component={RathaYatraMela} />
+            <Stack.Screen name="RouteMap" component={RouteMap} />
+            <Stack.Screen name="LostFound" component={LostFound} />
+            <Stack.Screen name="Toilet" component={Toilet} />
+            <Stack.Screen name="Beaches" component={Beaches} />
+            <Stack.Screen name="BusRailwayStop" component={BusRailwayStop} />
+            <Stack.Screen name="ChargingStation" component={ChargingStation} />
+            <Stack.Screen name="PetrolPump" component={PetrolPump} />
+            <Stack.Screen name="Dharmashala" component={Dharmashala} />
+            <Stack.Screen name="Restaurant" component={Restaurant} />
+            <Stack.Screen name="Atm" component={Atm} />
+            <Stack.Screen name="LifeGuardBooth" component={LifeGuardBooth} />
+            <Stack.Screen name="Offering" component={Offering} />
           </>
         )}
       </Stack.Navigator>

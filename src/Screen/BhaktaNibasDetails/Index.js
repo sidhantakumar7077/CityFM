@@ -46,7 +46,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Details</Text>
+                        {isScrolled && <Text style={styles.headerText}>Details</Text>}
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -61,13 +61,12 @@ const Index = () => {
             >
                 {/* Header Image */}
                 <View style={styles.headerContainer}>
-                    {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'Lora-Bold' }}>Pitch-perfect Travel Offers</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5 }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Pitch-perfect Travel Offers</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
                             <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'Lora-Bold' }}>Book Now →</Text>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
@@ -91,22 +90,22 @@ const Index = () => {
                         </Swiper>
                     </View>
                     <View style={[styles.bhaktanibasbox, { padding: 10 }]}>
-                        <Text style={{ fontSize: 18, fontFamily: 'Lora-Bold', color: '#333', marginVertical: 5 }}>Neeladri Bhakta Nivas</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5 }}>Puri, Odisha</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5 }}>Price: ₹5000</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5 }}>Contact: 1234567890</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5 }}>Email: demo@gmail.com</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5 }}>Address: Puri, Odisha</Text>
+                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Neeladri Bhakta Nivas</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Puri, Odisha</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Price: ₹5000</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Contact: 1234567890</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Email: demo@gmail.com</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Address: Puri, Odisha</Text>
                     </View>
                     <View style={[styles.bhaktanibasbox, { flexDirection: 'row', justifyContent: 'space-between', padding: 10 }]}>
-                        <Text style={{ fontSize: 18, fontFamily: 'Lora-Bold', color: '#333', marginVertical: 5 }}>Direction</Text>
+                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Direction</Text>
                         <TouchableOpacity onPress={() => openMap('https://maps.app.goo.gl/vH465ENw5tS48ZB49')} style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <FontAwesome5 name="directions" size={30} color="#666" />
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.bhaktanibasbox, { padding: 10 }]}>
-                        <Text style={{ fontSize: 18, fontFamily: 'Lora-Bold', color: '#333', marginVertical: 5 }}>Story In This Bhakta Nibas</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus in lectus pretium ultricies. Nullam nec purus in lectus pretium ultricies.</Text>
+                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Story In This Bhakta Nibas</Text>
+                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus in lectus pretium ultricies. Nullam nec purus in lectus pretium ultricies.</Text>
                     </View>
                 </View>
                 <View style={{ height: 200 }}></View>
@@ -150,9 +149,9 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 16,
-        fontFamily: 'Lora-Bold',
+        fontFamily: 'FiraSans-Regular',
         color: 'white',
-        textTransform: 'uppercase'
+        textTransform: 'capitalize'
     },
     headerContainer: {
         width: '100%',

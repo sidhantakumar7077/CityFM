@@ -60,7 +60,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        {isScrolled && <Text style={styles.headerText}>Charging Station</Text>}
+                        <Text style={styles.headerText}>Charging Station</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>

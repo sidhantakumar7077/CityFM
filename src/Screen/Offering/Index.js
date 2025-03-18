@@ -118,7 +118,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        {isScrolled && <Text style={styles.headerText}>Offering</Text>}
+                        <Text style={styles.headerText}>Offering</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -135,10 +135,10 @@ const Index = () => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Pitch-perfect Travel Offers</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Bhakti Bhaba Offering</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>You Can Offer Various Divine Items At The Feet Of Our Chaturdha Murti</Text>
                             <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Offer Now →</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
@@ -222,7 +222,7 @@ const Index = () => {
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={(niti) => {
                             return (
-                                <TouchableOpacity style={styles.smallCell1}>
+                                <View style={styles.smallCell1}>
                                     <View style={{ width: '70%' }}>
                                         <Text style={{ color: '#000', fontSize: 16, fontFamily: "FiraSans-SemiBold", }}><Text style={{ fontSize: 15 }}>Niti Name: </Text>{niti.item.name}</Text>
                                         <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", }}>Niti Time : {niti.item.time}</Text>
@@ -240,7 +240,7 @@ const Index = () => {
                                         <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Offer Now</Text>
                                     </TouchableOpacity>
                                     {/* <Image source={require('../../assets/image/mandal.png')} style={{ width: 140, height: 140, position: 'absolute', right: -50, top: -60 }} /> */}
-                                </TouchableOpacity>
+                                </View>
                             )
                         }}
                     />

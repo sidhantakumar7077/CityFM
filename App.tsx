@@ -42,6 +42,8 @@ import Atm from './src/Screen/Atm/Index'
 import LifeGuardBooth from './src/Screen/LifeGuardBooth/Index'
 import Offering from './src/Screen/Offering/Index'
 import OfferingMenu from './src/Screen/OfferingMenu/Index'
+import OfferingForm from './src/Screen/OfferingForm/Index'
+import OfferingSubmitPage from './src/Screen/OfferingSubmitPage/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -67,7 +69,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowSplash(false);
-    }, 5000)
+    }, 17000)
   }, []);
 
   return (
@@ -110,6 +112,8 @@ const App = () => {
             <Stack.Screen name="LifeGuardBooth" component={LifeGuardBooth} />
             <Stack.Screen name="Offering" component={Offering} />
             <Stack.Screen name="OfferingMenu" component={OfferingMenu} />
+            <Stack.Screen name="OfferingForm" component={OfferingForm} />
+            <Stack.Screen name="OfferingSubmitPage" component={OfferingSubmitPage} />
           </>
         )}
       </Stack.Navigator>

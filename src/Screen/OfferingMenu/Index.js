@@ -1,13 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import CheckBox from '@react-native-community/checkbox';
-
-const { width } = Dimensions.get('window');
 
 const images = [
     require('../../assets/image/besha_luga/cloth1.jpeg'),
@@ -65,7 +63,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        {isScrolled && <Text style={styles.headerText}>Offering Booking</Text>}
+                        <Text style={styles.headerText}>Offering Booking</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -158,7 +156,7 @@ const Index = () => {
                         />
                         <Text style={{ marginLeft: 8 }}>I agree to the <Text style={{ color: '#007AFF' }}>terms and conditions</Text>.</Text>
                     </View>
-                    <TouchableOpacity style={[styles.confirmBtm, isChecked && styles.activeConfirmBtm]} disabled={isChecked ? false : true}>
+                    <TouchableOpacity onPress={() => navigation.navigate('OfferingForm')} style={[styles.confirmBtm, isChecked && styles.activeConfirmBtm]} disabled={isChecked ? false : true}>
                         <Text style={{ color: isChecked ? '#fff' : '#000', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Confirm My Offerings</Text>
                     </TouchableOpacity>
                 </View>

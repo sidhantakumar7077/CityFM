@@ -243,25 +243,29 @@ const Index = () => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ backgroundColor: '#B09ECF', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
-                                <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" />
+                                {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
+                                <Image source={require('../../assets/image/darshan.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ backgroundColor: '#E9A93F', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
-                                <MaterialCommunityIcons name={'food-apple'} size={33} color="white" />
+                                {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
+                                <Image source={require('../../assets/image/mahaPrasad.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity style={{ backgroundColor: '#92C362', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
-                                <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" />
+                                {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
+                                <Image source={require('../../assets/image/panji.png')} style={{ width: 50, height: 50 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ backgroundColor: '#87B5D8', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
-                                <MaterialCommunityIcons name={'gift'} size={33} color="white" />
+                                {/* <MaterialCommunityIcons name={'gift'} size={33} color="white" /> */}
+                                <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Offering</Text>
                         </View>

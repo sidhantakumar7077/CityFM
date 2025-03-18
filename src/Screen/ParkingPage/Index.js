@@ -60,7 +60,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        {isScrolled && <Text style={styles.headerText}>Parking</Text>}
+                        <Text style={styles.headerText}>Parking</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -77,10 +77,10 @@ const Index = () => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Pitch-perfect Travel Offers</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Vehicle Parking</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>You Can Park Your Two, Three & Four Wheelers At The Following Parking Places</Text>
                             <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Online →</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
@@ -104,6 +104,9 @@ const Index = () => {
                                 <View style={{ width: '100%', height: 110, borderRadius: 10 }}>
                                     <Image source={{ uri: park.item.image }} style={styles.mostPPImage} />
                                 </View>
+                                <View style={{ backgroundColor: '#ed64b6', paddingHorizontal: 8, paddingVertical: 5, position: 'absolute', borderRadius: 20, top: 10, left: 10 }}>
+                                        <Text style={{ fontSize: 11, color: '#fff', fontFamily: 'FiraSans-Regular' }}>1000/200</Text>
+                                    </View>
                                 <View style={{ margin: 10, width: '90%', alignItems: 'flex-start', justifyContent: 'center' }}>
                                     <View style={{ width: '100%' }}>
                                         <Text style={{ color: '#000', fontSize: 15, fontFamily: 'FiraSans-Regular', textTransform: 'capitalize' }}>{park.item.parking_name}</Text>

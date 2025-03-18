@@ -2,11 +2,46 @@ import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
+import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
 
 const { width } = Dimensions.get('window');
+
+const dailyNiti = [
+    {
+        id: 1,
+        name: 'Mailama',
+        time: 'Morning 6 AM',
+        desc: 'The scheduled time of this rituals is 6 am. But as soon as  when the Magal aalati is completed then Mailama will be done.',
+        itemHeading: 'Items Needed',
+        itemList: '1) 4 pieces of tadpa, (2) 2 pieces of uttariya, (3) 1 piece of khandua',
+    },
+    {
+        id: 2,
+        name: 'Beshalagi',
+        time: 'Morning 8 AM to 8:30 AM',
+        desc: 'The rule for the besha in between morning 8 am and 8:30 am. The flower-dressers perform all the beshas. Different beshas are performed for the deities at different times and in different seasons.',
+        itemHeading: 'Items Needed',
+        itemList: '(1) Pushpalak, (2) Raja Superintendant',
+    },
+    {
+        id: 3,
+        name: 'Pahuda Phitiba And Sandhya Aalati',
+        time: '6 pm',
+        desc: 'Rules for opening the doors at around 6 pm. For this rituals, Camphor, Pata Patani, Phula and Sandalwood are provided by the Raja Superintendent.',
+        itemHeading: 'Items Needed',
+        itemList: '(1) Camphor, (2) Pata Patani, (3) Flowers, (4) Sandalwood',
+    },
+    {
+        id: 4,
+        name: 'Bada Singhara Besha',
+        time: '10:30 pm',
+        desc: 'The rules for Badasinghara Besha at 10.30 pm. For this Besha, Sriram Das Matha provides flower garlands, earrings and garlands. Emara Matha provides flower garlands.',
+        itemHeading: 'Items Needed',
+        sebakList: '(1) Changada Mekapa , (2) Pushpalaka',
+    },
+]
 
 const Index = () => {
 
@@ -113,15 +148,15 @@ const Index = () => {
                 </View>
 
                 {/* Weekly Calendar section */}
-                <View style={{ marginTop: 20 }}>
+                {/* <View style={{ marginTop: 20 }}>
                     <FlatList
                         ref={flatListRef}
                         horizontal
                         pagingEnabled
                         initialScrollIndex={1} // Start at current week
-                        onMomentumScrollEnd={handleScrollDate}
+                        // onMomentumScrollEnd={handleScrollDate}
                         showsHorizontalScrollIndicator={false}
-                        data={[weekOffset - 1, weekOffset, weekOffset + 1]}
+                        data={[weekOffset - 1, weekOffset, weekOffset + 1, weekOffset + 2, weekOffset + 3]}
                         keyExtractor={(item) => item.toString()}
                         getItemLayout={(data, index) => ({ length: width, offset: width * index, index })}
                         renderItem={({ item }) => (
@@ -143,13 +178,73 @@ const Index = () => {
                             </View>
                         )}
                     />
+                </View> */}
+                <View style={{ width: '100%', marginTop: 20 }}>
+                    <View style={{ paddingHorizontal: 15 }}>
+                        <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Select The Date For Offering</Text>
+                        <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
+                    </View>
+                    <Calendar
+                        style={{ width: '95%', alignSelf: 'center', borderRadius: 10 }}
+                        onDayPress={(day) => setSelectedDate(day.dateString)}
+                        markedDates={{
+                            [selectedDate]: { selected: true, selectedColor: '#4B7100' },
+                        }}
+                        theme={{
+                            backgroundColor: '#FBF5F5',
+                            calendarBackground: '#fff',
+                            textSectionTitleColor: '#4B7100',
+                            selectedDayBackgroundColor: '#4B7100',
+                            selectedDayTextColor: '#fff',
+                            todayTextColor: '#D49100',
+                            dayTextColor: '#333',
+                            textDisabledColor: '#d9e1e8',
+                            arrowColor: '#4B7100',
+                            monthTextColor: '#4B7100',
+                            textDayFontFamily: 'Lora-Bold',
+                            textMonthFontFamily: 'Lora-Bold',
+                            textDayHeaderFontFamily: 'Lora-Bold',
+                            textDayFontSize: 16,
+                            textMonthFontSize: 18,
+                            textDayHeaderFontSize: 14,
+                        }}
+                    />
                 </View>
-
-                <View style={{ width: '95%', alignSelf: 'center', marginTop: 20 }}>
-                    
+                <View style={{ width: '95%', alignSelf: 'center', marginTop: 30 }}>
+                    <View style={{ paddingHorizontal: 15 }}>
+                        <Text style={{ fontSize: 17, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Offerings Available On The Selected Date</Text>
+                        <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
+                    </View>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        scrollEnabled={false}
+                        data={dailyNiti}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={(niti) => {
+                            return (
+                                <TouchableOpacity style={styles.smallCell1}>
+                                    <View style={{ width: '70%' }}>
+                                        <Text style={{ color: '#000', fontSize: 16, fontFamily: "FiraSans-SemiBold", }}><Text style={{ fontSize: 15 }}>Niti Name: </Text>{niti.item.name}</Text>
+                                        <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", }}>Niti Time : {niti.item.time}</Text>
+                                        {niti.item.desc &&
+                                            <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>{niti.item.desc}</Text>
+                                        }
+                                        {niti.item.itemHeading && niti.item.itemList &&
+                                            <>
+                                                <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", marginTop: 10 }}>{niti.item.itemHeading}</Text>
+                                                <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>{niti.item.itemList}</Text>
+                                            </>
+                                        }
+                                    </View>
+                                    <TouchableOpacity onPress={() => navigation.navigate('OfferingMenu')} style={{ backgroundColor: 'red', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, position: 'absolute', right: 10, bottom: 10 }}>
+                                        <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Offer Now</Text>
+                                    </TouchableOpacity>
+                                    {/* <Image source={require('../../assets/image/mandal.png')} style={{ width: 140, height: 140, position: 'absolute', right: -50, top: -60 }} /> */}
+                                </TouchableOpacity>
+                            )
+                        }}
+                    />
                 </View>
-
-                <View style={{ height: 800 }} />
             </ScrollView>
         </View>
     )
@@ -224,7 +319,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#eee',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 13,
+        marginTop: 20,
     },
     dateText: {
         fontSize: 14,
@@ -240,5 +335,19 @@ const styles = StyleSheet.create({
     selectedDateText: {
         color: '#fff',
         fontWeight: 'bold',
+    },
+    smallCell1: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        marginBottom: 15,
+        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+        elevation: 5
     },
 })

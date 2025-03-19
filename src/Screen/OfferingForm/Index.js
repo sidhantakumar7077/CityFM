@@ -38,7 +38,7 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -75,7 +75,7 @@ const Index = () => {
 
                     {/* Booking Form */}
                     <View style={styles.formContainer}>
-                        <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Panji & Calendar</Text>
+                        <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Panji & Calendar</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
 
                         {/* Name */}
@@ -129,7 +129,7 @@ const Index = () => {
 
                         {/* Submit Button */}
                         <TouchableOpacity onPress={()=> navigation.navigate('OfferingSubmitPage')} style={styles.submitButton}>
-                            <LinearGradient colors={['#ba62f5', '#9b49d7']} style={styles.submitGradient}>
+                            <LinearGradient colors={['#341551', '#9b49d7']} style={styles.submitGradient}>
                                 <Text style={styles.submitText}>Submit</Text>
                             </LinearGradient>
                         </TouchableOpacity>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         overflow: 'hidden',

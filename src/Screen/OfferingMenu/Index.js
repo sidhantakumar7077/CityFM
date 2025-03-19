@@ -58,7 +58,7 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -94,7 +94,7 @@ const Index = () => {
                 {/* Main Content */}
                 <View style={{ width: '95%', alignSelf: 'center', marginTop: 20 }}>
                     <View style={{ paddingHorizontal: 15 }}>
-                        <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Confirm Your Booking</Text>
+                        <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Confirm Your Booking</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
                     </View>
                     <View style={styles.smallCell1}>
@@ -107,7 +107,7 @@ const Index = () => {
                         </View>
                     </View>
                     <View style={{ paddingHorizontal: 15 }}>
-                        <Text style={{ fontSize: 17, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Items To Be Submited At Temple Office</Text>
+                        <Text style={{ fontSize: 17, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Items To Be Submited At Temple Office</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 10 }} />
                     </View>
                     <View style={styles.nitiItem}>
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
@@ -297,6 +297,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     activeConfirmBtm: {
-        backgroundColor: '#ba62f5'
+        backgroundColor: '#341551'
     }
 })

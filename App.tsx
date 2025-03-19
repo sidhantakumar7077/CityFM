@@ -44,6 +44,7 @@ import Offering from './src/Screen/Offering/Index'
 import OfferingMenu from './src/Screen/OfferingMenu/Index'
 import OfferingForm from './src/Screen/OfferingForm/Index'
 import OfferingSubmitPage from './src/Screen/OfferingSubmitPage/Index'
+import Panji from './src/Screen/Panji/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -69,12 +70,12 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowSplash(false);
-    }, 17000)
+    }, 5000)
   }, []);
 
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#ba62f5" barStyle="light-content" />
+      <StatusBar backgroundColor="#341551" barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
         {!isConnected ? (
@@ -114,6 +115,7 @@ const App = () => {
             <Stack.Screen name="OfferingMenu" component={OfferingMenu} />
             <Stack.Screen name="OfferingForm" component={OfferingForm} />
             <Stack.Screen name="OfferingSubmitPage" component={OfferingSubmitPage} />
+            <Stack.Screen name="Panji" component={Panji} />
           </>
         )}
       </Stack.Navigator>

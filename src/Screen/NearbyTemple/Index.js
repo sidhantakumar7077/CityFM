@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import TrackPlayer, { State, usePlaybackState, useProgress, Capability, Event } from 'react-native-track-player';
 
 const { width } = Dimensions.get('window');
 
@@ -34,12 +36,89 @@ const Index = () => {
         Linking.openURL(url);
     };
 
+    const playbackState = usePlaybackState();
+    const [allContent, setAllContent] = useState(null);
+    const [currentTrack, setCurrentTrack] = useState(null);
+
+    const togglePlayback = async (track) => {
+        try {
+            // const storedPodcastData = await AsyncStorage.getItem('currentPodcast');
+            if (currentTrack !== track.id) {
+                // console.log("Current Track ID:", currentTrack, "Selected Track ID:", track.id.toString());
+                await TrackPlayer.reset();
+                await TrackPlayer.add({
+                    id: track.id.toString(),
+                    url: track.podcast_music,
+                    title: track.name,
+                    artist: 'Unknown Artist',
+                });
+                // setCurrentMusic(track);
+                setCurrentTrack(track.id);
+                await TrackPlayer.play();
+                // await AsyncStorage.setItem('currentPodcast', JSON.stringify(track));
+            } else {
+                // console.log("playbackState", playbackState, State.Playing);
+                if (playbackState.state === State.Playing) {
+                    await TrackPlayer.pause();
+                } else {
+                    await TrackPlayer.play();
+                }
+            }
+        } catch (error) {
+            console.error('Error during playback toggle:', error);
+        }
+    };
+
+    useEffect(() => {
+        const setup = async () => {
+            try {
+                await TrackPlayer.setupPlayer();
+                await TrackPlayer.updateOptions({
+                    stopWithApp: false,
+                    capabilities: [
+                        Capability.Play,
+                        Capability.Pause,
+                        // Capability.SkipToNext,
+                        // Capability.SkipToPrevious,
+                        // Capability.Stop,
+                    ],
+                    compactCapabilities: [
+                        Capability.Play,
+                        Capability.Pause,
+                        // Capability.SkipToNext,
+                        // Capability.SkipToPrevious,
+                        // Capability.Stop,
+                    ],
+                    notificationCapabilities: [
+                        Capability.Play,
+                        Capability.Pause,
+                        // Capability.SkipToNext,
+                        // Capability.SkipToPrevious,
+                        // Capability.Stop,
+                    ],
+                });
+            } catch (error) {
+                console.log('Error setting up TrackPlayer:', error);
+            }
+        };
+
+        setup();
+    }, []);
+
+    useEffect(() => {
+        setAllContent({
+            id: 0,
+            name: 'ଦ୍ଵାରଫିଟା ଓ ମଙ୍ଗଳ ଆଳତି',
+            podcast_music: require('../../assets/audio/adi_nrusingha.mp3'),
+        });
+    }, []);
+
     return (
         <View style={styles.container}>
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -63,9 +142,13 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Adi Nrusingha Temple</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>This Temple Is Dedicated To Jangya Nrusingha</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Direction →</Text>
+                            <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Listen</Text>
+                                <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#c9170a" />
                             </TouchableOpacity>
+                            {/* <TouchableOpacity style={styles.playButton} onPress={() => togglePlayback(allContent)}>
+                                <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={40} color="#c9170a" />
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
                             <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
@@ -153,7 +236,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
@@ -184,5 +267,14 @@ const styles = StyleSheet.create({
         width: '100%',
         resizeMode: 'cover',
         borderRadius: 10
+    },
+    playButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 30,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10
     },
 })

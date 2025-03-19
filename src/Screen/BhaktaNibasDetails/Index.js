@@ -41,7 +41,7 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,

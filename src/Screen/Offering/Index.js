@@ -113,7 +113,7 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -142,7 +142,7 @@ const Index = () => {
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+                            <Image source={require('../../assets/image/Offerings.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
                         </View>
                     </View>
                 </View>
@@ -181,7 +181,7 @@ const Index = () => {
                 </View> */}
                 <View style={{ width: '100%', marginTop: 20 }}>
                     <View style={{ paddingHorizontal: 15 }}>
-                        <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Select The Date For Offering</Text>
+                        <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Select The Date For Offering</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
                     </View>
                     <Calendar
@@ -212,7 +212,7 @@ const Index = () => {
                 </View>
                 <View style={{ width: '95%', alignSelf: 'center', marginTop: 30 }}>
                     <View style={{ paddingHorizontal: 15 }}>
-                        <Text style={{ fontSize: 17, fontFamily: 'FiraSans-Regular', color: '#673AB7' }}>Offerings Available On The Selected Date</Text>
+                        <Text style={{ fontSize: 17, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Offerings Available On The Selected Date</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
                     </View>
                     <FlatList
@@ -236,7 +236,7 @@ const Index = () => {
                                             </>
                                         }
                                     </View>
-                                    <TouchableOpacity onPress={() => navigation.navigate('OfferingMenu')} style={{ backgroundColor: 'red', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, position: 'absolute', right: 10, bottom: 10 }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('OfferingMenu')} style={{ backgroundColor: '#341551', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, position: 'absolute', right: 10, bottom: 10 }}>
                                         <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Offer Now</Text>
                                     </TouchableOpacity>
                                     {/* <Image source={require('../../assets/image/mandal.png')} style={{ width: 140, height: 140, position: 'absolute', right: -50, top: -60 }} /> */}
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,

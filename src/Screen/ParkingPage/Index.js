@@ -55,7 +55,7 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -104,7 +104,7 @@ const Index = () => {
                                 <View style={{ width: '100%', height: 110, borderRadius: 10 }}>
                                     <Image source={{ uri: park.item.image }} style={styles.mostPPImage} />
                                 </View>
-                                <View style={{ backgroundColor: '#ed64b6', paddingHorizontal: 8, paddingVertical: 5, position: 'absolute', borderRadius: 20, top: 10, left: 10 }}>
+                                <View style={{ backgroundColor: '#341551', paddingHorizontal: 8, paddingVertical: 5, position: 'absolute', borderRadius: 20, top: 10, left: 10 }}>
                                         <Text style={{ fontSize: 11, color: '#fff', fontFamily: 'FiraSans-Regular' }}>1000/200</Text>
                                     </View>
                                 <View style={{ margin: 10, width: '90%', alignItems: 'flex-start', justifyContent: 'center' }}>
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,

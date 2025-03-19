@@ -130,12 +130,12 @@ const Index = () => {
     return (
         <View style={styles.container}>
             {/* Header Section */}
-            <LinearGradient colors={['#4B7100', '#2E4D00']} style={styles.header}>
+            {/* <LinearGradient colors={['#4B7100', '#2E4D00']} style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                     <MaterialIcons name="arrow-back-ios" size={20} color="white" />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>BACK</Text>
-            </LinearGradient>
+            </LinearGradient> */}
 
             <ImageBackground source={require('../../assets/image/ratha.jpeg')} style={styles.background}>
                 {/* Gradient Overlay */}

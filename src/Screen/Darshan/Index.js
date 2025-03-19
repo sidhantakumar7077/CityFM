@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native'
 import Modal from 'react-native-modal';
 
 const nitiTimings = [
-    { name: 'ABHIJIT MUHURTA', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
-    { name: 'AMRIT KALA', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
-    { name: 'YAMAGANDA KALA', status: 'Running', time: '08:15 AM', relativeTime: '3 hours ago' },
-    { name: 'GULIKA KALA', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
-    { name: 'RAHU KALA', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
+    { name: 'Sahana mela Darshan', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
+    { name: 'Sahana mela Darshan', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
+    { name: 'Sahana mela Darshan', status: 'Running', time: '08:15 AM', relativeTime: '3 hours ago' },
+    { name: 'Sahana mela Darshan', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
+    { name: 'Sahana mela Darshan', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
 ];
 
 // Function to determine the color based on status
@@ -50,7 +50,7 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -76,7 +76,7 @@ const Index = () => {
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Know The Darshan Timing</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>You Can Find When The Darshan Start's & Halts As Well As When The Sahana Mela Start's</Text>
                             <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Set Alert →</Text>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Darshan →</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
@@ -88,7 +88,7 @@ const Index = () => {
                 <FlatList
                     data={nitiTimings}
                     scrollEnabled={false}
-                    keyExtractor={(item) => item.name}
+                    keyExtractor={(item) => item.time}
                     renderItem={({ item }) => {
                         const statusColor = getStatusColor(item.status);
                         return (
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,

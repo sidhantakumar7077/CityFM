@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native'
 import Modal from 'react-native-modal';
 
 const nitiTimings = [
-    { name: 'ABHIJIT MUHURTA', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
-    { name: 'AMRIT KALA', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
-    { name: 'YAMAGANDA KALA', status: 'Running', time: '08:15 AM', relativeTime: '3 hours ago' },
-    { name: 'GULIKA KALA', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
-    { name: 'RAHU KALA', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
+    { name: 'Dwara Phita', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
+    { name: 'Mangala Alati', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
+    { name: 'Mailama', status: 'Running', time: '08:15 AM', relativeTime: '3 hours ago' },
+    { name: 'Beshalagi', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
+    { name: 'Bada Singhara Besha', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
 ];
 
 // Function to determine the color based on status
@@ -50,7 +50,7 @@ const Index = () => {
             {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
-                    colors={isScrolled ? ['#ba62f5', '#ba62f5'] : ['transparent', 'transparent']}
+                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
                     style={styles.gradient}
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         height: 200,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,

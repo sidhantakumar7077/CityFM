@@ -38,7 +38,7 @@ const SuccessPage = () => {
 
     return (
         <View style={styles.container}>
-            <LinearGradient colors={['#ba62f5', '#8f3be6']} style={styles.header}>
+            <LinearGradient colors={['#341551', '#8f3be6']} style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                     <MaterialIcons name="arrow-back-ios" size={20} color="white" />
                     <Text style={styles.headerText}>Success</Text>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     },
     goBackButton: {
         marginTop: 40,
-        backgroundColor: '#ba62f5',
+        backgroundColor: '#341551',
         paddingVertical: 10,
         paddingHorizontal: 30,
         borderRadius: 5,

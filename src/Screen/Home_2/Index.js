@@ -5,6 +5,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { Calendar } from 'react-native-calendars';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Octicons from "react-native-vector-icons/Octicons";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -64,18 +65,18 @@ const Index = () => {
         { id: '1', icon: 'tint', label: 'Drinking Water', page: 'DrinkingWater' },
         { id: '2', icon: 'phone-alt', label: 'Emergency Contact', page: '' },
         { id: '3', icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen', page: '' },
-        { id: '4', icon: 'map-marked-alt', label: 'Route Map', page: '' },
-        { id: '5', icon: 'utensils', label: 'Free Food', page: 'FreeFood' },
         { id: '6', icon: 'search', label: 'Lost & Found', page: '' },
         { id: '7', icon: 'toilet', label: 'Toilet', page: 'Toilet' },
         { id: '8', icon: 'umbrella-beach', label: 'Beaches', page: 'Beaches' },
         { id: '9', icon: 'life-ring', label: 'Life Guard Booth', page: 'LifeGuardBooth' },
-        { id: '10', icon: 'charging-station', label: 'Charging Station', page: 'ChargingStation' },
         { id: '11', icon: 'gas-pump', label: 'Petrol Pump', page: 'PetrolPump' },
         { id: '12', icon: 'hotel', label: 'Hotel/Dharmashala', page: 'Dharmashala' },
         { id: '13', icon: 'utensils', label: 'Restaurant', page: 'Restaurant' },
         { id: '14', icon: 'bus', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop' },
         { id: '15', icon: 'layer-group', label: 'ATM', page: 'Atm' },
+        { id: '4', icon: 'map-marked-alt', label: 'Route Map', page: '' },
+        { id: '5', icon: 'utensils', label: 'Free Food', page: 'FreeFood' },
+        { id: '10', icon: 'charging-station', label: 'Charging Station', page: 'ChargingStation' },
     ];
 
     const templeInfo = [
@@ -136,7 +137,7 @@ const Index = () => {
                             <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                         </View>
                         <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Ionicons name="settings-sharp" size={26} color="#fff" />
+                            <SimpleLineIcons name="settings" size={26} color="#fff" />
                         </TouchableOpacity>
                     </View>
                     <View style={{ position: 'absolute', top: 80, width: '100%', left: 13 }}>
@@ -211,9 +212,23 @@ const Index = () => {
                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ width: '26%' }}>
                             <Text style={styles.liveTitle}>Shree Mandira</Text>
-                            <View style={{ width: 74, height: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fa0000', borderRadius: 100, marginTop: 5 }}>
-                                <Octicons name="zap" size={15} color="#fff" />
-                                <Text style={styles.liveSubText}>Live</Text>
+                            <View style={{ marginTop: 5, borderRadius: 7, overflow: 'hidden' }}>
+                                <LinearGradient
+                                    colors={['#FFA726', '#F06292']} // orange to pink gradient
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={{
+                                        width: 74,
+                                        height: 30,
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        borderRadius: 7,
+                                    }}
+                                >
+                                    <Octicons name="zap" size={15} color="#fff" />
+                                    <Text style={styles.liveSubText}>Live</Text>
+                                </LinearGradient>
                             </View>
                         </View>
                         <View style={{ width: '34%' }}>
@@ -245,28 +260,28 @@ const Index = () => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ backgroundColor: '#B09ECF', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
                                 <Image source={require('../../assets/image/DARSHAN2.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ backgroundColor: '#E9A93F', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
                                 <Image source={require('../../assets/image/mahaprasad1.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ backgroundColor: '#92C362', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
                                 <Image source={require('../../assets/image/panji.png')} style={{ width: 50, height: 50 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ backgroundColor: '#87B5D8', width: 60, height: 60, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'gift'} size={33} color="white" /> */}
                                 <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 50, height: 50 }} />
                             </TouchableOpacity>
@@ -274,79 +289,64 @@ const Index = () => {
                         </View>
                     </View>
 
-                    {/* Grid Layout */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
-                        {/* Left Large Card */}
-                        <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ width: '47%', height: 200, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Bhakta Nibas</Text>
-                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>Temple owned properties for pilgrimas to stay</Text>
-                            {/* <Image source={require('../../assets/image/bhaktaniwas.png')} style={{ width: 80, height: 90, position: 'absolute', right: 0, bottom: 0 }} /> */}
-                            <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 80, height: 80, position: 'absolute', right: 0, bottom: 0 }} />
+                    <View style={{ marginTop: 20, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
+                            <View style={{ width: '20%' }}>
+                                <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
+                            </View>
+                            <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 14, fontFamily: 'FiraSans-Regular', color: '#333', lineHeight: 20 }}>Temple Owned Properties For Pligrimas to stay</Text>
+                            </View>
+                            <View style={{ width: '20%', alignItems: 'flex-end' }}>
+                                <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 50, height: 50 }} />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                            <View style={{ width: '60%', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Parking</Text>
+                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>2, 3, 4 Wheelers</Text>
+                            </View>
+                            <View style={{ width: '40%', alignItems: 'center' }}>
+                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2965/2965567.png' }} style={{ width: 28, height: 28 }} />
+                            </View>
                         </TouchableOpacity>
 
-                        {/* Right Two Small Cards */}
-                        <View style={{ width: '50%', justifyContent: 'space-between' }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}>
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Parking</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>2, 3, 4 Wheelers</Text>
-                                <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
-                                {/* <Image source={require('../../assets/image/PARKING.png')} style={{ width: 55, height: 55, position: 'absolute', right: 0, bottom: 0 }} /> */}
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                            <View style={{ width: '60%', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>Free Stand service</Text>
-                                {/* <Image source={require('../../assets/image/locker.png')} style={{ width: 40, height: 50, position: 'absolute', right: 0, bottom: 0 }} /> */}
-                                <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
-                            </TouchableOpacity>
-                        </View>
+                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free Stand service</Text>
+                            </View>
+                            <View style={{ width: '40%', alignItems: 'center' }}>
+                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3239/3239951.png' }} style={{ width: 28, height: 28 }} />
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ width: '47%', height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
-                            <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>Donate Now</Text>
-                            {/* <Image source={require('../../assets/image/hundicollection.png')} style={{ width: 60, height: 60, position: 'absolute', right: 0, bottom: 0 }} /> */}
-                            <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
-                        </View>
-                        <View style={{ width: '50%', justifyContent: 'space-between' }}>
-                            <View style={{ height: 95, backgroundColor: '#fff', borderRadius: 12, padding: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}>
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Colection</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>12th Jan</Text>
-                                <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontFamily: 'FiraSans-Regular' }}>₹5,30,000</Text>
-                                <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 45, height: 45, position: 'absolute', right: 0, bottom: 0 }} />
+                        <TouchableOpacity style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                            <View style={{ width: '60%', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
+                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Donate Now</Text>
+                            </View>
+                            <View style={{ width: '40%', alignItems: 'center' }}>
+                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/12209/12209405.png' }} style={{ width: 28, height: 28 }} />
+                            </View>
+                        </TouchableOpacity>
+
+                        <View style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                            <View style={{ width: '60%', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Collection</Text>
+                                <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹5,30,000/-</Text>
+                            </View>
+                            <View style={{ width: '40%', alignItems: 'center' }}>
+                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/619/619034.png' }} style={{ width: 28, height: 28 }} />
                             </View>
                         </View>
                     </View>
 
-                    {/* Services Grid */}
-                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
-                        {serviceData.map((item, index) => (
-                            <View key={index} style={{ alignItems: "center", width: "23%" }}>
-                                <TouchableOpacity style={{
-                                    backgroundColor: item.color,
-                                    width: 75,
-                                    height: 75,
-                                    borderRadius: 15,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    elevation: 3,
-                                    shadowColor: '#000',
-                                    shadowOffset: { width: 0, height: 2 },
-                                    shadowOpacity: 0.2,
-                                    shadowRadius: 3,
-                                }}>
-                                    <MaterialCommunityIcons name={item.icon} size={37} color="white" />
-                                </TouchableOpacity>
-                                <Text style={{
-                                    fontSize: 12,
-                                    color: '#333',
-                                    marginTop: 5,
-                                    textAlign: 'center',
-                                    fontWeight: '500',
-                                }}>{item.title}</Text>
-                            </View>
-                        ))}
-                    </View> */}
                 </View>
 
                 {/* Nearby Temple */}
@@ -381,47 +381,21 @@ const Index = () => {
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Conveniences</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
 
-                    {/* Grid Layout */}
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 20 }}>
                         {(expanded ? conveniences : conveniences.slice(0, maxVisibleItems)).map((item) => (
-                            <TouchableOpacity onPress={() => item.page !== '' && navigation.navigate(item.page)} key={item.id} style={{
-                                width: '30%',
-                                backgroundColor: '#F6F0FC',
-                                borderWidth: 0.7,
-                                borderColor: '#fab278',
-                                borderRadius: 8,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                paddingVertical: 15,
-                                marginBottom: 10,
-                            }}>
-                                <FontAwesome5 name={item.icon} size={24} color="#8753A2" />
-                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
+                            <TouchableOpacity key={item.id} onPress={() => item.page !== '' && navigation.navigate(item.page)} style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}>
+                                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
+                                    <FontAwesome5 name={item.icon} size={24} color="#D64C64" />
+                                </View>
+                                <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
-                    {conveniences.length > maxVisibleItems && (
-                        <TouchableOpacity
-                            onPress={() => setExpanded(!expanded)}
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                // borderWidth: 1,
-                                // borderColor: '#fab278',
-                                // backgroundColor: '#F6F0FC',
-                                borderRadius: 8,
-                                // paddingVertical: 10,
-                                paddingHorizontal: 20,
-                                marginTop: 10,
-                                alignSelf: 'center',
-                            }}>
-                            <AntDesign name={expanded ? 'upcircleo' : 'downcircleo'} size={30} color="#8753A2" />
-                            {/* <Text style={{ fontSize: 14, color: '#8753A2', fontWeight: 'bold', marginLeft: 8 }}>
-                                {expanded ? "View Less" : "View More"}
-                            </Text> */}
-                        </TouchableOpacity>
 
+                    {conveniences.length > maxVisibleItems && (
+                        <TouchableOpacity onPress={() => setExpanded(!expanded)} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 8, paddingHorizontal: 20, marginTop: 10, alignSelf: 'center' }}>
+                            <AntDesign name={expanded ? 'upcircleo' : 'downcircleo'} size={30} color="#D64C64" />
+                        </TouchableOpacity>
                     )}
                 </View>
 
@@ -486,20 +460,11 @@ const Index = () => {
                     {/* Grid Layout */}
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                         {templeInfo.map((item) => (
-                            <View key={item.id} style={{
-                                width: '30%',
-                                backgroundColor: '#F6F0FC',
-                                borderWidth: 0.7,
-                                borderColor: '#fab278',
-                                borderRadius: 8,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                paddingVertical: 15,
-                                marginBottom: 10,
-                            }}>
-                                {/* <FontAwesome5 name={item.icon} size={24} color="#8753A2" /> */}
-                                <Image source={item.image} style={{ width: 40, height: 40 }} />
-                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
+                            <View key={item.id} style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}>
+                                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
+                                    <Image source={item.image} style={{ width: 32, height: 32 }} />
+                                </View>
+                                <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
                             </View>
                         ))}
                     </View>

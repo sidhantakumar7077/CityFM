@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native'
 import Modal from 'react-native-modal';
 
@@ -12,16 +14,6 @@ const nitiTimings = [
     { name: 'Beshalagi', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
     { name: 'Bada Singhara Besha', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
 ];
-
-// Function to determine the color based on status
-const getStatusColor = (status) => {
-    switch (status) {
-        case 'Completed': return '#4B7100';
-        case 'Running': return '#E99C00';
-        case 'Upcoming': return '#999';
-        default: return '#999';
-    }
-};
 
 const Index = () => {
 
@@ -84,34 +76,115 @@ const Index = () => {
                     </View>
                 </View>
                 {/* Niti List */}
-                <FlatList
-                    data={nitiTimings}
-                    scrollEnabled={false}
-                    keyExtractor={(item) => item.name}
-                    renderItem={({ item }) => {
-                        const statusColor = getStatusColor(item.status);
-                        return (
-                            <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.nitiItem}>
-                                {/* Status Indicator */}
-                                <View style={[styles.statusIndicator, { backgroundColor: statusColor }]} />
+                <View style={{ marginTop: 20 }}>
+                    <FlatList
+                        data={nitiTimings}
+                        keyExtractor={(item, index) => index.toString()}
+                        scrollEnabled={false}
+                        renderItem={({ item, index }) => {
+                            const isLast = index === nitiTimings.length - 1;
+                            const isCompleted = item.status === 'Completed';
+                            const isRunning = item.status === 'Running';
+                            const isUpcoming = item.status === 'Upcoming';
 
-                                {/* Niti Details */}
-                                <View style={styles.nitiDetails}>
-                                    <Text style={[styles.nitiName, { color: statusColor }]}>{item.name}</Text>
-                                    <Text style={styles.nitiTime}>
-                                        <Text style={styles.nitiStatus}>{item.status} </Text>
-                                        {item.relativeTime} at {item.time}
-                                    </Text>
+                            const getIcon = () => {
+                                if (isCompleted) {
+                                    return <Feather name="check-circle" size={20} color="#999" />;
+                                }
+                                if (isRunning) {
+                                    return (
+                                        <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
+                                            <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
+                                        </View>
+                                    );
+                                }
+                                return (
+                                    <TouchableOpacity>
+                                        <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                    </TouchableOpacity>
+                                );
+                            };
+
+                            const getColor = () => {
+                                if (isCompleted) return '#341551'; // purple
+                                if (isRunning) return '#059629'; // green
+                                return '#C5C5C5'; // grey
+                            };
+
+                            return (
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 15 }}>
+                                    {/* Left Indicator */}
+                                    <View style={{ alignItems: 'center', width: 40 }}>
+                                        {/* Line above */}
+                                        {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
+
+                                        {/* Number Circle */}
+                                        <View
+                                            style={{
+                                                height: 24,
+                                                width: 24,
+                                                borderRadius: 12,
+                                                borderWidth: 2,
+                                                borderColor: getColor(),
+                                                backgroundColor:
+                                                    isCompleted ? '#341551' :
+                                                        isRunning ? '#059629' :
+                                                            '#C5C5C5',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            {isCompleted ? (
+                                                <MaterialIcons name="check" size={14} color="white" />
+                                            ) : (
+                                                <Text style={{ fontSize: 12, color: 'white', fontWeight: 'bold' }}>
+                                                    {index + 1}
+                                                </Text>
+                                            )}
+                                        </View>
+
+                                        {/* Line below */}
+                                        {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
+                                    </View>
+
+                                    {/* Right Content */}
+                                    <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
+                                        <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{item.time}</Text>
+                                        <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
+
+                                        {isCompleted && (
+                                            <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
+                                                Completed at {item.time}
+                                            </Text>
+                                        )}
+
+                                        {isRunning && (
+                                            <>
+                                                <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
+                                                    Running since {item.time}
+                                                </Text>
+                                                <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
+                                                    Tentative End: 3:50 PM
+                                                </Text>
+                                            </>
+                                        )}
+
+                                        {isUpcoming && (
+                                            <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
+                                                Starts at {item.time}
+                                            </Text>
+                                        )}
+                                    </View>
+
+                                    {/* Right-side icon */}
+                                    <View style={{ marginTop: 5 }}>
+                                        {getIcon()}
+                                    </View>
                                 </View>
-
-                                {/* Bell Icon for Upcoming Niti Only */}
-                                {item.status === 'Upcoming' && (
-                                    <MaterialIcons name="notifications-none" size={20} color="#999" />
-                                )}
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
+                            );
+                        }}
+                    />
+                </View>
                 <View style={{ height: 400 }} />
             </ScrollView>
 

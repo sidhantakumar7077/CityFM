@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView } from "react-native";
+import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal } from "react-native";
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
-import { Calendar } from 'react-native-calendars';
+// import { Calendar } from 'react-native-calendars';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Octicons from "react-native-vector-icons/Octicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import Swiper from 'react-native-swiper';
 
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
@@ -21,6 +24,19 @@ const Index = () => {
         { title: 'MahaPrashad', icon: 'food-apple', color: '#E9A93F' },
         { title: 'Panji', icon: 'calendar-month', color: '#92C362' },
         { title: 'Offering', icon: 'gift', color: '#87B5D8' },
+    ];
+
+    const bannerData = [
+        {
+            image: require('../../assets/image/SplashLogo.png'),
+            title: 'Get the latest updates',
+            subtitle: 'Subscribe to our newsletter',
+        },
+        {
+            image: require('../../assets/image/SplashLogo.png'),
+            title: 'Exclusive Offers',
+            subtitle: 'Don’t miss out on discounts',
+        },
     ];
 
     const nearByTemple = [
@@ -62,36 +78,46 @@ const Index = () => {
     ];
 
     const conveniences = [
-        { id: '1', icon: 'tint', label: 'Drinking Water', page: 'DrinkingWater' },
-        { id: '2', icon: 'phone-alt', label: 'Emergency Contact', page: '' },
-        { id: '3', icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen', page: '' },
-        { id: '6', icon: 'search', label: 'Lost & Found', page: '' },
-        { id: '7', icon: 'toilet', label: 'Toilet', page: 'Toilet' },
-        { id: '8', icon: 'umbrella-beach', label: 'Beaches', page: 'Beaches' },
-        { id: '9', icon: 'life-ring', label: 'Life Guard Booth', page: 'LifeGuardBooth' },
-        { id: '11', icon: 'gas-pump', label: 'Petrol Pump', page: 'PetrolPump' },
-        { id: '12', icon: 'hotel', label: 'Hotel/Dharmashala', page: 'Dharmashala' },
-        { id: '13', icon: 'utensils', label: 'Restaurant', page: 'Restaurant' },
-        { id: '14', icon: 'bus', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop' },
-        { id: '15', icon: 'layer-group', label: 'ATM', page: 'Atm' },
-        { id: '4', icon: 'map-marked-alt', label: 'Route Map', page: '' },
-        { id: '5', icon: 'utensils', label: 'Free Food', page: 'FreeFood' },
-        { id: '10', icon: 'charging-station', label: 'Charging Station', page: 'ChargingStation' },
+        { id: '3', iconType: FontAwesome5, icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen', page: '' },
+        { id: '2', iconType: FontAwesome5, icon: 'phone-alt', label: 'Emergency Contact', page: '' },
+        { id: '9', iconType: FontAwesome5, icon: 'life-ring', label: 'Life Guard    Contacts', page: 'LifeGuardBooth' },
+        { id: '6', iconType: FontAwesome5, icon: 'search', label: 'Lost & Found', page: '' },
+        { id: '1', iconType: FontAwesome5, icon: 'tint', label: 'Drinking Water', page: 'DrinkingWater' },
+        { id: '7', iconType: FontAwesome5, icon: 'toilet', label: 'Toilet', page: 'Toilet' },
+        { id: '12', iconType: FontAwesome5, icon: 'hotel', label: 'Hotel', page: 'Dharmashala' },
+        { id: '13', iconType: FontAwesome5, icon: 'utensils', label: 'Restaurant', page: 'Restaurant' },
+        { id: '8', iconType: FontAwesome5, icon: 'umbrella-beach', label: 'Beaches', page: 'Beaches' },
+        { id: '5', iconType: FontAwesome, icon: 'hotel', label: 'Dharmashala', page: 'Dharmashala' },
+        { id: '15', iconType: FontAwesome5, icon: 'layer-group', label: 'ATM', page: 'Atm' },
+        { id: '4', iconType: FontAwesome5, icon: 'map-marked-alt', label: 'Route Map', page: '' },
+        { id: '11', iconType: FontAwesome5, icon: 'gas-pump', label: 'Petrol Pump', page: 'PetrolPump' },
+        { id: '14', iconType: FontAwesome5, icon: 'bus', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop' },
+        { id: '10', iconType: FontAwesome5, icon: 'charging-station', label: 'Charging Station', page: 'ChargingStation' },
     ];
 
+    const emergencyContacts = [
+        { name: 'Police', phone: '100' },
+        { name: 'Ambulance', phone: '108' },
+        { name: 'Fire Service', phone: '101' },
+        { name: 'Women Helpline', phone: '1091' },
+    ];
+
+    const [emergencyModalVisible, setEmergencyModalVisible] = useState(false);
+    const handleCall = (phoneNumber) => {
+        Linking.openURL(`tel:${phoneNumber}`);
+    };
+
     const templeInfo = [
-        { id: '1', image: require('../../assets/image/temple_about.png'), label: 'About Temple' },
-        // { id: '2', image: require('../../assets/image/history.png'), label: 'History' },
-        { id: '3', image: require('../../assets/image/shreekhetra.png'), label: 'Shree Khetra' },
-        { id: '12', image: require('../../assets/image/ratha_yatra.png'), label: 'Ratha yatra' },
-        { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
-        { id: '4', image: require('../../assets/image/mathha.png'), label: 'Matha & Ashram' },
+        { id: '1', image: require('../../assets/image/shreemandira.png'), label: 'Shree Mandira' },
+        { id: '2', image: require('../../assets/image/shreekhetra.png'), label: 'Shree Khetra' },
+        { id: '3', image: require('../../assets/image/tradition.png'), label: 'Tradition' },
+        { id: '12', image: require('../../assets/image/rathaYatra.png'), label: 'Ratha yatra' },
+        // { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
+        { id: '4', image: require('../../assets/image/matha22.png'), label: 'Matha & Ashram' },
         { id: '5', image: require('../../assets/image/festival.png'), label: 'Festivals' },
-        { id: '6', image: require('../../assets/image/nijoga.png'), label: '36 Nijoga' },
+        { id: '6', image: require('../../assets/image/36nijog.png'), label: '36 Nijoga' },
         { id: '7', image: require('../../assets/image/besha.png'), label: 'Besha' },
-        { id: '8', image: require('../../assets/image/darshan.png'), label: 'Darshan Facility' },
-        // { id: '9', image: require('../../assets/image/temple_about.png'), label: 'Donation' },
-        // { id: '10', image: require('../../assets/image/temple_about.png'), label: 'Hundi Collection' },
+        { id: '8', image: require('../../assets/image/people.png'), label: 'Management' },
     ];
 
     const eventTypes = [
@@ -114,7 +140,7 @@ const Index = () => {
 
     const navigation = useNavigation();
     const isFocused = useIsFocused();
-    const [selectedDate, setSelectedDate] = useState('');
+    // const [selectedDate, setSelectedDate] = useState('');
     const [active, setActive] = useState('World Wide');
 
     const [expanded, setExpanded] = useState(false);
@@ -383,12 +409,23 @@ const Index = () => {
 
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 20 }}>
                         {(expanded ? conveniences : conveniences.slice(0, maxVisibleItems)).map((item) => (
-                            <TouchableOpacity key={item.id} onPress={() => item.page !== '' && navigation.navigate(item.page)} style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}>
+                            <TouchableOpacity
+                                key={item.id}
+                                onPress={() => {
+                                    if (item.page !== '') {
+                                        navigation.navigate(item.page);
+                                    } else if (item.label === 'Emergency Contact') {
+                                        setEmergencyModalVisible(true);
+                                    }
+                                }}
+                                style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}
+                            >
                                 <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-                                    <FontAwesome5 name={item.icon} size={24} color="#D64C64" />
+                                    <item.iconType name={item.icon} size={24} color="#D64C64" />
                                 </View>
                                 <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
                             </TouchableOpacity>
+
                         ))}
                     </View>
 
@@ -399,9 +436,64 @@ const Index = () => {
                     )}
                 </View>
 
+                {/* Emergency Contact */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={emergencyModalVisible}
+                    onRequestClose={() => setEmergencyModalVisible(false)}
+                >
+                    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 16, paddingVertical: 25, paddingHorizontal: 20, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10, elevation: 10, alignItems: 'center' }}>
+                            <MaterialIcons name="local-phone" size={40} color="#D64C64" style={{ marginBottom: 10 }} />
+                            <Text style={{ fontSize: 20, fontWeight: '700', color: '#341551', marginBottom: 15 }}>Emergency Contacts</Text>
+
+                            {emergencyContacts.map((contact, index) => (
+                                <TouchableOpacity key={index} onPress={() => handleCall(contact.phone)} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingVertical: 12, borderBottomWidth: index !== emergencyContacts.length - 1 ? 1 : 0, borderBottomColor: '#eee' }}>
+                                    <View>
+                                        <Text style={{ fontSize: 16, fontWeight: '500', color: '#333' }}>{contact.name}</Text>
+                                        <Text style={{ fontSize: 14, color: '#999' }}>{contact.phone}</Text>
+                                    </View>
+                                    <MaterialIcons name="call" size={24} color="#D64C64" />
+                                </TouchableOpacity>
+                            ))}
+
+                            <TouchableOpacity onPress={() => setEmergencyModalVisible(false)} style={{ marginTop: 20, backgroundColor: '#D64C64', paddingHorizontal: 30, paddingVertical: 10, borderRadius: 25 }}>
+                                <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600' }}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+                {/* Banner Section */}
+                <View style={{ height: 150, marginTop: 10 }}>
+                    <Swiper
+                        autoplay
+                        autoplayTimeout={4}
+                        showsPagination={false}
+                        dotColor="#999"
+                        activeDotColor="#341551"
+                        containerStyle={{ borderRadius: 10 }}
+                    >
+                        {bannerData.map((item, index) => (
+                            <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={{ width: '70%' }}>
+                                    <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
+                                    <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
+                                    <TouchableOpacity style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>Subscribe</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: '30%', alignItems: 'flex-end' }}>
+                                    <Image source={item.image} style={{ width: 85, height: 85 }} resizeMode="contain" />
+                                </View>
+                            </View>
+                        ))}
+                    </Swiper>
+                </View>
+
                 {/* Calendar Section */}
-                <View>
-                    {/* Title */}
+                {/* <View>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Panji & Calendar</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
@@ -432,7 +524,6 @@ const Index = () => {
                                 textDayHeaderFontSize: 14,
                             }}
                         />
-                        {/* Calendar Event Section */}
                         <View style={styles.eventContainer}>
                             <Text style={styles.eventTitle}>Event's</Text>
                             <FlatList
@@ -449,20 +540,20 @@ const Index = () => {
                             />
                         </View>
                     </ImageBackground>
-                </View>
+                </View> */}
 
                 {/* About Temple */}
-                <View style={{ padding: 15 }}>
+                <View style={{ padding: 15, marginTop: 10 }}>
                     {/* Title */}
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Temple Information</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
 
                     {/* Grid Layout */}
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 6 }}>
                         {templeInfo.map((item) => (
                             <View key={item.id} style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}>
                                 <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-                                    <Image source={item.image} style={{ width: 32, height: 32 }} />
+                                    <Image source={item.image} style={{ width: 40, height: 40, resizeMode: 'contain' }} />
                                 </View>
                                 <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
                             </View>
@@ -503,13 +594,19 @@ const Index = () => {
                         </View>
                     </View>
                     {active === 'World Wide' && (
-                        <Image source={require('../../assets/image/world1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                        <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
+                            <Image source={require('../../assets/image/world1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     )}
                     {active === 'India' && (
-                        <Image source={require('../../assets/image/india1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                        <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
+                            <Image source={require('../../assets/image/india1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     )}
                     {active === 'Odisha' && (
-                        <Image source={require('../../assets/image/odisha1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                        <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
+                            <Image source={require('../../assets/image/odisha1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     )}
                 </View>
 

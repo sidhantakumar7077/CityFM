@@ -215,6 +215,15 @@ const Index = () => {
                         <Text style={{ fontSize: 17, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Offerings Available On The Selected Date</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
                     </View>
+                    <View style={styles.smallCell1}>
+                        <View style={{ width: '70%' }}>
+                            <Text style={{ color: '#000', fontSize: 16, fontFamily: "FiraSans-SemiBold", }}>Neta</Text>
+                            <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>The scheduled time of this rituals is 6 am. But as soon as  when the Magal aalati is completed then Mailama will be done.</Text>
+                        </View>
+                        <TouchableOpacity onPress={() => navigation.navigate('OfferingMenu')} style={{ backgroundColor: '#341551', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, position: 'absolute', right: 10, bottom: 10 }}>
+                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Offer Now</Text>
+                        </TouchableOpacity>
+                    </View>
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         scrollEnabled={false}
@@ -225,16 +234,16 @@ const Index = () => {
                                 <View style={styles.smallCell1}>
                                     <View style={{ width: '70%' }}>
                                         <Text style={{ color: '#000', fontSize: 16, fontFamily: "FiraSans-SemiBold", }}><Text style={{ fontSize: 15 }}>Niti Name: </Text>{niti.item.name}</Text>
-                                        <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", }}>Niti Time : {niti.item.time}</Text>
+                                        <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", }}>Offering : Bastra</Text>
                                         {niti.item.desc &&
                                             <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>{niti.item.desc}</Text>
                                         }
-                                        {niti.item.itemHeading && niti.item.itemList &&
+                                        {/* {niti.item.itemHeading && niti.item.itemList &&
                                             <>
                                                 <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", marginTop: 10 }}>{niti.item.itemHeading}</Text>
                                                 <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>{niti.item.itemList}</Text>
                                             </>
-                                        }
+                                        } */}
                                     </View>
                                     <TouchableOpacity onPress={() => navigation.navigate('OfferingMenu')} style={{ backgroundColor: '#341551', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, position: 'absolute', right: 10, bottom: 10 }}>
                                         <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Offer Now</Text>

@@ -45,6 +45,7 @@ import OfferingMenu from './src/Screen/OfferingMenu/Index'
 import OfferingForm from './src/Screen/OfferingForm/Index'
 import OfferingSubmitPage from './src/Screen/OfferingSubmitPage/Index'
 import Panji from './src/Screen/Panji/Index'
+import TempleWorldWide from './src/Screen/TempleWorldWide/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -116,6 +117,7 @@ const App = () => {
             <Stack.Screen name="OfferingForm" component={OfferingForm} />
             <Stack.Screen name="OfferingSubmitPage" component={OfferingSubmitPage} />
             <Stack.Screen name="Panji" component={Panji} />
+            <Stack.Screen name="TempleWorldWide" component={TempleWorldWide} />
           </>
         )}
       </Stack.Navigator>

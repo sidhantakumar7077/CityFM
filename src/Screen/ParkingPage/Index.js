@@ -34,6 +34,8 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const [selectedTab, setSelectedTab] = useState('TwoWheelers');
+    const filteredParkingList = selectedTab === 'TwoWheelers' ? parkingList : parkingList;
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -88,35 +90,101 @@ const Index = () => {
                         </View>
                     </View>
                 </View>
+
+                {/* Tab Section */}
+                <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, margin: 15, padding: 5 }}>
+                    <TouchableOpacity
+                        onPress={() => setSelectedTab('TwoWheelers')}
+                        style={{
+                            flex: 1,
+                            backgroundColor: selectedTab === 'TwoWheelers' ? '#4B0082' : 'transparent',
+                            borderRadius: 10,
+                            paddingVertical: 8,
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={{ color: selectedTab === 'TwoWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                            Two Wheelers
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => setSelectedTab('FourWheelers')}
+                        style={{
+                            flex: 1,
+                            backgroundColor: selectedTab === 'FourWheelers' ? '#4B0082' : 'transparent',
+                            borderRadius: 10,
+                            paddingVertical: 8,
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={{ color: selectedTab === 'FourWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                            Four Wheelers
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
                 {/* Parking List */}
                 <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={parkingList}
+                    data={filteredParkingList}
+                    keyExtractor={(item) => item.id}
                     scrollEnabled={false}
-                    numColumns={2}
-                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
-                    keyExtractor={(key) => {
-                        return key.id
-                    }}
-                    renderItem={(park) => {
-                        return (
-                            <TouchableOpacity onPress={() => openMap(park.item.map_url)} style={styles.mostPPlrItem}>
-                                <View style={{ width: '100%', height: 110, borderRadius: 10 }}>
-                                    <Image source={{ uri: park.item.image }} style={styles.mostPPImage} />
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() => openMap(item.map_url)}
+                            style={{
+                                width: '100%',
+                                height: 130,
+                                flexDirection: 'row',
+                                // alignItems: 'center',
+                                justifyContent: 'space-between',
+                                paddingVertical: 12,
+                                paddingHorizontal: 15,
+                                borderBottomWidth: 1,
+                                borderBottomColor: '#eee',
+                            }}
+                        >
+                            <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
+                                {/* <Image source={{ uri: item.image }} style={{ width: 60, height: 60, borderRadius: 8, backgroundColor: '#eee', marginRight: 12 }}> */}
+                            </View>
+
+                            {/* Text Content */}
+                            <View style={{ width: '55%', justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
+                                    {item.parking_name}
+                                </Text>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    <MaterialIcons name="location-on" size={14} color="#999" />
+                                    <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
+                                        Location Address
+                                    </Text>
                                 </View>
-                                <View style={{ backgroundColor: '#341551', paddingHorizontal: 8, paddingVertical: 5, position: 'absolute', borderRadius: 20, top: 10, left: 10 }}>
-                                        <Text style={{ fontSize: 11, color: '#fff', fontFamily: 'FiraSans-Regular' }}>1000/200</Text>
-                                    </View>
-                                <View style={{ margin: 10, width: '90%', alignItems: 'flex-start', justifyContent: 'center' }}>
-                                    <View style={{ width: '100%' }}>
-                                        <Text style={{ color: '#000', fontSize: 15, fontFamily: 'FiraSans-Regular', textTransform: 'capitalize' }}>{park.item.parking_name}</Text>
-                                    </View>
-                                    <Text style={{ color: 'gray', fontSize: 12, fontFamily: 'FiraSans-Regular', textTransform: 'capitalize' }}>{park.item.parking_address.length > 40 ? `${park.item.parking_address.substring(0, 40)}...` : park.item.parking_address}</Text>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    <MaterialIcons name="access-time" size={13} color="#999" />
+                                    <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
+                                        24/7
+                                    </Text>
                                 </View>
-                            </TouchableOpacity>
-                        )
-                    }}
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    <FontAwesome5 name="parking" size={13} color={item.id === '1' ? '#28a745' : '#D64C64'} />
+                                    <Text
+                                        style={{
+                                            fontSize: 13,
+                                            marginLeft: 4,
+                                            fontFamily: 'FiraSans-Regular',
+                                            color: item.id === '1' ? '#28a745' : '#D64C64',
+                                        }}
+                                    >
+                                        {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    )}
                 />
+
                 <View style={{ height: 500 }} />
             </ScrollView>
         </View>

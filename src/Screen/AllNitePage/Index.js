@@ -10,8 +10,8 @@ import Modal from 'react-native-modal';
 const nitiTimings = [
     { name: 'Dwara Phita', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
     { name: 'Mangala Alati', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
-    { name: 'Mailama', status: 'Running', time: '08:15 AM', relativeTime: '3 hours ago' },
-    { name: 'Beshalagi', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
+    { name: 'Mailama', status: 'Completed', time: '08:15 AM', relativeTime: '3 hours ago' },
+    { name: 'Beshalagi', status: 'Running', time: '11:10 AM', relativeTime: '1 hour ago' },
     { name: 'Bada Singhara Besha', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
 ];
 
@@ -116,7 +116,7 @@ const Index = () => {
                                     {/* Left Indicator */}
                                     <View style={{ alignItems: 'center', width: 40 }}>
                                         {/* Line above */}
-                                        {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
+                                        {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
 
                                         {/* Number Circle */}
                                         <View

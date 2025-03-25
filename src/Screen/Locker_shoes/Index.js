@@ -119,42 +119,69 @@ const Index = () => {
                         </View>
                     </View>
                 </View>
+
                 {/* Main Locker & Shoes Stands */}
                 <FlatList
-                    showsVerticalScrollIndicator={false}
                     data={mainLockerShoesStand}
+                    keyExtractor={(item) => item.id}
                     scrollEnabled={false}
-                    numColumns={2}
-                    contentContainerStyle={{ width: '95%', alignSelf: 'center', marginTop: 8 }}
-                    keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => openMap(item.map_url)} style={{ width: '48%', margin: '1%', backgroundColor: '#fff', borderRadius: 12, padding: 10, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5, elevation: 3 }}>
-                            <Image source={{ uri: item.image }} style={styles.lockerImage} />
-                            <View style={{ marginTop: 10 }}>
-                                <Text style={{ color: '#000', fontSize: 15, fontFamily: 'FiraSans-Regular' }}>{item.locker_name}</Text>
-                                <Text style={{ color: '#666', fontSize: 12, fontFamily: 'FiraSans-Regular' }}>
-                                    {item.locker_address.length > 25 ? `${item.locker_address.substring(0, 25)}...` : item.locker_address}
+                        <TouchableOpacity
+                            onPress={() => openMap(item.map_url)}
+                            style={{
+                                width: '100%',
+                                height: 130,
+                                flexDirection: 'row',
+                                // alignItems: 'center',
+                                justifyContent: 'space-between',
+                                paddingVertical: 12,
+                                paddingHorizontal: 15,
+                                borderBottomWidth: 1,
+                                borderBottomColor: '#eee',
+                            }}
+                        >
+                            <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
+                                {/* <Image source={{ uri: item.image }} style={{ width: 60, height: 60, borderRadius: 8, backgroundColor: '#eee', marginRight: 12 }}> */}
+                            </View>
+
+                            {/* Text Content */}
+                            <View style={{ width: '55%', justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
+                                    {item.locker_name}
                                 </Text>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    <MaterialIcons name="location-on" size={14} color="#999" />
+                                    <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
+                                        Location Address
+                                    </Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    <MaterialIcons name="access-time" size={13} color="#999" />
+                                    <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
+                                        24/7
+                                    </Text>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    <FontAwesome5 name="parking" size={13} color={item.id === '1' ? '#28a745' : '#D64C64'} />
+                                    <Text
+                                        style={{
+                                            fontSize: 13,
+                                            marginLeft: 4,
+                                            fontFamily: 'FiraSans-Regular',
+                                            color: item.id === '1' ? '#28a745' : '#D64C64',
+                                        }}
+                                    >
+                                        {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
+                                    </Text>
+                                </View>
                             </View>
                         </TouchableOpacity>
                     )}
                 />
-                {/* Locker & Shoes Stands */}
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={lockerShoesStand}
-                    scrollEnabled={false}
-                    contentContainerStyle={{ width: '95%', alignSelf: 'center', marginTop: 8 }}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <View style={[styles.secondLocker, { flexDirection: 'row', justifyContent: 'space-between' }]}>
-                            <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>{item.locker_name}</Text>
-                            <TouchableOpacity onPress={() => openMap(item.map_url)} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <FontAwesome5 name="directions" size={30} color="#666" />
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                />
+
                 <View style={{ height: 100 }} />
             </ScrollView>
         </View>

@@ -133,7 +133,7 @@ const Index = () => {
                             onPress={() => openMap(item.map_url)}
                             style={{
                                 width: '100%',
-                                height: 130,
+                                height: 150,
                                 flexDirection: 'row',
                                 // alignItems: 'center',
                                 justifyContent: 'space-between',
@@ -180,6 +180,9 @@ const Index = () => {
                                         {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
                                     </Text>
                                 </View>
+                                <TouchableOpacity style={{ marginTop: 5,  borderRadius: 5, alignSelf: 'flex-start' }}>
+                                    <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-SemiBold' }}>Book Now →</Text>
+                                </TouchableOpacity>
                             </View>
                         </TouchableOpacity>
                     )}

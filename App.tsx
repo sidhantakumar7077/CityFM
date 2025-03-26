@@ -46,10 +46,11 @@ import OfferingForm from './src/Screen/OfferingForm/Index'
 import OfferingSubmitPage from './src/Screen/OfferingSubmitPage/Index'
 import Panji from './src/Screen/Panji/Index'
 import TempleWorldWide from './src/Screen/TempleWorldWide/Index'
+import Tv from './src/Screen/Tv/Index'
 
 const Stack = createNativeStackNavigator();
 
-export const base_url = "https://pandit.33crores.com/";
+export const base_url = "http://temple.mandirparikrama.com/";
 
 const App = () => {
 
@@ -118,6 +119,7 @@ const App = () => {
             <Stack.Screen name="OfferingSubmitPage" component={OfferingSubmitPage} />
             <Stack.Screen name="Panji" component={Panji} />
             <Stack.Screen name="TempleWorldWide" component={TempleWorldWide} />
+            <Stack.Screen name="Tv" component={Tv} />
           </>
         )}
       </Stack.Navigator>

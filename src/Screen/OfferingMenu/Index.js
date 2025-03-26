@@ -21,6 +21,12 @@ const images = [
     require('../../assets/image/besha_luga/cloth11.webp'),
 ];
 
+const neededItem = [
+    { id: 1, name: 'Tadapa', qty: 4 },
+    { id: 2, name: 'Uttariya', qty: 2 },
+    { id: 3, name: 'Khandua', qty: 1 },
+]
+
 const Index = () => {
 
     const scrollY = useRef(new Animated.Value(0)).current;
@@ -102,8 +108,21 @@ const Index = () => {
                             <Text style={{ color: '#000', fontSize: 16, fontFamily: "FiraSans-SemiBold", }}><Text style={{ fontSize: 15 }}>Niti Name: </Text>Mailama</Text>
                             <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", }}>Niti Time : 6 AM</Text>
                             <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>ଏହି ନୀତିର ନିର୍ଦ୍ଧାରିତ ସମୟ ପୂର୍ବାହ୍ନ ୬ ଘଟିକା | କିନ୍ତୁ ଯେଉଁଦିନ ମଙ୍ଗଳ ଆଳତି ଯେତେଶୀଘ୍ର ସାରିବ ତେତେ ଶୀଘ୍ର ମଇଲମ ହେବ |</Text>
-                            <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", marginTop: 10 }}>Items Needed</Text>
-                            <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>(୧)୪ ଖଣ୍ଡ ତଡପ, (୨) ୨ ଖଣ୍ଡ ଉତ୍ତରୀୟ, (୩)୧ ଖଣ୍ଡ ଖଣ୍ଡୁଆ </Text>
+                            {/* <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", marginTop: 10 }}>Items Needed</Text> */}
+                            {/* <Text style={{ color: '#666', fontSize: 12, marginTop: 4 }}>(୧)୪ ଖଣ୍ଡ ତଡପ, (୨) ୨ ଖଣ୍ଡ ଉତ୍ତରୀୟ, (୩)୧ ଖଣ୍ଡ ଖଣ୍ଡୁଆ </Text> */}
+                        </View>
+                    </View>
+                    <View style={styles.smallCell1}>
+                        <View style={{ width: '100%' }}>
+                            <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-SemiBold", marginBottom: 8 }}>Items Needed</Text>
+                            {neededItem.map((item, index) => (
+                                <View key={index} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                                    <View style={{ height: 20, width: 20, borderRadius: 12, borderWidth: 2, borderColor: '#341551', backgroundColor: '#341551', justifyContent: 'center', alignItems: 'center', marginRight: 10 }}>
+                                        <Text style={{ fontSize: 10, color: 'white', fontWeight: 'bold' }}>{index + 1}</Text>
+                                    </View>
+                                    <Text style={{ color: '#000', fontSize: 14, fontFamily: "FiraSans-Regular", }}>{item.qty} pcs {item.name}</Text>
+                                </View>
+                            ))}
                         </View>
                     </View>
                     <View style={{ paddingHorizontal: 15 }}>

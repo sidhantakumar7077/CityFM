@@ -13,6 +13,7 @@ import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
+import { base_url } from "../../../App";
 
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
@@ -100,6 +101,7 @@ const Index = () => {
         { name: 'Ambulance', phone: '108' },
         { name: 'Fire Service', phone: '101' },
         { name: 'Women Helpline', phone: '1091' },
+        { name: 'Life Guard', phone: '06752-222002' },
     ];
 
     const [emergencyModalVisible, setEmergencyModalVisible] = useState(false);
@@ -146,6 +148,44 @@ const Index = () => {
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
     const maxVisibleItems = 3 * itemsPerRow; // Show 3 rows initially
+
+    const [nitiList, setNitiList] = useState([]);
+    const [banners, setBanners] = useState([]);
+    const [nearbyTemples, setNearbyTemples] = useState([]);
+    const [previousAmount, setPreviousAmount] = useState(0);
+
+    const getData = async () => {
+        try {
+            const response = await fetch(`${base_url}api/get-home-section`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            console.log('Get Home Page Data:', result);
+
+            if (result.status) {
+                const { niti_master, banners, nearby_temples, totalPreviousAmount } = result.data;
+
+                setNitiList(niti_master || []);
+                setBanners(banners || []);
+                setNearbyTemples(nearby_temples || []);
+                setPreviousAmount(totalPreviousAmount || 0);
+            } else {
+                console.warn('API responded with status false:', result.message);
+            }
+
+        } catch (error) {
+            console.error('Error fetching home section data:', error);
+        }
+    };
+
+
+    useEffect(() => {
+        if (isFocused) {
+            getData();
+        }
+    }, [isFocused]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -269,7 +309,7 @@ const Index = () => {
                             </View>
                             <View style={{ backgroundColor: 'red', height: 50, width: 1.4 }} />
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                <TouchableOpacity style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 15 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 15 }}>
                                     <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" />
                                 </TouchableOpacity>
                                 <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 18, color: '#6A0DAD' }}>TV</Text>
@@ -315,7 +355,7 @@ const Index = () => {
                         </View>
                     </View>
 
-                    <View style={{ marginTop: 20, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
+                    <View style={{ marginTop: 20, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 2 }}>
                         <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
                             <View style={{ width: '20%' }}>
                                 <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
@@ -468,9 +508,10 @@ const Index = () => {
                 {/* Banner Section */}
                 <View style={{ height: 150, marginTop: 10 }}>
                     <Swiper
-                        autoplay
-                        autoplayTimeout={4}
-                        showsPagination={false}
+                        // autoplay
+                        // autoplayTimeout={4}
+                        showsPagination={true}
+                        paginationStyle={{ bottom: -7 }}
                         dotColor="#999"
                         activeDotColor="#341551"
                         containerStyle={{ borderRadius: 10 }}
@@ -565,7 +606,7 @@ const Index = () => {
                 <View style={{ padding: 15 }}>
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Jagannatha Temples Worldwide</Text>
                     <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0 }} />
-                    <View style={{ width: 250, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 10 }}>
+                    <View style={{ width: 270, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 10 }}>
                         <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             {['World Wide', 'India', 'Odisha'].map((location) => (
                                 <TouchableOpacity

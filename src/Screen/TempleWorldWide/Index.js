@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -37,6 +37,7 @@ const Index = () => {
 
     const [selectedCountry, setSelectedCountry] = useState('India');
     const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [searchText, setSearchText] = useState('');
 
     return (
         <View style={styles.container}>
@@ -121,20 +122,47 @@ const Index = () => {
 
                     {dropdownVisible && (
                         <View style={{ marginTop: 10 }}>
-                            {countries.map((country) => (
-                                <TouchableOpacity
-                                    key={country}
-                                    onPress={() => {
-                                        setSelectedCountry(country);
-                                        setDropdownVisible(false);
+                            {/* Search Input */}
+                            <View style={{
+                                backgroundColor: '#f3f3f3',
+                                paddingHorizontal: 10,
+                                paddingVertical: 6,
+                                borderRadius: 6,
+                                marginBottom: 10,
+                            }}>
+                                <TextInput
+                                    placeholder="Search Country..."
+                                    value={searchText}
+                                    onChangeText={setSearchText}
+                                    style={{
+                                        fontSize: 14,
+                                        color: '#333',
+                                        fontFamily: 'FiraSans-Regular'
                                     }}
-                                    style={{ paddingVertical: 6 }}
-                                >
-                                    <Text style={{ fontSize: 14, color: '#555', fontFamily: 'FiraSans-Regular' }}>{country}</Text>
-                                </TouchableOpacity>
-                            ))}
+                                    placeholderTextColor="#aaa"
+                                />
+                            </View>
+
+                            {/* Filtered Country List */}
+                            {countries
+                                .filter((country) => country.toLowerCase().includes(searchText.toLowerCase()))
+                                .map((country) => (
+                                    <TouchableOpacity
+                                        key={country}
+                                        onPress={() => {
+                                            setSelectedCountry(country);
+                                            setDropdownVisible(false);
+                                            setSearchText('');
+                                        }}
+                                        style={{ paddingVertical: 6 }}
+                                    >
+                                        <Text style={{ fontSize: 14, color: '#555', fontFamily: 'FiraSans-Regular' }}>{country}</Text>
+                                    </TouchableOpacity>
+                                ))
+                            }
                         </View>
                     )}
+
                 </View>
 
                 {/* Temples Listing */}
@@ -168,7 +196,6 @@ const Index = () => {
                     ))}
                 </View>
             </ScrollView>
-
         </View>
     )
 }

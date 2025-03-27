@@ -2,38 +2,57 @@ import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+// import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 const parkingList = [
     {
         id: '1',
         parking_name: 'Purushottam Bhakta Nivas',
-        parking_address: 'Near Old Jail , Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
+        parking_address: 'Near Old Jail, Puri',
+        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6',
+        images: [
+            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
+        ]
     },
     {
         id: '2',
         parking_name: 'Neeladri Bhakta Nivas',
         parking_address: 'Near Town Police Station, Grand Road, Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
+        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49',
+        images: [
+            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
+        ]
     },
     {
         id: '3',
         parking_name: 'Nilachala Bhakta And Yatri Nivas',
         parking_address: 'In front of Town Police Station, Grand Road, Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
+        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6',
+        images: [
+            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
+        ]
     },
     {
         id: '4',
         parking_name: 'Shree Gundicha Bhakta Nivas',
         parking_address: 'Near Shree Gundicha Temple, Grand Road, Puri',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
-    },
+        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49',
+        images: [
+            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg'
+        ]
+    }
 ];
 
 const Index = () => {
@@ -55,6 +74,21 @@ const Index = () => {
 
     const openMap = (url) => {
         Linking.openURL(url);
+    };
+
+    const [selectedImages, setSelectedImages] = useState(() => {
+        const initialState = {};
+        parkingList.forEach(item => {
+            initialState[item.id] = item.images[0];
+        });
+        return initialState;
+    });
+
+    const handleImageSelect = (nibasId, imageUri) => {
+        setSelectedImages(prev => ({
+            ...prev,
+            [nibasId]: imageUri
+        }));
     };
 
     return (
@@ -95,44 +129,81 @@ const Index = () => {
                         </View>
                     </View>
                 </View>
-                {/* Parking List */}
+                {/* Nibas List */}
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={parkingList}
                     scrollEnabled={false}
-                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
+                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 15, marginTop: 10 }}
                     keyExtractor={(key) => {
                         return key.id
                     }}
-                    renderItem={({ item }) => {
+                    renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibasDetails')} style={styles.bhaktanibasbox}>
-                                {/* Image Section */}
-                                <Image source={{ uri: item.image }} style={styles.bhaktanibasImage} />
+                            <View>
+                                {/* Property Name */}
+                                <Text style={styles.propertyName}>{item.parking_name}</Text>
 
-                                {/* Details Section */}
-                                <View style={{ padding: 10 }}>
-                                    <Text style={{ color: '#000', fontSize: 16, fontFamily: 'FiraSans-Regular' }}>{item.parking_name}</Text>
-
-                                    {/* Address */}
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                        <MaterialIcons name="location-on" size={18} color="#555" />
-                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5, fontFamily: 'FiraSans-Regular' }}>{item.parking_address}</Text>
-                                    </View>
-
-                                    {/* Email */}
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                        <MaterialIcons name="email" size={16} color="#555" />
-                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5, fontFamily: 'FiraSans-Regular' }}>Demo@gmail.com</Text>
-                                    </View>
-
-                                    {/* Phone */}
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                        <FontAwesome name="phone" size={16} color="#555" />
-                                        <Text style={{ color: '#555', fontSize: 13, marginLeft: 5, fontFamily: 'FiraSans-Regular' }}>+91 9876543210</Text>
+                                {/* Main Large Image */}
+                                <View>
+                                    <Image source={{ uri: selectedImages[item.id] }} style={styles.mainImage} />
+                                    <View style={styles.view360Badge}>
+                                        <Text style={styles.view360Text}>360°</Text>
                                     </View>
                                 </View>
-                            </TouchableOpacity>
+
+                                {/* Thumbnail Scroll Section */}
+                                <FlatList
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+                                    data={item.images}
+                                    keyExtractor={(uri, index) => index.toString()}
+                                    contentContainerStyle={{ marginBottom: 8, marginTop: 4 }}
+                                    renderItem={({ item: thumb }) => (
+                                        <TouchableOpacity onPress={() => handleImageSelect(item.id, thumb)}>
+                                            <Image
+                                                source={{ uri: thumb }}
+                                                style={[
+                                                    styles.thumbnail,
+                                                    selectedImages[item.id] === thumb && styles.selectedThumbnail
+                                                ]}
+                                            />
+                                        </TouchableOpacity>
+                                    )}
+                                />
+
+                                {/* Distance Row */}
+                                <View style={styles.distanceRow}>
+                                    <MaterialIcons name="location-on" size={16} color="#7e22ce" />
+                                    <Text style={styles.distanceText}>
+                                        2 KM from Puri Temple, 3.2 Kms from Puri Beach
+                                    </Text>
+                                </View>
+
+                                {/* Offers & Address */}
+                                <View style={styles.infoRow}>
+                                    <View style={styles.infoColumn}>
+                                        <Text style={styles.label}>Property Offers:</Text>
+                                        <Text style={styles.value}>Breakfast/Lunch/Dinner{"\n"}AC Rooms</Text>
+                                    </View>
+                                    <View style={styles.infoColumn}>
+                                        <Text style={styles.label}>Location Address:</Text>
+                                        <Text style={styles.value}>Jail Road, Main Road{"\n"}New Traffic Circle</Text>
+                                    </View>
+                                </View>
+
+                                {/* Buttons */}
+                                <View style={styles.buttonRow}>
+                                    <TouchableOpacity style={styles.bookNowButton}>
+                                        <Text style={styles.bookNowText}>Book Now</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.callButton}>
+                                        <Text style={styles.callText}>📞 123456789</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                                {index !== parkingList.length - 1 && <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginVertical: 20 }} />}
+                            </View>
                         )
                     }}
                 />
@@ -195,24 +266,110 @@ const styles = StyleSheet.create({
         backgroundColor: '#4B7100',
     },
     /* List Styles */
-    bhaktanibasbox: {
-        backgroundColor: '#fff',
-        width: '95%',
-        alignSelf: 'center',
-        borderRadius: 12,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        elevation: 3,
-        marginBottom: 15,
-        overflow: 'hidden',
-        padding: 10
+    propertyName: {
+        fontSize: 16,
+        color: '#000',
+        fontFamily: 'FiraSans-Bold',
+        marginBottom: 8,
     },
-    bhaktanibasImage: {
-        height: 140,
+    mainImage: {
         width: '100%',
+        height: 166,
         resizeMode: 'cover',
-        borderRadius: 10
+        borderRadius: 6,
     },
+    view360Badge: {
+        position: 'absolute',
+        top: 7,
+        right: 7,
+        backgroundColor: '#fff',
+        width: 45,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: '#ccc'
+    },
+    view360Text: {
+        fontSize: 12,
+        color: '#f43f5e',
+        fontWeight: 'bold'
+    },
+    thumbnail: {
+        width: 60,
+        height: 60,
+        borderRadius: 4,
+        marginRight: 10,
+        borderWidth: 1,
+        borderColor: '#ddd'
+    },
+    selectedThumbnail: {
+        borderColor: '#7e22ce',
+        borderWidth: 2
+    },
+    distanceRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 4,
+    },
+    distanceText: {
+        fontSize: 13,
+        color: '#7e22ce',
+        marginLeft: 5,
+        fontFamily: 'FiraSans-Regular'
+    },
+    infoRow: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10
+    },
+    infoColumn: {
+        // flex: 1,
+        // paddingRight: 10
+    },
+    label: {
+        fontSize: 12,
+        color: '#000',
+        fontFamily: 'FiraSans-SemiBold'
+    },
+    value: {
+        fontSize: 12,
+        color: '#444',
+        marginTop: 2,
+        lineHeight: 19,
+        fontFamily: 'FiraSans-Regular'
+    },
+    buttonRow: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 12,
+    },
+    bookNowButton: {
+        backgroundColor: '#7e22ce',
+        borderRadius: 6,
+        paddingVertical: 8,
+        paddingHorizontal: 20
+    },
+    bookNowText: {
+        color: '#fff',
+        fontSize: 13,
+        fontWeight: '600'
+    },
+    callButton: {
+        // backgroundColor: '#f1f1f1',
+        borderWidth: 1,
+        borderColor: '#b8b8b8',
+        borderRadius: 6,
+        paddingVertical: 8,
+        paddingHorizontal: 12
+    },
+    callText: {
+        fontSize: 13,
+        color: '#000',
+        fontWeight: '600'
+    }
 });

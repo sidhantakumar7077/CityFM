@@ -34,7 +34,7 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
-    const [selectedTab, setSelectedTab] = useState('TwoWheelers');
+    const [selectedTab, setSelectedTab] = useState('FourWheelers');
     const filteredParkingList = selectedTab === 'TwoWheelers' ? parkingList : parkingList;
 
     const handleScroll = Animated.event(
@@ -94,20 +94,6 @@ const Index = () => {
                 {/* Tab Section */}
                 <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, margin: 15, padding: 5 }}>
                     <TouchableOpacity
-                        onPress={() => setSelectedTab('TwoWheelers')}
-                        style={{
-                            flex: 1,
-                            backgroundColor: selectedTab === 'TwoWheelers' ? '#4B0082' : 'transparent',
-                            borderRadius: 10,
-                            paddingVertical: 8,
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Text style={{ color: selectedTab === 'TwoWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
-                            Two Wheelers
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
                         onPress={() => setSelectedTab('FourWheelers')}
                         style={{
                             flex: 1,
@@ -119,6 +105,20 @@ const Index = () => {
                     >
                         <Text style={{ color: selectedTab === 'FourWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
                             Four Wheelers
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => setSelectedTab('TwoWheelers')}
+                        style={{
+                            flex: 1,
+                            backgroundColor: selectedTab === 'TwoWheelers' ? '#4B0082' : 'transparent',
+                            borderRadius: 10,
+                            paddingVertical: 8,
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={{ color: selectedTab === 'TwoWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                            Two Wheelers
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -180,7 +180,7 @@ const Index = () => {
                                         {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
                                     </Text>
                                 </View>
-                                <TouchableOpacity style={{ marginTop: 5,  borderRadius: 5, alignSelf: 'flex-start' }}>
+                                <TouchableOpacity style={{ marginTop: 5, borderRadius: 5, alignSelf: 'flex-start' }}>
                                     <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-SemiBold' }}>Book Now →</Text>
                                 </TouchableOpacity>
                             </View>

@@ -83,13 +83,13 @@ const Index = () => {
         { id: '2', iconType: FontAwesome5, icon: 'phone-alt', label: 'Emergency Contact', page: '' },
         { id: '9', iconType: FontAwesome5, icon: 'life-ring', label: 'Life Guard    Contacts', page: 'LifeGuardBooth' },
         { id: '6', iconType: FontAwesome5, icon: 'search', label: 'Lost & Found', page: '' },
-        { id: '1', iconType: FontAwesome5, icon: 'tint', label: 'Drinking Water', page: 'DrinkingWater' },
+        { id: '1', iconType: MaterialCommunityIcons, icon: 'water-pump', label: 'Drinking Water', page: 'DrinkingWater' },
         { id: '7', iconType: FontAwesome5, icon: 'toilet', label: 'Toilet', page: 'Toilet' },
         { id: '12', iconType: FontAwesome5, icon: 'hotel', label: 'Hotel', page: 'Dharmashala' },
         { id: '13', iconType: FontAwesome5, icon: 'utensils', label: 'Restaurant', page: 'Restaurant' },
         { id: '8', iconType: FontAwesome5, icon: 'umbrella-beach', label: 'Beaches', page: 'Beaches' },
         { id: '5', iconType: FontAwesome, icon: 'hotel', label: 'Dharmashala', page: 'Dharmashala' },
-        { id: '15', iconType: FontAwesome5, icon: 'layer-group', label: 'ATM', page: 'Atm' },
+        { id: '15', iconType: FontAwesome5, icon: 'rupee-sign', label: 'ATM', page: 'Atm' },
         { id: '4', iconType: FontAwesome5, icon: 'map-marked-alt', label: 'Route Map', page: '' },
         { id: '11', iconType: FontAwesome5, icon: 'gas-pump', label: 'Petrol Pump', page: 'PetrolPump' },
         { id: '14', iconType: FontAwesome5, icon: 'bus', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop' },
@@ -144,6 +144,7 @@ const Index = () => {
     const isFocused = useIsFocused();
     // const [selectedDate, setSelectedDate] = useState('');
     const [active, setActive] = useState('World Wide');
+    const [selectedTab, setSelectedTab] = useState('Temples');
 
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
@@ -415,11 +416,61 @@ const Index = () => {
 
                 </View>
 
-                {/* Nearby Temple */}
+                {/* Nearby Temples */}
                 <View style={styles.nearbyContainer}>
                     {/* Title Section */}
-                    <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Nearby Temples</Text>
-                    <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
+                    <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Nearby Religious Places</Text>
+                    <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} />
+
+                    <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
+                        {/* Temples Tab */}
+                        <TouchableOpacity
+                            onPress={() => setSelectedTab('Temples')}
+                            style={{
+                                flex: 1,
+                                backgroundColor: selectedTab === 'Temples' ? '#D64C64' : 'transparent',
+                                borderRadius: 10,
+                                paddingVertical: 8,
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Text style={{ color: selectedTab === 'Temples' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                Temples
+                            </Text>
+                        </TouchableOpacity>
+
+                        {/* Mathas Tab */}
+                        <TouchableOpacity
+                            onPress={() => setSelectedTab('Mathas')}
+                            style={{
+                                flex: 1,
+                                backgroundColor: selectedTab === 'Mathas' ? '#D64C64' : 'transparent',
+                                borderRadius: 10,
+                                paddingVertical: 8,
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Text style={{ color: selectedTab === 'Mathas' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                Mathas
+                            </Text>
+                        </TouchableOpacity>
+
+                        {/* Ritual Sites Tab */}
+                        <TouchableOpacity
+                            onPress={() => setSelectedTab('RitualSites')}
+                            style={{
+                                flex: 1,
+                                backgroundColor: selectedTab === 'RitualSites' ? '#D64C64' : 'transparent',
+                                borderRadius: 10,
+                                paddingVertical: 8,
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Text style={{ color: selectedTab === 'RitualSites' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                Ritual Sites
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
 
                     <FlatList
                         showsHorizontalScrollIndicator={false}

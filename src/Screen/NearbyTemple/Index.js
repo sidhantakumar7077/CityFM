@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -142,13 +143,10 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Adi Nrusingha Temple</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>This Temple Is Dedicated To Jangya Nrusingha</Text>
-                            <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Listen</Text>
-                                <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#c9170a" />
+                            <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff', paddingVertical: 3, paddingHorizontal: 10, borderRadius: 10, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
+                                <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#fff" />
+                                <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Listen</Text>
                             </TouchableOpacity>
-                            {/* <TouchableOpacity style={styles.playButton} onPress={() => togglePlayback(allContent)}>
-                                <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={40} color="#c9170a" />
-                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
                             <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
@@ -156,36 +154,65 @@ const Index = () => {
                     </View>
                 </View>
 
-                <View style={{ flex: 1, width: '100%', alignSelf: 'center', marginTop: 10 }}>
-                    <View onPress={() => navigation.navigate('BhaktaNibasDetails')} style={styles.bhaktanibasbox}>
+                <View style={{ flex: 1, width: '100%', paddingHorizontal: 16, marginTop: 20 }}>
+                    {/* Title Row */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#431373' }}>Lingaraj Temple</Text>
+                        <View style={{ backgroundColor: '#fff0f5', paddingHorizontal: 10, paddingVertical: 2, borderRadius: 20, borderWidth: 1, borderColor: '#f43f5e' }}>
+                            <Text style={{ color: '#f43f5e', fontSize: 12, fontFamily: 'FiraSans-SemiBold' }}>360°</Text>
+                        </View>
+                    </View>
+
+                    {/* Main Image */}
+                    <View style={{ borderRadius: 12, overflow: 'hidden', marginTop: 6 }}>
                         <Swiper
                             style={{ height: 200 }}
                             showsPagination={false}
                             autoplay={true}
                             autoplayTimeout={5}
-                            activeDotColor="#ff6347"
                         >
                             {images.map((image, index) => (
-                                <Image key={index} source={{ uri: image }} style={styles.bhaktanibasImage} />
+                                <Image key={index} source={{ uri: image }} style={{ width: '100%', height: 200 }} />
                             ))}
                         </Swiper>
                     </View>
-                    <View style={[styles.bhaktanibasbox, { padding: 10 }]}>
-                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Lingaraj Temple</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Bhubaneswar, Odisha</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Contact: 1234567890</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Email: demo@gmail.com</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Address: Bhubaneswar, Odisha</Text>
+
+                    {/* Location & Direction Row */}
+                    <View style={{ backgroundColor: '#f0f0f0', borderRadius: 12, padding: 10, marginTop: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2 }}>Bhubaneswar, Odisha</Text>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, marginTop: 5 }}>Location Address</Text>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={() => openMap('https://maps.app.goo.gl/vH465ENw5tS48ZB49')} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                <Entypo name="location-pin" size={17} color="#474747" />
+                                <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2 }}>Direction</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
+                                <Ionicons name="call" size={14} color="#474747" />
+                                <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2 }}>123456789</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={[styles.bhaktanibasbox, { flexDirection: 'row', justifyContent: 'space-between', padding: 10 }]}>
-                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Direction</Text>
-                        <TouchableOpacity onPress={() => openMap('https://maps.app.goo.gl/vH465ENw5tS48ZB49')} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <FontAwesome5 name="directions" size={30} color="#666" />
-                        </TouchableOpacity>
+
+                    {/* History Section */}
+                    <View style={{ marginTop: 18 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
+                            History of the Temple
+                        </Text>
+                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+                        </Text>
                     </View>
-                    <View style={[styles.bhaktanibasbox, { padding: 10 }]}>
-                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-Regular', color: '#333', marginVertical: 5 }}>Story In This Temple</Text>
-                        <Text style={{ fontSize: 14, color: '#666', marginBottom: 5, fontFamily: 'FiraSans-Regular' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus in lectus pretium ultricies. Nullam nec purus in lectus pretium ultricies.</Text>
+
+                    {/* Highlights Section */}
+                    <View style={{ marginTop: 18 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
+                            Key Highlights
+                        </Text>
+                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus in lectus pretium ultricies...
+                        </Text>
                     </View>
                 </View>
                 <View style={{ height: 200 }}></View>

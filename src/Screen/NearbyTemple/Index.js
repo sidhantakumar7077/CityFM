@@ -158,8 +158,9 @@ const Index = () => {
                     {/* Title Row */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                         <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#431373' }}>Lingaraj Temple</Text>
-                        <View style={{ backgroundColor: '#fff0f5', paddingHorizontal: 10, paddingVertical: 2, borderRadius: 20, borderWidth: 1, borderColor: '#f43f5e' }}>
-                            <Text style={{ color: '#f43f5e', fontSize: 12, fontFamily: 'FiraSans-SemiBold' }}>360°</Text>
+                        <View style={{ }}>
+                            <Text style={{ color: '#f43f5e', fontSize: 11, fontFamily: 'FiraSans-SemiBold' }}>360°</Text>
+                            <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
                         </View>
                     </View>
 

@@ -1,30 +1,37 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
-const parkingList = [
+const mainLockerShoesStand = [
     {
         id: '1',
-        parking_name: 'Gadadhar High School',
-        parking_address: 'Gadadhar High School, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
+        locker_name: 'Barabati Kalyani Mandap',
+        locker_address: 'Barabati Kalyani Mandap, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
         map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
     },
     {
         id: '2',
-        parking_name: 'Barabati Kalyani Mandap',
-        parking_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
+        locker_name: 'Barabati Kalyani Mandap',
+        locker_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
         map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
     },
     {
         id: '3',
-        parking_name: 'Loknath Temple Parking',
-        parking_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
+        locker_name: 'Loknath Temple Parking',
+        locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
+        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
+    },
+    {
+        id: '4',
+        locker_name: 'Loknath Temple Parking',
+        locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
+        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
         map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
     }
 ];
@@ -34,6 +41,9 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const [spinner, setSpinner] = useState(false);
+    const [allBusRailway, setAllBusRailway] = useState([]);
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -50,6 +60,34 @@ const Index = () => {
         Linking.openURL(url);
     };
 
+    const getAllBusRailway = async () => {
+        try {
+            setSpinner(true);
+            const response = await fetch(base_url + 'api/get-commute', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            const responseData = await response.json();
+            if (responseData.status === true) {
+                // console.log("get Bus & Railway List-------", responseData.data);
+                setSpinner(false);
+                setAllBusRailway(responseData.data);
+            }
+        } catch (error) {
+            console.log('Error fetching Bus & Railway List:', error);
+            setSpinner(false);
+        };
+    }
+
+    useEffect(() => {
+        if (isFocused) {
+            getAllBusRailway();
+        }
+    }, [isFocused]);
+
     return (
         <View style={styles.container}>
             {/* Animated Header */}
@@ -65,57 +103,100 @@ const Index = () => {
                 </LinearGradient>
             </Animated.View>
 
-            <ScrollView
-                style={{ flex: 1 }}
-                onScroll={handleScroll}
-                scrollEventThrottle={16}
-                showsVerticalScrollIndicator={false}
-                bounces={false} // Prevents bounce effect on iOS
-                overScrollMode="never" // Prevents overscroll glow on Android
-            >
-                {/* Header Image */}
-                <View style={styles.headerContainer}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
-                        <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Pitch-perfect Travel Offers</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Save up to ₹5000 on Flights to any cricket match venue</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+            {spinner === true ?
+                <View style={{ flex: 1, alignSelf: 'center', top: '40%' }}>
+                    <Text style={{ color: '#341551', fontSize: 17 }}>Loading...</Text>
+                </View>
+                :
+                <ScrollView
+                    style={{ flex: 1 }}
+                    onScroll={handleScroll}
+                    scrollEventThrottle={16}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false} // Prevents bounce effect on iOS
+                    overScrollMode="never" // Prevents overscroll glow on Android
+                >
+                    {/* Header Image */}
+                    <View style={styles.headerContainer}>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
+                            <View style={{ width: '75%' }}>
+                                <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Clock Room & Lockers</Text>
+                                <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Some Of The Available Lockers & Stands Near To The Temple</Text>
+                                <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                                    <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check Now →</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ width: '22%', alignItems: 'center' }}>
+                                <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+                            </View>
                         </View>
                     </View>
-                </View>
-                {/* Parking List */}
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={parkingList}
-                    scrollEnabled={false}
-                    numColumns={2}
-                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
-                    keyExtractor={(key) => {
-                        return key.id
-                    }}
-                    renderItem={(park) => {
-                        return (
-                            <TouchableOpacity onPress={() => openMap(park.item.map_url)} style={styles.mostPPlrItem}>
-                                <View style={{ width: '100%', height: 110, borderRadius: 10 }}>
-                                    <Image source={{ uri: park.item.image }} style={styles.mostPPImage} />
+
+                    {/* Main Locker & Shoes Stands */}
+                    <FlatList
+                        data={mainLockerShoesStand}
+                        keyExtractor={(item) => item.id}
+                        scrollEnabled={false}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity
+                                onPress={() => openMap(item.map_url)}
+                                style={{
+                                    width: '100%',
+                                    height: 130,
+                                    flexDirection: 'row',
+                                    // alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    paddingVertical: 12,
+                                    paddingHorizontal: 15,
+                                    borderBottomWidth: 1,
+                                    borderBottomColor: '#eee',
+                                }}
+                            >
+                                <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
+                                    {/* <Image source={{ uri: item.image }} style={{ width: 60, height: 60, borderRadius: 8, backgroundColor: '#eee', marginRight: 12 }}> */}
                                 </View>
-                                <View style={{ margin: 10, width: '90%', alignItems: 'flex-start', justifyContent: 'center' }}>
-                                    <View style={{ width: '100%' }}>
-                                        <Text style={{ color: '#000', fontSize: 15, fontFamily: 'FiraSans-Regular', textTransform: 'capitalize' }}>{park.item.parking_name}</Text>
+
+                                {/* Text Content */}
+                                <View style={{ width: '55%', justifyContent: 'center' }}>
+                                    <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
+                                        {item.locker_name}
+                                    </Text>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                        <MaterialIcons name="location-on" size={14} color="#999" />
+                                        <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
+                                            Location Address
+                                        </Text>
                                     </View>
-                                    <Text style={{ color: 'gray', fontSize: 12, fontFamily: 'FiraSans-Regular', textTransform: 'capitalize' }}>{park.item.parking_address.length > 40 ? `${park.item.parking_address.substring(0, 40)}...` : park.item.parking_address}</Text>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                        <MaterialIcons name="access-time" size={13} color="#999" />
+                                        <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
+                                            24/7
+                                        </Text>
+                                    </View>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                        <FontAwesome5 name="parking" size={13} color={item.id === '1' ? '#28a745' : '#D64C64'} />
+                                        <Text
+                                            style={{
+                                                fontSize: 13,
+                                                marginLeft: 4,
+                                                fontFamily: 'FiraSans-Regular',
+                                                color: item.id === '1' ? '#28a745' : '#D64C64',
+                                            }}
+                                        >
+                                            {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
+                                        </Text>
+                                    </View>
                                 </View>
                             </TouchableOpacity>
-                        )
-                    }}
-                />
-                <View style={{ height: 500 }} />
-            </ScrollView>
+                        )}
+                    />
+
+                    <View style={{ height: 100 }} />
+                </ScrollView>
+            }
         </View>
     );
 };
@@ -211,5 +292,25 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    lockerImage: {
+        height: 100,
+        width: '100%',
+        resizeMode: 'cover',
+        borderRadius: 10
+    },
+    secondLocker: {
+        backgroundColor: '#fff',
+        width: '100%',
+        alignSelf: 'center',
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
+        marginBottom: 15,
+        overflow: 'hidden',
+        padding: 8
     },
 });

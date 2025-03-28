@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 const parkingList = [
     {
@@ -60,6 +59,9 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const [spinner, setSpinner] = useState(false);
+    const [allBhaktaNibas, setAllBhaaktaNibas] = useState([]);
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -91,6 +93,34 @@ const Index = () => {
         }));
     };
 
+    const getAllBhaktaNibas = async () => {
+        try {
+            setSpinner(true);
+            const response = await fetch(base_url + 'api/get-accomodation', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            const responseData = await response.json();
+            if (responseData.status === true) {
+                // console.log("get Bhakta Nibas List-------", responseData.data);
+                setSpinner(false);
+                setAllBhaaktaNibas(responseData.data);
+            }
+        } catch (error) {
+            console.log('Error fetching Bhakta Nibas:', error);
+            setSpinner(false);
+        }
+    }
+
+    useEffect(() => {
+        if (isFocused) {
+            getAllBhaktaNibas();
+        }
+    }, [isFocused]);
+
     return (
         <View style={styles.container}>
             {/* Animated Header */}
@@ -106,108 +136,115 @@ const Index = () => {
                 </LinearGradient>
             </Animated.View>
 
-            <ScrollView
-                style={{ flex: 1 }}
-                onScroll={handleScroll}
-                scrollEventThrottle={16}
-                showsVerticalScrollIndicator={false}
-                bounces={false} // Prevents bounce effect on iOS
-                overScrollMode="never" // Prevents overscroll glow on Android
-            >
-                {/* Header Image */}
-                <View style={styles.headerContainer}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
-                        <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Temple Owned Stay For Pilgrims</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Properties Below Are Owned By Shree Jagannatha Temple Administration</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/hotel.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+            {spinner === true ?
+                <View style={{ flex: 1, alignSelf: 'center', top: '40%' }}>
+                    <Text style={{ color: '#341551', fontSize: 17 }}>Loading...</Text>
+                </View>
+                :
+                <ScrollView
+                    style={{ flex: 1 }}
+                    onScroll={handleScroll}
+                    scrollEventThrottle={16}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false} // Prevents bounce effect on iOS
+                    overScrollMode="never" // Prevents overscroll glow on Android
+                >
+                    {/* Header Image */}
+                    <View style={styles.headerContainer}>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
+                            <View style={{ width: '75%' }}>
+                                <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Temple Owned Stay For Pilgrims</Text>
+                                <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Properties Below Are Owned By Shree Jagannatha Temple Administration</Text>
+                                <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                                    <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ width: '22%', alignItems: 'center' }}>
+                                <Image source={require('../../assets/image/hotel.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+                            </View>
                         </View>
                     </View>
-                </View>
-                {/* Nibas List */}
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={parkingList}
-                    scrollEnabled={false}
-                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 15, marginTop: 10 }}
-                    keyExtractor={(key) => {
-                        return key.id
-                    }}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <View>
-                                {/* Property Name */}
-                                <Text style={styles.propertyName}>{item.parking_name}</Text>
-
-                                {/* Main Large Image */}
+                    {/* Nibas List */}
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={parkingList}
+                        scrollEnabled={false}
+                        contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 15, marginTop: 10 }}
+                        keyExtractor={(key) => {
+                            return key.id
+                        }}
+                        renderItem={({ item, index }) => {
+                            return (
                                 <View>
-                                    <Image source={{ uri: selectedImages[item.id] }} style={styles.mainImage} />
-                                    <View style={styles.view360Badge}>
-                                        <Text style={styles.view360Text}>360°</Text>
-                                    </View>
-                                </View>
+                                    {/* Property Name */}
+                                    <Text style={styles.propertyName}>{item.parking_name}</Text>
 
-                                {/* Thumbnail Scroll Section */}
-                                <FlatList
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    data={item.images}
-                                    keyExtractor={(uri, index) => index.toString()}
-                                    contentContainerStyle={{ marginBottom: 8, marginTop: 4 }}
-                                    renderItem={({ item: thumb }) => (
-                                        <TouchableOpacity onPress={() => handleImageSelect(item.id, thumb)}>
-                                            <Image
-                                                source={{ uri: thumb }}
-                                                style={[
-                                                    styles.thumbnail,
-                                                    selectedImages[item.id] === thumb && styles.selectedThumbnail
-                                                ]}
-                                            />
+                                    {/* Main Large Image */}
+                                    <View>
+                                        <Image source={{ uri: selectedImages[item.id] }} style={styles.mainImage} />
+                                        <TouchableOpacity style={styles.view360Badge}>
+                                            <Text style={styles.view360Text}>360°</Text>
+                                            <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
                                         </TouchableOpacity>
-                                    )}
-                                />
-
-                                {/* Distance Row */}
-                                <View style={styles.distanceRow}>
-                                    <MaterialIcons name="location-on" size={16} color="#7e22ce" />
-                                    <Text style={styles.distanceText}>
-                                        2 KM from Puri Temple, 3.2 Kms from Puri Beach
-                                    </Text>
-                                </View>
-
-                                {/* Offers & Address */}
-                                <View style={styles.infoRow}>
-                                    <View style={styles.infoColumn}>
-                                        <Text style={styles.label}>Property Offers:</Text>
-                                        <Text style={styles.value}>Breakfast/Lunch/Dinner{"\n"}AC Rooms</Text>
                                     </View>
-                                    <View style={styles.infoColumn}>
-                                        <Text style={styles.label}>Location Address:</Text>
-                                        <Text style={styles.value}>Jail Road, Main Road{"\n"}New Traffic Circle</Text>
+
+                                    {/* Thumbnail Scroll Section */}
+                                    <FlatList
+                                        horizontal
+                                        showsHorizontalScrollIndicator={false}
+                                        data={item.images}
+                                        keyExtractor={(uri, index) => index.toString()}
+                                        contentContainerStyle={{ marginBottom: 8, marginTop: 4 }}
+                                        renderItem={({ item: thumb }) => (
+                                            <TouchableOpacity onPress={() => handleImageSelect(item.id, thumb)}>
+                                                <Image
+                                                    source={{ uri: thumb }}
+                                                    style={[
+                                                        styles.thumbnail,
+                                                        selectedImages[item.id] === thumb && styles.selectedThumbnail
+                                                    ]}
+                                                />
+                                            </TouchableOpacity>
+                                        )}
+                                    />
+
+                                    {/* Distance Row */}
+                                    <View style={styles.distanceRow}>
+                                        <MaterialIcons name="location-on" size={16} color="#7e22ce" />
+                                        <Text style={styles.distanceText}>
+                                            2 KM from Puri Temple, 3.2 Kms from Puri Beach
+                                        </Text>
                                     </View>
-                                </View>
 
-                                {/* Buttons */}
-                                <View style={styles.buttonRow}>
-                                    <TouchableOpacity style={styles.bookNowButton}>
-                                        <Text style={styles.bookNowText}>Book Now</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.callButton}>
-                                        <Text style={styles.callText}>📞 123456789</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                    {/* Offers & Address */}
+                                    <View style={styles.infoRow}>
+                                        <View style={styles.infoColumn}>
+                                            <Text style={styles.label}>Property Offers:</Text>
+                                            <Text style={styles.value}>Breakfast/Lunch/Dinner{"\n"}AC Rooms</Text>
+                                        </View>
+                                        <View style={styles.infoColumn}>
+                                            <Text style={styles.label}>Location Address:</Text>
+                                            <Text style={styles.value}>Jail Road, Main Road{"\n"}New Traffic Circle</Text>
+                                        </View>
+                                    </View>
 
-                                {index !== parkingList.length - 1 && <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginVertical: 20 }} />}
-                            </View>
-                        )
-                    }}
-                />
-            </ScrollView>
+                                    {/* Buttons */}
+                                    <View style={styles.buttonRow}>
+                                        <TouchableOpacity style={styles.bookNowButton}>
+                                            <Text style={styles.bookNowText}>Book Now</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.callButton}>
+                                            <Text style={styles.callText}>📞 123456789</Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    {index !== parkingList.length - 1 && <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginVertical: 20 }} />}
+                                </View>
+                            )
+                        }}
+                    />
+                </ScrollView>
+            }
         </View>
     );
 };

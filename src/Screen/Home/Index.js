@@ -17,23 +17,14 @@ const { height } = Dimensions.get('window');
 
 // Sample Data for Menu Items (Grouped into Rows)
 const menuItems = [
-    { id: '1', title: 'About Temple', image: require('../../assets/image/demoLogo.png') },
-    { id: '2', title: 'Shree Khetra', image: require('../../assets/image/demoLogo.png') },
-    { id: '3', title: 'Matha & Ashram', image: require('../../assets/image/demoLogo.png') },
-    { id: '4', title: 'Festivals', image: require('../../assets/image/demoLogo.png') },
-    { id: '5', title: '36 Nijoga', image: require('../../assets/image/demoLogo.png') },
-    { id: '6', title: 'Besha', image: require('../../assets/image/demoLogo.png') },
-    { id: '7', title: 'Darshan Facility', image: require('../../assets/image/demoLogo.png') },
-    { id: '8', title: 'Maha Prasad', image: require('../../assets/image/demoLogo.png') },
-];
-
-const prarthanaData = [
-    { id: '1', name: 'Shiva', count: '17 Prarthana', image: require('../../assets/image/demoLogo.png') },
-    { id: '2', name: 'Krishna', count: '8 Prarthana', image: require('../../assets/image/demoLogo.png') },
-    { id: '3', name: 'Ganesha', count: '37 Prarthana', image: require('../../assets/image/demoLogo.png') },
-    { id: '4', name: 'Hanuman', count: '8 Prarthana', image: require('../../assets/image/demoLogo.png') },
-    { id: '5', name: 'Durga', count: '8 Prarthana', image: require('../../assets/image/demoLogo.png') },
-    { id: '6', name: 'Rama', count: '7 Prarthana', image: require('../../assets/image/demoLogo.png') },
+    // { id: '1', title: 'About Temple', image: require('../../assets/image/demoLogo.png') },
+    // { id: '2', title: 'Shree Khetra', image: require('../../assets/image/demoLogo.png') },
+    // { id: '3', title: 'Matha & Ashram', image: require('../../assets/image/demoLogo.png') },
+    // { id: '4', title: 'Festivals', image: require('../../assets/image/demoLogo.png') },
+    // { id: '5', title: '36 Nijoga', image: require('../../assets/image/demoLogo.png') },
+    // { id: '6', title: 'Besha', image: require('../../assets/image/demoLogo.png') },
+    // { id: '7', title: 'Darshan Facility', image: require('../../assets/image/demoLogo.png') },
+    // { id: '8', title: 'Maha Prasad', image: require('../../assets/image/demoLogo.png') },
 ];
 
 const eventTypes = [
@@ -192,7 +183,7 @@ const Index = () => {
                     style={styles.gradient}
                 >
                     <View style={styles.headerContent}>
-                        <Image source={require('../../assets/image/demoLogo.png')} style={styles.logo} />
+                        {/* <Image source={require('../../assets/image/demoLogo.png')} style={styles.logo} /> */}
                         <Text style={styles.headerText}>Shree Jagannatha Dham</Text>
                     </View>
                     <Fontisto name="player-settings" size={20} color="#fff" />

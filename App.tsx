@@ -47,6 +47,7 @@ import OfferingSubmitPage from './src/Screen/OfferingSubmitPage/Index'
 import Panji from './src/Screen/Panji/Index'
 import TempleWorldWide from './src/Screen/TempleWorldWide/Index'
 import Tv from './src/Screen/Tv/Index'
+import RathaYatraMainPage from './src/Screen/RathaYatraMainPage/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -120,6 +121,7 @@ const App = () => {
             <Stack.Screen name="Panji" component={Panji} />
             <Stack.Screen name="TempleWorldWide" component={TempleWorldWide} />
             <Stack.Screen name="Tv" component={Tv} />
+            <Stack.Screen name="RathaYatraMainPage" component={RathaYatraMainPage} />
           </>
         )}
       </Stack.Navigator>

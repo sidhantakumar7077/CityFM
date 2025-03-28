@@ -203,7 +203,7 @@ const Index = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                         </View>
-                        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('RathaYatraMainPage')} style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <SimpleLineIcons name="settings" size={26} color="#fff" />
                         </TouchableOpacity>
                     </View>
@@ -273,6 +273,34 @@ const Index = () => {
                         </View>
                     </View>
                 </ScrollView>
+
+                {/* Demo Banner */}
+                <View style={{ height: 150, marginVertical: 10 }}>
+                    <Swiper
+                        // autoplay
+                        // autoplayTimeout={4}
+                        showsPagination={true}
+                        paginationStyle={{ bottom: -7 }}
+                        dotColor="#999"
+                        activeDotColor="#341551"
+                        containerStyle={{ borderRadius: 10 }}
+                    >
+                        {bannerData.map((item, index) => (
+                            <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={{ width: '70%' }}>
+                                    <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
+                                    <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
+                                    <TouchableOpacity style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>Subscribe</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: '30%', alignItems: 'flex-end' }}>
+                                    <Image source={item.image} style={{ width: 85, height: 85 }} resizeMode="contain" />
+                                </View>
+                            </View>
+                        ))}
+                    </Swiper>
+                </View>
 
                 {/* Live Broadcast Section */}
                 <View style={styles.liveCard}>

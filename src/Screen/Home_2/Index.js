@@ -9,7 +9,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Octicons from "react-native-vector-icons/Octicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
@@ -35,6 +34,19 @@ const Index = () => {
         },
         {
             image: require('../../assets/image/SplashLogo.png'),
+            title: 'Exclusive Offers',
+            subtitle: 'Don’t miss out on discounts',
+        },
+    ];
+
+    const demoBannerData = [
+        {
+            image: require('../../assets/image/ratha_yatra123.png'),
+            title: 'Ratha Yatra Updates',
+            subtitle: 'All types of information',
+        },
+        {
+            image: require('../../assets/image/ratha_yatra.png'),
             title: 'Exclusive Offers',
             subtitle: 'Don’t miss out on discounts',
         },
@@ -274,7 +286,7 @@ const Index = () => {
                     </View>
                 </ScrollView>
 
-                {/* Demo Banner */}
+                {/* Ratha Yatra Banner */}
                 <View style={{ height: 150, marginVertical: 10 }}>
                     <Swiper
                         // autoplay
@@ -285,17 +297,17 @@ const Index = () => {
                         activeDotColor="#341551"
                         containerStyle={{ borderRadius: 10 }}
                     >
-                        {bannerData.map((item, index) => (
+                        {demoBannerData.map((item, index) => (
                             <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '70%' }}>
                                     <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
                                     <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
-                                    <TouchableOpacity style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>Subscribe</Text>
+                                    <TouchableOpacity onPress={() => navigation.navigate('RathaYatraMainPage')} style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>View</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ width: '30%', alignItems: 'flex-end' }}>
-                                    <Image source={item.image} style={{ width: 85, height: 85 }} resizeMode="contain" />
+                                    <Image source={item.image} style={{ width: 110, height: 100 }} resizeMode="contain" />
                                 </View>
                             </View>
                         ))}
@@ -331,17 +343,19 @@ const Index = () => {
                         </View>
                         <View style={{ width: '36%', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 15 }}>
-                                    <FontAwesome6 name="radio" size={18} color="#6A0DAD" />
+                                <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
+                                    {/* <FontAwesome6 name="radio" size={18} color="#6A0DAD" /> */}
+                                    <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 18, color: '#6A0DAD' }}>Radio</Text>
+                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>Radio</Text>
                             </View>
                             <View style={{ backgroundColor: 'red', height: 50, width: 1.4 }} />
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 15 }}>
-                                    <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" />
+                                <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
+                                    {/* <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" /> */}
+                                    <Image source={require('../../assets/image/tv241424.png')} style={{ width: 25, height: 25 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 18, color: '#6A0DAD' }}>TV</Text>
+                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#456096' }}>TV</Text>
                             </View>
                         </View>
                     </View>

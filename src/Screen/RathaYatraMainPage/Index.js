@@ -14,8 +14,6 @@ import Feather from 'react-native-vector-icons/Feather';
 const Index = () => {
 
     const navigation = useNavigation();
-    const isFocused = useIsFocused();
-    const [selectedTab, setSelectedTab] = useState('April');
 
     const conveniences = [
         // { id: '3', iconType: FontAwesome5, icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen', page: '' },
@@ -36,12 +34,99 @@ const Index = () => {
     ];
 
     const nitiTimings = [
-        { name: 'Sahana mela Darshan', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
-        { name: 'Sahana mela Darshan', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
-        { name: 'Sahana mela Darshan', status: 'Running', time: '08:15 AM', relativeTime: '3 hours ago' },
-        { name: 'Sahana mela Darshan', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
-        { name: 'Sahana mela Darshan', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
+        {
+            id: '2',
+            name: 'Chari nahak utha',
+            desc: 'Chari Nahak Utha" is a significant ritual in the Jagannath Temple, Puri, Odisha, marking the ceremonial lifting of the chariot for the annual Rath Yatra. It symbolizes the commencement of the chariot construction process and is performed with great devotion and reverence by the temple priests and devotees. The event is celebrated with traditional music, dance, and offerings to Lord Jagannath, signifying the divine connection between the deities and their devotees.',
+            status: 'Completed',
+            time: '11th June',
+            relativeTime: 'in 8 hours',
+            images: [
+                require('../../assets/image/charinahak3.jpeg'),
+                require('../../assets/image/charinahak1.jpg'),
+                require('../../assets/image/charinahak2.jpg'),
+                require('../../assets/image/charinahak4.jpeg'),
+                require('../../assets/image/charinahak5.jpeg'),
+            ]
+        },
+        {
+            id: '1',
+            name: 'Ratha Anukula',
+            desc: 'Ratha Anukula" in the context of Puri, Odisha, refers to the sacred ritual marking the beginning of chariot construction for the upcoming Rath Yatra, performed at the Jagannath Temple.',
+            status: 'Completed',
+            time: '30th April',
+            relativeTime: 'soon',
+            images: [
+                require('../../assets/image/rathaanukula1.jpg'),
+                require('../../assets/image/rathaanukula2.jpg'),
+                require('../../assets/image/rathaanukula3.jpg'),
+                require('../../assets/image/rathaanukula4.jpeg'),
+                require('../../assets/image/rathaanukula5.jpeg'),
+            ]
+        },
+        {
+            id: '3',
+            name: 'Sahana mela Darshan',
+            desc: '',
+            status: 'Running',
+            time: '08:15 AM',
+            relativeTime: '3 hours ago',
+            images: [
+                require('../../assets/image/charinahak1.jpg'),
+                require('../../assets/image/charinahak2.jpg'),
+                require('../../assets/image/charinahak1.jpg'),
+                require('../../assets/image/charinahak2.jpg'),
+                require('../../assets/image/charinahak1.jpg'),
+            ]
+        },
+        {
+            id: '4',
+            name: 'Sahana mela Darshan',
+            desc: '',
+            status: 'Upcoming',
+            time: '10:00 AM',
+            relativeTime: 'in 2 hours',
+            images: [
+                require('../../assets/image/charinahak1.jpg'),
+                require('../../assets/image/charinahak2.jpg'),
+                require('../../assets/image/charinahak1.jpg'),
+                require('../../assets/image/charinahak2.jpg'),
+                require('../../assets/image/charinahak1.jpg'),
+            ]
+        },
+        {
+            id: '5',
+            name: 'Sahana mela Darshan',
+            desc: '',
+            status: 'Upcoming',
+            time: '11:00 AM',
+            relativeTime: 'in 3 hours',
+            images: [
+                require('../../assets/image/charinahak1.jpg'),
+                require('../../assets/image/charinahak2.jpg'),
+                require('../../assets/image/charinahak1.jpg'),
+                require('../../assets/image/charinahak2.jpg'),
+                require('../../assets/image/charinahak1.jpg'),
+            ]
+        }
     ];
+
+    const [selectedImages, setSelectedImages] = useState(() => {
+        const initialState = {};
+        nitiTimings.forEach(item => {
+            if (item.images && item.images.length > 0) {
+                initialState[item.id] = item.images[0];
+            }
+        });
+        return initialState;
+    });
+
+    const handleImageSelect = (itemId, imageUrl) => {
+        setSelectedImages(prevState => ({
+            ...prevState,
+            [itemId]: imageUrl,
+        }));
+    };
 
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
@@ -455,8 +540,7 @@ const Index = () => {
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Ratha Yatra Timeline</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} />
 
-                    <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
-                        {/* April Tab */}
+                    {/* <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
                         <TouchableOpacity
                             onPress={() => setSelectedTab('April')}
                             style={{
@@ -472,7 +556,6 @@ const Index = () => {
                             </Text>
                         </TouchableOpacity>
 
-                        {/* May Tab */}
                         <TouchableOpacity
                             onPress={() => setSelectedTab('May')}
                             style={{
@@ -488,7 +571,6 @@ const Index = () => {
                             </Text>
                         </TouchableOpacity>
 
-                        {/* June Tab */}
                         <TouchableOpacity
                             onPress={() => setSelectedTab('June')}
                             style={{
@@ -503,8 +585,8 @@ const Index = () => {
                                 June
                             </Text>
                         </TouchableOpacity>
-                    </View>
-                    <View style={{ marginTop: 10 }}>
+                    </View> */}
+                    <View style={{ marginTop: 20 }}>
                         <FlatList
                             data={nitiTimings}
                             keyExtractor={(item, index) => index.toString()}
@@ -542,72 +624,116 @@ const Index = () => {
                                 return (
                                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 6 }}>
                                         {/* Left Indicator */}
-                                        <View style={{ alignItems: 'center', width: 40 }}>
-                                            {/* Line above */}
-                                            {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
+                                        {!isCompleted &&
+                                            <View style={{ alignItems: 'center', width: 40 }}>
+                                                {/* Line above */}
+                                                {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
 
-                                            {/* Number Circle */}
-                                            <View
-                                                style={{
-                                                    height: 24,
-                                                    width: 24,
-                                                    borderRadius: 12,
-                                                    borderWidth: 2,
-                                                    borderColor: getColor(),
-                                                    backgroundColor:
-                                                        isCompleted ? '#341551' :
-                                                            isRunning ? '#059629' :
-                                                                '#C5C5C5',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                }}
-                                            >
-                                                {isCompleted ? (
-                                                    <MaterialIcons name="check" size={14} color="white" />
-                                                ) : (
-                                                    <Text style={{ fontSize: 12, color: 'white', fontWeight: 'bold' }}>
-                                                        {index + 1}
-                                                    </Text>
-                                                )}
+                                                {/* Number Circle */}
+                                                <View
+                                                    style={{
+                                                        height: 24,
+                                                        width: 24,
+                                                        borderRadius: 12,
+                                                        borderWidth: 2,
+                                                        borderColor: getColor(),
+                                                        backgroundColor:
+                                                            isCompleted ? '#341551' :
+                                                                isRunning ? '#059629' :
+                                                                    '#C5C5C5',
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    {isCompleted ? (
+                                                        <MaterialIcons name="check" size={14} color="white" />
+                                                    ) : (
+                                                        <Text style={{ fontSize: 12, color: 'white', fontWeight: 'bold' }}>
+                                                            {index + 1}
+                                                        </Text>
+                                                    )}
+                                                </View>
+
+                                                {/* Line below */}
+                                                {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
                                             </View>
-
-                                            {/* Line below */}
-                                            {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
-                                        </View>
+                                        }
 
                                         {/* Right Content */}
-                                        <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
-                                            <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{item.time}</Text>
-                                            <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
+                                        {isCompleted ?
+                                            <View style={{ flex: 1 }}>
+                                                <Text style={{ fontSize: 17, color: '#222', fontFamily: 'FiraSans-Bold', marginBottom: 10 }}>{item.name}</Text>
+                                                <View>
+                                                    <Image
+                                                        source={selectedImages[item.id]}
+                                                        style={styles.mainImage}
+                                                    />
+                                                </View>
+                                                {/* Thumbnail Scroll Section */}
+                                                <FlatList
+                                                    horizontal
+                                                    showsHorizontalScrollIndicator={false}
+                                                    data={item.images}
+                                                    keyExtractor={(uri, index) => index.toString()}
+                                                    contentContainerStyle={{ marginBottom: 8, marginTop: 4 }}
+                                                    renderItem={({ item: thumb }) => (
+                                                        <TouchableOpacity onPress={() => handleImageSelect(item.id, thumb)}>
+                                                            <Image
+                                                                source={thumb}
+                                                                style={[
+                                                                    styles.thumbnail,
+                                                                    selectedImages[item.id] === thumb && styles.selectedThumbnail
+                                                                ]}
+                                                            />
+                                                        </TouchableOpacity>
+                                                    )}
+                                                />
+                                                {/* Offers & Address */}
+                                                <View style={styles.infoRow}>
+                                                    <View style={styles.infoColumn}>
+                                                        <Text style={styles.label}>Date: <Text style={styles.value}>{item.time}</Text></Text>
+                                                    </View>
+                                                    <View style={styles.infoColumn}>
+                                                        <Text style={styles.label}>Description: <Text style={styles.value}>{item.desc}</Text></Text>
+                                                    </View>
+                                                </View>
+                                                <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginTop: 20, marginBottom: 10 }} />
+                                            </View>
+                                            :
+                                            <View style={{ flexDirection: 'row', width: '90%' }}>
+                                                <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
+                                                    <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{item.time}</Text>
+                                                    <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
 
-                                            {isCompleted && (
-                                                <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                    Completed at {item.time}
-                                                </Text>
-                                            )}
+                                                    {isCompleted && (
+                                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
+                                                            Completed at {item.time}
+                                                        </Text>
+                                                    )}
 
-                                            {isRunning && (
-                                                <>
-                                                    <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
-                                                        Running since {item.time}
-                                                    </Text>
-                                                    <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                        Tentative End: 3:50 PM
-                                                    </Text>
-                                                </>
-                                            )}
+                                                    {isRunning && (
+                                                        <>
+                                                            <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
+                                                                Running since {item.time}
+                                                            </Text>
+                                                            <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
+                                                                Tentative End: 3:50 PM
+                                                            </Text>
+                                                        </>
+                                                    )}
 
-                                            {isUpcoming && (
-                                                <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                    Starts at {item.time}
-                                                </Text>
-                                            )}
-                                        </View>
+                                                    {isUpcoming && (
+                                                        <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
+                                                            Starts at {item.time}
+                                                        </Text>
+                                                    )}
+                                                </View>
 
-                                        {/* Right-side icon */}
-                                        <View style={{ marginTop: 5 }}>
-                                            {getIcon()}
-                                        </View>
+                                                <View style={{ marginTop: 5 }}>
+                                                    {getIcon()}
+                                                </View>
+                                            </View>
+                                        }
                                     </View>
                                 );
                             }}
@@ -672,10 +798,116 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     nearbyContainer: {
-        marginBottom: 10,
+        marginVertical: 10,
         width: '93%',
         alignSelf: 'center',
     },
+    propertyName: {
+        fontSize: 16,
+        color: '#000',
+        fontFamily: 'FiraSans-Bold',
+        marginBottom: 8,
+    },
+    mainImage: {
+        width: '100%',
+        height: 166,
+        resizeMode: 'cover',
+        borderRadius: 6,
+    },
+    view360Badge: {
+        position: 'absolute',
+        top: 7,
+        right: 7,
+        backgroundColor: '#fff',
+        width: 45,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: '#ccc'
+    },
+    view360Text: {
+        fontSize: 12,
+        color: '#f43f5e',
+        fontWeight: 'bold'
+    },
+    thumbnail: {
+        width: 60,
+        height: 60,
+        borderRadius: 4,
+        marginRight: 10,
+        borderWidth: 1,
+        borderColor: '#ddd'
+    },
+    selectedThumbnail: {
+        borderColor: '#7e22ce',
+        borderWidth: 2
+    },
+    distanceRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 4,
+    },
+    distanceText: {
+        fontSize: 13,
+        color: '#7e22ce',
+        marginLeft: 5,
+        fontFamily: 'FiraSans-Regular'
+    },
+    infoRow: {
+        width: '100%',
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
+        marginTop: 10
+    },
+    infoColumn: {
+        // flex: 1,
+        // paddingRight: 10
+    },
+    label: {
+        fontSize: 12,
+        color: '#000',
+        fontFamily: 'FiraSans-SemiBold'
+    },
+    value: {
+        fontSize: 12,
+        color: '#444',
+        marginTop: 2,
+        lineHeight: 19,
+        fontFamily: 'FiraSans-Regular'
+    },
+    buttonRow: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 12,
+    },
+    bookNowButton: {
+        backgroundColor: '#7e22ce',
+        borderRadius: 6,
+        paddingVertical: 8,
+        paddingHorizontal: 20
+    },
+    bookNowText: {
+        color: '#fff',
+        fontSize: 13,
+        fontWeight: '600'
+    },
+    callButton: {
+        // backgroundColor: '#f1f1f1',
+        borderWidth: 1,
+        borderColor: '#b8b8b8',
+        borderRadius: 6,
+        paddingVertical: 8,
+        paddingHorizontal: 12
+    },
+    callText: {
+        fontSize: 13,
+        color: '#000',
+        fontWeight: '600'
+    }
 });
 
 export default Index;

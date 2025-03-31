@@ -97,7 +97,7 @@ const Index = () => {
         { id: '6', iconType: FontAwesome5, icon: 'search', label: 'Lost & Found', page: '' },
         { id: '1', iconType: MaterialCommunityIcons, icon: 'water-pump', label: 'Drinking Water', page: 'DrinkingWater' },
         { id: '7', iconType: FontAwesome5, icon: 'toilet', label: 'Toilet', page: 'Toilet' },
-        { id: '12', iconType: FontAwesome5, icon: 'hotel', label: 'Hotel', page: 'Dharmashala' },
+        { id: '12', iconType: FontAwesome5, icon: 'hotel', label: 'Hotel', page: 'Hotel' },
         { id: '13', iconType: FontAwesome5, icon: 'utensils', label: 'Restaurant', page: 'Restaurant' },
         { id: '8', iconType: FontAwesome5, icon: 'umbrella-beach', label: 'Beaches', page: 'Beaches' },
         { id: '5', iconType: FontAwesome, icon: 'hotel', label: 'Dharmashala', page: 'Dharmashala' },
@@ -209,7 +209,7 @@ const Index = () => {
                 overScrollMode="never" // Prevents overscroll glow on Android
             >
                 {/* Background Image with Overlay */}
-                <ImageBackground source={require("../../assets/image/ratha.jpeg")} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }} style={styles.backgroundImage}>
+                <ImageBackground source={require("../../assets/image/ratha.jpeg")} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20, resizeMode: 'cover' }} style={styles.backgroundImage}>
                     <LinearGradient colors={["rgba(0,0,0,0.5)", "transparent"]} style={styles.overlay} />
                     <View style={styles.header}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -221,7 +221,7 @@ const Index = () => {
                     </View>
                     <View style={{ position: 'absolute', top: 80, width: '100%', left: 13 }}>
                         <View style={{ textAlign: 'center', marginLeft: 8 }}>
-                            <Text style={{ color: '#d9dbdb', fontSize: 12, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8 }}>Welcome to</Text>
+                            <Text style={{ color: '#d9dbdb', fontSize: 14, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
                             <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
                             <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
                         </View>
@@ -239,11 +239,11 @@ const Index = () => {
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                             <Ionicons name="calendar-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th Mar</Text>
+                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
                                             <Ionicons name="time-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>03:17 pm</Text>
+                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>5 AM or earlier</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -255,16 +255,16 @@ const Index = () => {
                         <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '90%' }}>
-                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#6A0DAD' }}>Bada Sinhgara Besha</Text>
+                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#6A0DAD' }}>Mailam</Text>
                                     <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                             <Ionicons name="calendar-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th Mar</Text>
+                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
                                             <Ionicons name="time-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>03:17 pm</Text>
+                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>6 AM</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -371,28 +371,28 @@ const Index = () => {
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/DARSHAN2.png')} style={{ width: 45, height: 45 }} />
+                                <Image source={require('../../assets/image/darshan4.png')} style={{ width: 75, height: 75 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/mahaprasad1.png')} style={{ width: 45, height: 45 }} />
+                                <Image source={require('../../assets/image/mahaprasadad32412.png')} style={{ width: 75, height: 75 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/panji.png')} style={{ width: 50, height: 50 }} />
+                                <Image source={require('../../assets/image/panji.png')} style={{ width: 60, height: 60 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'gift'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 50, height: 50 }} />
+                                <Image source={require('../../assets/image/OFFERING2.png')} style={{ width: 60, height: 60 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Offering</Text>
                         </View>
@@ -419,7 +419,7 @@ const Index = () => {
                                 <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>2, 3, 4 Wheelers</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2965/2965567.png' }} style={{ width: 28, height: 28 }} />
+                                <Image source={require('../../assets/image/parkinng241414.png')} style={{ width: 48, height: 48, resizeMode: 'contain' }} />
                             </View>
                         </TouchableOpacity>
 
@@ -429,7 +429,7 @@ const Index = () => {
                                 <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free Stand service</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3239/3239951.png' }} style={{ width: 28, height: 28 }} />
+                                <Image source={require('../../assets/image/locker24214.png')} style={{ width: 48, height: 48, resizeMode: 'contain' }} />
                             </View>
                         </TouchableOpacity>
                     </View>

@@ -84,11 +84,11 @@ const Index = () => {
         <View style={styles.headerContainer}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
             <View style={{ width: '75%' }}>
-              <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Clock Room & Lockers</Text>
-              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Some Of The Available Lockers & Stands Near To The Temple</Text>
-              <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check Now →</Text>
-              </TouchableOpacity>
+              <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Clean Drinking Water</Text>
+              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Fresh And Clean Water For Pligrimas.</Text>
+              <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Drink Now →</Text>
+              </View>
             </View>
             <View style={{ width: '22%', alignItems: 'center' }}>
               <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />

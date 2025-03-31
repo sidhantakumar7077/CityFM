@@ -8,11 +8,27 @@ import { useNavigation } from '@react-navigation/native'
 import Modal from 'react-native-modal';
 
 const nitiTimings = [
-    { name: 'Dwara Phita', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
-    { name: 'Mangala Alati', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
-    { name: 'Mailama', status: 'Completed', time: '08:15 AM', relativeTime: '3 hours ago' },
-    { name: 'Beshalagi', status: 'Running', time: '11:10 AM', relativeTime: '1 hour ago' },
-    { name: 'Bada Singhara Besha', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
+    { name: 'Dwarafita and Daily Mangala Alati', status: 'Completed', time: '5 AM', relativeTime: 'soon', completedAt: '6:00 AM' },
+    { name: 'Mailam', status: 'Completed', time: '6 AM', relativeTime: 'in 8 hours', completedAt: '6:30 AM' },
+    { name: 'Abakash', status: 'Completed', time: '6:30 AM', relativeTime: '3 hours ago', completedAt: '6:45 AM' },
+    { name: 'Abakash Pare Mailam', status: 'Running', time: '6:45 AM', relativeTime: '1 hour ago', completedAt: '7:00 AM' },
+    { name: 'Sahan Mela or public spectacle', status: 'Upcoming', time: '7:00 PM', relativeTime: 'in 1 hour', completedAt: '8:30 AM' },
+    {name: 'Besha Lagi', status: 'Upcoming', time: '8:30 AM', relativeTime: 'in 2 hours', completedAt: '8:45 AM'},
+    {name: 'Rosha Homo', status: 'Upcoming', time: '8:45 AM', relativeTime: 'in 2 hours', completedAt: '8:45 AM'},
+    {name: 'Surya Puja', status: 'Upcoming', time: '9:00 AM', relativeTime: 'in 3 hours', completedAt: '9:00 AM'},
+    {name: 'Dwarapala Puja', status: 'Upcoming', time: '9:15 AM', relativeTime: 'in 4 hours', completedAt: '9:30 AM'},
+    {name: 'Gopalalavah Bhoga', status: 'Upcoming', time: '9:30 AM', relativeTime: 'in 5 hours', completedAt: '10:00 AM'},
+    {name: 'Shakal Dhupa', status: 'Upcoming', time: '10:00 AM', relativeTime: 'in 6 hours', completedAt: '10:30 AM'},
+    {name: 'Mailam and Bhogamandap', status: 'Upcoming', time: '11:00 AM', relativeTime: 'in 7 hours', completedAt: '11:00 AM'},
+    {name: 'Madhyan Dhupa', status: 'Upcoming', time: '11:30 AM', relativeTime: 'in 8 hours', completedAt: '12:30 PM'},
+    {name: 'Madhyan Pahuda', status: 'Upcoming', time: '1:00 PM', relativeTime: 'in 9 hours', completedAt: '1:30 PM'},
+    {name: 'Pahuda Phitiba and Sandhya Alati', status: 'Upcoming', time: '6:00 PM', relativeTime: 'in 10 hours', completedAt: '7:00 PM'},
+    {name: 'Sandhya Dhupa', status: 'Upcoming', time: '7:00 PM', relativeTime: 'in 11 hours', completedAt: '8:00 PM'},
+    {name: 'Sahan Mela after Sandhya Dhupa', status: 'Upcoming', time: '9:30 PM', relativeTime: 'in 12 hours', completedAt: '10:00 PM'},
+    {name: 'Mailam and Chandan Lagi', status: 'Upcoming', time: '10:00 PM', relativeTime: 'in 13 hours', completedAt: '10:30 PM'},
+    {name: 'Bada Singhar Besha', status: 'Upcoming', time: '10:30 PM', relativeTime: 'in 14 hours', completedAt: '11:15 PM'},
+    {name: 'Bada Singhar Dhupa', status: 'Upcoming', time: '11:15 PM', relativeTime: 'in 15 hours', completedAt: '12:00 AM'},
+    {name: 'Khatasejalagi, harp and song, Puspanjali, Pushpalagi, Pahuda, Muda and Shodha', status: 'Upcoming', time: '12:00 AM', relativeTime: 'in 16 hours', completedAt: '1:00 AM'},
 ];
 
 const Index = () => {
@@ -149,30 +165,24 @@ const Index = () => {
 
                                     {/* Right Content */}
                                     <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
-                                        <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{item.time}</Text>
                                         <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
+                                        <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.time}</Text>
 
                                         {isCompleted && (
                                             <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                Completed at {item.time}
+                                                Completed at {item.completedAt}
                                             </Text>
                                         )}
 
                                         {isRunning && (
                                             <>
                                                 <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
-                                                    Running since {item.time}
+                                                    Running Now
                                                 </Text>
                                                 <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
                                                     Tentative End: 3:50 PM
                                                 </Text>
                                             </>
-                                        )}
-
-                                        {isUpcoming && (
-                                            <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                Starts at {item.time}
-                                            </Text>
                                         )}
                                     </View>
 
@@ -185,7 +195,6 @@ const Index = () => {
                         }}
                     />
                 </View>
-                <View style={{ height: 400 }} />
             </ScrollView>
 
             <Modal

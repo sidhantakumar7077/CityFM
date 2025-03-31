@@ -8,11 +8,13 @@ import { useNavigation } from '@react-navigation/native'
 import Modal from 'react-native-modal';
 
 const nitiTimings = [
-    { name: 'Sahana mela Darshan', status: 'Completed', time: '12:14 PM', relativeTime: 'soon' },
-    { name: 'Sahana mela Darshan', status: 'Completed', time: '09:00 PM', relativeTime: 'in 8 hours' },
-    { name: 'Sahana mela Darshan', status: 'Running', time: '08:15 AM', relativeTime: '3 hours ago' },
-    { name: 'Sahana mela Darshan', status: 'Upcoming', time: '11:10 AM', relativeTime: '1 hour ago' },
-    { name: 'Sahana mela Darshan', status: 'Upcoming', time: '02:05 PM', relativeTime: 'in 1 hour' },
+    { name: 'Mangal Arati', status: 'Completed', time: '05.30 AM', relativeTime: 'soon', completedAt: '06:00 AM' },
+    { name: 'Bhitara Kaatha Darshan', status: 'Completed', time: '06:00 AM', relativeTime: 'in 8 hours', completedAt: '06:00 AM' },
+    { name: 'Baahaar Kaatha Darshan', status: 'Running', time: '08:00 AM', relativeTime: '3 hours ago', completedAt: '10:00 AM' },
+    { name: 'Bhitara Kaatha Darshan', status: 'Upcoming', time: '10:00 AM', relativeTime: '1 hour ago', completedAt: '12:30 PM' },
+    { name: 'Baahaar Kaatha Darshan', status: 'Upcoming', time: '12:30 PM', relativeTime: 'in 1 hour', completedAt: '03:30 PM' },
+    { name: 'Bhitara Kaatha Darshan', status: 'Upcoming', time: '03:30 PM', relativeTime: 'in 1 hour', completedAt: '06:30 PM' },
+    { name: 'Baahaar Kaatha Darshan', status: 'Upcoming', time: '06:30 PM', relativeTime: 'in 1 hour', completedAt: 'Till Pahuda' },
 ];
 
 const Index = () => {
@@ -151,8 +153,8 @@ const Index = () => {
 
                                     {/* Right Content */}
                                     <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
-                                        <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{item.time}</Text>
                                         <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
+                                        {/* <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{item.time}</Text> */}
 
                                         {isCompleted && (
                                             <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
@@ -162,8 +164,11 @@ const Index = () => {
 
                                         {isRunning && (
                                             <>
+                                                <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
+                                                    Started at {item.time}
+                                                </Text>
                                                 <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
-                                                    Running since {item.time}
+                                                    Running Now
                                                 </Text>
                                                 <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
                                                     Tentative End: 3:50 PM
@@ -173,7 +178,7 @@ const Index = () => {
 
                                         {isUpcoming && (
                                             <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                Starts at {item.time}
+                                                Tentative Starts at {item.time}
                                             </Text>
                                         )}
                                     </View>
@@ -187,7 +192,6 @@ const Index = () => {
                         }}
                     />
                 </View>
-                <View style={{ height: 400 }} />
             </ScrollView>
 
             <Modal

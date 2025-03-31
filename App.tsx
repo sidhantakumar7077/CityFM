@@ -36,6 +36,7 @@ import Beaches from './src/Screen/Beaches/Index'
 import BusRailwayStop from './src/Screen/BusRailwayStop/Index'
 import ChargingStation from './src/Screen/ChargingStation/Index'
 import PetrolPump from './src/Screen/PetrolPump/Index'
+import Hotel from './src/Screen/Hotel/Index'
 import Dharmashala from './src/Screen/Dharmashala/Index'
 import Restaurant from './src/Screen/Restaurant/Index'
 import Atm from './src/Screen/Atm/Index'
@@ -81,9 +82,9 @@ const App = () => {
       <StatusBar backgroundColor="#341551" barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
-        {!isConnected ? (
+        {/* {!isConnected ? (
           <Stack.Screen name="NoInternet" component={NoInternet} />
-        ) : (
+        ) : ( */}
           <>
             <Stack.Screen name="Home_2" component={Home_2} />
             <Stack.Screen name="Home" component={Home} />
@@ -110,6 +111,7 @@ const App = () => {
             <Stack.Screen name="BusRailwayStop" component={BusRailwayStop} />
             <Stack.Screen name="ChargingStation" component={ChargingStation} />
             <Stack.Screen name="PetrolPump" component={PetrolPump} />
+            <Stack.Screen name="Hotel" component={Hotel} />
             <Stack.Screen name="Dharmashala" component={Dharmashala} />
             <Stack.Screen name="Restaurant" component={Restaurant} />
             <Stack.Screen name="Atm" component={Atm} />
@@ -123,7 +125,7 @@ const App = () => {
             <Stack.Screen name="Tv" component={Tv} />
             <Stack.Screen name="RathaYatraMainPage" component={RathaYatraMainPage} />
           </>
-        )}
+        {/* )} */}
       </Stack.Navigator>
     </NavigationContainer>
   )

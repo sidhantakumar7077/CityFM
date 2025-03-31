@@ -1,77 +1,44 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
+import { StyleSheet, View, ImageBackground, Image, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import YoutubePlayer from "react-native-youtube-iframe";
 
 const Index = () => {
 
-    const scrollY = useRef(new Animated.Value(0)).current;
-    const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
-
-    const handleScroll = Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        {
-            useNativeDriver: false,
-            listener: (event) => {
-                const offsetY = event.nativeEvent.contentOffset.y;
-                setIsScrolled(offsetY > 50); // Change header color after 50px scroll
-            }
-        }
-    );
 
     return (
         <View style={styles.container}>
-            {/* Animated Header */}
-            <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
-                <LinearGradient
-                    colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
-                    style={styles.gradient}
-                >
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
-                        <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Live TV</Text>
-                    </TouchableOpacity>
-                </LinearGradient>
-            </Animated.View>
-
-            <ScrollView
-                style={{ flex: 1 }}
-                onScroll={handleScroll}
-                scrollEventThrottle={16}
-                showsVerticalScrollIndicator={false}
-                bounces={false} // Prevents bounce effect on iOS
-                overScrollMode="never" // Prevents overscroll glow on Android
-            >
-                {/* Header Image */}
-                <View style={styles.headerContainer}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
-                        <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Live Darshan</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Experience divine rituals and temple events streamed live daily.</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Online →</Text>
-                            </TouchableOpacity>
+            <ImageBackground source={require('../../assets/image/ratha.jpeg')} style={styles.background}>
+                {/* Gradient Overlay */}
+                <LinearGradient colors={['transparent', '#FFBE00']} style={styles.gradient} />
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+                    {/* Top Header */}
+                    <View style={{
+                        position: "absolute",
+                        top: 5,
+                        // left: 20,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '90%',
+                        alignSelf: 'center',
+                    }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Image source={require("../../assets/image/SJDlogo.png")} style={{
+                                width: 70,
+                                height: 70,
+                                resizeMode: "contain",
+                            }} />
                         </View>
-                        <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
-                        </View>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#c91306', padding: 7, borderRadius: 50, marginRight: 7 }}>
+                            <Ionicons name="home-sharp" size={18} color="#fff" />
+                        </TouchableOpacity>
                     </View>
-                </View>
-
-                {/* Content Part */}
-                <View style={{ paddingHorizontal: 15, paddingTop: 20 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: 18, fontFamily: 'FiraSans-SemiBold', color: '#341551' }}>Watch Live Now</Text>
-                        <View style={{ marginLeft: 8, backgroundColor: '#FF3B30', borderRadius: 50, paddingHorizontal: 8, paddingVertical: 2 }}>
-                            <Text style={{ color: '#fff', fontSize: 10, fontFamily: 'FiraSans-Regular' }}>LIVE</Text>
-                        </View>
-                    </View>
-
-                    {/* YouTube Player */}
-                    <View style={{ borderRadius: 12, overflow: 'hidden', paddingVertical: 10, backgroundColor: '#000', shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 6, elevation: 4 }}>
+                    <View style={{ position: 'absolute', top: 280, width: '90%', alignItems: 'center', borderRadius: 10 }}>
                         <YoutubePlayer
                             width={'100%'}
                             height={200}
@@ -80,75 +47,220 @@ const Index = () => {
                             videoId={'TK8TkDG056I'}
                         />
                     </View>
-
-                    {/* Optional Description */}
-                    <Text style={{
-                        marginTop: 12,
-                        fontSize: 13,
-                        color: '#666',
-                        fontFamily: 'FiraSans-Medium',
-                        lineHeight: 20
-                    }}>
-                        Enjoy uninterrupted live darshan from sacred temples across India. Experience divine rituals and spiritual energy right from your screen.
-                    </Text>
+                    <View style={styles.liveCard}>
+                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <View style={{ width: '50%' }}>
+                                <Text style={styles.liveTitle}>Shree Mandira Channel</Text>
+                            </View>
+                            <View style={{ width: '40%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('ContentList')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 12 }}>
+                                        <Entypo name="mic" size={20} color="#F06292" />
+                                        {/* <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} /> */}
+                                    </TouchableOpacity>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>PODCAST</Text>
+                                </View>
+                                <View style={{ backgroundColor: 'red', height: 50, width: 1.4, marginRight: 7 }} />
+                                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
+                                        {/* <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" /> */}
+                                        <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} />
+                                    </TouchableOpacity>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>Radio</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
                 </View>
-
-            </ScrollView>
+            </ImageBackground>
         </View>
-    )
-}
+    );
+};
 
-export default Index
+export default Index;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FBF5F5',
+        backgroundColor: '#F8F8F8',
+        borderRadius: 20,
+        overflow: 'hidden',
+        padding: 10,
     },
+    /* Header Styles */
     header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#4B7100',
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        elevation: 5,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+    },
+    backButton: {
+        padding: 5,
+    },
+    headerTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+        marginLeft: 10,
+    },
+    /* Background image container */
+    background: {
+        flex: 1,
+        borderRadius: 30,
+        overflow: 'hidden',
+    },
+    gradient: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 10,
+        bottom: 0,
     },
-    gradient: {
+    menuHeader: {
+        position: 'absolute',
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 12,
-        paddingHorizontal: 15,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
+        width: '95%',
+        alignSelf: 'center',
+        top: 0,
+        // right: 20,
+        padding: 8,
+        borderRadius: 10,
     },
-    headerContent: {
+    content: {
+        alignItems: 'center',
+        position: 'absolute',
+        top: '23%',
+    },
+    image: {
+        width: 300,
+        height: 300,
+        resizeMode: 'contain',
+        // backgroundColor: 'rgba(59, 58, 58, 0.5)',
+        // borderRadius: 150,
+    },
+    podcastCardContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        // marginTop: 10,
+    },
+    podcastCardBackground: {
+        width: '90%',
+        borderRadius: 15,
+        padding: 4, // Creates a border effect
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        elevation: 8, // For Android shadow
+    },
+    podcastCard: {
+        // backgroundColor: '#fff', // White Background for Contrast
+        borderRadius: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        alignItems: 'center',
+    },
+    podcastHeading: {
+        fontSize: 19,
+        fontWeight: '700',
+        color: '#341551', // Vibrant Accent Color
+        textTransform: 'uppercase',
+        letterSpacing: 1.2,
+        marginTop: 10
+    },
+    podcastDescription: {
+        fontSize: 13,
+        color: '#341551',
+        textAlign: 'center',
+        fontFamily: 'FiraSans-Regular',
+        marginTop: 6,
+    },
+    playerContainer: {
+        backgroundColor: '#341551',
+        paddingHorizontal: 20,
+        // paddingVertical: 30,
+        height: 200,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '90%',
+        borderRadius: 15,
+        position: 'absolute',
+        bottom: 160,
+        elevation: 5, // Shadow for depth
+    },
+    liveBadge: {
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        backgroundColor: '#FFBE00',
+        paddingHorizontal: 12,
+        paddingVertical: 7,
+        borderRadius: 7,
         flexDirection: 'row',
         alignItems: 'center',
     },
-    logo: {
-        width: 40,
-        height: 40,
-        marginRight: 10,
-        resizeMode: 'contain',
+    liveText: {
+        color: '#fff',
+        fontSize: 11,
+        fontWeight: 'bold',
+        marginLeft: 5,
     },
-    headerText: {
-        fontSize: 16,
-        fontFamily: 'FiraSans-Regular',
-        color: 'white',
-        textTransform: 'capitalize'
-    },
-    headerContainer: {
-        width: '100%',
-        height: 200,
+    playButtonContainer: {
+        position: 'absolute',
+        top: -25, // Moves button slightly out of the container
         backgroundColor: '#341551',
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // elevation: 6, // Shadow for floating effect
+    },
+    playButton: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    sliderContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '80%',
+        marginTop: 35,
+        marginBottom: 13
+    },
+    slider: {
+        flex: 1,
+        marginHorizontal: 10,
+        thumbTintColor: '#fff',
+    },
+    liveCard: {
+        width: '90%',
         alignSelf: 'center',
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        overflow: 'hidden', // Ensures the image does not bleed outside the rounded corners
+        backgroundColor: "white",
+        paddingHorizontal: 15,
+        paddingVertical: 20,
+        borderRadius: 20,
+        elevation: 5,
+        marginTop: 10,
+        marginBottom: 10,
     },
-    headerImage: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#4B7100',
+    liveTitle: {
+        fontSize: 20,
+        fontFamily: "FiraSans-SemiBold",
+        color: "#341551",
     },
-})
+    liveSubText: {
+        color: "#fff",
+        fontFamily: "FiraSans-Medium",
+        fontSize: 14,
+        marginLeft: 5,
+    },
+});

@@ -1,34 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
-
-const parkingList = [
-    {
-        id: '1',
-        parking_name: 'Gadadhar High School',
-        parking_address: 'Gadadhar High School, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
-        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
-    },
-    {
-        id: '2',
-        parking_name: 'Barabati Kalyani Mandap',
-        parking_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
-    },
-    {
-        id: '3',
-        parking_name: 'Loknath Temple Parking',
-        parking_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://images.template.net/85586/free-car-parking-illustration-ql7jz.jpg',
-        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
-    }
-];
 
 const Index = () => {
 
@@ -39,7 +15,10 @@ const Index = () => {
     const [spinner, setSpinner] = useState(false);
     const [allParking, setAllParking] = useState([]);
     const [selectedTab, setSelectedTab] = useState('FourWheelers');
-    const filteredParkingList = selectedTab === 'TwoWheelers' ? parkingList : parkingList;
+
+    const filteredParkingList = selectedTab === 'TwoWheelers'
+        ? allParking.filter(item => item.vehicle_type?.toLowerCase().includes('two wheeler'))
+        : allParking.filter(item => item.vehicle_type?.toLowerCase().includes('four wheeler'));
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -47,7 +26,7 @@ const Index = () => {
             useNativeDriver: false,
             listener: (event) => {
                 const offsetY = event.nativeEvent.contentOffset.y;
-                setIsScrolled(offsetY > 50); // Change header color after 50px scroll
+                setIsScrolled(offsetY > 50);
             }
         }
     );
@@ -68,7 +47,6 @@ const Index = () => {
             });
             const responseData = await response.json();
             if (responseData.status === true) {
-                // console.log("get Parking List-------", responseData.data);
                 setSpinner(false);
                 setAllParking(responseData.data);
             }
@@ -86,7 +64,6 @@ const Index = () => {
 
     return (
         <View style={styles.container}>
-            {/* Animated Header */}
             <Animated.View style={[styles.header, { opacity: isScrolled ? 1 : 0.8 }]}>
                 <LinearGradient
                     colors={isScrolled ? ['#341551', '#341551'] : ['transparent', 'transparent']}
@@ -99,20 +76,19 @@ const Index = () => {
                 </LinearGradient>
             </Animated.View>
 
-            {spinner === true ?
+            {spinner ? (
                 <View style={{ flex: 1, alignSelf: 'center', top: '40%' }}>
                     <Text style={{ color: '#341551', fontSize: 17 }}>Loading...</Text>
                 </View>
-                :
+            ) : (
                 <ScrollView
                     style={{ flex: 1 }}
                     onScroll={handleScroll}
                     scrollEventThrottle={16}
                     showsVerticalScrollIndicator={false}
-                    bounces={false} // Prevents bounce effect on iOS
-                    overScrollMode="never" // Prevents overscroll glow on Android
+                    bounces={false}
+                    overScrollMode="never"
                 >
-                    {/* Header Image */}
                     <View style={styles.headerContainer}>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                             <View style={{ width: '75%' }}>
@@ -128,7 +104,6 @@ const Index = () => {
                         </View>
                     </View>
 
-                    {/* Tab Section */}
                     <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, margin: 15, padding: 5 }}>
                         <TouchableOpacity
                             onPress={() => setSelectedTab('FourWheelers')}
@@ -160,10 +135,9 @@ const Index = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Parking List */}
                     <FlatList
                         data={filteredParkingList}
-                        keyExtractor={(item) => item.id}
+                        keyExtractor={(item) => item.id.toString()}
                         scrollEnabled={false}
                         renderItem={({ item }) => (
                             <TouchableOpacity
@@ -172,7 +146,6 @@ const Index = () => {
                                     width: '100%',
                                     height: 150,
                                     flexDirection: 'row',
-                                    // alignItems: 'center',
                                     justifyContent: 'space-between',
                                     paddingVertical: 12,
                                     paddingHorizontal: 15,
@@ -181,10 +154,9 @@ const Index = () => {
                                 }}
                             >
                                 <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
-                                    {/* <Image source={{ uri: item.image }} style={{ width: 60, height: 60, borderRadius: 8, backgroundColor: '#eee', marginRight: 12 }}> */}
+                                    {item.parking_photo && <Image source={{ uri: item.parking_photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />}
                                 </View>
 
-                                {/* Text Content */}
                                 <View style={{ width: '55%', justifyContent: 'center' }}>
                                     <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
                                         {item.parking_name}
@@ -193,7 +165,7 @@ const Index = () => {
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                                         <MaterialIcons name="location-on" size={14} color="#999" />
                                         <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
-                                            Location Address
+                                            {item.landmark} {item.district}
                                         </Text>
                                     </View>
 
@@ -205,16 +177,16 @@ const Index = () => {
                                     </View>
 
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
-                                        <FontAwesome5 name="parking" size={13} color={item.id === '1' ? '#28a745' : '#D64C64'} />
+                                        <FontAwesome5 name="parking" size={13} color={'#28a745'} />
                                         <Text
                                             style={{
                                                 fontSize: 13,
                                                 marginLeft: 4,
                                                 fontFamily: 'FiraSans-Regular',
-                                                color: item.id === '1' ? '#28a745' : '#D64C64',
+                                                color: '#28a745',
                                             }}
                                         >
-                                            {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
+                                            {item.parking_availability} Spots Available
                                         </Text>
                                     </View>
                                     <TouchableOpacity style={{ marginTop: 5, borderRadius: 5, alignSelf: 'flex-start' }}>
@@ -225,7 +197,7 @@ const Index = () => {
                         )}
                     />
                 </ScrollView>
-            }
+            )}
         </View>
     );
 };
@@ -257,12 +229,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    logo: {
-        width: 40,
-        height: 40,
-        marginRight: 10,
-        resizeMode: 'contain',
-    },
     headerText: {
         fontSize: 16,
         fontFamily: 'FiraSans-Regular',
@@ -276,50 +242,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        overflow: 'hidden', // Ensures the image does not bleed outside the rounded corners
-    },
-    headerImage: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#4B7100',
-    },
-    /* List Styles */
-    mostPPlrItem: {
-        backgroundColor: '#fff',
-        width: '48%',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 13,
-        elevation: 5,
-        marginBottom: 10,
-        marginHorizontal: '1.3%'
-    },
-    mostPPImage: {
-        height: '100%',
-        width: '100%',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        resizeMode: 'cover'
-    },
-    hotBtm: {
-        position: 'absolute',
-        top: 10,
-        left: 6,
-        backgroundColor: '#f00062',
-        padding: 2,
-        borderRadius: 6
-    },
-    saveBtm: {
-        position: 'absolute',
-        top: 10,
-        right: 6,
-        backgroundColor: '#fff',
-        width: 26,
-        height: 26,
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+        overflow: 'hidden',
+    }
 });

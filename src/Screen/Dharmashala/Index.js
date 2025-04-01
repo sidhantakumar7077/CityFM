@@ -1,64 +1,18 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
-
-const parkingList = [
-    {
-        id: '1',
-        parking_name: 'Purushottam Bhakta Nivas',
-        parking_address: 'Near Old Jail, Puri',
-        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-        ]
-    },
-    {
-        id: '2',
-        parking_name: 'Neeladri Bhakta Nivas',
-        parking_address: 'Near Town Police Station, Grand Road, Puri',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-        ]
-    },
-    {
-        id: '3',
-        parking_name: 'Nilachala Bhakta And Yatri Nivas',
-        parking_address: 'In front of Town Police Station, Grand Road, Puri',
-        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-        ]
-    },
-    {
-        id: '4',
-        parking_name: 'Shree Gundicha Bhakta Nivas',
-        parking_address: 'Near Shree Gundicha Temple, Grand Road, Puri',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg'
-        ]
-    }
-];
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { base_url } from '../../../App';
 
 const Index = () => {
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const [spinner, setSpinner] = useState(false);
+    const [dharmashalaList, setDharmashalaList] = useState([]);
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -75,13 +29,7 @@ const Index = () => {
         Linking.openURL(url);
     };
 
-    const [selectedImages, setSelectedImages] = useState(() => {
-        const initialState = {};
-        parkingList.forEach(item => {
-            initialState[item.id] = item.images[0];
-        });
-        return initialState;
-    });
+    const [selectedImages, setSelectedImages] = useState({});
 
     const handleImageSelect = (nibasId, imageUri) => {
         setSelectedImages(prev => ({
@@ -89,6 +37,42 @@ const Index = () => {
             [nibasId]: imageUri
         }));
     };
+
+    const getDharmashala = async () => {
+        try {
+            setSpinner(true);
+            const response = await fetch(base_url + 'api/get-accomodation', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            const responseData = await response.json();
+            if (responseData.status === true) {
+                const dharamasalaOnly = responseData.data.filter(item => item.accomodation_type === 'dharamasala');
+                setDharmashalaList(dharamasalaOnly);
+
+                const initialImageSelection = {};
+                dharamasalaOnly.forEach(item => {
+                    if (item.images && item.images.length > 0) {
+                        initialImageSelection[item.id] = item.images[0];
+                    }
+                });
+                setSelectedImages(initialImageSelection);
+            }
+            setSpinner(false);
+        } catch (error) {
+            console.log('Error fetching Bhakta Nibas:', error);
+            setSpinner(false);
+        }
+    };
+
+    useEffect(() => {
+        if (isFocused) {
+            getDharmashala();
+        }
+    }, [isFocused]);
 
     return (
         <View style={styles.container}>
@@ -128,85 +112,96 @@ const Index = () => {
                         </View>
                     </View>
                 </View>
-                {/* Nibas List */}
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={parkingList}
-                    scrollEnabled={false}
-                    contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 15, marginTop: 10 }}
-                    keyExtractor={(key) => {
-                        return key.id
-                    }}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <View>
-                                {/* Property Name */}
-                                <Text style={styles.propertyName}>{item.parking_name}</Text>
-
-                                {/* Main Large Image */}
+                {/* Dharmashala List */}
+                {spinner === true ?
+                    <View style={{ flex: 1, paddingVertical: 80, alignItems: 'center', justifyContent: 'center' }}>
+                        <ActivityIndicator size="large" color="#341551" />
+                        <Text style={{ marginTop: 10, color: '#341551', fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
+                    </View>
+                    :
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={dharmashalaList}
+                        scrollEnabled={false}
+                        contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 15, marginTop: 10 }}
+                        keyExtractor={(key) => {
+                            return key.id
+                        }}
+                        renderItem={({ item, index }) => {
+                            return (
                                 <View>
-                                    <Image source={{ uri: selectedImages[item.id] }} style={styles.mainImage} />
-                                    <TouchableOpacity style={styles.view360Badge}>
-                                        <Text style={styles.view360Text}>360°</Text>
-                                        <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
-                                    </TouchableOpacity>
-                                </View>
+                                    {/* Property Name */}
+                                    <Text style={styles.propertyName}>{item.name}</Text>
 
-                                {/* Thumbnail Scroll Section */}
-                                <FlatList
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                    data={item.images}
-                                    keyExtractor={(uri, index) => index.toString()}
-                                    contentContainerStyle={{ marginBottom: 8, marginTop: 4 }}
-                                    renderItem={({ item: thumb }) => (
-                                        <TouchableOpacity onPress={() => handleImageSelect(item.id, thumb)}>
-                                            <Image
-                                                source={{ uri: thumb }}
-                                                style={[
-                                                    styles.thumbnail,
-                                                    selectedImages[item.id] === thumb && styles.selectedThumbnail
-                                                ]}
-                                            />
+                                    {/* Main Large Image */}
+                                    <View>
+                                        {selectedImages[item.id] ? (
+                                            <Image source={{ uri: selectedImages[item.id] }} style={styles.mainImage} />
+                                        ) : (
+                                            <View style={[styles.mainImage, { justifyContent: 'center', alignItems: 'center', backgroundColor: '#eee' }]}>
+                                                <Text style={{ color: '#999' }}>No Image</Text>
+                                            </View>
+                                        )}
+                                        <TouchableOpacity style={styles.view360Badge}>
+                                            <Text style={styles.view360Text}>360°</Text>
+                                            <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
                                         </TouchableOpacity>
-                                    )}
-                                />
-
-                                {/* Distance Row */}
-                                <View style={styles.distanceRow}>
-                                    <MaterialIcons name="location-on" size={16} color="#7e22ce" />
-                                    <Text style={styles.distanceText}>
-                                        2 KM from Puri Temple, 3.2 Kms from Puri Beach
-                                    </Text>
-                                </View>
-
-                                {/* Offers & Address */}
-                                <View style={styles.infoRow}>
-                                    <View style={styles.infoColumn}>
-                                        <Text style={styles.label}>Property Offers:</Text>
-                                        <Text style={styles.value}>Breakfast/Lunch/Dinner{"\n"}AC Rooms</Text>
                                     </View>
-                                    <View style={styles.infoColumn}>
-                                        <Text style={styles.label}>Location Address:</Text>
-                                        <Text style={styles.value}>Jail Road, Main Road{"\n"}New Traffic Circle</Text>
+
+                                    {/* Thumbnail Scroll Section */}
+                                    <FlatList
+                                        horizontal
+                                        showsHorizontalScrollIndicator={false}
+                                        data={item.images}
+                                        keyExtractor={(uri, index) => index.toString()}
+                                        contentContainerStyle={{ marginBottom: 8, marginTop: 4 }}
+                                        renderItem={({ item: thumb }) => (
+                                            <TouchableOpacity onPress={() => handleImageSelect(item.id, thumb)}>
+                                                <Image
+                                                    source={{ uri: thumb }}
+                                                    style={[
+                                                        styles.thumbnail,
+                                                        selectedImages[item.id] === thumb && styles.selectedThumbnail
+                                                    ]}
+                                                />
+                                            </TouchableOpacity>
+                                        )}
+                                    />
+
+                                    {/* Distance Row */}
+                                    <View style={styles.distanceRow}>
+                                        <MaterialIcons name="location-on" size={16} color="#7e22ce" />
+                                        <Text style={styles.distanceText}>{item.description}</Text>
                                     </View>
-                                </View>
 
-                                {/* Buttons */}
-                                <View style={styles.buttonRow}>
-                                    <TouchableOpacity style={styles.bookNowButton}>
-                                        <Text style={styles.bookNowText}>Book Now</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.callButton}>
-                                        <Text style={styles.callText}>📞 123456789</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                    {/* Offers & Address */}
+                                    <View style={styles.infoRow}>
+                                        <View style={styles.infoColumn}>
+                                            <Text style={styles.label}>Property Offers:</Text>
+                                            <Text style={styles.value}>Breakfast/Lunch/Dinner{"\n"}AC Rooms</Text>
+                                        </View>
+                                        <View style={styles.infoColumn}>
+                                            <Text style={styles.label}>Location Address:</Text>
+                                            <Text style={styles.value}>{item.landmark}{"\n"}{item.district}, {item.state}, {item.pincode}</Text>
+                                        </View>
+                                    </View>
 
-                                {index !== parkingList.length - 1 && <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginVertical: 20 }} />}
-                            </View>
-                        )
-                    }}
-                />
+                                    {/* Buttons */}
+                                    <View style={styles.buttonRow}>
+                                        <TouchableOpacity style={styles.bookNowButton}>
+                                            <Text style={styles.bookNowText}>Book Now</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.callButton}>
+                                            <Text style={styles.callText}>📞 {item.contact_no}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    {index !== dharmashalaList.length - 1 && <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginVertical: 20 }} />}
+                                </View>
+                            )
+                        }}
+                    />
+                }
             </ScrollView>
         </View>
     );

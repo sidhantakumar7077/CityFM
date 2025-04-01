@@ -1,58 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-
-const parkingList = [
-    {
-        id: '1',
-        parking_name: 'Purushottam Bhakta Nivas',
-        parking_address: 'Near Old Jail, Puri',
-        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-        ]
-    },
-    {
-        id: '2',
-        parking_name: 'Neeladri Bhakta Nivas',
-        parking_address: 'Near Town Police Station, Grand Road, Puri',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-        ]
-    },
-    {
-        id: '3',
-        parking_name: 'Nilachala Bhakta And Yatri Nivas',
-        parking_address: 'In front of Town Police Station, Grand Road, Puri',
-        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-        ]
-    },
-    {
-        id: '4',
-        parking_name: 'Shree Gundicha Bhakta Nivas',
-        parking_address: 'Near Shree Gundicha Temple, Grand Road, Puri',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49',
-        images: [
-            'https://admin.stayatpurijagannatha.in/images/hotels/nsl1_1668836524.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/bhsl1_1668837595.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-            'https://admin.stayatpurijagannatha.in/images/hotels/22_1668840168.jpg'
-        ]
-    }
-];
+import { base_url } from '../../../App';
 
 const Index = () => {
 
@@ -78,13 +29,7 @@ const Index = () => {
         Linking.openURL(url);
     };
 
-    const [selectedImages, setSelectedImages] = useState(() => {
-        const initialState = {};
-        parkingList.forEach(item => {
-            initialState[item.id] = item.images[0];
-        });
-        return initialState;
-    });
+    const [selectedImages, setSelectedImages] = useState({});
 
     const handleImageSelect = (nibasId, imageUri) => {
         setSelectedImages(prev => ({
@@ -105,15 +50,23 @@ const Index = () => {
             });
             const responseData = await response.json();
             if (responseData.status === true) {
-                // console.log("get Bhakta Nibas List-------", responseData.data);
-                setSpinner(false);
-                setAllBhaaktaNibas(responseData.data);
+                const bhaktaNiwasOnly = responseData.data.filter(item => item.accomodation_type === 'bhakta_niwas');
+                setAllBhaaktaNibas(bhaktaNiwasOnly);
+
+                const initialImageSelection = {};
+                bhaktaNiwasOnly.forEach(item => {
+                    if (item.images && item.images.length > 0) {
+                        initialImageSelection[item.id] = item.images[0];
+                    }
+                });
+                setSelectedImages(initialImageSelection);
             }
+            setSpinner(false);
         } catch (error) {
             console.log('Error fetching Bhakta Nibas:', error);
             setSpinner(false);
         }
-    }
+    };
 
     useEffect(() => {
         if (isFocused) {
@@ -136,38 +89,39 @@ const Index = () => {
                 </LinearGradient>
             </Animated.View>
 
-            {spinner === true ?
-                <View style={{ flex: 1, alignSelf: 'center', top: '40%' }}>
-                    <Text style={{ color: '#341551', fontSize: 17 }}>Loading...</Text>
-                </View>
-                :
-                <ScrollView
-                    style={{ flex: 1 }}
-                    onScroll={handleScroll}
-                    scrollEventThrottle={16}
-                    showsVerticalScrollIndicator={false}
-                    bounces={false} // Prevents bounce effect on iOS
-                    overScrollMode="never" // Prevents overscroll glow on Android
-                >
-                    {/* Header Image */}
-                    <View style={styles.headerContainer}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
-                            <View style={{ width: '75%' }}>
-                                <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Temple Owned Stay For Pilgrims</Text>
-                                <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Properties Below Are Owned By Shree Jagannatha Temple Administration</Text>
-                                <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
-                                    <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ width: '22%', alignItems: 'center' }}>
-                                <Image source={require('../../assets/image/hotel.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
-                            </View>
+            <ScrollView
+                style={{ flex: 1 }}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
+                showsVerticalScrollIndicator={false}
+                bounces={false} // Prevents bounce effect on iOS
+                overScrollMode="never" // Prevents overscroll glow on Android
+            >
+                {/* Header Image */}
+                <View style={styles.headerContainer}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
+                        <View style={{ width: '75%' }}>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Temple Owned Stay For Pilgrims</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Properties Below Are Owned By Shree Jagannatha Temple Administration</Text>
+                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                                <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ width: '22%', alignItems: 'center' }}>
+                            <Image source={require('../../assets/image/hotel.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
                         </View>
                     </View>
-                    {/* Nibas List */}
+                </View>
+                {/* Nibas List */}
+                {spinner === true ?
+                    <View style={{ flex: 1, paddingVertical: 80, alignItems: 'center', justifyContent: 'center' }}>
+                        <ActivityIndicator size="large" color="#341551" />
+                        <Text style={{ marginTop: 10, color: '#341551', fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
+                    </View>
+                    :
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={parkingList}
+                        data={allBhaktaNibas}
                         scrollEnabled={false}
                         contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 15, marginTop: 10 }}
                         keyExtractor={(key) => {
@@ -177,11 +131,17 @@ const Index = () => {
                             return (
                                 <View>
                                     {/* Property Name */}
-                                    <Text style={styles.propertyName}>{item.parking_name}</Text>
+                                    <Text style={styles.propertyName}>{item.name}</Text>
 
                                     {/* Main Large Image */}
                                     <View>
-                                        <Image source={{ uri: selectedImages[item.id] }} style={styles.mainImage} />
+                                        {selectedImages[item.id] ? (
+                                            <Image source={{ uri: selectedImages[item.id] }} style={styles.mainImage} />
+                                        ) : (
+                                            <View style={[styles.mainImage, { justifyContent: 'center', alignItems: 'center', backgroundColor: '#eee' }]}>
+                                                <Text style={{ color: '#999' }}>No Image</Text>
+                                            </View>
+                                        )}
                                         <TouchableOpacity style={styles.view360Badge}>
                                             <Text style={styles.view360Text}>360°</Text>
                                             <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
@@ -211,9 +171,7 @@ const Index = () => {
                                     {/* Distance Row */}
                                     <View style={styles.distanceRow}>
                                         <MaterialIcons name="location-on" size={16} color="#7e22ce" />
-                                        <Text style={styles.distanceText}>
-                                            2 KM from Puri Temple, 3.2 Kms from Puri Beach
-                                        </Text>
+                                        <Text style={styles.distanceText}>{item.description}</Text>
                                     </View>
 
                                     {/* Offers & Address */}
@@ -224,7 +182,7 @@ const Index = () => {
                                         </View>
                                         <View style={styles.infoColumn}>
                                             <Text style={styles.label}>Location Address:</Text>
-                                            <Text style={styles.value}>Jail Road, Main Road{"\n"}New Traffic Circle</Text>
+                                            <Text style={styles.value}>{item.landmark}{"\n"}{item.district}, {item.state}, {item.pincode}</Text>
                                         </View>
                                     </View>
 
@@ -234,17 +192,17 @@ const Index = () => {
                                             <Text style={styles.bookNowText}>Book Now</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.callButton}>
-                                            <Text style={styles.callText}>📞 123456789</Text>
+                                            <Text style={styles.callText}>📞 {item.contact_no}</Text>
                                         </TouchableOpacity>
                                     </View>
 
-                                    {index !== parkingList.length - 1 && <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginVertical: 20 }} />}
+                                    {index !== allBhaktaNibas.length - 1 && <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginVertical: 20 }} />}
                                 </View>
                             )
                         }}
                     />
-                </ScrollView>
-            }
+                }
+            </ScrollView>
         </View>
     );
 };
@@ -334,7 +292,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     thumbnail: {
-        width: 60,
+        width: 62,
         height: 60,
         borderRadius: 4,
         marginRight: 10,

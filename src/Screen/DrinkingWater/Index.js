@@ -1,46 +1,19 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useNavigation } from '@react-navigation/native';
-
-const mainLockerShoesStand = [
-  {
-    id: '1',
-    locker_name: 'Barabati Kalyani Mandap',
-    locker_address: 'Barabati Kalyani Mandap, Puri, Odisha 752001',
-    image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-    map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
-  },
-  {
-    id: '2',
-    locker_name: 'Barabati Kalyani Mandap',
-    locker_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
-    image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-    map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
-  },
-  {
-    id: '3',
-    locker_name: 'Loknath Temple Parking',
-    locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
-    image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-    map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
-  },
-  {
-    id: '4',
-    locker_name: 'Loknath Temple Parking',
-    locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
-    image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-    map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
-  }
-];
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { base_url } from '../../../App';
 
 const Index = () => {
 
   const scrollY = useRef(new Animated.Value(0)).current;
   const [isScrolled, setIsScrolled] = useState(false);
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const [loading, setLoading] = useState(false);
+  const [drinkingWater, setDrinkingWater] = useState([]);
 
   const handleScroll = Animated.event(
     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -56,6 +29,28 @@ const Index = () => {
   const openMap = (url) => {
     Linking.openURL(url);
   };
+
+  const getDrinkingWater = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(base_url + 'api/get-all-service-list');
+      const responseData = await response.json();
+      if (responseData.status) {
+        const filtered = responseData.data.filter(item => item.service_type === 'drinking_water');
+        setDrinkingWater(filtered);
+      }
+    } catch (error) {
+      console.error('Error fetching life guard booths:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isFocused) {
+      getDrinkingWater();
+    }
+  }, [isFocused])
 
   return (
     <View style={styles.container}>
@@ -97,68 +92,62 @@ const Index = () => {
         </View>
 
         {/* Main Locker & Shoes Stands */}
-        <FlatList
-          data={mainLockerShoesStand}
-          keyExtractor={(item) => item.id}
-          scrollEnabled={false}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => openMap(item.map_url)}
-              style={{
-                width: '100%',
-                height: 130,
-                flexDirection: 'row',
-                // alignItems: 'center',
-                justifyContent: 'space-between',
-                paddingVertical: 12,
-                paddingHorizontal: 15,
-                borderBottomWidth: 1,
-                borderBottomColor: '#eee',
-              }}
-            >
-              <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
-                {/* <Image source={{ uri: item.image }} style={{ width: 60, height: 60, borderRadius: 8, backgroundColor: '#eee', marginRight: 12 }}> */}
-              </View>
-
-              {/* Text Content */}
-              <View style={{ width: '55%', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
-                  {item.locker_name}
-                </Text>
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
-                  <MaterialIcons name="location-on" size={14} color="#999" />
-                  <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
-                    Location Address
-                  </Text>
+        {loading ? (
+          <View style={{ flex: 1, paddingVertical: 80, alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size="large" color="#341551" />
+            <Text style={{ marginTop: 10, color: '#341551', fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={drinkingWater}
+            keyExtractor={(item) => item.id}
+            scrollEnabled={false}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => openMap(item.google_map_link)}
+                style={{
+                  width: '100%',
+                  height: 130,
+                  flexDirection: 'row',
+                  // alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingVertical: 12,
+                  paddingHorizontal: 15,
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#eee',
+                }}
+              >
+                <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
+                  {item.photo && <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />}
                 </View>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
-                  <MaterialIcons name="access-time" size={13} color="#999" />
-                  <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
-                    24/7
+                {/* Text Content */}
+                <View style={{ width: '55%', justifyContent: 'center' }}>
+                  <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
+                    {item.description || 'Drinking Water'}
                   </Text>
-                </View>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
-                  <FontAwesome5 name="parking" size={13} color={item.id === '1' ? '#28a745' : '#D64C64'} />
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      marginLeft: 4,
-                      fontFamily: 'FiraSans-Regular',
-                      color: item.id === '1' ? '#28a745' : '#D64C64',
-                    }}
-                  >
-                    {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                    <MaterialIcons name="location-on" size={14} color="#999" />
+                    <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
+                      {item.landmark}, {item.district}
+                    </Text>
+                  </View>
 
-        <View style={{ height: 100 }} />
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                    <MaterialIcons name="access-time" size={13} color="#999" />
+                    <Text style={{ fontSize: 12, color: '#666', marginLeft: 4 }}>Open: {item.opening_time} - {item.closing_time}</Text>
+                  </View>
+
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                    <FontAwesome5 name="air-freshener" size={13} color="#28a745" />
+                    <Text style={{ fontSize: 13, marginLeft: 5, color: '#28a745', textTransform: 'capitalize' }}>{item.status}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        )}
       </ScrollView>
     </View>
   );

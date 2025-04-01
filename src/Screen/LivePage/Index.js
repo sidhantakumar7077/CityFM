@@ -25,7 +25,7 @@ const Index = () => {
     const getPodcastData = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/podcasthomepage', {
+            const response = await fetch('https://pandit.33crores.com/api/podcasthomepage', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -34,9 +34,9 @@ const Index = () => {
             });
             const responseData = await response.json();
             if (responseData.status === 200) {
-                console.log("Podcast Data: ", responseData.data.recent_podcast);
+                // console.log("Podcast Data: ", responseData.data.recent_podcast);
                 setSpinner(false);
-                // setAllContent(responseData.data.recent_podcast);
+                setAllContent(responseData.data.recent_podcast);
             }
         } catch (error) {
             console.log(error);
@@ -46,18 +46,7 @@ const Index = () => {
 
     useEffect(() => {
         if (isFocused) {
-            // getPodcastData();
-            setAllContent({
-                id: 0,
-                name: 'ଦ୍ଵାରଫିଟା ଓ ମଙ୍ଗଳ ଆଳତି',
-                podcast_music: require('../../assets/audio/dwaraphita.mp3'),
-            });
-        }
-        if (currentTrack) {
-            const initializeVolume = async () => {
-                await TrackPlayer.setVolume(volume); // Set default volume
-            };
-            initializeVolume();
+            getPodcastData();
         }
     }, [isFocused]);
 
@@ -100,6 +89,8 @@ const Index = () => {
     const togglePlayback = async (track) => {
         try {
             const storedPodcastData = await AsyncStorage.getItem('currentPodcast');
+            // console.log("Current Track ID:", currentTrack, "Selected Track ID:", track.id.toString());
+            console.log("storedPodcastData", storedPodcastData, track);
             if (!storedPodcastData || JSON.parse(storedPodcastData).id !== track.id) {
                 // console.log("Current Track ID:", currentTrack, "Selected Track ID:", track.id.toString());
                 await TrackPlayer.reset();
@@ -114,11 +105,25 @@ const Index = () => {
                 await TrackPlayer.play();
                 await AsyncStorage.setItem('currentPodcast', JSON.stringify(track));
             } else {
-                // console.log("playbackState", playbackState, State.Playing);
+                console.log("playbackState", playbackState);
                 if (playbackState.state === State.Playing) {
+                    console.log("pause");
                     await TrackPlayer.pause();
-                } else {
+                } else if (playbackState === State.Paused) {
+                    console.log("Resuming playback...", State.Paused);
                     await TrackPlayer.play();
+                } else {
+                    console.log("play");
+                    await TrackPlayer.reset();
+                    await TrackPlayer.add({
+                        id: track.id.toString(),
+                        url: track.podcast_music,
+                        title: track.name,
+                        artist: 'Unknown Artist',
+                    });
+                    setCurrentTrack(track.id);
+                    await TrackPlayer.play();
+                    await AsyncStorage.setItem('currentPodcast', JSON.stringify(track));
                 }
             }
         } catch (error) {
@@ -138,7 +143,7 @@ const Index = () => {
 
             <ImageBackground source={require('../../assets/image/ratha.jpeg')} style={styles.background}>
                 {/* Gradient Overlay */}
-                <LinearGradient colors={['transparent', '#FFBE00']} style={styles.gradient} />
+                {/* <LinearGradient colors={['transparent', '#FFBE00']} style={styles.gradient} /> */}
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
                     {/* Top Header */}
                     {/* <View style={styles.menuHeader}>

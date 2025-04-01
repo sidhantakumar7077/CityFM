@@ -59,7 +59,7 @@ const Index = () => {
   const getPodcastList = async () => {
     try {
       setLoading(true);
-      const response = await fetch(base_url + 'api/podcasts', {
+      const response = await fetch('https://pandit.33crores.com/api/podcasts', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 10,
     elevation: 8, // For Android shadow
-},
+  },
   activePodcast: {
     height: 180,
     resizeMode: 'cover',

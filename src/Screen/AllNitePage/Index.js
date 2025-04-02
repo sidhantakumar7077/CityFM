@@ -13,22 +13,22 @@ const nitiTimings = [
     { name: 'Abakash', status: 'Completed', time: '6:30 AM', relativeTime: '3 hours ago', completedAt: '6:45 AM' },
     { name: 'Abakash Pare Mailam', status: 'Running', time: '6:45 AM', relativeTime: '1 hour ago', completedAt: '7:00 AM' },
     { name: 'Sahan Mela or public spectacle', status: 'Upcoming', time: '7:00 PM', relativeTime: 'in 1 hour', completedAt: '8:30 AM' },
-    {name: 'Besha Lagi', status: 'Upcoming', time: '8:30 AM', relativeTime: 'in 2 hours', completedAt: '8:45 AM'},
-    {name: 'Rosha Homo', status: 'Upcoming', time: '8:45 AM', relativeTime: 'in 2 hours', completedAt: '8:45 AM'},
-    {name: 'Surya Puja', status: 'Upcoming', time: '9:00 AM', relativeTime: 'in 3 hours', completedAt: '9:00 AM'},
-    {name: 'Dwarapala Puja', status: 'Upcoming', time: '9:15 AM', relativeTime: 'in 4 hours', completedAt: '9:30 AM'},
-    {name: 'Gopalalavah Bhoga', status: 'Upcoming', time: '9:30 AM', relativeTime: 'in 5 hours', completedAt: '10:00 AM'},
-    {name: 'Shakal Dhupa', status: 'Upcoming', time: '10:00 AM', relativeTime: 'in 6 hours', completedAt: '10:30 AM'},
-    {name: 'Mailam and Bhogamandap', status: 'Upcoming', time: '11:00 AM', relativeTime: 'in 7 hours', completedAt: '11:00 AM'},
-    {name: 'Madhyan Dhupa', status: 'Upcoming', time: '11:30 AM', relativeTime: 'in 8 hours', completedAt: '12:30 PM'},
-    {name: 'Madhyan Pahuda', status: 'Upcoming', time: '1:00 PM', relativeTime: 'in 9 hours', completedAt: '1:30 PM'},
-    {name: 'Pahuda Phitiba and Sandhya Alati', status: 'Upcoming', time: '6:00 PM', relativeTime: 'in 10 hours', completedAt: '7:00 PM'},
-    {name: 'Sandhya Dhupa', status: 'Upcoming', time: '7:00 PM', relativeTime: 'in 11 hours', completedAt: '8:00 PM'},
-    {name: 'Sahan Mela after Sandhya Dhupa', status: 'Upcoming', time: '9:30 PM', relativeTime: 'in 12 hours', completedAt: '10:00 PM'},
-    {name: 'Mailam and Chandan Lagi', status: 'Upcoming', time: '10:00 PM', relativeTime: 'in 13 hours', completedAt: '10:30 PM'},
-    {name: 'Bada Singhar Besha', status: 'Upcoming', time: '10:30 PM', relativeTime: 'in 14 hours', completedAt: '11:15 PM'},
-    {name: 'Bada Singhar Dhupa', status: 'Upcoming', time: '11:15 PM', relativeTime: 'in 15 hours', completedAt: '12:00 AM'},
-    {name: 'Khatasejalagi, harp and song, Puspanjali, Pushpalagi, Pahuda, Muda and Shodha', status: 'Upcoming', time: '12:00 AM', relativeTime: 'in 16 hours', completedAt: '1:00 AM'},
+    { name: 'Besha Lagi', status: 'Upcoming', time: '8:30 AM', relativeTime: 'in 2 hours', completedAt: '8:45 AM' },
+    { name: 'Rosha Homo', status: 'Upcoming', time: '8:45 AM', relativeTime: 'in 2 hours', completedAt: '8:45 AM' },
+    { name: 'Surya Puja', status: 'Upcoming', time: '9:00 AM', relativeTime: 'in 3 hours', completedAt: '9:00 AM' },
+    { name: 'Dwarapala Puja', status: 'Upcoming', time: '9:15 AM', relativeTime: 'in 4 hours', completedAt: '9:30 AM' },
+    { name: 'Gopalalavah Bhoga', status: 'Upcoming', time: '9:30 AM', relativeTime: 'in 5 hours', completedAt: '10:00 AM' },
+    { name: 'Shakal Dhupa', status: 'Upcoming', time: '10:00 AM', relativeTime: 'in 6 hours', completedAt: '10:30 AM' },
+    { name: 'Mailam and Bhogamandap', status: 'Upcoming', time: '11:00 AM', relativeTime: 'in 7 hours', completedAt: '11:00 AM' },
+    { name: 'Madhyan Dhupa', status: 'Upcoming', time: '11:30 AM', relativeTime: 'in 8 hours', completedAt: '12:30 PM' },
+    { name: 'Madhyan Pahuda', status: 'Upcoming', time: '1:00 PM', relativeTime: 'in 9 hours', completedAt: '1:30 PM' },
+    { name: 'Pahuda Phitiba and Sandhya Alati', status: 'Upcoming', time: '6:00 PM', relativeTime: 'in 10 hours', completedAt: '7:00 PM' },
+    { name: 'Sandhya Dhupa', status: 'Upcoming', time: '7:00 PM', relativeTime: 'in 11 hours', completedAt: '8:00 PM' },
+    { name: 'Sahan Mela after Sandhya Dhupa', status: 'Upcoming', time: '9:30 PM', relativeTime: 'in 12 hours', completedAt: '10:00 PM' },
+    { name: 'Mailam and Chandan Lagi', status: 'Upcoming', time: '10:00 PM', relativeTime: 'in 13 hours', completedAt: '10:30 PM' },
+    { name: 'Bada Singhar Besha', status: 'Upcoming', time: '10:30 PM', relativeTime: 'in 14 hours', completedAt: '11:15 PM' },
+    { name: 'Bada Singhar Dhupa', status: 'Upcoming', time: '11:15 PM', relativeTime: 'in 15 hours', completedAt: '12:00 AM' },
+    { name: 'Khatasejalagi, harp and song, Puspanjali, Pushpalagi, Pahuda, Muda and Shodha', status: 'Upcoming', time: '12:00 AM', relativeTime: 'in 16 hours', completedAt: '1:00 AM' },
 ];
 
 const Index = () => {
@@ -122,8 +122,8 @@ const Index = () => {
                             };
 
                             const getColor = () => {
-                                if (isCompleted) return '#341551'; // purple
-                                if (isRunning) return '#059629'; // green
+                                if (isCompleted) return '#FFA726'; // purple
+                                if (isRunning) return '#F06292'; // green
                                 return '#C5C5C5'; // grey
                             };
 
@@ -135,7 +135,10 @@ const Index = () => {
                                         {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
 
                                         {/* Number Circle */}
-                                        <View
+                                        <LinearGradient
+                                            colors={isUpcoming ? ['#C5C5C5', '#C5C5C5'] : ['#FFA726', '#F06292']}
+                                            start={{ x: 0, y: 0 }}
+                                            end={{ x: 1, y: 0 }}
                                             style={{
                                                 height: 24,
                                                 width: 24,
@@ -157,7 +160,7 @@ const Index = () => {
                                                     {index + 1}
                                                 </Text>
                                             )}
-                                        </View>
+                                        </LinearGradient>
 
                                         {/* Line below */}
                                         {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
@@ -176,7 +179,7 @@ const Index = () => {
 
                                         {isRunning && (
                                             <>
-                                                <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
+                                                <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
                                                     Running Now
                                                 </Text>
                                                 <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>

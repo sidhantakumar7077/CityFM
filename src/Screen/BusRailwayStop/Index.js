@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { base_url } from '../../../App';
 
 const mainLockerShoesStand = [
     {
@@ -44,6 +45,7 @@ const Index = () => {
     const isFocused = useIsFocused();
     const [spinner, setSpinner] = useState(false);
     const [allBusRailway, setAllBusRailway] = useState([]);
+    const [selectedTab, setSelectedTab] = useState('BusStand'); // Default selected tab
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -132,6 +134,37 @@ const Index = () => {
                         </View>
                     </View>
 
+                    <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, margin: 15, padding: 5 }}>
+                        <TouchableOpacity
+                            onPress={() => setSelectedTab('FourWheelers')}
+                            style={{
+                                flex: 1,
+                                backgroundColor: selectedTab === 'FourWheelers' ? '#4B0082' : 'transparent',
+                                borderRadius: 10,
+                                paddingVertical: 8,
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Text style={{ color: selectedTab === 'FourWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                                Four Wheelers
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setSelectedTab('TwoWheelers')}
+                            style={{
+                                flex: 1,
+                                backgroundColor: selectedTab === 'TwoWheelers' ? '#4B0082' : 'transparent',
+                                borderRadius: 10,
+                                paddingVertical: 8,
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Text style={{ color: selectedTab === 'TwoWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                                Two Wheelers
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    
                     {/* Main Locker & Shoes Stands */}
                     <FlatList
                         data={mainLockerShoesStand}

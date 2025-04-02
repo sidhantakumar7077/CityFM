@@ -170,7 +170,7 @@ const Index = () => {
 
                                     {/* Distance Row */}
                                     <View style={styles.distanceRow}>
-                                        <MaterialIcons name="location-on" size={16} color="#7e22ce" />
+                                        <MaterialIcons name="location-on" size={16} color="#FFA726" />
                                         <Text style={styles.distanceText}>{item.description}</Text>
                                     </View>
 
@@ -188,9 +188,16 @@ const Index = () => {
 
                                     {/* Buttons */}
                                     <View style={styles.buttonRow}>
-                                        <TouchableOpacity style={styles.bookNowButton}>
-                                            <Text style={styles.bookNowText}>Book Now</Text>
-                                        </TouchableOpacity>
+                                        <LinearGradient
+                                            colors={['#FFA726', '#F06292']}
+                                            start={{ x: 0, y: 0 }}
+                                            end={{ x: 1, y: 0 }}
+                                            style={styles.bookNowButton}
+                                        >
+                                            <TouchableOpacity>
+                                                <Text style={styles.bookNowText}>Book Now</Text>
+                                            </TouchableOpacity>
+                                        </LinearGradient>
                                         <TouchableOpacity style={styles.callButton}>
                                             <Text style={styles.callText}>📞 {item.contact_no}</Text>
                                         </TouchableOpacity>
@@ -300,7 +307,7 @@ const styles = StyleSheet.create({
         borderColor: '#ddd'
     },
     selectedThumbnail: {
-        borderColor: '#7e22ce',
+        borderColor: '#FFA726',
         borderWidth: 2
     },
     distanceRow: {
@@ -310,7 +317,7 @@ const styles = StyleSheet.create({
     },
     distanceText: {
         fontSize: 13,
-        color: '#7e22ce',
+        color: '#FFA726',
         marginLeft: 5,
         fontFamily: 'FiraSans-Regular'
     },

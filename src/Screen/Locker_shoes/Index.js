@@ -109,7 +109,7 @@ const Index = () => {
                                 onPress={() => openMap(item.google_map_link)}
                                 style={{
                                     width: '100%',
-                                    height: 130,
+                                    height: 150,
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
                                     paddingVertical: 12,

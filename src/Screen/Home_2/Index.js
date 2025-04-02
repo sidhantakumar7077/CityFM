@@ -28,27 +28,29 @@ const Index = () => {
 
     const bannerData = [
         {
-            image: require('../../assets/image/SplashLogo.png'),
-            title: 'Get the latest updates',
-            subtitle: 'Subscribe to our newsletter',
+            image: require('../../assets/image/temple123.png'),
+            title: 'Jagannatha Temples Worldwide',
+            subtitle: 'Find All Jagannatha Temples.',
         },
         {
             image: require('../../assets/image/SplashLogo.png'),
             title: 'Exclusive Offers',
-            subtitle: 'Don’t miss out on discounts',
+            subtitle: 'Don’t miss out on discounts.',
         },
     ];
 
-    const demoBannerData = [
+    const TempleBanner = [
+        {
+            image: require('../../assets/image/temple1234.png'),
+            title: 'Shree Jagannatha',
+            subtitle: 'All Information about Temple.',
+            pageName: 'TempleInformationPage',
+        },
         {
             image: require('../../assets/image/ratha_yatra123.png'),
             title: 'Ratha Yatra Updates',
             subtitle: 'All types of information',
-        },
-        {
-            image: require('../../assets/image/ratha_yatra.png'),
-            title: 'Exclusive Offers',
-            subtitle: 'Don’t miss out on discounts',
+            pageName: 'RathaYatraMainPage',
         },
     ];
 
@@ -160,7 +162,7 @@ const Index = () => {
 
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
-    const maxVisibleItems = 3 * itemsPerRow; // Show 3 rows initially
+    const maxVisibleItems = 3 * itemsPerRow; // Show 2 rows initially
 
     const [nitiList, setNitiList] = useState([]);
     const [banners, setBanners] = useState([]);
@@ -209,7 +211,7 @@ const Index = () => {
                 overScrollMode="never" // Prevents overscroll glow on Android
             >
                 {/* Background Image with Overlay */}
-                <ImageBackground source={require("../../assets/image/ratha.jpeg")} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20, resizeMode: 'cover' }} style={styles.backgroundImage}>
+                <ImageBackground source={require("../../assets/image/templeImage1.png")} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20, resizeMode: 'cover' }} style={styles.backgroundImage}>
                     <LinearGradient colors={["rgba(0,0,0,0.5)", "transparent"]} style={styles.overlay} />
                     <View style={styles.header}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -219,11 +221,11 @@ const Index = () => {
                             <SimpleLineIcons name="settings" size={26} color="#fff" />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ position: 'absolute', top: 80, width: '100%', left: 13 }}>
+                    <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
                         <View style={{ textAlign: 'center', marginLeft: 8 }}>
-                            <Text style={{ color: '#d9dbdb', fontSize: 14, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
-                            <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
-                            <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
+                            <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
+                            <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
+                            <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
                         </View>
                     </View>
                 </ImageBackground>
@@ -231,10 +233,10 @@ const Index = () => {
                 {/* Current Niti Box */}
                 <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
                     <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
-                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
+                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '90%' }}>
-                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#6A0DAD' }}>Dwara Phita & Mangala Alati</Text>
+                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Dwara Phita & Mangala Alati</Text>
                                     <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -252,10 +254,10 @@ const Index = () => {
                                 </View>
                             </View>
                         </View>
-                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
+                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '90%' }}>
-                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#6A0DAD' }}>Mailam</Text>
+                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Mailam</Text>
                                     <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -273,10 +275,10 @@ const Index = () => {
                                 </View>
                             </View>
                         </View>
-                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
+                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '90%' }}>
-                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#6A0DAD' }}>View All Niti</Text>
+                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>View All Niti</Text>
                                 </View>
                                 <View style={{ width: '10%' }}>
                                     <Ionicons name="chevron-forward" size={24} color="#fa0000" />
@@ -297,12 +299,12 @@ const Index = () => {
                         activeDotColor="#341551"
                         containerStyle={{ borderRadius: 10 }}
                     >
-                        {demoBannerData.map((item, index) => (
+                        {TempleBanner.map((item, index) => (
                             <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '70%' }}>
                                     <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
                                     <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
-                                    <TouchableOpacity onPress={() => navigation.navigate('RathaYatraMainPage')} style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate(item.pageName)} style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
                                         <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>View</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -364,78 +366,87 @@ const Index = () => {
                 {/* Quick Services Section */}
                 <View style={{ padding: 15 }}>
                     {/* Title Section */}
-                    <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Quick Services</Text>
-                    <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} />
+                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Quick Services</Text>
+                    {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
+                    <LinearGradient
+                        colors={['#FFA726', '#F06292']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
+                        }}
+                    />
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
                                 <Image source={require('../../assets/image/DARSHAN2.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/mahaprasad1.png')} style={{ width: 45, height: 45 }} />
+                                <Image source={require('../../assets/image/prasad321.png')} style={{ width: 35, height: 35 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
                                 <Image source={require('../../assets/image/panji.png')} style={{ width: 55, height: 55 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'gift'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 55, height: 55 }} />
+                                <Image source={require('../../assets/image/OFFERING2.png')} style={{ width: 55, height: 55 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Offering</Text>
                         </View>
                     </View>
 
-                    <View style={{ marginTop: 20, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 2 }}>
+                    <View style={{ marginTop: 10, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                         <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
                             <View style={{ width: '20%' }}>
                                 <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
                             </View>
                             <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 14, fontFamily: 'FiraSans-Regular', color: '#333', lineHeight: 20 }}>Temple Owned Properties For Pligrimas to stay</Text>
+                                <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>Temple owned properties for pligrims to stay Comfortably</Text>
                             </View>
                             <View style={{ width: '20%', alignItems: 'flex-end' }}>
-                                <Image source={{ uri: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' }} style={{ width: 50, height: 50 }} />
+                                <Image source={require('../../assets/image/bhaktanibash54.png')}  style={{ width: 50, height: 50 }} />
                             </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15 }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                             <View style={{ width: '60%', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Parking</Text>
                                 <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>2, 3, 4 Wheelers</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={require('../../assets/image/parkinng241414.png')} style={{ width: 48, height: 48, resizeMode: 'contain' }} />
+                                {/* <FontAwesome5 name="parking" size={30} color="#D64C64" /> */}
+                                <Image source={require('../../assets/image/parking765.png')} style={{ width: 38, height: 38, resizeMode: 'contain' }} />
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                             <View style={{ width: '60%', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes</Text>
-                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free Stand service</Text>
+                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free Stand</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={require('../../assets/image/locker24214.png')} style={{ width: 48, height: 48, resizeMode: 'contain' }} />
+                                <Image source={require('../../assets/image/locker675.png')} style={{ width: 40, height: 40, resizeMode: 'contain' }} />
                             </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <TouchableOpacity style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                        <TouchableOpacity style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                             <View style={{ width: '60%', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
                                 <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Donate Now</Text>
@@ -445,13 +456,14 @@ const Index = () => {
                             </View>
                         </TouchableOpacity>
 
-                        <View style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 }}>
+                        <View style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                             <View style={{ width: '60%', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Collection</Text>
                                 <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹5,30,000/-</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/619/619034.png' }} style={{ width: 28, height: 28 }} />
+                                <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" />
+                                {/* <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/619/619034.png' }} style={{ width: 28, height: 28 }} /> */}
                             </View>
                         </View>
                     </View>
@@ -461,57 +473,95 @@ const Index = () => {
                 {/* Nearby Temples */}
                 <View style={styles.nearbyContainer}>
                     {/* Title Section */}
-                    <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Nearby Religious Places</Text>
-                    <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} />
+                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Nearby Religious Places</Text>
+                    {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
+                    <LinearGradient
+                        colors={['#FFA726', '#F06292']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
+                        }}
+                    />
 
                     <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
                         {/* Temples Tab */}
-                        <TouchableOpacity
-                            onPress={() => setSelectedTab('Temples')}
+                        <LinearGradient
+                            colors={selectedTab === 'Temples' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                             style={{
                                 flex: 1,
-                                backgroundColor: selectedTab === 'Temples' ? '#D64C64' : 'transparent',
                                 borderRadius: 10,
-                                paddingVertical: 8,
-                                alignItems: 'center',
                             }}
                         >
-                            <Text style={{ color: selectedTab === 'Temples' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                Temples
-                            </Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setSelectedTab('Temples')}
+                                style={{
+                                    flex: 1,
+                                    // backgroundColor: selectedTab === 'Temples' ? '#D64C64' : 'transparent',
+                                    borderRadius: 10,
+                                    paddingVertical: 8,
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Text style={{ color: selectedTab === 'Temples' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                    Temples
+                                </Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
 
                         {/* Mathas Tab */}
-                        <TouchableOpacity
-                            onPress={() => setSelectedTab('Mathas')}
+                        <LinearGradient
+                            colors={selectedTab === 'Mathas' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                             style={{
                                 flex: 1,
-                                backgroundColor: selectedTab === 'Mathas' ? '#D64C64' : 'transparent',
                                 borderRadius: 10,
-                                paddingVertical: 8,
-                                alignItems: 'center',
                             }}
                         >
-                            <Text style={{ color: selectedTab === 'Mathas' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                Mathas
-                            </Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setSelectedTab('Mathas')}
+                                style={{
+                                    flex: 1,
+                                    // backgroundColor: selectedTab === 'Mathas' ? '#D64C64' : 'transparent',
+                                    borderRadius: 10,
+                                    paddingVertical: 8,
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Text style={{ color: selectedTab === 'Mathas' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                    Mathas
+                                </Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
 
                         {/* Ritual Sites Tab */}
-                        <TouchableOpacity
-                            onPress={() => setSelectedTab('RitualSites')}
+                        <LinearGradient
+                            colors={selectedTab === 'RitualSites' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                             style={{
                                 flex: 1,
-                                backgroundColor: selectedTab === 'RitualSites' ? '#D64C64' : 'transparent',
                                 borderRadius: 10,
-                                paddingVertical: 8,
-                                alignItems: 'center',
                             }}
                         >
-                            <Text style={{ color: selectedTab === 'RitualSites' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                Ritual Sites
-                            </Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setSelectedTab('RitualSites')}
+                                style={{
+                                    flex: 1,
+                                    // backgroundColor: selectedTab === 'RitualSites' ? '#D64C64' : 'transparent',
+                                    borderRadius: 10,
+                                    paddingVertical: 8,
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Text style={{ color: selectedTab === 'RitualSites' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                    Ritual Sites
+                                </Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
                     </View>
 
                     <FlatList
@@ -537,8 +587,16 @@ const Index = () => {
                 {/* conveniences */}
                 <View style={{ padding: 15 }}>
                     {/* Title */}
-                    <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Conveniences</Text>
-                    <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
+                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Conveniences</Text>
+                    {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} /> */}
+                    <LinearGradient
+                        colors={['#FFA726', '#F06292']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
+                        }}
+                    />
 
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 20 }}>
                         {(expanded ? conveniences : conveniences.slice(0, maxVisibleItems)).map((item) => (
@@ -599,7 +657,7 @@ const Index = () => {
                 </Modal>
 
                 {/* Banner Section */}
-                <View style={{ height: 150, marginTop: 10 }}>
+                {/* <View style={{ height: 150, marginTop: 10, marginBottom: 0 }}>
                     <Swiper
                         // autoplay
                         // autoplayTimeout={4}
@@ -611,20 +669,20 @@ const Index = () => {
                     >
                         {bannerData.map((item, index) => (
                             <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ width: '70%' }}>
+                                <View style={{ width: '80%' }}>
                                     <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
                                     <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
-                                    <TouchableOpacity style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>Subscribe</Text>
+                                    <TouchableOpacity onPress={() => navigation.navigate('TempleInformationPage')} style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>Know More</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{ width: '30%', alignItems: 'flex-end' }}>
+                                <View style={{ width: '20%', alignItems: 'flex-start' }}>
                                     <Image source={item.image} style={{ width: 85, height: 85 }} resizeMode="contain" />
                                 </View>
                             </View>
                         ))}
                     </Swiper>
-                </View>
+                </View> */}
 
                 {/* Calendar Section */}
                 {/* <View>
@@ -677,12 +735,10 @@ const Index = () => {
                 </View> */}
 
                 {/* About Temple */}
-                <View style={{ padding: 15, marginTop: 10 }}>
-                    {/* Title */}
+                {/* <View style={{ padding: 15, marginTop: 10 }}>
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Temple Information</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
 
-                    {/* Grid Layout */}
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 6 }}>
                         {templeInfo.map((item) => (
                             <View key={item.id} style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}>
@@ -693,37 +749,47 @@ const Index = () => {
                             </View>
                         ))}
                     </View>
-                </View>
+                </View> */}
 
                 {/* Temples Worldwide */}
                 <View style={{ padding: 15 }}>
-                    <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Jagannatha Temples Worldwide</Text>
-                    <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0 }} />
-                    <View style={{ width: 270, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 10 }}>
+                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Jagannatha Temples Worldwide</Text>
+                    <LinearGradient
+                        colors={['#FFA726', '#F06292']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
+                        }}
+                    />
+                    <View style={{ width: 270, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 20 }}>
                         <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             {['World Wide', 'India', 'Odisha'].map((location) => (
-                                <TouchableOpacity
+                                <LinearGradient
                                     key={location}
+                                    colors={active === location ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
                                     style={{
+                                        flex: 1,
+                                        borderRadius: 10,
                                         width: '32%',
                                         padding: 5,
                                         alignItems: 'center',
                                         borderRadius: 5,
-                                        borderWidth: active === location ? 1 : 0,
-                                        borderColor: active === location ? '#4B0082' : 'transparent',
-                                        backgroundColor: active === location ? '#e0d4f5' : 'transparent',
                                     }}
-                                    onPress={() => setActive(location)}
                                 >
-                                    <Text style={{
-                                        fontSize: 12,
-                                        color: active === location ? '#4B0082' : '#333',
-                                        fontFamily: 'FiraSans-Regular',
-                                        fontWeight: active === location ? 'bold' : 'normal'
-                                    }}>
-                                        {location}
-                                    </Text>
-                                </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => setActive(location)}>
+                                        <Text style={{
+                                            fontSize: 12,
+                                            color: active === location ? '#fff' : '#333',
+                                            fontFamily: 'FiraSans-Regular',
+                                            fontWeight: active === location ? 'bold' : 'normal'
+                                        }}>
+                                            {location}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </LinearGradient>
                             ))}
                         </View>
                     </View>
@@ -847,7 +913,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 25,
         borderRadius: 20,
-        elevation: 5,
+        elevation: 1,
         marginTop: 10,
         marginBottom: 5,
     },
@@ -863,7 +929,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     nearbyContainer: {
-        marginBottom: 10,
+        marginVertical: 10,
         width: '93%',
         alignSelf: 'center',
     },

@@ -38,6 +38,10 @@ const Index = () => {
                             <Ionicons name="home-sharp" size={18} color="#fff" />
                         </TouchableOpacity>
                     </View>
+                    <View style={{ position: 'absolute', top: 120, left: 10, right: 0, bottom: 0, width: '50%' }}>
+                        <Text style={{ color: '#341551', fontSize: 14, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginBottom: -2 }}>Welcome to</Text>
+                        <Text style={styles.liveTitle}>Shree Mandira Channel</Text>
+                    </View>
                     <View style={{ position: 'absolute', top: 280, width: '90%', alignItems: 'center', borderRadius: 10 }}>
                         <YoutubePlayer
                             width={'100%'}
@@ -49,21 +53,24 @@ const Index = () => {
                     </View>
                     <View style={styles.liveCard}>
                         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <View style={{ width: '50%' }}>
-                                <Text style={styles.liveTitle}>Shree Mandira Channel</Text>
-                            </View>
-                            <View style={{ width: '40%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ width: '49%' }}>
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                     <TouchableOpacity onPress={() => navigation.navigate('ContentList')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 12 }}>
-                                        <Entypo name="mic" size={20} color="#F06292" />
-                                        {/* <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} /> */}
+                                        <Entypo name="mic" size={20} color="#FFA726" />
                                     </TouchableOpacity>
-                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>PODCAST</Text>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#FFA726' }}>Podcast</Text>
                                 </View>
-                                <View style={{ backgroundColor: 'red', height: 50, width: 1.4, marginRight: 7 }} />
+                            </View>
+                            <LinearGradient
+                                colors={['#FFA726', '#F06292']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{ backgroundColor: 'red', height: 49, width: 1.4, marginRight: 7 }}
+                            />
+                            <View style={{ width: '50%' }}>
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
-                                        {/* <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" /> */}
+                                    <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
+                                        {/* <Icon name="live-tv" size={24} color="#F06292" /> */}
                                         <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} />
                                     </TouchableOpacity>
                                     <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>Radio</Text>
@@ -210,37 +217,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 5,
     },
-    playButtonContainer: {
-        position: 'absolute',
-        top: -25, // Moves button slightly out of the container
-        backgroundColor: '#341551',
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // elevation: 6, // Shadow for floating effect
-    },
-    playButton: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    sliderContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '80%',
-        marginTop: 35,
-        marginBottom: 13
-    },
-    slider: {
-        flex: 1,
-        marginHorizontal: 10,
-        thumbTintColor: '#fff',
-    },
     liveCard: {
         width: '90%',
         alignSelf: 'center',
@@ -256,11 +232,5 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: "FiraSans-SemiBold",
         color: "#341551",
-    },
-    liveSubText: {
-        color: "#fff",
-        fontFamily: "FiraSans-Medium",
-        fontSize: 14,
-        marginLeft: 5,
     },
 });

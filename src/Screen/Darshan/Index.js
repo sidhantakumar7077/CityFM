@@ -110,8 +110,8 @@ const Index = () => {
                             };
 
                             const getColor = () => {
-                                if (isCompleted) return '#341551'; // purple
-                                if (isRunning) return '#059629'; // green
+                                if (isCompleted) return '#FFA726'; // purple
+                                if (isRunning) return '#F06292'; // green
                                 return '#C5C5C5'; // grey
                             };
 
@@ -123,7 +123,10 @@ const Index = () => {
                                         {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
 
                                         {/* Number Circle */}
-                                        <View
+                                        <LinearGradient
+                                            colors={isUpcoming ? ['#C5C5C5', '#C5C5C5'] : ['#FFA726', '#F06292']}
+                                            start={{ x: 0, y: 0 }}
+                                            end={{ x: 1, y: 0 }}
                                             style={{
                                                 height: 24,
                                                 width: 24,
@@ -145,7 +148,7 @@ const Index = () => {
                                                     {index + 1}
                                                 </Text>
                                             )}
-                                        </View>
+                                        </LinearGradient>
 
                                         {/* Line below */}
                                         {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
@@ -154,32 +157,23 @@ const Index = () => {
                                     {/* Right Content */}
                                     <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
                                         <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
-                                        {/* <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{item.time}</Text> */}
+                                        <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.time}</Text>
 
                                         {isCompleted && (
                                             <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                Completed at {item.time}
+                                                Completed at {item.completedAt}
                                             </Text>
                                         )}
 
                                         {isRunning && (
                                             <>
-                                                <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                    Started at {item.time}
-                                                </Text>
-                                                <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
+                                                <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
                                                     Running Now
                                                 </Text>
                                                 <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
                                                     Tentative End: 3:50 PM
                                                 </Text>
                                             </>
-                                        )}
-
-                                        {isUpcoming && (
-                                            <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                Tentative Starts at {item.time}
-                                            </Text>
                                         )}
                                     </View>
 

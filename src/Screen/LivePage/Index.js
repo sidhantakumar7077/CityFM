@@ -143,7 +143,7 @@ const Index = () => {
 
             <ImageBackground source={require('../../assets/image/ratha.jpeg')} style={styles.background}>
                 {/* Gradient Overlay */}
-                {/* <LinearGradient colors={['transparent', '#FFBE00']} style={styles.gradient} /> */}
+                <LinearGradient colors={['transparent', '#FFBE00']} style={styles.gradient} />
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
                     {/* Top Header */}
                     {/* <View style={styles.menuHeader}>
@@ -154,6 +154,10 @@ const Index = () => {
                             <AntDesign name="bars" size={26} color="#f5ebd0" />
                         </TouchableOpacity>
                     </View> */}
+                    <View style={{ position: 'absolute', top: 120, left: 10, right: 0, bottom: 0, width: '50%' }}>
+                        <Text style={{ color: '#341551', fontSize: 14, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginBottom: -2 }}>Welcome to</Text>
+                        <Text style={styles.liveTitle}>Shree Mandira Online FM</Text>
+                    </View>
                     <View style={{
                         position: "absolute",
                         top: 5,
@@ -238,15 +242,21 @@ const Index = () => {
                         </Animatable.View> */}
 
                         {/* Play Button */}
-                        <View style={styles.playButtonContainer}>
+                        {/* <View style={styles.playButtonContainer}> */}
+                        <LinearGradient
+                            colors={['#F06292', '#FFA726']} // orange to pink gradient
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={styles.playButtonContainer}
+                        >
                             <TouchableOpacity style={styles.playButton} onPress={() => togglePlayback(allContent)}>
-                                <Icon name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={40} color="#341551" />
+                                <Icon name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={40} color="#F06292" />
                             </TouchableOpacity>
-                        </View>
+                        </LinearGradient>
 
                         {/* Volume Slider */}
                         <View style={styles.sliderContainer}>
-                            <Icon name="volume-down" size={35} color="#341551" />
+                            <Icon name="volume-down" size={35} color="#FFA726" />
                             <Slider
                                 style={styles.slider}
                                 value={volume}
@@ -256,11 +266,11 @@ const Index = () => {
                                 }}
                                 minimumValue={0}
                                 maximumValue={1}
-                                minimumTrackTintColor="#341551"
+                                minimumTrackTintColor="#FFA726"
                                 maximumTrackTintColor="gray"
-                                thumbTintColor="#341551"
+                                thumbTintColor="#FFA726"
                             />
-                            <Icon name="volume-up" size={35} color="#341551" />
+                            <Icon name="volume-up" size={35} color="#FFA726" />
                         </View>
                         {/* <ImageBackground source={require('../../assets/image/textBG.png')} style={styles.podcastCard}> */}
                         <Text style={styles.podcastHeading}>ଦ୍ଵାରଫିଟା ଓ ମଙ୍ଗଳ ଆଳତି</Text>
@@ -269,8 +279,8 @@ const Index = () => {
                     </LinearGradient>
                     <View style={styles.liveCard}>
                         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <View style={{ width: '50%' }}>
-                                <Text style={styles.liveTitle}>Shree Mandira Online FM</Text>
+                            <View style={{ width: '49%' }}>
+                                {/* <Text style={styles.liveTitle}>Shree Mandira Online FM</Text> */}
                                 {/* <View style={{ marginTop: 5, borderRadius: 7, overflow: 'hidden' }}>
                                     <LinearGradient
                                         colors={['#FFA726', '#F06292']} // orange to pink gradient
@@ -289,25 +299,31 @@ const Index = () => {
                                         <Text style={styles.liveSubText}>Live</Text>
                                     </LinearGradient>
                                 </View> */}
+                                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('ContentList')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 12 }}>
+                                        <Entypo name="mic" size={20} color="#FFA726" />
+                                        {/* <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} /> */}
+                                    </TouchableOpacity>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#FFA726' }}>PODCAST</Text>
+                                </View>
                             </View>
                             {/* <View style={{ width: '34%' }}>
                                 <Text style={{ textAlign: 'left', fontFamily: 'FiraSans-Light', color: '#000', fontSize: 13.6 }}>Listen or Watch all the live broadcasts from Shree Mandira</Text>
                             </View> */}
-                            <View style={{ width: '40%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('ContentList')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 12 }}>
-                                        <Entypo name="mic" size={20} color="#F06292" />
-                                        {/* <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} /> */}
-                                    </TouchableOpacity>
-                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>PODCAST</Text>
-                                </View>
-                                <View style={{ backgroundColor: 'red', height: 50, width: 1.4, marginRight: 7 }} />
+                            <LinearGradient
+                                colors={['#FFA726', '#F06292']} // orange to pink gradient
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{ backgroundColor: 'red', height: 49, width: 1.4, marginRight: 7 }}
+                            />
+                            {/* <View style={{ backgroundColor: 'red', height: 49, width: 1.4, marginRight: 7 }} /> */}
+                            <View style={{ width: '50%' }}>
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                     <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
-                                        {/* <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" /> */}
-                                        <Image source={require('../../assets/image/tv241424.png')} style={{ width: 25, height: 25 }} />
+                                        <Icon name="live-tv" size={24} color="#F06292" />
+                                        {/* <Image source={require('../../assets/image/tv241424.png')} style={{ width: 25, height: 25 }} /> */}
                                     </TouchableOpacity>
-                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#456096' }}>TV</Text>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>TV</Text>
                                 </View>
                             </View>
                         </View>
@@ -432,7 +448,7 @@ const styles = StyleSheet.create({
         width: '90%',
         borderRadius: 15,
         position: 'absolute',
-        bottom: 160,
+        bottom: 140,
         elevation: 5, // Shadow for depth
     },
     liveBadge: {
@@ -488,10 +504,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         backgroundColor: "white",
         paddingHorizontal: 15,
-        paddingVertical: 20,
+        paddingVertical: 10,
         borderRadius: 20,
         elevation: 5,
-        marginTop: 10,
         marginBottom: 20,
     },
     liveTitle: {

@@ -49,6 +49,7 @@ import Panji from './src/Screen/Panji/Index'
 import TempleWorldWide from './src/Screen/TempleWorldWide/Index'
 import Tv from './src/Screen/Tv/Index'
 import RathaYatraMainPage from './src/Screen/RathaYatraMainPage/Index'
+import TempleInformationPage from './src/Screen/TempleInformationPage/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -85,46 +86,47 @@ const App = () => {
         {/* {!isConnected ? (
           <Stack.Screen name="NoInternet" component={NoInternet} />
         ) : ( */}
-          <>
-            <Stack.Screen name="Home_2" component={Home_2} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="LivePage" component={LivePage} />
-            <Stack.Screen name="ContentList" component={ContentList} />
-            <Stack.Screen name="ContentListHome" component={ContentListHome} />
-            <Stack.Screen name="PreviousProgram" component={PreviousProgram} />
-            <Stack.Screen name="ParkingPage" component={ParkingPage} />
-            <Stack.Screen name="AllNitePage" component={AllNitePage} />
-            <Stack.Screen name="Darshan" component={Darshan} />
-            <Stack.Screen name="MahaPrashad" component={MahaPrashad} />
-            <Stack.Screen name="BhaktaNibas" component={BhaktaNibas} />
-            <Stack.Screen name="BhaktaNibasDetails" component={BhaktaNibasDetails} />
-            <Stack.Screen name="Locker_shoes" component={Locker_shoes} />
-            <Stack.Screen name="NearbyTemple" component={NearbyTemple} />
-            <Stack.Screen name="DrinkingWater" component={DrinkingWater} />
-            <Stack.Screen name="EmergencyContact" component={EmergencyContact} />
-            <Stack.Screen name="FreeFood" component={FreeFood} />
-            <Stack.Screen name="RathaYatraMela" component={RathaYatraMela} />
-            <Stack.Screen name="RouteMap" component={RouteMap} />
-            <Stack.Screen name="LostFound" component={LostFound} />
-            <Stack.Screen name="Toilet" component={Toilet} />
-            <Stack.Screen name="Beaches" component={Beaches} />
-            <Stack.Screen name="BusRailwayStop" component={BusRailwayStop} />
-            <Stack.Screen name="ChargingStation" component={ChargingStation} />
-            <Stack.Screen name="PetrolPump" component={PetrolPump} />
-            <Stack.Screen name="Hotel" component={Hotel} />
-            <Stack.Screen name="Dharmashala" component={Dharmashala} />
-            <Stack.Screen name="Restaurant" component={Restaurant} />
-            <Stack.Screen name="Atm" component={Atm} />
-            <Stack.Screen name="LifeGuardBooth" component={LifeGuardBooth} />
-            <Stack.Screen name="Offering" component={Offering} />
-            <Stack.Screen name="OfferingMenu" component={OfferingMenu} />
-            <Stack.Screen name="OfferingForm" component={OfferingForm} />
-            <Stack.Screen name="OfferingSubmitPage" component={OfferingSubmitPage} />
-            <Stack.Screen name="Panji" component={Panji} />
-            <Stack.Screen name="TempleWorldWide" component={TempleWorldWide} />
-            <Stack.Screen name="Tv" component={Tv} />
-            <Stack.Screen name="RathaYatraMainPage" component={RathaYatraMainPage} />
-          </>
+        <>
+          <Stack.Screen name="Home_2" component={Home_2} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="LivePage" component={LivePage} />
+          <Stack.Screen name="ContentList" component={ContentList} />
+          <Stack.Screen name="ContentListHome" component={ContentListHome} />
+          <Stack.Screen name="PreviousProgram" component={PreviousProgram} />
+          <Stack.Screen name="ParkingPage" component={ParkingPage} />
+          <Stack.Screen name="AllNitePage" component={AllNitePage} />
+          <Stack.Screen name="Darshan" component={Darshan} />
+          <Stack.Screen name="MahaPrashad" component={MahaPrashad} />
+          <Stack.Screen name="BhaktaNibas" component={BhaktaNibas} />
+          <Stack.Screen name="BhaktaNibasDetails" component={BhaktaNibasDetails} />
+          <Stack.Screen name="Locker_shoes" component={Locker_shoes} />
+          <Stack.Screen name="NearbyTemple" component={NearbyTemple} />
+          <Stack.Screen name="DrinkingWater" component={DrinkingWater} />
+          <Stack.Screen name="EmergencyContact" component={EmergencyContact} />
+          <Stack.Screen name="FreeFood" component={FreeFood} />
+          <Stack.Screen name="RathaYatraMela" component={RathaYatraMela} />
+          <Stack.Screen name="RouteMap" component={RouteMap} />
+          <Stack.Screen name="LostFound" component={LostFound} />
+          <Stack.Screen name="Toilet" component={Toilet} />
+          <Stack.Screen name="Beaches" component={Beaches} />
+          <Stack.Screen name="BusRailwayStop" component={BusRailwayStop} />
+          <Stack.Screen name="ChargingStation" component={ChargingStation} />
+          <Stack.Screen name="PetrolPump" component={PetrolPump} />
+          <Stack.Screen name="Hotel" component={Hotel} />
+          <Stack.Screen name="Dharmashala" component={Dharmashala} />
+          <Stack.Screen name="Restaurant" component={Restaurant} />
+          <Stack.Screen name="Atm" component={Atm} />
+          <Stack.Screen name="LifeGuardBooth" component={LifeGuardBooth} />
+          <Stack.Screen name="Offering" component={Offering} />
+          <Stack.Screen name="OfferingMenu" component={OfferingMenu} />
+          <Stack.Screen name="OfferingForm" component={OfferingForm} />
+          <Stack.Screen name="OfferingSubmitPage" component={OfferingSubmitPage} />
+          <Stack.Screen name="Panji" component={Panji} />
+          <Stack.Screen name="TempleWorldWide" component={TempleWorldWide} />
+          <Stack.Screen name="Tv" component={Tv} />
+          <Stack.Screen name="RathaYatraMainPage" component={RathaYatraMainPage} />
+          <Stack.Screen name="TempleInformationPage" component={TempleInformationPage} />
+        </>
         {/* )} */}
       </Stack.Navigator>
     </NavigationContainer>

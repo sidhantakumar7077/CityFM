@@ -12,16 +12,16 @@ const Index = () => {
     const { width } = Dimensions.get('window');
 
     const templeInfo = [
-        { id: '1', image: require('../../assets/image/shreemandira.png'), label: 'Shree Mandira' },
-        { id: '2', image: require('../../assets/image/shreekhetra.png'), label: 'Shree Khetra' },
-        { id: '3', image: require('../../assets/image/tradition.png'), label: 'Tradition' },
-        { id: '12', image: require('../../assets/image/rathaYatra.png'), label: 'Ratha yatra' },
+        { id: '1', image: require('../../assets/image/mangala_alati.jpg'), label: 'Shree Mandira' },
+        { id: '2', image: require('../../assets/image/rathaanukula5.jpeg'), label: 'Shree Khetra' },
+        // { id: '3', image: require('../../assets/image/tradition.png'), label: 'Tradition' },
+        { id: '12', image: require('../../assets/image/rathaanukula2.jpg'), label: 'Ratha yatra' },
         // { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
-        { id: '4', image: require('../../assets/image/matha22.png'), label: 'Matha & Ashram' },
-        { id: '5', image: require('../../assets/image/festival.png'), label: 'Festivals' },
-        { id: '6', image: require('../../assets/image/36nijog.png'), label: '36 Nijoga' },
-        { id: '7', image: require('../../assets/image/besha.png'), label: 'Besha' },
-        { id: '8', image: require('../../assets/image/people.png'), label: 'Management' },
+        { id: '4', image: require('../../assets/image/mailama.jpeg'), label: 'Matha & Ashram' },
+        { id: '5', image: require('../../assets/image/dwaraphita.jpg'), label: 'Festivals' },
+        { id: '6', image: require('../../assets/image/charinahak3.jpeg'), label: '36 Nijoga' },
+        { id: '7', image: require('../../assets/image/bhajana.jpg'), label: 'Besha' },
+        { id: '8', image: require('../../assets/image/mangala_alati.jpg'), label: 'Management' },
     ];
 
     return (
@@ -115,38 +115,16 @@ const Index = () => {
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Temple Information</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20, alignSelf: 'center' }} />
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
-                        <View style={{ width: '47%' }}>
-                            <View style={{ width: '100%', height: 147, borderRadius: 200, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                                <Image source={require('../../assets/image/mangala_alati.jpg')} style={{ width: '100%', height: '100%', borderRadius: 200, position: 'absolute', top: 0, left: 0 }} />
-                            </View>
-                        </View>
-                        <View style={{ width: '45%' }}>
-                            <View style={{ width: '100%', height: 145, borderRadius: 200, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                                <Image source={require('../../assets/image/mangala_alati.jpg')} style={{ width: '100%', height: '100%', borderRadius: 200, position: 'absolute', top: 0, left: 0 }} />
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ borderRadius: 12, overflow: 'hidden' }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#000', marginBottom: 8 }}>Shree Mandira</Text>
-                        <Image source={require('../../assets/image/mangala_alati.jpg')} style={styles.mainImage} />
-                        <Text style={{ fontSize: 15, color: '#000', fontFamily: 'FiraSans-Regular', marginTop: 10 }}>Lorem Ipsum is simply dummy text of the printing and typesetting.. <Text style={{ color: 'blue' }}>Read more</Text></Text>
-                    </View>
-                    <View style={{ borderRadius: 12, overflow: 'hidden', marginTop: 20 }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#000', marginBottom: 8 }}>Ratha Yatra</Text>
-                        <Image source={require('../../assets/image/rathaanukula5.jpeg')} style={styles.mainImage} />
-                        <Text style={{ fontSize: 15, color: '#000', fontFamily: 'FiraSans-Regular', marginTop: 10 }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-                    </View>
-                    {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 6 }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 6 }}>
                         {templeInfo.map((item) => (
-                            <View key={item.id} style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}>
-                                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-                                    <Image source={item.image} style={{ width: 40, height: 40, resizeMode: 'contain' }} />
+                            <View key={item.id} style={{ width: '45%', alignItems: 'center', marginBottom: 20 }}>
+                                <View style={{ width: 120, height: 120, borderRadius: 100, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
+                                    <Image source={item.image} style={{ width: '100%', height: '100%', borderRadius: 100, resizeMode: 'cover' }} />
                                 </View>
-                                <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
+                                <Text style={{ fontSize: 14, color: '#000', textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>{item.label}</Text>
                             </View>
                         ))}
-                    </View> */}
+                    </View>
                 </View>
 
                 {/* Temples Worldwide */}

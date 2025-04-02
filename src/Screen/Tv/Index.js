@@ -69,7 +69,7 @@ const Index = () => {
                             />
                             <View style={{ width: '50%' }}>
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
                                         {/* <Icon name="live-tv" size={24} color="#F06292" /> */}
                                         <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} />
                                     </TouchableOpacity>

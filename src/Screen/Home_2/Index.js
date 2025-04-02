@@ -381,28 +381,28 @@ const Index = () => {
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/DARSHAN2.png')} style={{ width: 45, height: 45 }} />
+                                <Image source={require('../../assets/image/darshan5.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/prasad321.png')} style={{ width: 35, height: 35 }} />
+                                <Image source={require('../../assets/image/prasad321.png')} style={{ width: 38, height: 38 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/panji.png')} style={{ width: 55, height: 55 }} />
+                                <Image source={require('../../assets/image/panji765.png')} style={{ width: 35, height: 35 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'gift'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/OFFERING2.png')} style={{ width: 55, height: 55 }} />
+                                <Image source={require('../../assets/image/offering543.png')} style={{ width: 40, height: 40 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Offering</Text>
                         </View>
@@ -452,7 +452,7 @@ const Index = () => {
                                 <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Donate Now</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/12209/12209405.png' }} style={{ width: 28, height: 28 }} />
+                                <Image source={require('../../assets/image/donation435.png')} style={{ width: 33, height: 33 }} />
                             </View>
                         </TouchableOpacity>
 
@@ -462,8 +462,8 @@ const Index = () => {
                                 <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹5,30,000/-</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
-                                <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" />
-                                {/* <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/619/619034.png' }} style={{ width: 28, height: 28 }} /> */}
+                                {/* <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" /> */}
+                                <Image source={require('../../assets/image/hundiColection654.png')} style={{ width: 33, height: 33 }} />
                             </View>
                         </View>
                     </View>
@@ -487,7 +487,7 @@ const Index = () => {
                     <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
                         {/* Temples Tab */}
                         <LinearGradient
-                            colors={selectedTab === 'Temples' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            colors={selectedTab === 'Temples' ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -513,7 +513,7 @@ const Index = () => {
 
                         {/* Mathas Tab */}
                         <LinearGradient
-                            colors={selectedTab === 'Mathas' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            colors={selectedTab === 'Mathas' ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -539,7 +539,7 @@ const Index = () => {
 
                         {/* Ritual Sites Tab */}
                         <LinearGradient
-                            colors={selectedTab === 'RitualSites' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            colors={selectedTab === 'RitualSites' ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -767,7 +767,7 @@ const Index = () => {
                             {['World Wide', 'India', 'Odisha'].map((location) => (
                                 <LinearGradient
                                     key={location}
-                                    colors={active === location ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                                    colors={active === location ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 1, y: 0 }}
                                     style={{

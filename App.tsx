@@ -50,6 +50,7 @@ import TempleWorldWide from './src/Screen/TempleWorldWide/Index'
 import Tv from './src/Screen/Tv/Index'
 import RathaYatraMainPage from './src/Screen/RathaYatraMainPage/Index'
 import TempleInformationPage from './src/Screen/TempleInformationPage/Index'
+import RealsPage from './src/Screen/RealsPage/Index'
 
 const Stack = createNativeStackNavigator();
 
@@ -75,7 +76,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowSplash(false);
-    }, 5000)
+    }, 2000)
   }, []);
 
   return (
@@ -126,6 +127,7 @@ const App = () => {
           <Stack.Screen name="Tv" component={Tv} />
           <Stack.Screen name="RathaYatraMainPage" component={RathaYatraMainPage} />
           <Stack.Screen name="TempleInformationPage" component={TempleInformationPage} />
+          <Stack.Screen name="RealsPage" component={RealsPage} />
         </>
         {/* )} */}
       </Stack.Navigator>

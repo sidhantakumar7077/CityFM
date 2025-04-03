@@ -3,24 +3,18 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import TrackPlayer, { State, usePlaybackState, useProgress, Capability, Event } from 'react-native-track-player';
 
 const { width } = Dimensions.get('window');
 
-const images = [
-    'https://www.drishtiias.com/images/uploads/1618820610_image6.jpg',
-    'https://images.hindustantimes.com/img/2022/04/04/550x309/04843c2a-b455-11ec-a4f3-fc37f02059fa_1649103982597.jpg',
-];
-
-const Index = () => {
+const Index = (props) => {
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const [nearByTempleData, setNearByTempleData] = useState(props.route.params);
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -141,7 +135,7 @@ const Index = () => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Adi Nrusingha Temple</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData.title}</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>This Temple Is Dedicated To Jangya Nrusingha</Text>
                             <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff', paddingVertical: 3, paddingHorizontal: 10, borderRadius: 10, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
                                 <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#fff" />
@@ -154,11 +148,11 @@ const Index = () => {
                     </View>
                 </View>
 
-                <View style={{ flex: 1, width: '100%', paddingHorizontal: 16, marginTop: 20 }}>
+                <View style={{ flex: 1, width: '100%', paddingHorizontal: 16, marginVertical: 20 }}>
                     {/* Title Row */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#431373' }}>Lingaraj Temple</Text>
-                        <View style={{ }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#431373' }}>{nearByTempleData.title}</Text>
+                        <View style={{}}>
                             <Text style={{ color: '#f43f5e', fontSize: 11, fontFamily: 'FiraSans-SemiBold' }}>360°</Text>
                             <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
                         </View>
@@ -172,28 +166,25 @@ const Index = () => {
                             autoplay={true}
                             autoplayTimeout={5}
                         >
-                            {images.map((image, index) => (
-                                <Image key={index} source={{ uri: image }} style={{ width: '100%', height: 200 }} />
+                            {(nearByTempleData.images).map((image, index) => (
+                                <Image key={index} source={image} style={{ width: '100%', height: 200 }} />
                             ))}
                         </Swiper>
                     </View>
 
-                    {/* Location & Direction Row */}
-                    <View style={{ backgroundColor: '#f0f0f0', borderRadius: 12, padding: 10, marginTop: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <View>
-                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2 }}>Bhubaneswar, Odisha</Text>
-                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, marginTop: 5 }}>Location Address</Text>
+                    {/* Address */}
+                    <View style={{ backgroundColor: '#f0f0f0', borderRadius: 12, padding: 8, marginTop: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View style={{ width: '50%' }}>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, textTransform: 'capitalize', lineHeight: 20 }}><Entypo name="location-pin" size={17} color="#474747" /> {nearByTempleData.address}</Text>
                         </View>
-                        <View>
-                            <TouchableOpacity onPress={() => openMap('https://maps.app.goo.gl/vH465ENw5tS48ZB49')} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                <Entypo name="location-pin" size={17} color="#474747" />
-                                <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2 }}>Direction</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-                                <Ionicons name="call" size={14} color="#474747" />
-                                <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2 }}>123456789</Text>
-                            </TouchableOpacity>
+                        <View style={{ width: '50%' }}>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, lineHeight: 20 }}>Distance From Jagannatha Temple {nearByTempleData.distanceFromJagannathTemple}.</Text>
                         </View>
+                    </View>
+
+                    {/* Highlights Section */}
+                    <View style={{ marginTop: 18 }}>
+                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData.description}</Text>
                     </View>
 
                     {/* History Section */}
@@ -201,22 +192,37 @@ const Index = () => {
                         <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
                             History of the Temple
                         </Text>
-                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
-                        </Text>
+                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData.history}</Text>
                     </View>
 
-                    {/* Highlights Section */}
-                    <View style={{ marginTop: 18 }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
-                            Key Highlights
+                    {/* Location */}
+                    <View style={{ marginTop: 25 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 8 }}>
+                            Location
                         </Text>
-                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus in lectus pretium ultricies...
-                        </Text>
+
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() => openMap(nearByTempleData.mapUrl)}
+                            style={{
+                                borderRadius: 12,
+                                overflow: 'hidden',
+                                backgroundColor: '#f5f5f5',
+                                elevation: 2,
+                            }}
+                        >
+                            <Image
+                                source={nearByTempleData.mapImage}
+                                style={{
+                                    width: '100%',
+                                    height: 120,
+                                    resizeMode: 'cover'
+                                }}
+                            />
+                        </TouchableOpacity>
                     </View>
+
                 </View>
-                <View style={{ height: 200 }}></View>
             </ScrollView>
         </View>
     )

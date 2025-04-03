@@ -48,9 +48,10 @@ const Index = () => {
         }
     );
 
-    const [modalVisible, setModalVisible] = useState(false);
-    const closeModal = () => {
-        setModalVisible(false);
+    const [alramModalVisible, setAlramModalVisible] = useState(false);
+
+    const handleAlram = () => {
+        setAlramModalVisible(!alramModalVisible);
     };
 
     return (
@@ -115,7 +116,7 @@ const Index = () => {
                                     );
                                 }
                                 return (
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={handleAlram}>
                                         <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
                                     </TouchableOpacity>
                                 );
@@ -201,23 +202,32 @@ const Index = () => {
             </ScrollView>
 
             <Modal
-                isVisible={modalVisible}
-                onBackdropPress={closeModal}
-                animationIn="zoomIn"
-                animationOut="slideOutUp"
-                animationInTiming={400}
-                animationOutTiming={400}
+                isVisible={alramModalVisible}
+                onBackdropPress={handleAlram}
+                style={{ justifyContent: 'flex-end', margin: 0 }}
+                animationIn="slideInUp"
+                animationOut="slideOutDown"
+                backdropTransitionOutTiming={0}
+                backdropOpacity={0.5}
             >
-                <View style={styles.modalContainer}>
-                    <View style={{ marginTop: 15, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 21, textAlign: 'center' }}>ଦ୍ଵାରଫିଟା ଓ ଦୈନିକ ମଙ୍ଗଳ ଆଳତି</Text>
-                        <Image source={require('../../assets/image/headLine.png')} style={{ width: '80%', height: 20, marginTop: 8 }} />
-                        <Text style={{ color: '#000', fontSize: 18, fontWeight: '500', marginTop: 20 }}><Text style={{ fontSize: 18, fontWeight: '600' }}>ସମୟ : </Text>ଭୋର ୫ଘଟିକା ବା ତତପୂର୍ବରୁ |</Text>
-                        <Text style={{ color: '#000', fontWeight: '500', fontSize: 16, textAlign: 'center', marginTop: 20, width: '90%', letterSpacing: 0.6, lineHeight: 19 }}>ଉପରୋକ୍ତ ନୀତି ପ୍ରତ୍ୟହ ଉଷାକାଳ ଅର୍ଥାତ ଭୋର ୫ଘଟିକା ବା ତତପୂର୍ବରୁ ହେବାର ନିୟମ | କେବଳ ଦଶହରା ପର ଏକାଦଶୀ ଠାରୁ କାର୍ତ୍ତିକ ପୂର୍ଣିମା ପର୍ୟଂତ , ଧନୁ ସଂକ୍ରାନ୍ତି ଠାରୁ ମକର ସଂକ୍ରାନ୍ତି ପର୍ୟଂତ ଓ ବିଶେଷ ନୀତି ଦିନମାନଙ୍କରେ ରାତ୍ର ପ୍ରହର ଥାଉ ହେବାର ନିୟମ |</Text>
-                        <Text style={{ fontSize: 18, fontWeight: '600', color: '#000', fontSize: 18, marginTop: 20 }}>ନୀତି ସକାଶେ ଆବଶ୍ୟକ ଉପକରଣମାନ</Text>
-                        <Text style={{ color: '#000', fontWeight: '500', fontSize: 16, textAlign: 'center', marginTop: 10, width: '90%', letterSpacing: 0.6 }}>(କ) କର୍ପୂର , (ଖ) ପିଠଉ , (ଗ) ବଳିତା , (ଘ) ଘିଅ , (ଓଁ) ଆଳତି ବଇଠା , (ଚ) ପାଣିଝରି , (ଛ) ତେଲ , ଓ (ଜ) ମଶାଲ</Text>
-                        <Text style={{ fontSize: 18, fontWeight: '600', color: '#000', fontSize: 18, marginTop: 20 }}>ନିମ୍ନଲିଖିତ ସେବକମାନଙ୍କଦ୍ଵାରା ଏହି ନୀତି ସମ୍ପନ୍ନ ହୁଏ</Text>
-                        <Text style={{ color: '#000', fontWeight: '500', fontSize: 16, textAlign: 'center', marginTop: 10, width: '90%', letterSpacing: 0.6, marginBottom: 10 }}>(୧) ରାଜା ସୁପରିଟେଣ୍ଡଙ୍କ ତରଫରୁ ମନ୍ଦିର କର୍ମଚାରୀ , (୨) ପ୍ରତିହାରୀ , (୩) ଭିତରଛୁ ମହାପାତ୍ର , (୪) ମୁଦୁଲି , (୫) ଅଖଣ୍ଡ ମେକାପ , (୬) ପାଳିଆ ମେକାପ , (୭) ଖଟଶେଯ ମେକାପ , (୮) ପାଳିଆ ସୁଆରବଡୁ , (୯) ଖୁଣ୍ଟିଆ , (୧୦) ଗରାବଡୁ , (୧୧) ବଳିତଦେବା ଲୋକ , (୧୨) ପୁଷ୍ପାଳକ |</Text>
+                <View style={{ backgroundColor: '#fff', borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20 }}>
+                    <Text style={{ fontSize: 18, fontFamily: 'FiraSans-SemiBold', color: '#222' }}>Set Alarm</Text>
+                    <Text style={{ fontSize: 14, fontFamily: 'FiraSans-Regular', color: '#999', marginTop: 5 }}>You can set alarm for this darshan</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Regular', color: '#222' }}>Bhitara Kaatha Darshan</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Regular', color: '#222' }}>10:00 AM</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Regular', color: '#222' }}>Set Alarm</Text>
+                        <TouchableOpacity style={{ backgroundColor: '#341551', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }} onPress={handleAlram}>
+                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Set</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Regular', color: '#222' }}>Cancel</Text>
+                        <TouchableOpacity style={{ backgroundColor: '#341551', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }} onPress={handleAlram}>
+                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Cancel</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>

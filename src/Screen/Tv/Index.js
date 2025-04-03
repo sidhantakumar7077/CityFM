@@ -56,9 +56,10 @@ const Index = () => {
                             <View style={{ width: '49%' }}>
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                     <TouchableOpacity onPress={() => navigation.navigate('ContentList')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 12 }}>
-                                        <Entypo name="mic" size={20} color="#FFA726" />
+                                        {/* <Entypo name="mic" size={20} color="#dd4c2f" /> */}
+                                        <Image source={require('../../assets/image/podcast34.png')} style={{ width: 27, height: 27 }} />
                                     </TouchableOpacity>
-                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#FFA726' }}>Podcast</Text>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>Podcast</Text>
                                 </View>
                             </View>
                             <LinearGradient
@@ -73,7 +74,7 @@ const Index = () => {
                                         {/* <Icon name="live-tv" size={24} color="#F06292" /> */}
                                         <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} />
                                     </TouchableOpacity>
-                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>Radio</Text>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>Radio</Text>
                                 </View>
                             </View>
                         </View>

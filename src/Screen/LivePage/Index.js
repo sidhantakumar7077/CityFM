@@ -256,7 +256,7 @@ const Index = () => {
 
                         {/* Volume Slider */}
                         <View style={styles.sliderContainer}>
-                            <Icon name="volume-down" size={35} color="#FFA726" />
+                            <Icon name="volume-down" size={35} color="#dd4c2f" />
                             <Slider
                                 style={styles.slider}
                                 value={volume}
@@ -266,11 +266,11 @@ const Index = () => {
                                 }}
                                 minimumValue={0}
                                 maximumValue={1}
-                                minimumTrackTintColor="#FFA726"
+                                minimumTrackTintColor="#dd4c2f"
                                 maximumTrackTintColor="gray"
-                                thumbTintColor="#FFA726"
+                                thumbTintColor="#dd4c2f"
                             />
-                            <Icon name="volume-up" size={35} color="#FFA726" />
+                            <Icon name="volume-up" size={35} color="#dd4c2f" />
                         </View>
                         {/* <ImageBackground source={require('../../assets/image/textBG.png')} style={styles.podcastCard}> */}
                         <Text style={styles.podcastHeading}>ଦ୍ଵାରଫିଟା ଓ ମଙ୍ଗଳ ଆଳତି</Text>
@@ -301,10 +301,10 @@ const Index = () => {
                                 </View> */}
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                     <TouchableOpacity onPress={() => navigation.navigate('ContentList')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 12 }}>
-                                        <Entypo name="mic" size={20} color="#FFA726" />
-                                        {/* <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} /> */}
+                                        {/* <Entypo name="mic" size={20} color="#dd4c2f" /> */}
+                                        <Image source={require('../../assets/image/podcast34.png')} style={{ width: 27, height: 27 }} />
                                     </TouchableOpacity>
-                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#FFA726' }}>PODCAST</Text>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>PODCAST</Text>
                                 </View>
                             </View>
                             {/* <View style={{ width: '34%' }}>
@@ -320,10 +320,10 @@ const Index = () => {
                             <View style={{ width: '50%' }}>
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                     <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
-                                        <Icon name="live-tv" size={24} color="#F06292" />
-                                        {/* <Image source={require('../../assets/image/tv241424.png')} style={{ width: 25, height: 25 }} /> */}
+                                        {/* <Icon name="live-tv" size={24} color="#F06292" /> */}
+                                        <Image source={require('../../assets/image/tv43.png')} style={{ width: 26, height: 26 }} />
                                     </TouchableOpacity>
-                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>TV</Text>
+                                    <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>TV</Text>
                                 </View>
                             </View>
                         </View>

@@ -1,11 +1,22 @@
 import { StyleSheet, Image, View } from 'react-native'
 import React from 'react'
+import LinearGradient from 'react-native-linear-gradient'
 
 const Index = () => {
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                <Image style={styles.logo} source={require('../../assets/image/splashScreen2.png')} />
+                <LinearGradient
+                    colors={['#0f2978', '#0f2978']}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                    }}
+                />
+                <Image style={styles.logo} source={require('../../assets/image/splashScreen3.png')} />
             </View>
         </View>
     )
@@ -38,11 +49,11 @@ const styles = StyleSheet.create({
 //         <View style={styles.container}>
 //             <StatusBar hidden={true}/>
 //             <Video
-//                 source={require('../../assets/video/splash1.mp4')} // Add your video here
+//                 source={require('../../assets/video/splash3.mp4')} // Add your video here
 //                 style={styles.backgroundVideo}
 //                 resizeMode="cover" // Fullscreen cover
 //                 muted={false} // No sound
-//                 repeat={false} // Play only once
+//                 repeat={true} // Play only once
 //                 controls={false} // Hide controls
 //                 // onEnd={() => navigation.replace('Home')} // Navigate after video ends
 //             />

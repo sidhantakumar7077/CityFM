@@ -13,18 +13,12 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
+import { add } from "react-native-track-player/lib/src/trackPlayer";
 
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
 
 const Index = () => {
-
-    const serviceData = [
-        { title: 'Darshan', icon: 'calendar-check', color: '#B09ECF' },
-        { title: 'MahaPrashad', icon: 'food-apple', color: '#E9A93F' },
-        { title: 'Panji', icon: 'calendar-month', color: '#92C362' },
-        { title: 'Offering', icon: 'gift', color: '#87B5D8' },
-    ];
 
     const bannerData = [
         {
@@ -41,7 +35,7 @@ const Index = () => {
 
     const TempleBanner = [
         {
-            image: require('../../assets/image/temple1234.png'),
+            image: require('../../assets/image/temple546.png'),
             title: 'Shree Jagannatha',
             subtitle: 'All Information about Temple.',
             pageName: 'TempleInformationPage',
@@ -54,68 +48,212 @@ const Index = () => {
         },
     ];
 
-    const nearByTemple = [
+    const nearByPlaces = [
         {
             id: 1,
-            image: 'https://i.pinimg.com/736x/a9/20/0d/a9200d2079ff66d583f09d59263feeb8.jpg',
-            title: 'Nearby Temple 1',
-            description: 'This is a description for item 1.',
-            buttonText: 'Try Now',
+            type: 'temple',
+            title: 'Nrusingha Temple',
+            mapImage: require('../../assets/image/nearbytemple/narasimhaTempleMap.png'),
+            coverImage: require('../../assets/image/nearbytemple/narasimhaTemple.jpg'),
+            images: [
+                require('../../assets/image/nearbytemple/narasimhaTempleInnerImage1.jpg'),
+                require('../../assets/image/nearbytemple/narasimhaTempleInnerImage2.jpg'),
+            ],
+            address: 'SHAWMILL LANE, Sarbodaya Nagar, Puri',
+            mapUrl: 'https://maps.app.goo.gl/NrLPYSHg2FzSzxR7A',
+            distanceFromJagannathTemple: '3 km',
+            description: 'Narasimha Temple  is situated in Puri, Odisha, India, to the western side of Gundicha Temple and to the east of the Indradyumna tank.',
+            history: "As depicted in the Skanda Purana once King Indradyumna stayed near Nilakantheswar temple to make arrangements to perform Ashwamedha Yajna for one thousand years. On the advice of Sage Narada, King Indradyumna made a Nrusimha image out of black stone and placed the image under black sandal wood tree and worshipped Him. It is believed that in front of this temple the Ashwamedha Yajna took place and hence He is known as 'Yajna Narasimha'.",
         },
         {
             id: 2,
-            image: 'https://www.toshaliresort.com/images/resource/jagannath-temple-puri.jpg',
-            title: 'Nearby Temple 2',
-            description: 'This is a description for item 2.',
-            buttonText: 'Explore',
+            type: 'temple',
+            title: 'Gundicha Temple',
+            mapImage: require('../../assets/image/nearbytemple/gundichaTempleMap.png'),
+            coverImage: require('../../assets/image/nearbytemple/gundichaMandira2.jpg'),
+            images: [
+                require('../../assets/image/nearbytemple/gundichaMandira2.jpg'),
+                require('../../assets/image/nearbytemple/gundichaMandira1.jpg'),
+            ],
+            address: 'Gundicha Temple,   Puri, 752002',
+            mapUrl: 'https://maps.app.goo.gl/1XxnwZ7mjQzpd5jf6',
+            distanceFromJagannathTemple: '2.5 km',
+            description: 'Gundicha Temple (Odia: ଗୁଣ୍ଡିଚା ମନ୍ଦିର), is a Hindu temple, situated in the temple town of Puri in the state of Odisha, India. It is significant for being the destination of the celebrated annual Rath Yatra of Puri.[1] While it remains vacant most of the year, the temple is occupied by images of the deities of Jagannath, his brother Balabhadra and sister Subhadra for seven complete days (total 9 days including the start and concluding day of Ratha Yatra) every year during the annual Rath Yatra festival.',
+            history: "A legend links the temple to Gundicha, the queen of Indradyumna (the legendary builder of the main temple) - after whom the Gundicha Temple is named. Gundicha had a peep at the divine image of Jagannath being created by the celestial architect Vishwakarma. Impressed by the image, she insisted on her husband building the temple for the deity and starting the Ratha Yatra. Another variant suggests that Jagannath was pleased with her temple and promised to visit her house, now the Gundicha Temple.",
         },
         {
             id: 3,
-            image: 'https://i.pinimg.com/736x/49/8b/d5/498bd56d3aa85ed59abb64804b684c91.jpg',
-            title: 'Nearby Temple 3',
-            description: 'This is a description for item 3.',
-            buttonText: 'Discover',
+            type: 'temple',
+            title: 'Lokanatha Temple',
+            mapImage: require('../../assets/image/nearbytemple/lokanathaTempleMap.png'),
+            coverImage: require('../../assets/image/nearbytemple/lokanathaTemple2.jpg'),
+            images: [
+                require('../../assets/image/nearbytemple/lokanathaTemple2.jpg'),
+                require('../../assets/image/nearbytemple/lokanathaTemple1.jpg'),
+            ],
+            address: 'Puri, Odisha 752001',
+            mapUrl: 'https://maps.app.goo.gl/ywSrzPLof9GdmFEz8',
+            distanceFromJagannathTemple: '2 km',
+            description: "Lokanatha Temple is a Hindu temple in the town of Puri, Odisha, India. It is dedicated to the god Shiva as Lokanatha. It is dedicated to the god Shiva as Lokanatha. As per legend, linga, the symbol of Shiva was established as the central icon by the god Rama. The unique feature is that the linga is always under water which substantiates the legend that the Ganges river flows through the top of the linga as a stream.",
+            history: "The legend says that Lord Rama on his way to Sri Lanka for searching Sita reached Puri and sat with a vow to see Siva here. At that time there was a village (koown as Sabarapalli in local language) nearby. Sabaras (native of that village) presented him a Lau or Lauka (Pumpkin, one type of vegetable) looking like a Siva Linga, Lord Rama installed that as the replica of Siva Linga at that place and prayed Siva to fulfill his desire. From that day this Siva Linga was called ‘Laukanatha’. It is believed that the word Lokanatha is a later innovation from the original word ‘Laukanatha’.",
         },
         {
             id: 4,
-            image: 'https://www.mistay.in/travel-blog/content/images/2022/11/PuriTemple.jpeg',
-            title: 'Nearby Temple 4',
-            description: 'This is a description for item 4.',
-            buttonText: 'Explore',
+            type: 'temple',
+            title: 'Alarnatha Temple',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/nearbytemple/alarnathaTemple.jpg'),
+            images: [
+                require('../../assets/image/nearbytemple/alarnathaTemple2.jpg'),
+                require('../../assets/image/nearbytemple/alarnathaTemple1.jpg'),
+            ],
+            address: 'Alarapur, Brahmagiri, Naragariamatha',
+            mapUrl: 'https://maps.app.goo.gl/98JMyXaj96TFjik88',
+            distanceFromJagannathTemple: '23 km',
+            description: "Alarnatha Mandira or Alvarnaatha Mandira  is a Hindu temple dedicated to Vishnu and located in Brahmagiri, Odisha, near Puri. It becomes crowded during the krishnapaksha of Ashadha, after the Snana Yatra when devotees are not allowed to see the central icon of Jagannath (a form of Vishnu) in his Puri temple. During this period, popularly known as Anasara or 'Anavasara' (literally meaning no opportunity to see the lord of Puri), instead of having darshan in the Puri temple, devotees believe that Jagannath during this time manifests as Alarnath Dev, at the Alarnath Mandira.",
+            history: "The temple is associated with the visit of the saint Ramanujacharya to Odisha.  Chaitanya Mahaprabhu during his stay in Puri used to see the deity form of Jagannath daily. During Anavasara when Jagannath and his sibling deities were taken to the secret chamber for 15 days, he was unable to see the Lord. So as per legend, Jagannath directed him to go to Brahmagiri and visit the Alarnath temple.",
         },
         {
             id: 5,
-            image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiUyi7x_evyNcYKUGG4qj7ATgSXEBPE-ivU5L9FPCMNxq9_ZGa-KO8cyCQ1qCttXocW5njeMKKgxqega9hsYksx3QmUarClaYDXivUkLTNF3si2HD-ISncG6uFWym2WKJi78PjYHeEokJcp/s1600/puri+jaganatha.jpg',
-            title: 'Nearby Temple 5',
-            description: 'This is a description for item 5.',
-            buttonText: 'Discover',
+            type: 'matha',
+            title: 'Bada Chhata Matha',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/ratha.jpeg'),
+            images: [
+                require('../../assets/image/mangala_alati.jpg'),
+                require('../../assets/image/rathayatra123.jpg'),
+            ],
+            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
+            mapUrl: 'https://maps.app.goo.gl/LeWbQUDeLMpaSyJb8',
+            distanceFromJagannathTemple: 'near Singhadwara',
+            description: "Serves as the main Matha of the Atibadi Sampradaya. Plays an important role in Jagannath Temple rituals, especially during Ratha Yatra. Monks from this matha are often involved in temple discussions, religious discourses, and bhajans.It is known for preserving rare manuscripts, scriptures, and age-old traditions.",
+            history: "Bada Chhata Matha is one of the oldest and most important mathas (monastic establishments) associated with the Jagannath Temple. It was established by Atibadi Jagannath Das, a saint-poet and proponent of Utkaliya Vaishnavism, and the author of the Odia Bhagavata. This matha played a pivotal role in promoting Odia language and Bhakti movement in Odisha.",
+        },
+        {
+            id: 6,
+            type: 'matha',
+            title: 'Emar Matha',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/ratha.jpeg'),
+            images: [
+                require('../../assets/image/mangala_alati.jpg'),
+                require('../../assets/image/rathayatra123.jpg'),
+            ],
+            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
+            mapUrl: 'https://maps.app.goo.gl/BJETnN48Qcn3xqzd6',
+            distanceFromJagannathTemple: 'near Singhadwara',
+            description: "Emar Matha is one of the oldest and most significant monasteries in Puri, Odisha, located near the Jagannath Temple. It has a rich history, deep religious importance, and a strong connection with the Sri Jagannath Temple and its rituals.",
+            history: "Founded in the 14th century by Sri Ramanujacharya, the great philosopher and proponent of the Sri Vaishnavism tradition. Linked to the Jagannath Temple, playing a crucial role in its daily rituals and festivals. The Matha has been a center for Vedantic studies and Vaishnavite teachings, promoting the doctrines of Sri Ramanuja.",
+        },
+        {
+            id: 7,
+            type: 'matha',
+            title: 'Bada Odia Matha',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/ratha.jpeg'),
+            images: [
+                require('../../assets/image/mangala_alati.jpg'),
+                require('../../assets/image/rathayatra123.jpg'),
+            ],
+            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
+            mapUrl: 'https://maps.app.goo.gl/oEq9aGzKM3VVpnCY6',
+            distanceFromJagannathTemple: 'near Singhadwara',
+            description: "Bada Odia Matha is one of the most important monasteries (Mathas) in Puri, Odisha, located near the Jagannath Temple. It has been a key center for spiritual activities, temple services, and religious traditions associated with Lord Jagannath.",
+            history: "Founded by Guru Ram Das: The Matha is believed to have been established by Guru Ram Das, a prominent saint and follower of the Ramanandi sect of Vaishnavism. Connection to Lord Jagannath: The Matha has historically played a major role in the Rath Yatra and other temple rituals. Influence of Sikhism: Some legends associate the Matha with Guru Nanak Dev Ji, the founder of Sikhism, who is believed to have visited Puri in the 16th century. The Matha maintains a connection with Sikh devotees and has preserved Guru Granth Sahib, the holy scripture of Sikhism.",
+        },
+        {
+            id: 8,
+            type: 'matha',
+            title: 'Raghaba Das Matha',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/ratha.jpeg'),
+            images: [
+                require('../../assets/image/mangala_alati.jpg'),
+                require('../../assets/image/rathayatra123.jpg'),
+            ],
+            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
+            mapUrl: 'https://maps.app.goo.gl/pyzWjebVs59on6VM8',
+            distanceFromJagannathTemple: '100 m',
+            description: "Raghaba Das Matha is a significant monastery situated near the southern gate of the Jagannath Temple in Puri, Odisha. This Matha plays a crucial role in the rituals of the temple, supplying 'tahia' (decorative headgear) for four major festivals: Snana Purnima, Ratha Yatra, Return Ratha Yatra, and Niladri Bije. Additionally, it provides parts of the Hati Besha (elephant attire), 'tuli' for 'pahandi' (ceremonial procession), and sandalwood for 'Sarbanga' rituals on Khalilagi Ekadasi. The Matha also offers flower garlands for 'Nabanka Bedha' and contributes 'Adharapana bhoga' and 'Panti bhoga' on specific festive days.",
+            history: "Raghaba Das Matha is believed to have been established by Sri Raghunandan Das, a great saint and devotee of Lord Jagannath. The Matha follows the Gaudiya Vaishnavism tradition, which was propagated by Sri Chaitanya Mahaprabhu in the 16th century. The Matha is dedicated to the worship of Lord Rama and Lord Jagannath and has contributed significantly to the religious life of Puri.",
+        },
+        {
+            id: 9,
+            type: 'ritualsite',
+            title: 'Markandeshwara Pond',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/nearbytemple/markandeshwaraPond1.webp'),
+            images: [
+                require('../../assets/image/nearbytemple/markandeshwaraPond2.jpg'),
+                require('../../assets/image/nearbytemple/markandeshwaraPond3.webp'),
+            ],
+            address: 'Near Markandeshwara Temple',
+            mapUrl: 'https://maps.app.goo.gl/ghLhpDsNZt1t8nWj8',
+            distanceFromJagannathTemple: '500 m',
+            description: "Markandeshwara Pond (ମାର୍କଣ୍ଡେଶ୍ୱର ପୋଖରୀ) is a sacred water tank located in Puri, Odisha, closely linked with Lord Shiva and the spiritual traditions of the Jagannath Temple.",
+            history: "Adjacent to the Markandeshwar Temple, near the northern gate (Uttara Dwara) of Jagannath Temple, Puri. A peaceful area, slightly away from the main Grand Road hustle.",
+        },
+        {
+            id: 10,
+            type: 'ritualsite',
+            title: 'Narendra Pushkarinee',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/nearbytemple/narendraPushkarinee.jpg'),
+            images: [
+                require('../../assets/image/nearbytemple/narendraPushkarinee1.jpg'),
+                require('../../assets/image/nearbytemple/narendraPushkarinee2.jpg'),
+            ],
+            address: 'Situated in Mali Sahi, Puri',
+            mapUrl: 'https://maps.app.goo.gl/mBmpZXjLfsfKczjH6',
+            distanceFromJagannathTemple: '2 km',
+            description: "Narendra Pushkarinee (ନରେନ୍ଦ୍ର ପୁଷ୍କରିଣୀ) is one of the most sacred and historic temple tanks in Puri, Odisha, deeply associated with Lord Jagannath and the rituals of the Jagannath Temple.",
+            history: "Believed to be constructed during the reign of Gajapati King Narendra Dev in the 15th century. Hence the name Narendra Pushkarinee. The tank is surrounded by several temples and shrines, including the famous Narendra Sarovara Temple. It is believed that taking a dip in the tank during auspicious occasions brings blessings and purification.",
+        },
+        {
+            id: 11,
+            type: 'ritualsite',
+            title: 'Mahodadhi Aarti',
+            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
+            coverImage: require('../../assets/image/nearbytemple/mahodadhi1.jpg'),
+            images: [
+                require('../../assets/image/nearbytemple/mahodadhi1.jpg'),
+                require('../../assets/image/nearbytemple/mahodadhi12.jpg'),
+            ],
+            address: 'Puri Sea Beach, near Swargadwar',
+            mapUrl: 'https://maps.app.goo.gl/Hdf66iVDkS8vjBeq9',
+            distanceFromJagannathTemple: '3 km',
+            description: "Mahodadhi Aarti is a spiritual and cultural ritual performed at the seashore of Puri, Odisha, in honor of Lord Jagannath and the Mahodadhi (Bay of Bengal). It draws inspiration from the iconic Ganga Aarti of Varanasi, offering a serene and divine atmosphere for pilgrims and visitors.",
+            history: "Priests dressed in traditional attire perform synchronized aarti with large lamps (deepams), incense sticks, and conch blowing, Mantras and devotional chants fill the air, accompanied by rhythmic ghanta naad (bell sounds), Devotees light floating diyas and set them adrift in the sea and Often accompanied by bhajans and kirtans praising Lord Jagannath.",
         },
     ];
 
     const conveniences = [
-        { id: '3', iconType: FontAwesome5, icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen', page: '' },
-        { id: '2', iconType: FontAwesome5, icon: 'phone-alt', label: 'Emergency Contact', page: '' },
-        { id: '9', iconType: FontAwesome5, icon: 'life-ring', label: 'Life Guard    Contacts', page: 'LifeGuardBooth' },
-        { id: '6', iconType: FontAwesome5, icon: 'search', label: 'Lost & Found', page: '' },
-        { id: '1', iconType: MaterialCommunityIcons, icon: 'water-pump', label: 'Drinking Water', page: 'DrinkingWater' },
-        { id: '7', iconType: FontAwesome5, icon: 'toilet', label: 'Toilet', page: 'Toilet' },
-        { id: '12', iconType: FontAwesome5, icon: 'hotel', label: 'Hotel', page: 'Hotel' },
-        { id: '13', iconType: FontAwesome5, icon: 'utensils', label: 'Restaurant', page: 'Restaurant' },
-        { id: '8', iconType: FontAwesome5, icon: 'umbrella-beach', label: 'Beaches', page: 'Beaches' },
-        { id: '5', iconType: FontAwesome, icon: 'hotel', label: 'Dharmashala', page: 'Dharmashala' },
-        { id: '15', iconType: FontAwesome5, icon: 'rupee-sign', label: 'ATM', page: 'Atm' },
-        { id: '4', iconType: FontAwesome5, icon: 'map-marked-alt', label: 'Route Map', page: '' },
-        { id: '11', iconType: FontAwesome5, icon: 'gas-pump', label: 'Petrol Pump', page: 'PetrolPump' },
-        { id: '14', iconType: FontAwesome5, icon: 'bus', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop' },
-        { id: '10', iconType: FontAwesome5, icon: 'charging-station', label: 'Charging Station', page: 'ChargingStation' },
+        { id: '1', label: 'Physical Handicap & Sr Citizen', page: '', image: require('../../assets/image/physical21.png') },
+        { id: '2', label: 'Emergency Contact', page: '', image: require('../../assets/image/emergencyontact.png') },
+        { id: '3', label: 'Life Guard    Contacts', page: 'LifeGuardBooth', image: require('../../assets/image/life432.png') },
+        { id: '4', label: 'Lost & Found', page: '', image: require('../../assets/image/lost&found21.png') },
+        { id: '5', label: 'Drinking Water', page: 'DrinkingWater', image: require('../../assets/image/drinkingWater32.png') },
+        { id: '6', label: 'Toilet', page: 'Toilet', image: require('../../assets/image/toilet543.png') },
+        { id: '7', label: 'Hotel', page: 'Hotel', image: require('../../assets/image/hotel67.png') },
+        { id: '8', label: 'Restaurant', page: 'Restaurant', image: require('../../assets/image/life432.png') },
+        { id: '9', label: 'Beaches', page: 'Beaches', image: require('../../assets/image/beaches21.png') },
+        { id: '10', label: 'Dharmashala', page: 'Dharmashala', image: require('../../assets/image/life432.png') },
+        { id: '11', label: 'ATM', page: 'Atm', image: require('../../assets/image/life432.png') },
+        { id: '12', label: 'Route Map', page: '', image: require('../../assets/image/routeMap.png') },
+        { id: '13', label: 'Petrol Pump', page: 'PetrolPump', image: require('../../assets/image/life432.png') },
+        { id: '14', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop', image: require('../../assets/image/life432.png') },
+        { id: '15', label: 'Charging Station', page: 'ChargingStation', image: require('../../assets/image/life432.png') },
     ];
 
     const emergencyContacts = [
         { name: 'Police', phone: '100' },
         { name: 'Ambulance', phone: '108' },
         { name: 'Fire Service', phone: '101' },
+        { name: 'Elder Person Helpline', phone: '1090' },
+        { name: 'Child Helpline', phone: '1098' },
         { name: 'Women Helpline', phone: '1091' },
-        { name: 'Life Guard', phone: '06752-222002' },
+        { name: 'Life Guard', phone: '8260777771' },
+        { name: 'National Highway Helpline', phone: '1033' },
     ];
 
     const [emergencyModalVisible, setEmergencyModalVisible] = useState(false);
@@ -148,17 +286,11 @@ const Index = () => {
         { icon: '〰️', name: 'Ekadashi' }
     ];
 
-    const extraItems = [
-        { id: '1', title: 'Bhakta Nibas', description: 'Temple Owned Properties For Pligrimas to stay', image: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png', large: true },
-        { id: '2', title: 'Parking', description: '2, 3, 4 Wheelers', image: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' },
-        { id: '3', title: 'Locker & Shoes', description: 'Free Stand Service', image: 'https://cdn4.iconfinder.com/data/icons/e-commerce-line-color-special-delivery/512/payment_bill-512.png' },
-    ];
-
     const navigation = useNavigation();
     const isFocused = useIsFocused();
-    // const [selectedDate, setSelectedDate] = useState('');
     const [active, setActive] = useState('World Wide');
     const [selectedTab, setSelectedTab] = useState('Temples');
+    const [filteredPlaces, setFilteredPlaces] = useState([]);
 
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
@@ -177,7 +309,7 @@ const Index = () => {
             }
 
             const result = await response.json();
-            console.log('Get Home Page Data:', result);
+            // console.log('Get Home Page Data:', result);
 
             if (result.status) {
                 const { niti_master, banners, nearby_temples, totalPreviousAmount } = result.data;
@@ -195,12 +327,21 @@ const Index = () => {
         }
     };
 
-
     useEffect(() => {
         if (isFocused) {
             getData();
         }
     }, [isFocused]);
+
+    useEffect(() => {
+        if (selectedTab === 'Temples') {
+            setFilteredPlaces(nearByPlaces.filter(place => place.type === 'temple'));
+        } else if (selectedTab === 'Mathas') {
+            setFilteredPlaces(nearByPlaces.filter(place => place.type === 'matha'));
+        } else if (selectedTab === 'RitualSites') {
+            setFilteredPlaces(nearByPlaces.filter(place => place.type === 'ritualsite'));
+        }
+    }, [selectedTab]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -217,7 +358,7 @@ const Index = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                         </View>
-                        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('RealsPage')} style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <SimpleLineIcons name="settings" size={26} color="#fff" />
                         </TouchableOpacity>
                     </View>
@@ -300,7 +441,14 @@ const Index = () => {
                         containerStyle={{ borderRadius: 10 }}
                     >
                         {TempleBanner.map((item, index) => (
-                            <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <LinearGradient
+                                colors={['#F06292', '#FFA726']} // orange to pink gradient
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                key={index}
+                                style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+                            >
+                                {/* <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}> */}
                                 <View style={{ width: '70%' }}>
                                     <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
                                     <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
@@ -311,7 +459,8 @@ const Index = () => {
                                 <View style={{ width: '30%', alignItems: 'flex-end' }}>
                                     <Image source={item.image} style={{ width: 110, height: 100 }} resizeMode="contain" />
                                 </View>
-                            </View>
+                                {/* </View> */}
+                            </LinearGradient>
                         ))}
                     </Swiper>
                 </View>
@@ -349,15 +498,15 @@ const Index = () => {
                                     {/* <FontAwesome6 name="radio" size={18} color="#6A0DAD" /> */}
                                     <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#F06292' }}>Radio</Text>
+                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>Radio</Text>
                             </View>
                             <View style={{ backgroundColor: 'red', height: 50, width: 1.4 }} />
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
                                     {/* <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" /> */}
-                                    <Image source={require('../../assets/image/tv241424.png')} style={{ width: 25, height: 25 }} />
+                                    <Image source={require('../../assets/image/tv43.png')} style={{ width: 27, height: 27 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#456096' }}>TV</Text>
+                                <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>TV</Text>
                             </View>
                         </View>
                     </View>
@@ -381,14 +530,14 @@ const Index = () => {
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/darshan5.png')} style={{ width: 45, height: 45 }} />
+                                <Image source={require('../../assets/image/darshan34.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/prasad321.png')} style={{ width: 38, height: 38 }} />
+                                <Image source={require('../../assets/image/prasad879.png')} style={{ width: 55, height: 55 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
                         </View>
@@ -402,7 +551,7 @@ const Index = () => {
                         <View style={{ alignItems: "center", width: "23%" }}>
                             <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                 {/* <MaterialCommunityIcons name={'gift'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/offering543.png')} style={{ width: 40, height: 40 }} />
+                                <Image source={require('../../assets/image/offerinh546.png')} style={{ width: 45, height: 45 }} />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Offering</Text>
                         </View>
@@ -417,7 +566,7 @@ const Index = () => {
                                 <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>Temple owned properties for pligrims to stay Comfortably</Text>
                             </View>
                             <View style={{ width: '20%', alignItems: 'flex-end' }}>
-                                <Image source={require('../../assets/image/bhaktanibash54.png')}  style={{ width: 50, height: 50 }} />
+                                <Image source={require('../../assets/image/bhaktanibash54.png')} style={{ width: 50, height: 50 }} />
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -487,7 +636,7 @@ const Index = () => {
                     <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
                         {/* Temples Tab */}
                         <LinearGradient
-                            colors={selectedTab === 'Temples' ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
+                            colors={selectedTab === 'Temples' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -513,7 +662,7 @@ const Index = () => {
 
                         {/* Mathas Tab */}
                         <LinearGradient
-                            colors={selectedTab === 'Mathas' ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
+                            colors={selectedTab === 'Mathas' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -539,7 +688,7 @@ const Index = () => {
 
                         {/* Ritual Sites Tab */}
                         <LinearGradient
-                            colors={selectedTab === 'RitualSites' ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
+                            colors={selectedTab === 'RitualSites' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -566,7 +715,7 @@ const Index = () => {
 
                     <FlatList
                         showsHorizontalScrollIndicator={false}
-                        data={nearByTemple}
+                        data={filteredPlaces}
                         horizontal
                         keyExtractor={(key) => {
                             return key.id
@@ -574,10 +723,10 @@ const Index = () => {
                         renderItem={(content) => {
                             return (
                                 <View style={{ flex: 1, alignItems: 'flex-start' }}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('NearbyTemple')} style={styles.sliderCard}>
-                                        <Image style={{ width: '100%', height: '100%', borderRadius: 15 }} source={{ uri: content.item.image }} />
+                                    <TouchableOpacity onPress={() => navigation.navigate('NearbyTemple', content.item)} style={styles.sliderCard}>
+                                        <Image style={{ width: '100%', height: '100%', borderRadius: 15 }} source={content.item.coverImage} />
                                     </TouchableOpacity>
-                                    <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Regular', color: '#333', marginTop: 10, marginLeft: 10 }}>{content.item.title}</Text>
+                                    <Text style={{ width: 140, fontSize: 14, fontFamily: 'FiraSans-Medium', color: '#333', marginTop: 7, textAlign: 'center' }}>{content.item.title}</Text>
                                 </View>
                             )
                         }}
@@ -611,8 +760,9 @@ const Index = () => {
                                 }}
                                 style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}
                             >
-                                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-                                    <item.iconType name={item.icon} size={24} color="#D64C64" />
+                                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: item.page === 'DrinkingWater' ? "#feefec" : 'transparent', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
+                                    {/* <item.iconType name={item.icon} size={24} color="#D64C64" /> */}
+                                    <Image source={item.image} style={{ width: item.page === 'DrinkingWater' ? 40 : 55, height: item.page === 'DrinkingWater' ? 40 : 55 }} resizeMode="contain" />
                                 </View>
                                 <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
                             </TouchableOpacity>
@@ -767,7 +917,7 @@ const Index = () => {
                             {['World Wide', 'India', 'Odisha'].map((location) => (
                                 <LinearGradient
                                     key={location}
-                                    colors={active === location ? ['#341551', '#8e57c2'] : ['transparent', 'transparent']}
+                                    colors={active === location ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 1, y: 0 }}
                                     style={{

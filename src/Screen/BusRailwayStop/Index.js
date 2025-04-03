@@ -6,37 +6,6 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
 
-const mainLockerShoesStand = [
-    {
-        id: '1',
-        locker_name: 'Barabati Kalyani Mandap',
-        locker_address: 'Barabati Kalyani Mandap, Puri, Odisha 752001',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-        map_url: 'https://maps.app.goo.gl/HFmFrzQHVSNBAzhp6'
-    },
-    {
-        id: '2',
-        locker_name: 'Barabati Kalyani Mandap',
-        locker_address: 'Barabati Kalyani Mandap, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-        map_url: 'https://maps.app.goo.gl/vH465ENw5tS48ZB49'
-    },
-    {
-        id: '3',
-        locker_name: 'Loknath Temple Parking',
-        locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
-    },
-    {
-        id: '4',
-        locker_name: 'Loknath Temple Parking',
-        locker_address: 'Temple Parking, Jibaramjee Palli, Loknath Temple Rd, Puri, Odisha 752001',
-        image: 'https://admin.stayatpurijagannatha.in/images/hotels/11_1668840715.jpg',
-        map_url: 'https://maps.app.goo.gl/HUVPZtz6bXJAH2Fb6'
-    }
-];
-
 const Index = () => {
 
     const scrollY = useRef(new Animated.Value(0)).current;
@@ -46,6 +15,10 @@ const Index = () => {
     const [spinner, setSpinner] = useState(false);
     const [allBusRailway, setAllBusRailway] = useState([]);
     const [selectedTab, setSelectedTab] = useState('BusStand'); // Default selected tab
+
+    const filteredData = selectedTab === 'BusStand'
+        ? allBusRailway.filter(item => item.commute_type === 'bus')
+        : allBusRailway.filter(item => item.commute_type === 'railway');
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -136,43 +109,43 @@ const Index = () => {
 
                     <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, margin: 15, padding: 5 }}>
                         <TouchableOpacity
-                            onPress={() => setSelectedTab('FourWheelers')}
+                            onPress={() => setSelectedTab('BusStand')}
                             style={{
                                 flex: 1,
-                                backgroundColor: selectedTab === 'FourWheelers' ? '#4B0082' : 'transparent',
+                                backgroundColor: selectedTab === 'BusStand' ? '#4B0082' : 'transparent',
                                 borderRadius: 10,
                                 paddingVertical: 8,
                                 alignItems: 'center',
                             }}
                         >
-                            <Text style={{ color: selectedTab === 'FourWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
-                                Four Wheelers
+                            <Text style={{ color: selectedTab === 'BusStand' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                                Bus Stands
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => setSelectedTab('TwoWheelers')}
+                            onPress={() => setSelectedTab('Railway')}
                             style={{
                                 flex: 1,
-                                backgroundColor: selectedTab === 'TwoWheelers' ? '#4B0082' : 'transparent',
+                                backgroundColor: selectedTab === 'Railway' ? '#4B0082' : 'transparent',
                                 borderRadius: 10,
                                 paddingVertical: 8,
                                 alignItems: 'center',
                             }}
                         >
-                            <Text style={{ color: selectedTab === 'TwoWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
-                                Two Wheelers
+                            <Text style={{ color: selectedTab === 'Railway' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                                Railway Station
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    
+
                     {/* Main Locker & Shoes Stands */}
                     <FlatList
-                        data={mainLockerShoesStand}
+                        data={filteredData}
                         keyExtractor={(item) => item.id}
                         scrollEnabled={false}
                         renderItem={({ item }) => (
                             <TouchableOpacity
-                                onPress={() => openMap(item.map_url)}
+                                onPress={() => openMap(item.google_map_link)}
                                 style={{
                                     width: '100%',
                                     height: 130,
@@ -186,19 +159,19 @@ const Index = () => {
                                 }}
                             >
                                 <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
-                                    {/* <Image source={{ uri: item.image }} style={{ width: 60, height: 60, borderRadius: 8, backgroundColor: '#eee', marginRight: 12 }}> */}
+                                    <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
                                 </View>
 
                                 {/* Text Content */}
                                 <View style={{ width: '55%', justifyContent: 'center' }}>
                                     <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
-                                        {item.locker_name}
+                                        {item.name}
                                     </Text>
 
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                                         <MaterialIcons name="location-on" size={14} color="#999" />
                                         <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
-                                            Location Address
+                                            {item.landmark}, {item.city_village}
                                         </Text>
                                     </View>
 
@@ -209,18 +182,9 @@ const Index = () => {
                                         </Text>
                                     </View>
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
-                                        <FontAwesome5 name="parking" size={13} color={item.id === '1' ? '#28a745' : '#D64C64'} />
-                                        <Text
-                                            style={{
-                                                fontSize: 13,
-                                                marginLeft: 4,
-                                                fontFamily: 'FiraSans-Regular',
-                                                color: item.id === '1' ? '#28a745' : '#D64C64',
-                                            }}
-                                        >
-                                            {item.id === '1' ? '45/250 Spots Available' : '5/250 Spots Available'}
-                                        </Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                                        <FontAwesome5 name="air-freshener" size={13} color="#28a745" />
+                                        <Text style={{ fontSize: 13, marginLeft: 5, color: '#28a745', textTransform: 'capitalize' }}>{item.status}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>

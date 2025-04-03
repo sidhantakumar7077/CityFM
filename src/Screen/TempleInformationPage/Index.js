@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal } from "react-native";
+import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView } from "react-native";
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Swiper from "react-native-swiper";
 
 const Index = () => {
 
@@ -12,16 +13,25 @@ const Index = () => {
     const { width } = Dimensions.get('window');
 
     const templeInfo = [
-        { id: '1', image: require('../../assets/image/mangala_alati.jpg'), label: 'Shree Mandira' },
-        { id: '2', image: require('../../assets/image/rathaanukula5.jpeg'), label: 'Shree Khetra' },
+        { id: '1', image: require('../../assets/image/shreeMandira90.png'), label: 'Shree Mandira' },
+        { id: '7', image: require('../../assets/image/besh546.png'), label: 'Besha' },
+        { id: '2', image: require('../../assets/image/shreeKhetra90.png'), label: 'Shree Khetra' },
         // { id: '3', image: require('../../assets/image/tradition.png'), label: 'Tradition' },
-        { id: '12', image: require('../../assets/image/rathaanukula2.jpg'), label: 'Ratha yatra' },
+        { id: '12', image: require('../../assets/image/rathayatra76.png'), label: 'Ratha yatra' },
         // { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
-        { id: '4', image: require('../../assets/image/mailama.jpeg'), label: 'Matha & Ashram' },
-        { id: '5', image: require('../../assets/image/dwaraphita.jpg'), label: 'Festivals' },
-        { id: '6', image: require('../../assets/image/charinahak3.jpeg'), label: '36 Nijoga' },
-        { id: '7', image: require('../../assets/image/bhajana.jpg'), label: 'Besha' },
-        { id: '8', image: require('../../assets/image/mangala_alati.jpg'), label: 'Management' },
+        { id: '4', image: require('../../assets/image/matha678.png'), label: 'Matha & Ashram' },
+        { id: '5', image: require('../../assets/image/festival98.png'), label: 'Festivals' },
+        { id: '6', image: require('../../assets/image/36nijoga51.png'), label: '36 Nijoga' },
+        { id: '8', image: require('../../assets/image/management87.png'), label: 'Management' },
+    ];
+
+    const TempleBanner = [
+        {
+            image: require('../../assets/image/temple546.png'),
+            title: 'Shree Mandira Reels',
+            subtitle: 'Explore the beauty of Jagannatha Dham.',
+            pageName: 'RealsPage',
+        },
     ];
 
     return (
@@ -110,6 +120,39 @@ const Index = () => {
                     </View>
                 </ScrollView>
 
+                <View style={{ height: 150, marginVertical: 10 }}>
+                    <Swiper
+                        showsPagination={true}
+                        paginationStyle={{ bottom: -7 }}
+                        dotColor="#999"
+                        activeDotColor="#341551"
+                        containerStyle={{ borderRadius: 10 }}
+                    >
+                        {TempleBanner.map((item, index) => (
+                            <LinearGradient
+                                colors={['#F06292', '#FFA726']} // orange to pink gradient
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                key={index}
+                                style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+                            >
+                                {/* <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}> */}
+                                <View style={{ width: '70%' }}>
+                                    <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
+                                    <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
+                                    <TouchableOpacity onPress={() => navigation.navigate(item.pageName)} style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>View</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: '30%', alignItems: 'flex-end' }}>
+                                    <Image source={item.image} style={{ width: 110, height: 100 }} resizeMode="contain" />
+                                </View>
+                                {/* </View> */}
+                            </LinearGradient>
+                        ))}
+                    </Swiper>
+                </View>
+
                 {/* About Temple */}
                 <View style={{ padding: 15, marginTop: 10 }}>
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Temple Information</Text>
@@ -175,7 +218,6 @@ const Index = () => {
                         </TouchableOpacity>
                     )}
                 </View>
-
             </ScrollView>
         </SafeAreaView>
     );

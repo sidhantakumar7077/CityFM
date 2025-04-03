@@ -3,17 +3,13 @@ import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, 
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
 // import { Calendar } from 'react-native-calendars';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Octicons from "react-native-vector-icons/Octicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
-import { add } from "react-native-track-player/lib/src/trackPlayer";
 
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');

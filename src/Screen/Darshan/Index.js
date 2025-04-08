@@ -1,20 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Modal from 'react-native-modal';
+import { base_url } from "../../../App";
 
-const nitiTimings = [
-    { name: 'Mangal Arati', status: 'Completed', time: '05.30 AM', relativeTime: 'soon', completedAt: '06:00 AM' },
-    { name: 'Bhitara Kaatha Darshan', status: 'Completed', time: '06:00 AM', relativeTime: 'in 8 hours', completedAt: '06:00 AM' },
-    { name: 'Baahaar Kaatha Darshan', status: 'Running', time: '08:00 AM', relativeTime: '3 hours ago', completedAt: '10:00 AM' },
-    { name: 'Bhitara Kaatha Darshan', status: 'Upcoming', time: '10:00 AM', relativeTime: '1 hour ago', completedAt: '12:30 PM' },
-    { name: 'Baahaar Kaatha Darshan', status: 'Upcoming', time: '12:30 PM', relativeTime: 'in 1 hour', completedAt: '03:30 PM' },
-    { name: 'Bhitara Kaatha Darshan', status: 'Upcoming', time: '03:30 PM', relativeTime: 'in 1 hour', completedAt: '06:30 PM' },
-    { name: 'Baahaar Kaatha Darshan', status: 'Upcoming', time: '06:30 PM', relativeTime: 'in 1 hour', completedAt: 'Till Pahuda' },
+const darshanTimings = [
+    { name: 'Mangal Arati', status: 'Completed', time: '05.30 AM', completedAt: '06:00 AM' },
+    { name: 'Bhitara Kaatha Darshan', status: 'Completed', time: '06:00 AM', completedAt: '06:00 AM' },
+    { name: 'Baahaar Kaatha Darshan', status: 'Running', time: '08:00 AM', completedAt: '10:00 AM' },
+    { name: 'Bhitara Kaatha Darshan', status: 'Upcoming', time: '10:00 AM', completedAt: '12:30 PM' },
+    { name: 'Baahaar Kaatha Darshan', status: 'Upcoming', time: '12:30 PM', completedAt: '03:30 PM' },
+    { name: 'Bhitara Kaatha Darshan', status: 'Upcoming', time: '03:30 PM', completedAt: '06:30 PM' },
+    { name: 'Baahaar Kaatha Darshan', status: 'Upcoming', time: '06:30 PM', completedAt: 'Till Pahuda' },
 ];
 
 const Index = () => {
@@ -22,6 +23,9 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const [isLoading, setIsLoading] = useState(true);
+    const [darshanData, setDarshanData] = useState([]);
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -39,6 +43,36 @@ const Index = () => {
     const handleAlram = () => {
         setAlramModalVisible(!alramModalVisible);
     };
+
+    const getDarshanList = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`${base_url}api/get-darshan`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            // console.log('Get Darshan Data:', result);
+
+            if (result.status) {
+                setDarshanData(result.data);
+                setIsLoading(false);
+            } else {
+                console.warn('API responded with status false:', result.message);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error('Error fetching home section data:', error);
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (isFocused) {
+            getDarshanList();
+        }
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -83,11 +117,11 @@ const Index = () => {
                 {/* Darshan List */}
                 <View style={{ marginTop: 20 }}>
                     <FlatList
-                        data={nitiTimings}
+                        data={darshanTimings}
                         keyExtractor={(item, index) => index.toString()}
                         scrollEnabled={false}
                         renderItem={({ item, index }) => {
-                            const isLast = index === nitiTimings.length - 1;
+                            const isLast = index === darshanTimings.length - 1;
                             const isCompleted = item.status === 'Completed';
                             const isRunning = item.status === 'Running';
                             const isUpcoming = item.status === 'Upcoming';

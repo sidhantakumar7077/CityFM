@@ -120,7 +120,7 @@ const Index = () => {
                     </View>
                 </ScrollView>
 
-                <View style={{ height: 150, marginVertical: 10 }}>
+                {/* <View style={{ height: 150, marginVertical: 10 }}>
                     <Swiper
                         showsPagination={true}
                         paginationStyle={{ bottom: -7 }}
@@ -136,7 +136,6 @@ const Index = () => {
                                 key={index}
                                 style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
                             >
-                                {/* <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}> */}
                                 <View style={{ width: '70%' }}>
                                     <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
                                     <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
@@ -147,11 +146,10 @@ const Index = () => {
                                 <View style={{ width: '30%', alignItems: 'flex-end' }}>
                                     <Image source={item.image} style={{ width: 110, height: 100 }} resizeMode="contain" />
                                 </View>
-                                {/* </View> */}
                             </LinearGradient>
                         ))}
                     </Swiper>
-                </View>
+                </View> */}
 
                 {/* About Temple */}
                 <View style={{ padding: 15, marginTop: 10 }}>

@@ -230,10 +230,10 @@ const Index = () => {
         { id: '4', label: 'Lost & Found', page: '', image: require('../../assets/image/lost&found21.png') },
         { id: '5', label: 'Drinking Water', page: 'DrinkingWater', image: require('../../assets/image/drinkingWater32.png') },
         { id: '6', label: 'Toilet', page: 'Toilet', image: require('../../assets/image/toilet543.png') },
-        { id: '7', label: 'Hotel', page: 'Hotel', image: require('../../assets/image/hotel89.png') },
-        { id: '8', label: 'Restaurant', page: 'Restaurant', image: require('../../assets/image/restaurant87.png') },
+        // { id: '7', label: 'Hotel', page: 'Hotel', image: require('../../assets/image/hotel89.png') },
+        // { id: '8', label: 'Restaurant', page: 'Restaurant', image: require('../../assets/image/restaurant87.png') },
         { id: '9', label: 'Beaches', page: 'Beaches', image: require('../../assets/image/beaches21.png') },
-        { id: '10', label: 'Dharmashala', page: 'Dharmashala', image: require('../../assets/image/dharamasala67.png') },
+        // { id: '10', label: 'Dharmashala', page: 'Dharmashala', image: require('../../assets/image/dharamasala67.png') },
         { id: '11', label: 'ATM', page: 'Atm', image: require('../../assets/image/atm.png') },
         { id: '12', label: 'Route Map', page: '', image: require('../../assets/image/routeMap.png') },
         { id: '13', label: 'Petrol Pump', page: 'PetrolPump', image: require('../../assets/image/petrolPump21.png') },
@@ -462,7 +462,7 @@ const Index = () => {
                 </View>
 
                 {/* Live Broadcast Section */}
-                <View style={styles.liveCard}>
+                {/* <View style={styles.liveCard}>
                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ width: '26%' }}>
                             <Text style={styles.liveTitle}>Shree Mandira</Text>
@@ -491,7 +491,6 @@ const Index = () => {
                         <View style={{ width: '36%', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('LivePage')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
-                                    {/* <FontAwesome6 name="radio" size={18} color="#6A0DAD" /> */}
                                     <Image source={require('../../assets/image/radio214142.png')} style={{ width: 25, height: 25 }} />
                                 </TouchableOpacity>
                                 <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>Radio</Text>
@@ -499,14 +498,13 @@ const Index = () => {
                             <View style={{ backgroundColor: 'red', height: 50, width: 1.4 }} />
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Tv')} style={{ backgroundColor: '#f8edfc', borderRadius: 100, padding: 10 }}>
-                                    {/* <MaterialCommunityIcons name="youtube-tv" size={20} color="#6A0DAD" /> */}
                                     <Image source={require('../../assets/image/tv43.png')} style={{ width: 27, height: 27 }} />
                                 </TouchableOpacity>
                                 <Text style={{ fontFamily: 'FiraSans-Medium', fontSize: 16, color: '#dd4c2f' }}>TV</Text>
                             </View>
                         </View>
                     </View>
-                </View>
+                </View> */}
 
                 {/* Quick Services Section */}
                 <View style={{ padding: 15 }}>
@@ -545,11 +543,10 @@ const Index = () => {
                             <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                         </View>
                         <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Offering')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                {/* <MaterialCommunityIcons name={'gift'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/offerinh546.png')} style={{ width: 45, height: 45 }} />
+                            <TouchableOpacity style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                <Image source={require('../../assets/image/festival21.png')} style={{ width: 60, height: 60 }} />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Offering</Text>
+                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
                         </View>
                     </View>
 
@@ -581,8 +578,8 @@ const Index = () => {
 
                         <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                             <View style={{ width: '60%', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes</Text>
-                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free Stand</Text>
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes Stand</Text>
+                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free services</Text>
                             </View>
                             <View style={{ width: '40%', alignItems: 'center' }}>
                                 <Image source={require('../../assets/image/locker675.png')} style={{ width: 40, height: 40, resizeMode: 'contain' }} />
@@ -612,7 +609,6 @@ const Index = () => {
                             </View>
                         </View>
                     </View>
-
                 </View>
 
                 {/* Nearby Temples */}
@@ -657,7 +653,7 @@ const Index = () => {
                         </LinearGradient>
 
                         {/* Mathas Tab */}
-                        <LinearGradient
+                        {/* <LinearGradient
                             colors={selectedTab === 'Mathas' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
@@ -680,7 +676,7 @@ const Index = () => {
                                     Mathas
                                 </Text>
                             </TouchableOpacity>
-                        </LinearGradient>
+                        </LinearGradient> */}
 
                         {/* Ritual Sites Tab */}
                         <LinearGradient

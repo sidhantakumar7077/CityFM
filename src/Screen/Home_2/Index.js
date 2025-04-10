@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal } from "react-native";
+import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal, ActivityIndicator } from "react-native";
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
 // import { Calendar } from 'react-native-calendars';
@@ -285,8 +285,9 @@ const Index = () => {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const [active, setActive] = useState('World Wide');
-    const [selectedTab, setSelectedTab] = useState('Temples');
+    const [selectedTab, setSelectedTab] = useState("temple");
     const [filteredPlaces, setFilteredPlaces] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
@@ -294,10 +295,11 @@ const Index = () => {
 
     const [nitiList, setNitiList] = useState([]);
     const [banners, setBanners] = useState([]);
-    const [nearbyTemples, setNearbyTemples] = useState([]);
+    const [nearbyPlaces, setNearbyPlaces] = useState([]);
     const [previousAmount, setPreviousAmount] = useState(0);
 
     const getData = async () => {
+        setIsLoading(true);
         try {
             const response = await fetch(`${base_url}api/get-home-section`);
             if (!response.ok) {
@@ -312,14 +314,17 @@ const Index = () => {
 
                 setNitiList(niti_master || []);
                 setBanners(banners || []);
-                setNearbyTemples(nearby_temples || []);
+                setNearbyPlaces(nearby_temples || []);
                 setPreviousAmount(totalPreviousAmount || 0);
+                setIsLoading(false);
             } else {
                 console.warn('API responded with status false:', result.message);
+                setIsLoading(false);
             }
 
         } catch (error) {
             console.error('Error fetching home section data:', error);
+            setIsLoading(false);
         }
     };
 
@@ -330,139 +335,144 @@ const Index = () => {
     }, [isFocused]);
 
     useEffect(() => {
-        if (selectedTab === 'Temples') {
-            setFilteredPlaces(nearByPlaces.filter(place => place.type === 'temple'));
+        if (selectedTab === 'temple') {
+            setFilteredPlaces(nearbyPlaces?.filter(place => place.place_type === 'temple'));
         } else if (selectedTab === 'Mathas') {
-            setFilteredPlaces(nearByPlaces.filter(place => place.type === 'matha'));
+            setFilteredPlaces(nearbyPlaces?.filter(place => place.place_type === 'matha'));
         } else if (selectedTab === 'RitualSites') {
-            setFilteredPlaces(nearByPlaces.filter(place => place.type === 'ritualsite'));
+            setFilteredPlaces(nearbyPlaces?.filter(place => place.place_type === 'ritualsite'));
         }
-    }, [selectedTab]);
+    }, [selectedTab, nearbyPlaces]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView
-                style={styles.container}
-                showsVerticalScrollIndicator={false}
-                bounces={false} // Prevents bounce effect on iOS
-                overScrollMode="never" // Prevents overscroll glow on Android
-            >
-                {/* Background Image with Overlay */}
-                <ImageBackground source={require("../../assets/image/templeImage1.png")} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20, resizeMode: 'cover' }} style={styles.backgroundImage}>
-                    <LinearGradient colors={["rgba(0,0,0,0.5)", "transparent"]} style={styles.overlay} />
-                    <View style={styles.header}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
-                        </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('RealsPage')} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <SimpleLineIcons name="settings" size={26} color="#fff" />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
-                        <View style={{ textAlign: 'center', marginLeft: 8 }}>
-                            <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
-                            <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
-                            <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
-                        </View>
-                    </View>
-                </ImageBackground>
-
-                {/* Current Niti Box */}
-                <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
-                    <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
-                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
-                            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ width: '90%' }}>
-                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Dwara Phita & Mangala Alati</Text>
-                                    <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                            <Ionicons name="calendar-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
-                                        </View>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
-                                            <Ionicons name="time-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>5 AM or earlier</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={{ width: '10%' }}>
-                                    <Ionicons name="chevron-forward" size={24} color="#fa0000" />
-                                </View>
+            {isLoading ? (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size="large" color="#fa0000" />
+                </View>
+            ) : (
+                <ScrollView
+                    style={styles.container}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false} // Prevents bounce effect on iOS
+                    overScrollMode="never" // Prevents overscroll glow on Android
+                >
+                    {/* Background Image with Overlay */}
+                    <ImageBackground source={require("../../assets/image/templeImage1.png")} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20, resizeMode: 'cover' }} style={styles.backgroundImage}>
+                        <LinearGradient colors={["rgba(0,0,0,0.5)", "transparent"]} style={styles.overlay} />
+                        <View style={styles.header}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                             </View>
-                        </View>
-                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
-                            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ width: '90%' }}>
-                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Mailam</Text>
-                                    <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                            <Ionicons name="calendar-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
-                                        </View>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
-                                            <Ionicons name="time-outline" size={16} color="#fa0000" />
-                                            <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>6 AM</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={{ width: '10%' }}>
-                                    <Ionicons name="chevron-forward" size={24} color="#fa0000" />
-                                </View>
-                            </View>
-                        </View>
-                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ width: '90%' }}>
-                                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>View All Niti</Text>
-                                </View>
-                                <View style={{ width: '10%' }}>
-                                    <Ionicons name="chevron-forward" size={24} color="#fa0000" />
-                                </View>
+                            <TouchableOpacity onPress={() => navigation.navigate('RealsPage')} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <SimpleLineIcons name="settings" size={26} color="#fff" />
                             </TouchableOpacity>
                         </View>
+                        <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
+                            <View style={{ textAlign: 'center', marginLeft: 8 }}>
+                                <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
+                                <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
+                                <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
+                            </View>
+                        </View>
+                    </ImageBackground>
+
+                    {/* Current Niti Box */}
+                    <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
+                        <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
+                            <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                                <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ width: '90%' }}>
+                                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Dwara Phita & Mangala Alati</Text>
+                                        <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                                <Ionicons name="calendar-outline" size={16} color="#fa0000" />
+                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
+                                            </View>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
+                                                <Ionicons name="time-outline" size={16} color="#fa0000" />
+                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>5 AM or earlier</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <View style={{ width: '10%' }}>
+                                        <Ionicons name="chevron-forward" size={24} color="#fa0000" />
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                                <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ width: '90%' }}>
+                                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Mailam</Text>
+                                        <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                                <Ionicons name="calendar-outline" size={16} color="#fa0000" />
+                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
+                                            </View>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
+                                                <Ionicons name="time-outline" size={16} color="#fa0000" />
+                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>6 AM</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <View style={{ width: '10%' }}>
+                                        <Ionicons name="chevron-forward" size={24} color="#fa0000" />
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ width: '90%' }}>
+                                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>View All Niti</Text>
+                                    </View>
+                                    <View style={{ width: '10%' }}>
+                                        <Ionicons name="chevron-forward" size={24} color="#fa0000" />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
+
+                    {/* Ratha Yatra Banner */}
+                    <View style={{ height: 150, marginVertical: 10 }}>
+                        <Swiper
+                            // autoplay
+                            // autoplayTimeout={4}
+                            showsPagination={true}
+                            paginationStyle={{ bottom: -7 }}
+                            dotColor="#999"
+                            activeDotColor="#341551"
+                            containerStyle={{ borderRadius: 10 }}
+                        >
+                            {TempleBanner.map((item, index) => (
+                                <LinearGradient
+                                    colors={['#F06292', '#FFA726']} // orange to pink gradient
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    key={index}
+                                    style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+                                >
+                                    {/* <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}> */}
+                                    <View style={{ width: '70%' }}>
+                                        <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
+                                        <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
+                                        <TouchableOpacity onPress={() => navigation.navigate(item.pageName)} style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
+                                            <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>View</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ width: '30%', alignItems: 'flex-end' }}>
+                                        <Image source={item.image} style={{ width: 110, height: 100 }} resizeMode="contain" />
+                                    </View>
+                                    {/* </View> */}
+                                </LinearGradient>
+                            ))}
+                        </Swiper>
                     </View>
-                </ScrollView>
 
-                {/* Ratha Yatra Banner */}
-                <View style={{ height: 150, marginVertical: 10 }}>
-                    <Swiper
-                        // autoplay
-                        // autoplayTimeout={4}
-                        showsPagination={true}
-                        paginationStyle={{ bottom: -7 }}
-                        dotColor="#999"
-                        activeDotColor="#341551"
-                        containerStyle={{ borderRadius: 10 }}
-                    >
-                        {TempleBanner.map((item, index) => (
-                            <LinearGradient
-                                colors={['#F06292', '#FFA726']} // orange to pink gradient
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 0 }}
-                                key={index}
-                                style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-                            >
-                                {/* <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}> */}
-                                <View style={{ width: '70%' }}>
-                                    <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
-                                    <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
-                                    <TouchableOpacity onPress={() => navigation.navigate(item.pageName)} style={{ backgroundColor: '#fff', padding: 5, borderRadius: 5, marginTop: 10, width: 90, alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>View</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ width: '30%', alignItems: 'flex-end' }}>
-                                    <Image source={item.image} style={{ width: 110, height: 100 }} resizeMode="contain" />
-                                </View>
-                                {/* </View> */}
-                            </LinearGradient>
-                        ))}
-                    </Swiper>
-                </View>
-
-                {/* Live Broadcast Section */}
-                {/* <View style={styles.liveCard}>
+                    {/* Live Broadcast Section */}
+                    {/* <View style={styles.liveCard}>
                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ width: '26%' }}>
                             <Text style={styles.liveTitle}>Shree Mandira</Text>
@@ -504,302 +514,302 @@ const Index = () => {
                             </View>
                         </View>
                     </View>
-                </View> */}
+                        </View> */}
 
-                {/* Quick Services Section */}
-                <View style={{ padding: 15 }}>
-                    {/* Title Section */}
-                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Quick Services</Text>
-                    {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
-                    <LinearGradient
-                        colors={['#FFA726', '#F06292']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
-                        }}
-                    />
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
-                        <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/darshan34.png')} style={{ width: 45, height: 45 }} />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
-                        </View>
-                        <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/prasad879.png')} style={{ width: 55, height: 55 }} />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
-                        </View>
-                        <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
-                                <Image source={require('../../assets/image/panji765.png')} style={{ width: 35, height: 35 }} />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
-                        </View>
-                        <View style={{ alignItems: "center", width: "23%" }}>
-                            <TouchableOpacity style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                <Image source={require('../../assets/image/festival21.png')} style={{ width: 60, height: 60 }} />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
-                        </View>
-                    </View>
-
-                    <View style={{ marginTop: 10, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
-                            <View style={{ width: '20%' }}>
-                                <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
-                            </View>
-                            <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>Temple owned properties for pligrims to stay Comfortably</Text>
-                            </View>
-                            <View style={{ width: '20%', alignItems: 'flex-end' }}>
-                                <Image source={require('../../assets/image/bhaktanibash54.png')} style={{ width: 50, height: 50 }} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15 }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
-                            <View style={{ width: '60%', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Parking</Text>
-                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>2, 3, 4 Wheelers</Text>
-                            </View>
-                            <View style={{ width: '40%', alignItems: 'center' }}>
-                                {/* <FontAwesome5 name="parking" size={30} color="#D64C64" /> */}
-                                <Image source={require('../../assets/image/parking765.png')} style={{ width: 38, height: 38, resizeMode: 'contain' }} />
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
-                            <View style={{ width: '60%', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes Stand</Text>
-                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free services</Text>
-                            </View>
-                            <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={require('../../assets/image/locker675.png')} style={{ width: 40, height: 40, resizeMode: 'contain' }} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <TouchableOpacity style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
-                            <View style={{ width: '60%', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
-                                <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Donate Now</Text>
-                            </View>
-                            <View style={{ width: '40%', alignItems: 'center' }}>
-                                <Image source={require('../../assets/image/donation435.png')} style={{ width: 33, height: 33 }} />
-                            </View>
-                        </TouchableOpacity>
-
-                        <View style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
-                            <View style={{ width: '60%', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Collection</Text>
-                                <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹5,30,000/-</Text>
-                            </View>
-                            <View style={{ width: '40%', alignItems: 'center' }}>
-                                {/* <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" /> */}
-                                <Image source={require('../../assets/image/hundiColection654.png')} style={{ width: 33, height: 33 }} />
-                            </View>
-                        </View>
-                    </View>
-                </View>
-
-                {/* Nearby Temples */}
-                <View style={styles.nearbyContainer}>
-                    {/* Title Section */}
-                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Nearby Religious Places</Text>
-                    {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
-                    <LinearGradient
-                        colors={['#FFA726', '#F06292']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
-                        }}
-                    />
-
-                    <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
-                        {/* Temples Tab */}
+                    {/* Quick Services Section */}
+                    <View style={{ padding: 15 }}>
+                        {/* Title Section */}
+                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Quick Services</Text>
+                        {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
                         <LinearGradient
-                            colors={selectedTab === 'Temples' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            colors={['#FFA726', '#F06292']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
-                                flex: 1,
-                                borderRadius: 10,
+                                width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
                             }}
-                        >
-                            <TouchableOpacity
-                                onPress={() => setSelectedTab('Temples')}
-                                style={{
-                                    flex: 1,
-                                    // backgroundColor: selectedTab === 'Temples' ? '#D64C64' : 'transparent',
-                                    borderRadius: 10,
-                                    paddingVertical: 8,
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Text style={{ color: selectedTab === 'Temples' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                    Temples
-                                </Text>
-                            </TouchableOpacity>
-                        </LinearGradient>
+                        />
 
-                        {/* Mathas Tab */}
-                        {/* <LinearGradient
-                            colors={selectedTab === 'Mathas' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={{
-                                flex: 1,
-                                borderRadius: 10,
-                            }}
-                        >
-                            <TouchableOpacity
-                                onPress={() => setSelectedTab('Mathas')}
-                                style={{
-                                    flex: 1,
-                                    // backgroundColor: selectedTab === 'Mathas' ? '#D64C64' : 'transparent',
-                                    borderRadius: 10,
-                                    paddingVertical: 8,
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Text style={{ color: selectedTab === 'Mathas' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                    Mathas
-                                </Text>
-                            </TouchableOpacity>
-                        </LinearGradient> */}
-
-                        {/* Ritual Sites Tab */}
-                        <LinearGradient
-                            colors={selectedTab === 'RitualSites' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={{
-                                flex: 1,
-                                borderRadius: 10,
-                            }}
-                        >
-                            <TouchableOpacity
-                                onPress={() => setSelectedTab('RitualSites')}
-                                style={{
-                                    flex: 1,
-                                    // backgroundColor: selectedTab === 'RitualSites' ? '#D64C64' : 'transparent',
-                                    borderRadius: 10,
-                                    paddingVertical: 8,
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Text style={{ color: selectedTab === 'RitualSites' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                    Ritual Sites
-                                </Text>
-                            </TouchableOpacity>
-                        </LinearGradient>
-                    </View>
-
-                    <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        data={filteredPlaces}
-                        horizontal
-                        keyExtractor={(key) => {
-                            return key.id
-                        }}
-                        renderItem={(content) => {
-                            return (
-                                <View style={{ flex: 1, alignItems: 'flex-start' }}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('NearbyTemple', content.item)} style={styles.sliderCard}>
-                                        <Image style={{ width: '100%', height: '100%', borderRadius: 15 }} source={content.item.coverImage} />
-                                    </TouchableOpacity>
-                                    <Text style={{ width: 140, fontSize: 14, fontFamily: 'FiraSans-Medium', color: '#333', marginTop: 7, textAlign: 'center' }}>{content.item.title}</Text>
-                                </View>
-                            )
-                        }}
-                    />
-                </View>
-
-                {/* conveniences */}
-                <View style={{ padding: 15 }}>
-                    {/* Title */}
-                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Conveniences</Text>
-                    {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} /> */}
-                    <LinearGradient
-                        colors={['#FFA726', '#F06292']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
-                        }}
-                    />
-
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 20 }}>
-                        {(expanded ? conveniences : conveniences.slice(0, maxVisibleItems)).map((item) => (
-                            <TouchableOpacity
-                                key={item.id}
-                                onPress={() => {
-                                    if (item.page !== '') {
-                                        navigation.navigate(item.page);
-                                    } else if (item.label === 'Emergency Contact') {
-                                        setEmergencyModalVisible(true);
-                                    }
-                                }}
-                                style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}
-                            >
-                                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: item.page === 'DrinkingWater' ? "#feefec" : 'transparent', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-                                    {/* <item.iconType name={item.icon} size={24} color="#D64C64" /> */}
-                                    <Image source={item.image} style={{ width: item.page === 'DrinkingWater' ? 40 : 55, height: item.page === 'DrinkingWater' ? 40 : 55 }} resizeMode="contain" />
-                                </View>
-                                <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
-                            </TouchableOpacity>
-
-                        ))}
-                    </View>
-
-                    {conveniences.length > maxVisibleItems && (
-                        <TouchableOpacity onPress={() => setExpanded(!expanded)} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 8, paddingHorizontal: 20, marginTop: 10, alignSelf: 'center' }}>
-                            <AntDesign name={expanded ? 'upcircleo' : 'downcircleo'} size={30} color="#D64C64" />
-                        </TouchableOpacity>
-                    )}
-                </View>
-
-                {/* Emergency Contact */}
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={emergencyModalVisible}
-                    onRequestClose={() => setEmergencyModalVisible(false)}
-                >
-                    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 16, paddingVertical: 25, paddingHorizontal: 20, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10, elevation: 10, alignItems: 'center' }}>
-                            <MaterialIcons name="local-phone" size={40} color="#D64C64" style={{ marginBottom: 10 }} />
-                            <Text style={{ fontSize: 20, fontWeight: '700', color: '#341551', marginBottom: 15 }}>Emergency Contacts</Text>
-
-                            {emergencyContacts.map((contact, index) => (
-                                <TouchableOpacity key={index} onPress={() => handleCall(contact.phone)} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingVertical: 12, borderBottomWidth: index !== emergencyContacts.length - 1 ? 1 : 0, borderBottomColor: '#eee' }}>
-                                    <View>
-                                        <Text style={{ fontSize: 16, fontWeight: '500', color: '#333' }}>{contact.name}</Text>
-                                        <Text style={{ fontSize: 14, color: '#999' }}>{contact.phone}</Text>
-                                    </View>
-                                    <MaterialIcons name="call" size={24} color="#D64C64" />
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
+                            <View style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                    {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
+                                    <Image source={require('../../assets/image/darshan34.png')} style={{ width: 45, height: 45 }} />
                                 </TouchableOpacity>
-                            ))}
+                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
+                            </View>
+                            <View style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                    {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
+                                    <Image source={require('../../assets/image/prasad879.png')} style={{ width: 55, height: 55 }} />
+                                </TouchableOpacity>
+                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
+                            </View>
+                            <View style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                    {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
+                                    <Image source={require('../../assets/image/panji765.png')} style={{ width: 35, height: 35 }} />
+                                </TouchableOpacity>
+                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
+                            </View>
+                            <View style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                    <Image source={require('../../assets/image/festival21.png')} style={{ width: 60, height: 60 }} />
+                                </TouchableOpacity>
+                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
+                            </View>
+                        </View>
 
-                            <TouchableOpacity onPress={() => setEmergencyModalVisible(false)} style={{ marginTop: 20, backgroundColor: '#D64C64', paddingHorizontal: 30, paddingVertical: 10, borderRadius: 25 }}>
-                                <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600' }}>Close</Text>
+                        <View style={{ marginTop: 10, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
+                                <View style={{ width: '20%' }}>
+                                    <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
+                                </View>
+                                <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>Temple owned properties for pligrims to stay Comfortably</Text>
+                                </View>
+                                <View style={{ width: '20%', alignItems: 'flex-end' }}>
+                                    <Image source={require('../../assets/image/bhaktanibash54.png')} style={{ width: 50, height: 50 }} />
+                                </View>
                             </TouchableOpacity>
                         </View>
-                    </View>
-                </Modal>
 
-                {/* Banner Section */}
-                {/* <View style={{ height: 150, marginTop: 10, marginBottom: 0 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
+                                <View style={{ width: '60%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Parking</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>2, 3, 4 Wheelers</Text>
+                                </View>
+                                <View style={{ width: '40%', alignItems: 'center' }}>
+                                    {/* <FontAwesome5 name="parking" size={30} color="#D64C64" /> */}
+                                    <Image source={require('../../assets/image/parking765.png')} style={{ width: 38, height: 38, resizeMode: 'contain' }} />
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
+                                <View style={{ width: '60%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes Stand</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free services</Text>
+                                </View>
+                                <View style={{ width: '40%', alignItems: 'center' }}>
+                                    <Image source={require('../../assets/image/locker675.png')} style={{ width: 40, height: 40, resizeMode: 'contain' }} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <TouchableOpacity style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
+                                <View style={{ width: '60%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Donate Now</Text>
+                                </View>
+                                <View style={{ width: '40%', alignItems: 'center' }}>
+                                    <Image source={require('../../assets/image/donation435.png')} style={{ width: 33, height: 33 }} />
+                                </View>
+                            </TouchableOpacity>
+
+                            <View style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
+                                <View style={{ width: '60%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Collection</Text>
+                                    <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹5,30,000/-</Text>
+                                </View>
+                                <View style={{ width: '40%', alignItems: 'center' }}>
+                                    {/* <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" /> */}
+                                    <Image source={require('../../assets/image/hundiColection654.png')} style={{ width: 33, height: 33 }} />
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+
+                    {/* Nearby Temples */}
+                    <View style={styles.nearbyContainer}>
+                        {/* Title Section */}
+                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Nearby Religious Places</Text>
+                        {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
+                        <LinearGradient
+                            colors={['#FFA726', '#F06292']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={{
+                                width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
+                            }}
+                        />
+
+                        <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, marginVertical: 15, padding: 5 }}>
+                            {/* Temples Tab */}
+                            <LinearGradient
+                                colors={selectedTab === 'temple' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{
+                                    flex: 1,
+                                    borderRadius: 10,
+                                }}
+                            >
+                                <TouchableOpacity
+                                    onPress={() => setSelectedTab('temple')}
+                                    style={{
+                                        flex: 1,
+                                        // backgroundColor: selectedTab === 'temple' ? '#D64C64' : 'transparent',
+                                        borderRadius: 10,
+                                        paddingVertical: 8,
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Text style={{ color: selectedTab === 'temple' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                        Temples
+                                    </Text>
+                                </TouchableOpacity>
+                            </LinearGradient>
+
+                            {/* Mathas Tab */}
+                            {/* <LinearGradient
+                                colors={selectedTab === 'Mathas' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{
+                                    flex: 1,
+                                    borderRadius: 10,
+                                }}
+                            >
+                                <TouchableOpacity
+                                    onPress={() => setSelectedTab('Mathas')}
+                                    style={{
+                                        flex: 1,
+                                        // backgroundColor: selectedTab === 'Mathas' ? '#D64C64' : 'transparent',
+                                        borderRadius: 10,
+                                        paddingVertical: 8,
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Text style={{ color: selectedTab === 'Mathas' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                        Mathas
+                                    </Text>
+                                </TouchableOpacity>
+                            </LinearGradient> */}
+
+                            {/* Ritual Sites Tab */}
+                            <LinearGradient
+                                colors={selectedTab === 'RitualSites' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{
+                                    flex: 1,
+                                    borderRadius: 10,
+                                }}
+                            >
+                                <TouchableOpacity
+                                    onPress={() => setSelectedTab('RitualSites')}
+                                    style={{
+                                        flex: 1,
+                                        // backgroundColor: selectedTab === 'RitualSites' ? '#D64C64' : 'transparent',
+                                        borderRadius: 10,
+                                        paddingVertical: 8,
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Text style={{ color: selectedTab === 'RitualSites' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                        Ritual Sites
+                                    </Text>
+                                </TouchableOpacity>
+                            </LinearGradient>
+                        </View>
+
+                        <FlatList
+                            showsHorizontalScrollIndicator={false}
+                            data={filteredPlaces}
+                            horizontal
+                            keyExtractor={(key) => {
+                                return key.id
+                            }}
+                            renderItem={(content) => {
+                                return (
+                                    <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                                        <TouchableOpacity onPress={() => navigation.navigate('NearbyTemple', content?.item)} style={styles.sliderCard}>
+                                            <Image style={{ width: '100%', height: '100%', borderRadius: 15 }} source={{ uri: content?.item?.cover_photo }} />
+                                        </TouchableOpacity>
+                                        <Text style={{ width: 140, fontSize: 14, fontFamily: 'FiraSans-Medium', color: '#333', marginTop: 7, textAlign: 'center' }}>{content?.item?.name}</Text>
+                                    </View>
+                                )
+                            }}
+                        />
+                    </View>
+
+                    {/* conveniences */}
+                    <View style={{ padding: 15 }}>
+                        {/* Title */}
+                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Conveniences</Text>
+                        {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} /> */}
+                        <LinearGradient
+                            colors={['#FFA726', '#F06292']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={{
+                                width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
+                            }}
+                        />
+
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 20 }}>
+                            {(expanded ? conveniences : conveniences.slice(0, maxVisibleItems)).map((item) => (
+                                <TouchableOpacity
+                                    key={item.id}
+                                    onPress={() => {
+                                        if (item.page !== '') {
+                                            navigation.navigate(item.page);
+                                        } else if (item.label === 'Emergency Contact') {
+                                            setEmergencyModalVisible(true);
+                                        }
+                                    }}
+                                    style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}
+                                >
+                                    <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: item.page === 'DrinkingWater' ? "#feefec" : 'transparent', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
+                                        {/* <item.iconType name={item.icon} size={24} color="#D64C64" /> */}
+                                        <Image source={item.image} style={{ width: item.page === 'DrinkingWater' ? 40 : 55, height: item.page === 'DrinkingWater' ? 40 : 55 }} resizeMode="contain" />
+                                    </View>
+                                    <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
+                                </TouchableOpacity>
+
+                            ))}
+                        </View>
+
+                        {conveniences.length > maxVisibleItems && (
+                            <TouchableOpacity onPress={() => setExpanded(!expanded)} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 8, paddingHorizontal: 20, marginTop: 10, alignSelf: 'center' }}>
+                                <AntDesign name={expanded ? 'upcircleo' : 'downcircleo'} size={30} color="#D64C64" />
+                            </TouchableOpacity>
+                        )}
+                    </View>
+
+                    {/* Emergency Contact */}
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={emergencyModalVisible}
+                        onRequestClose={() => setEmergencyModalVisible(false)}
+                    >
+                        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 16, paddingVertical: 25, paddingHorizontal: 20, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10, elevation: 10, alignItems: 'center' }}>
+                                <MaterialIcons name="local-phone" size={40} color="#D64C64" style={{ marginBottom: 10 }} />
+                                <Text style={{ fontSize: 20, fontWeight: '700', color: '#341551', marginBottom: 15 }}>Emergency Contacts</Text>
+
+                                {emergencyContacts.map((contact, index) => (
+                                    <TouchableOpacity key={index} onPress={() => handleCall(contact.phone)} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingVertical: 12, borderBottomWidth: index !== emergencyContacts.length - 1 ? 1 : 0, borderBottomColor: '#eee' }}>
+                                        <View>
+                                            <Text style={{ fontSize: 16, fontWeight: '500', color: '#333' }}>{contact.name}</Text>
+                                            <Text style={{ fontSize: 14, color: '#999' }}>{contact.phone}</Text>
+                                        </View>
+                                        <MaterialIcons name="call" size={24} color="#D64C64" />
+                                    </TouchableOpacity>
+                                ))}
+
+                                <TouchableOpacity onPress={() => setEmergencyModalVisible(false)} style={{ marginTop: 20, backgroundColor: '#D64C64', paddingHorizontal: 30, paddingVertical: 10, borderRadius: 25 }}>
+                                    <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600' }}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    {/* Banner Section */}
+                    {/* <View style={{ height: 150, marginTop: 10, marginBottom: 0 }}>
                     <Swiper
                         // autoplay
                         // autoplayTimeout={4}
@@ -826,8 +836,8 @@ const Index = () => {
                     </Swiper>
                 </View> */}
 
-                {/* Calendar Section */}
-                {/* <View>
+                    {/* Calendar Section */}
+                    {/* <View>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Panji & Calendar</Text>
                         <View style={{ backgroundColor: 'red', width: 40, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
@@ -876,8 +886,8 @@ const Index = () => {
                     </ImageBackground>
                 </View> */}
 
-                {/* About Temple */}
-                {/* <View style={{ padding: 15, marginTop: 10 }}>
+                    {/* About Temple */}
+                    {/* <View style={{ padding: 15, marginTop: 10 }}>
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Temple Information</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
 
@@ -893,67 +903,67 @@ const Index = () => {
                     </View>
                 </View> */}
 
-                {/* Temples Worldwide */}
-                <View style={{ padding: 15 }}>
-                    <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Jagannatha Temples Worldwide</Text>
-                    <LinearGradient
-                        colors={['#FFA726', '#F06292']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                            width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
-                        }}
-                    />
-                    <View style={{ width: 270, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 20 }}>
-                        <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            {['World Wide', 'India', 'Odisha'].map((location) => (
-                                <LinearGradient
-                                    key={location}
-                                    colors={active === location ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 1, y: 0 }}
-                                    style={{
-                                        flex: 1,
-                                        borderRadius: 10,
-                                        width: '32%',
-                                        padding: 5,
-                                        alignItems: 'center',
-                                        borderRadius: 5,
-                                    }}
-                                >
-                                    <TouchableOpacity onPress={() => setActive(location)}>
-                                        <Text style={{
-                                            fontSize: 12,
-                                            color: active === location ? '#fff' : '#333',
-                                            fontFamily: 'FiraSans-Regular',
-                                            fontWeight: active === location ? 'bold' : 'normal'
-                                        }}>
-                                            {location}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </LinearGradient>
-                            ))}
+                    {/* Temples Worldwide */}
+                    <View style={{ padding: 15 }}>
+                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Jagannatha Temples Worldwide</Text>
+                        <LinearGradient
+                            colors={['#FFA726', '#F06292']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={{
+                                width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
+                            }}
+                        />
+                        <View style={{ width: 270, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 20 }}>
+                            <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                {['World Wide', 'India', 'Odisha'].map((location) => (
+                                    <LinearGradient
+                                        key={location}
+                                        colors={active === location ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                                        start={{ x: 0, y: 0 }}
+                                        end={{ x: 1, y: 0 }}
+                                        style={{
+                                            flex: 1,
+                                            borderRadius: 10,
+                                            width: '32%',
+                                            padding: 5,
+                                            alignItems: 'center',
+                                            borderRadius: 5,
+                                        }}
+                                    >
+                                        <TouchableOpacity onPress={() => setActive(location)}>
+                                            <Text style={{
+                                                fontSize: 12,
+                                                color: active === location ? '#fff' : '#333',
+                                                fontFamily: 'FiraSans-Regular',
+                                                fontWeight: active === location ? 'bold' : 'normal'
+                                            }}>
+                                                {location}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </LinearGradient>
+                                ))}
+                            </View>
                         </View>
+                        {active === 'World Wide' && (
+                            <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
+                                <Image source={require('../../assets/image/world1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                            </TouchableOpacity>
+                        )}
+                        {active === 'India' && (
+                            <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
+                                <Image source={require('../../assets/image/india1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                            </TouchableOpacity>
+                        )}
+                        {active === 'Odisha' && (
+                            <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
+                                <Image source={require('../../assets/image/odisha1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
+                            </TouchableOpacity>
+                        )}
                     </View>
-                    {active === 'World Wide' && (
-                        <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
-                            <Image source={require('../../assets/image/world1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
-                        </TouchableOpacity>
-                    )}
-                    {active === 'India' && (
-                        <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
-                            <Image source={require('../../assets/image/india1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
-                        </TouchableOpacity>
-                    )}
-                    {active === 'Odisha' && (
-                        <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
-                            <Image source={require('../../assets/image/odisha1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
-                        </TouchableOpacity>
-                    )}
-                </View>
 
-                {/* Extra Section */}
-                {/* <View style={{ padding: 15 }}>
+                    {/* Extra Section */}
+                    {/* <View style={{ padding: 15 }}>
                     <Text style={{ fontSize: 22, fontFamily: 'FiraSans-Regular', color: '#341551' }}>Extra</Text>
                     <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18, elevation: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, backgroundColor: '#fff', padding: 10, borderRadius: 15 }}>
@@ -1007,7 +1017,8 @@ const Index = () => {
                         </View>
                     </View>
                 </View> */}
-            </ScrollView>
+                </ScrollView>
+            )}
             {/* Ratha Yatra Button */}
             {/* <View style={{ width: 70, height: 70, position: 'absolute', bottom: 20, right: 20, borderRadius: 100, overflow: 'hidden', elevation: 5 }}>
                 <TouchableOpacity style={{ backgroundColor: 'transparent', flex: 1 }}>

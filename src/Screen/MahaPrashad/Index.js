@@ -1,11 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Easing, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Modal from 'react-native-modal';
+import { base_url } from '../../../App';
+import moment from 'moment';
 
 const nitiTimings = [
     { name: 'Sakala Dhoopa', status: 'Completed', time: '10:00 AM', relativeTime: 'soon' },
@@ -19,6 +21,59 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const [isLoading, setIsLoading] = useState(true);
+    const [mahaPrasadData, setMahaPrasadData] = useState([]);
+    const [specialMahaPrasadData, setSpecialMahaPrasadData] = useState([]);
+    const [isBellActive, setIsBellActive] = useState(false);
+    const swingAnim = useRef(new Animated.Value(0)).current;
+
+    const triggerBellSwing = () => {
+        // Toggle bell state
+        setIsBellActive(prev => !prev);
+
+        // Reset animation
+        swingAnim.setValue(0);
+
+        // Perform the swing animation
+        Animated.sequence([
+            Animated.timing(swingAnim, {
+                toValue: 1,
+                duration: 100,
+                easing: Easing.linear,
+                useNativeDriver: true,
+            }),
+            Animated.timing(swingAnim, {
+                toValue: -1,
+                duration: 100,
+                easing: Easing.linear,
+                useNativeDriver: true,
+            }),
+            Animated.timing(swingAnim, {
+                toValue: 0.6,
+                duration: 100,
+                easing: Easing.linear,
+                useNativeDriver: true,
+            }),
+            Animated.timing(swingAnim, {
+                toValue: -0.6,
+                duration: 100,
+                easing: Easing.linear,
+                useNativeDriver: true,
+            }),
+            Animated.timing(swingAnim, {
+                toValue: 0,
+                duration: 100,
+                easing: Easing.linear,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    };
+
+    const rotateInterpolate = swingAnim.interpolate({
+        inputRange: [-1, 1],
+        outputRange: ['-20deg', '20deg'],
+    });
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -36,6 +91,49 @@ const Index = () => {
     const handleAlram = () => {
         setAlramModalVisible(!alramModalVisible);
     };
+
+    const fetchMahaPrasadData = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`${base_url}api/get-maha-prasad`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            // console.log('Get Darshan Data:', result);
+
+            if (result.status) {
+                console.log("Darshan List", result.data);
+                const today = moment().format("YYYY-MM-DD");
+
+                const normalPrasad = result.data.filter(item => item.prasad_type === "normal");
+                const specialTodayPrasad = result.data.filter(item => item.prasad_type === "special" && item.date === today);
+
+                // Merge and sort by start_time
+                const combined = [...normalPrasad, ...specialTodayPrasad].sort((a, b) => {
+                    return moment(a.start_time, "HH:mm").diff(moment(b.start_time, "HH:mm"));
+                });
+                // console.log("Combined Prasad List", combined);
+                // console.log("Special Prasad List", specialTodayPrasad[0]);
+                setSpecialMahaPrasadData(specialTodayPrasad[0]);
+                setMahaPrasadData(combined);
+                setIsLoading(false);
+            } else {
+                console.warn('API responded with status false:', result.message);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error('Error fetching home section data:', error);
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (isFocused) {
+            fetchMahaPrasadData();
+        }
+    }, [isFocused]);
 
     return (
         <View style={styles.container}>
@@ -77,113 +175,150 @@ const Index = () => {
                     </View>
                 </View>
 
+                {/* Today Special Prasad */}
+                {specialMahaPrasadData &&
+                    <LinearGradient
+                        colors={['#F06292', '#FFA726']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={styles.nitiItem}
+                    >
+                        {/* Status Indicator */}
+                        <View style={styles.statusIndicator} />
+
+                        {/* Niti Details */}
+                        <View style={styles.nitiDetails}>
+                            <Text style={styles.nitiName}>Today Special MahaPrasad</Text>
+                            <Text style={{ color: '#333', fontSize: 14, fontFamily: 'FiraSans-SemiBold' }}>{specialMahaPrasadData?.prasad_name}</Text>
+                            <Text style={styles.nitiTime}>
+                                <Text style={styles.nitiStatus}>Tentative Start </Text>
+                                <Text style={{ color: '#000' }}> | {specialMahaPrasadData?.start_time}</Text>
+                            </Text>
+                        </View>
+
+                        {/* Bell Icon for Upcoming Niti Only */}
+                        <TouchableOpacity onPress={triggerBellSwing}>
+                            <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
+                                <MaterialCommunityIcons
+                                    name={isBellActive ? 'bell-ring' : 'bell-outline'}
+                                    size={30}
+                                    color={'#dd4c2f'}
+                                />
+                            </Animated.View>
+                        </TouchableOpacity>
+                    </LinearGradient>
+                }
+
                 {/* Prashad List */}
-                <View style={{ marginTop: 20 }}>
-                    <FlatList
-                        data={nitiTimings}
-                        keyExtractor={(item, index) => index.toString()}
-                        scrollEnabled={false}
-                        renderItem={({ item, index }) => {
-                            const isLast = index === nitiTimings.length - 1;
-                            const isCompleted = item.status === 'Completed';
-                            const isRunning = item.status === 'Running';
-                            const isUpcoming = item.status === 'Upcoming';
+                {!isLoading ? (
+                    <View style={{ marginTop: 20 }}>
+                        <FlatList
+                            data={mahaPrasadData}
+                            keyExtractor={(item, index) => index.toString()}
+                            scrollEnabled={false}
+                            renderItem={({ item, index }) => {
+                                const isLast = index === mahaPrasadData.length - 1;
+                                const isCompleted = item.status === 'Completed';
+                                const isRunning = item.status === 'Running';
+                                const isUpcoming = item.status === 'Upcoming';
 
-                            const getIcon = () => {
-                                if (isCompleted) {
-                                    return <Feather name="check-circle" size={20} color="#999" />;
-                                }
-                                if (isRunning) {
+                                const getIcon = () => {
+                                    if (isCompleted) {
+                                        return <Feather name="check-circle" size={20} color="#999" />;
+                                    }
+                                    if (isRunning) {
+                                        return (
+                                            <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
+                                                <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
+                                            </View>
+                                        );
+                                    }
                                     return (
-                                        <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
-                                            <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
-                                        </View>
+                                        <TouchableOpacity onPress={handleAlram}>
+                                            <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                        </TouchableOpacity>
                                     );
-                                }
+                                };
+
+                                const getColor = () => {
+                                    if (isCompleted) return '#FFA726'; // purple
+                                    if (isRunning) return '#F06292'; // green
+                                    return '#C5C5C5'; // grey
+                                };
+
                                 return (
-                                    <TouchableOpacity onPress={handleAlram}>
-                                        <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
-                                    </TouchableOpacity>
-                                );
-                            };
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 15 }}>
+                                        {/* Left Indicator */}
+                                        <View style={{ alignItems: 'center', width: 40 }}>
+                                            {/* Number Circle */}
+                                            <LinearGradient
+                                                colors={isUpcoming ? ['#C5C5C5', '#C5C5C5'] : ['#FFA726', '#F06292']}
+                                                start={{ x: 0, y: 0 }}
+                                                end={{ x: 1, y: 0 }}
+                                                style={{
+                                                    height: 24,
+                                                    width: 24,
+                                                    borderRadius: 12,
+                                                    borderWidth: 2,
+                                                    borderColor: getColor(),
+                                                    backgroundColor:
+                                                        isCompleted ? '#341551' :
+                                                            isRunning ? '#059629' :
+                                                                '#C5C5C5',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                {isCompleted ? (
+                                                    <MaterialIcons name="check" size={14} color="white" />
+                                                ) : (
+                                                    <Text style={{ fontSize: 12, color: 'white', fontWeight: 'bold' }}>
+                                                        {index + 1}
+                                                    </Text>
+                                                )}
+                                            </LinearGradient>
 
-                            const getColor = () => {
-                                if (isCompleted) return '#FFA726'; // purple
-                                if (isRunning) return '#F06292'; // green
-                                return '#C5C5C5'; // grey
-                            };
+                                            {/* Line below */}
+                                            {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
+                                        </View>
 
-                            return (
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 15 }}>
-                                    {/* Left Indicator */}
-                                    <View style={{ alignItems: 'center', width: 40 }}>
-                                        {/* Line above */}
-                                        {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
+                                        {/* Right Content */}
+                                        <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
+                                            <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.prasad_name}</Text>
+                                            <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.start_time}</Text>
 
-                                        {/* Number Circle */}
-                                        <LinearGradient
-                                            colors={isUpcoming ? ['#C5C5C5', '#C5C5C5'] : ['#FFA726', '#F06292']}
-                                            start={{ x: 0, y: 0 }}
-                                            end={{ x: 1, y: 0 }}
-                                            style={{
-                                                height: 24,
-                                                width: 24,
-                                                borderRadius: 12,
-                                                borderWidth: 2,
-                                                borderColor: getColor(),
-                                                backgroundColor:
-                                                    isCompleted ? '#341551' :
-                                                        isRunning ? '#059629' :
-                                                            '#C5C5C5',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            {isCompleted ? (
-                                                <MaterialIcons name="check" size={14} color="white" />
-                                            ) : (
-                                                <Text style={{ fontSize: 12, color: 'white', fontWeight: 'bold' }}>
-                                                    {index + 1}
+                                            {isCompleted && (
+                                                <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
+                                                    Completed at {item.end_time}
                                                 </Text>
                                             )}
-                                        </LinearGradient>
 
-                                        {/* Line below */}
-                                        {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
+                                            {isRunning && (
+                                                <>
+                                                    <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
+                                                        Running Now
+                                                    </Text>
+                                                    <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
+                                                        Tentative End: 3:50 PM
+                                                    </Text>
+                                                </>
+                                            )}
+                                        </View>
+
+                                        {/* Right-side icon */}
+                                        <View style={{ marginTop: 5 }}>
+                                            {getIcon()}
+                                        </View>
                                     </View>
-
-                                    {/* Right Content */}
-                                    <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
-                                        <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
-                                        <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.time}</Text>
-
-                                        {isCompleted && (
-                                            <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                Completed at {item.completedAt}
-                                            </Text>
-                                        )}
-
-                                        {isRunning && (
-                                            <>
-                                                <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
-                                                    Running Now
-                                                </Text>
-                                                <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                    Tentative End: 3:50 PM
-                                                </Text>
-                                            </>
-                                        )}
-                                    </View>
-
-                                    {/* Right-side icon */}
-                                    <View style={{ marginTop: 5 }}>
-                                        {getIcon()}
-                                    </View>
-                                </View>
-                            );
-                        }}
-                    />
-                </View>
+                                );
+                            }}
+                        />
+                    </View>
+                ) : (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', top: '50%' }}>
+                        <Text style={{ fontSize: 16, color: '#999', fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
+                    </View>
+                )}
                 <View style={{ height: 400 }} />
             </ScrollView>
 
@@ -290,16 +425,18 @@ const styles = StyleSheet.create({
     },
     statusIndicator: {
         width: 5,
-        height: 40,
+        height: 55,
         borderRadius: 5,
         marginRight: 10,
+        backgroundColor: '#341551',
     },
     nitiDetails: {
         flex: 1,
     },
     nitiName: {
         fontSize: 14,
-        fontFamily: 'FiraSans-Regular',
+        color: '#fff',
+        fontFamily: 'FiraSans-SemiBold',
         textTransform: 'uppercase',
         marginBottom: 2,
     },
@@ -311,14 +448,5 @@ const styles = StyleSheet.create({
     nitiStatus: {
         fontWeight: 'bold',
         color: '#333',
-    },
-    modalContainer: {
-        backgroundColor: '#fff',
-        position: 'absolute',
-        paddingVertical: 10,
-        borderRadius: 10,
-        width: '100%',
-        alignSelf: 'center',
-        minHeight: 330,
     },
 });

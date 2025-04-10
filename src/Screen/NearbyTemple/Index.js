@@ -135,7 +135,7 @@ const Index = (props) => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData.title}</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.name}</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>This Temple Is Dedicated To Jangya Nrusingha</Text>
                             <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff', paddingVertical: 3, paddingHorizontal: 10, borderRadius: 10, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
                                 <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#fff" />
@@ -151,7 +151,7 @@ const Index = (props) => {
                 <View style={{ flex: 1, width: '100%', paddingHorizontal: 16, marginVertical: 20 }}>
                     {/* Title Row */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#431373' }}>{nearByTempleData.title}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#431373' }}>{nearByTempleData?.name}</Text>
                         <View style={{}}>
                             <Text style={{ color: '#f43f5e', fontSize: 11, fontFamily: 'FiraSans-SemiBold' }}>360°</Text>
                             <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
@@ -166,25 +166,31 @@ const Index = (props) => {
                             autoplay={true}
                             autoplayTimeout={5}
                         >
-                            {(nearByTempleData.images).map((image, index) => (
-                                <Image key={index} source={image} style={{ width: '100%', height: 200 }} />
+                            {JSON.parse(nearByTempleData?.photo || '[]').map((image, index) => (
+                                <Image
+                                    key={index}
+                                    source={{ uri: image }}
+                                    style={{ width: '100%', height: 200 }}
+                                />
                             ))}
                         </Swiper>
                     </View>
 
+
                     {/* Address */}
                     <View style={{ backgroundColor: '#f0f0f0', borderRadius: 12, padding: 8, marginTop: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <View style={{ width: '50%' }}>
-                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, textTransform: 'capitalize', lineHeight: 20 }}><Entypo name="location-pin" size={17} color="#474747" /> {nearByTempleData.address}</Text>
+                        <View style={{ width: '48%' }}>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, textTransform: 'capitalize', lineHeight: 20, textAlign: 'center' }}><Entypo name="location-pin" size={17} color="#474747" /> {nearByTempleData?.landmark}, {nearByTempleData?.city_village}, {nearByTempleData?.district}</Text>
                         </View>
-                        <View style={{ width: '50%' }}>
-                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, lineHeight: 20 }}>Distance From Jagannatha Temple {nearByTempleData.distanceFromJagannathTemple}.</Text>
+                        <View style={{ width: 1, height: '100%', backgroundColor: '#474747', alignSelf: 'center' }} />
+                        <View style={{ width: '48%' }}>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, lineHeight: 20, textAlign: 'center' }}>Distance From Jagannatha Temple {nearByTempleData?.distanceFromJagannathTemple}.</Text>
                         </View>
                     </View>
 
                     {/* Highlights Section */}
                     <View style={{ marginTop: 18 }}>
-                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData.description}</Text>
+                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.description}</Text>
                     </View>
 
                     {/* History Section */}
@@ -192,7 +198,7 @@ const Index = (props) => {
                         <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
                             History of the Temple
                         </Text>
-                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData.history}</Text>
+                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.history}</Text>
                     </View>
 
                     {/* Location */}
@@ -203,7 +209,7 @@ const Index = (props) => {
 
                         <TouchableOpacity
                             activeOpacity={0.8}
-                            onPress={() => openMap(nearByTempleData.mapUrl)}
+                            onPress={() => openMap(nearByTempleData?.google_map_link)}
                             style={{
                                 borderRadius: 12,
                                 overflow: 'hidden',
@@ -212,7 +218,7 @@ const Index = (props) => {
                             }}
                         >
                             <Image
-                                source={nearByTempleData.mapImage}
+                                source={{ uri: nearByTempleData?.map_photo }}
                                 style={{
                                     width: '100%',
                                     height: 120,

@@ -10,6 +10,7 @@ import Octicons from "react-native-vector-icons/Octicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
+import moment from "moment";
 
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
@@ -328,6 +329,26 @@ const Index = () => {
         }
     };
 
+    const runningNiti = nitiList.find(item => item.niti_status === 'Started');
+    const upcomingNitis = nitiList
+        .filter(item => item.niti_status === 'Upcoming')
+        .sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
+    const nextNiti = upcomingNitis[0];
+
+    const [duration, setDuration] = useState("00:00:00");
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = moment();
+            const start = moment(runningNiti?.start_time, "HH:mm:ss");
+            const diff = moment.utc(now.diff(start)).format("HH:mm:ss");
+            setDuration(diff);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [runningNiti?.start_time]);
+
+
     useEffect(() => {
         if (isFocused) {
             getData();
@@ -380,48 +401,60 @@ const Index = () => {
                     {/* Current Niti Box */}
                     <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
                         <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
-                            <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
-                                <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <View style={{ width: '90%' }}>
-                                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Dwara Phita & Mangala Alati</Text>
-                                        <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                                <Ionicons name="calendar-outline" size={16} color="#fa0000" />
-                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
-                                            </View>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
-                                                <Ionicons name="time-outline" size={16} color="#fa0000" />
-                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>5 AM or earlier</Text>
-                                            </View>
-                                        </View>
-                                    </View>
-                                    <View style={{ width: '10%' }}>
-                                        <Ionicons name="chevron-forward" size={24} color="#fa0000" />
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
-                                <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <View style={{ width: '90%' }}>
-                                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>Mailam</Text>
-                                        <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                                <Ionicons name="calendar-outline" size={16} color="#fa0000" />
-                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>4th April</Text>
-                                            </View>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
-                                                <Ionicons name="time-outline" size={16} color="#fa0000" />
-                                                <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>6 AM</Text>
+                            {runningNiti && (
+                                <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <View style={{ width: '90%' }}>
+                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>{runningNiti.niti_name}</Text>
+                                            <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Ionicons name="calendar-outline" size={16} color="#fa0000" />
+                                                    <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>Start Time: {moment(runningNiti.start_time, "HH:mm:ss").format("hh:mm A")}</Text>
+                                                </View>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
+                                                    <Ionicons name="time-outline" size={16} color="#fa0000" />
+                                                    <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>
+                                                        {duration}
+                                                    </Text>
+                                                </View>
                                             </View>
                                         </View>
+                                        <View style={{ width: '10%' }}>
+                                            <Ionicons name="chevron-forward" size={24} color="#fa0000" />
+                                        </View>
                                     </View>
-                                    <View style={{ width: '10%' }}>
-                                        <Ionicons name="chevron-forward" size={24} color="#fa0000" />
+                                    <View style={{ backgroundColor: 'red', width: 80, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 10, position: 'absolute', top: 10, right: 20 }}>
+                                        <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>Running</Text>
                                     </View>
                                 </View>
-                            </View>
+                            )}
+                            {nextNiti && (
+                                <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <View style={{ width: '90%' }}>
+                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>{nextNiti.niti_name}</Text>
+                                            <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Ionicons name="calendar-outline" size={16} color="#fa0000" />
+                                                    <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>{moment(new Date).format("DD MMM YYYY")}</Text>
+                                                </View>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
+                                                    <Ionicons name="time-outline" size={16} color="#fa0000" />
+                                                    <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>{moment(nextNiti.date_time).format("hh:mm A")}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View style={{ width: '10%' }}>
+                                            <Ionicons name="chevron-forward" size={24} color="#fa0000" />
+                                        </View>
+                                    </View>
+                                    <View style={{ backgroundColor: 'red', width: 80, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 10, position: 'absolute', top: 10, right: 20 }}>
+                                        <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>Upcoming</Text>
+                                    </View>
+                                </View>
+                            )}
                             <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <View style={{ width: '90%' }}>

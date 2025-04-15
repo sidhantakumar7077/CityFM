@@ -1,11 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Modal from 'react-native-modal';
+import { base_url } from '../../../App';
+import moment from 'moment';
 
 const nitiTimings = [
     { name: 'Dwarafita and Daily Mangala Alati', status: 'Completed', time: '5 AM', relativeTime: 'soon', completedAt: '6:00 AM' },
@@ -36,6 +38,9 @@ const Index = () => {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const [isLoading, setIsLoading] = useState(false);
+    const [allNiti, setAllNiti] = useState([]);
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -53,6 +58,37 @@ const Index = () => {
     const handleAlram = () => {
         setAlramModalVisible(!alramModalVisible);
     };
+
+    const getAllNiti = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`${base_url}api/get-home-section`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            // console.log('Get Home Page Data:', result);
+
+            if (result.status) {
+                setAllNiti(result.data.niti_master);
+                setIsLoading(false);
+            } else {
+                console.warn('API responded with status false:', result.message);
+                setIsLoading(false);
+            }
+
+        } catch (error) {
+            console.error('Error fetching home section data:', error);
+            setIsLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        if (isFocused) {
+            getAllNiti();
+        }
+    }, [isFocused]);
 
     return (
         <View style={styles.container}>
@@ -93,112 +129,126 @@ const Index = () => {
                     </View>
                 </View>
                 {/* Niti List */}
-                <View style={{ marginTop: 20 }}>
-                    <FlatList
-                        data={nitiTimings}
-                        keyExtractor={(item, index) => index.toString()}
-                        scrollEnabled={false}
-                        renderItem={({ item, index }) => {
-                            const isLast = index === nitiTimings.length - 1;
-                            const isCompleted = item.status === 'Completed';
-                            const isRunning = item.status === 'Running';
-                            const isUpcoming = item.status === 'Upcoming';
+                {isLoading ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 150 }}>
+                        <Text style={{ fontSize: 16, color: '#999', fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
+                    </View>
+                ) : allNiti.length === 0 ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 150 }}>
+                        <Text style={{ fontSize: 16, color: '#999', fontFamily: 'FiraSans-Regular' }}>No Niti Found</Text>
+                    </View>
+                ) : (
+                    <View style={{ marginTop: 20 }}>
+                        <FlatList
+                            data={allNiti}
+                            keyExtractor={(item, index) => index.toString()}
+                            scrollEnabled={false}
+                            renderItem={({ item, index }) => {
+                                const isLast = index === allNiti.length - 1;
+                                const isCompleted = item.niti_status === 'Completed';
+                                const isRunning = item.niti_status === 'Started';
+                                const isUpcoming = item.niti_status === 'Upcoming';
 
-                            const getIcon = () => {
-                                if (isCompleted) {
-                                    return <Feather name="check-circle" size={20} color="#999" />;
-                                }
-                                if (isRunning) {
+                                const getIcon = () => {
+                                    if (isCompleted) {
+                                        return <Feather name="check-circle" size={20} color="#999" />;
+                                    }
+                                    if (isRunning) {
+                                        return (
+                                            <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
+                                                <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
+                                            </View>
+                                        );
+                                    }
                                     return (
-                                        <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
-                                            <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
-                                        </View>
+                                        <TouchableOpacity onPress={handleAlram}>
+                                            <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                        </TouchableOpacity>
                                     );
-                                }
+                                };
+
+                                const getColor = () => {
+                                    if (isCompleted) return '#FFA726'; // purple
+                                    if (isRunning) return '#F06292'; // green
+                                    return '#C5C5C5'; // grey
+                                };
+
                                 return (
-                                    <TouchableOpacity onPress={handleAlram}>
-                                        <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
-                                    </TouchableOpacity>
-                                );
-                            };
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 15 }}>
+                                        {/* Left Indicator */}
+                                        <View style={{ alignItems: 'center', width: 40 }}>
+                                            {/* Line above */}
+                                            {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
 
-                            const getColor = () => {
-                                if (isCompleted) return '#FFA726'; // purple
-                                if (isRunning) return '#F06292'; // green
-                                return '#C5C5C5'; // grey
-                            };
+                                            {/* Number Circle */}
+                                            <LinearGradient
+                                                colors={isUpcoming ? ['#C5C5C5', '#C5C5C5'] : ['#FFA726', '#F06292']}
+                                                start={{ x: 0, y: 0 }}
+                                                end={{ x: 1, y: 0 }}
+                                                style={{
+                                                    height: 24,
+                                                    width: 24,
+                                                    borderRadius: 12,
+                                                    borderWidth: 2,
+                                                    borderColor: getColor(),
+                                                    backgroundColor:
+                                                        isCompleted ? '#341551' :
+                                                            isRunning ? '#059629' :
+                                                                '#C5C5C5',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                {isCompleted ? (
+                                                    <MaterialIcons name="check" size={14} color="white" />
+                                                ) : (
+                                                    <Text style={{ fontSize: 12, color: 'white', fontWeight: 'bold' }}>
+                                                        {index + 1}
+                                                    </Text>
+                                                )}
+                                            </LinearGradient>
 
-                            return (
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 15 }}>
-                                    {/* Left Indicator */}
-                                    <View style={{ alignItems: 'center', width: 40 }}>
-                                        {/* Line above */}
-                                        {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
+                                            {/* Line below */}
+                                            {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
+                                        </View>
 
-                                        {/* Number Circle */}
-                                        <LinearGradient
-                                            colors={isUpcoming ? ['#C5C5C5', '#C5C5C5'] : ['#FFA726', '#F06292']}
-                                            start={{ x: 0, y: 0 }}
-                                            end={{ x: 1, y: 0 }}
-                                            style={{
-                                                height: 24,
-                                                width: 24,
-                                                borderRadius: 12,
-                                                borderWidth: 2,
-                                                borderColor: getColor(),
-                                                backgroundColor:
-                                                    isCompleted ? '#341551' :
-                                                        isRunning ? '#059629' :
-                                                            '#C5C5C5',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            {isCompleted ? (
-                                                <MaterialIcons name="check" size={14} color="white" />
-                                            ) : (
-                                                <Text style={{ fontSize: 12, color: 'white', fontWeight: 'bold' }}>
-                                                    {index + 1}
+                                        {/* Right Content */}
+                                        <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
+                                            <Text style={{ fontSize: 15, color: isRunning ? '#059629' : '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.niti_name}</Text>
+                                            {item.start_time ?
+                                                <Text style={{ fontSize: 13, color: isRunning ? '#059629' : '#333', fontFamily: 'FiraSans-Regular' }}>Started at {moment(item.start_time, 'HH:mm:ss').format('h:mm A')}</Text>
+                                                :
+                                                <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Tentative Start: {moment(item.date_time).format('h:mm A')}</Text>
+                                            }
+
+                                            {isCompleted && (
+                                                <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
+                                                    Completed at {moment(item.end_time, 'HH:mm:ss').format('h:mm A')}
                                                 </Text>
                                             )}
-                                        </LinearGradient>
 
-                                        {/* Line below */}
-                                        {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
+                                            {isRunning && (
+                                                <>
+                                                    <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
+                                                        Running Now
+                                                    </Text>
+                                                    {/* <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
+                                                        Tentative End: 3:50 PM
+                                                    </Text> */}
+                                                </>
+                                            )}
+                                        </View>
+
+                                        {/* Right-side icon */}
+                                        <View style={{ marginTop: 5 }}>
+                                            {getIcon()}
+                                        </View>
                                     </View>
-
-                                    {/* Right Content */}
-                                    <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
-                                        <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.name}</Text>
-                                        <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.time}</Text>
-
-                                        {isCompleted && (
-                                            <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                Completed at {item.completedAt}
-                                            </Text>
-                                        )}
-
-                                        {isRunning && (
-                                            <>
-                                                <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
-                                                    Running Now
-                                                </Text>
-                                                <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                    Tentative End: 3:50 PM
-                                                </Text>
-                                            </>
-                                        )}
-                                    </View>
-
-                                    {/* Right-side icon */}
-                                    <View style={{ marginTop: 5 }}>
-                                        {getIcon()}
-                                    </View>
-                                </View>
-                            );
-                        }}
-                    />
-                </View>
+                                );
+                            }}
+                        />
+                    </View>
+                )}
             </ScrollView>
 
             <Modal

@@ -329,6 +329,27 @@ const Index = () => {
         }
     };
 
+    const hendlegetNitiFOrRefresh = async () => {
+        try {
+            const response = await fetch(`${base_url}api/get-home-section`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            // console.log('Get Home Page Data:', result);
+
+            if (result.status) {
+                setNitiList(result.data.niti_master || []);
+            } else {
+                console.warn('API responded with status false:', result.message);
+            }
+
+        } catch (error) {
+            console.error('Error fetching home section data:', error);
+        }
+    };
+
     const runningNiti = nitiList.find(item => item.niti_status === 'Started');
     const upcomingNitis = nitiList
         .filter(item => item.niti_status === 'Upcoming')
@@ -399,7 +420,15 @@ const Index = () => {
                     </ImageBackground>
 
                     {/* Current Niti Box */}
-                    <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
+                    <ScrollView
+                        style={{ padding: 8, alignSelf: 'center', marginTop: -50 }}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        scrollEventThrottle={16}
+                        decelerationRate="fast"
+                        nestedScrollEnabled={true}
+                        onScroll={() => hendlegetNitiFOrRefresh()}
+                    >
                         <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
                             {runningNiti && (
                                 <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
@@ -419,12 +448,17 @@ const Index = () => {
                                                     </Text>
                                                 </View>
                                             </View>
+                                            {runningNiti.running_sub_niti && runningNiti.running_sub_niti.sub_niti_name && (
+                                                <Text style={{ color: '#fa0000', fontFamily: 'FiraSans-Medium', marginTop: 5, fontSize: 14 }}>
+                                                    {runningNiti.running_sub_niti.sub_niti_name}
+                                                </Text>
+                                            )}
                                         </View>
                                         <View style={{ width: '10%' }}>
                                             <Ionicons name="chevron-forward" size={24} color="#fa0000" />
                                         </View>
                                     </View>
-                                    <View style={{ backgroundColor: 'red', width: 80, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 10, position: 'absolute', top: 10, right: 20 }}>
+                                    <View style={{ backgroundColor: 'green', width: 80, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 10, position: 'absolute', top: 10, right: 20 }}>
                                         <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>Running</Text>
                                     </View>
                                 </View>

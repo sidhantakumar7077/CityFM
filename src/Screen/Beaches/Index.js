@@ -132,7 +132,7 @@ const Index = () => {
                             return (
                                 <View>
                                     {/* Property Name */}
-                                    <Text style={styles.propertyName}>{item.description}</Text>
+                                    <Text style={styles.propertyName}>{item.service_name}</Text>
 
                                     {/* Main Large Image */}
                                     <View>

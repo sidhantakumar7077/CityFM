@@ -112,10 +112,14 @@ const Index = () => {
                                 style={styles.cardContainer}
                             >
                                 <View style={styles.imageBox}>
-                                    {item.photo && <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />}
+                                    {item.photo ?
+                                        <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                                        :
+                                        <Image source={require('../../assets/image/no_image.jpg')} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                                    }
                                 </View>
                                 <View style={{ width: '55%', justifyContent: 'center' }}>
-                                    <Text style={styles.title}>{item.description || 'Petrol Pump'}</Text>
+                                    <Text style={styles.title}>{item.service_name || 'Petrol Pump'}</Text>
 
                                     <View style={styles.row}>
                                         <MaterialIcons name="location-on" size={14} color="#999" />

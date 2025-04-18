@@ -84,9 +84,6 @@ const App = () => {
       <StatusBar backgroundColor="#341551" barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
-        {/* {!isConnected ? (
-          <Stack.Screen name="NoInternet" component={NoInternet} />
-        ) : ( */}
         <>
           <Stack.Screen name="Home_2" component={Home_2} />
           <Stack.Screen name="Home" component={Home} />
@@ -129,7 +126,6 @@ const App = () => {
           <Stack.Screen name="TempleInformationPage" component={TempleInformationPage} />
           <Stack.Screen name="RealsPage" component={RealsPage} />
         </>
-        {/* )} */}
       </Stack.Navigator>
     </NavigationContainer>
   )

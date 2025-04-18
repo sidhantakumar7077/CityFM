@@ -213,12 +213,10 @@ const Index = () => {
                                         </View>
 
                                         {/* Right Content */}
-                                        <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
+                                        <View style={{ flex: 1, paddingBottom: 40, marginLeft: 7 }}>
                                             <Text style={{ fontSize: 15, color: isRunning ? '#059629' : '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.niti_name}</Text>
-                                            {item.start_time ?
+                                            {item.start_time &&
                                                 <Text style={{ fontSize: 13, color: isRunning ? '#059629' : '#333', fontFamily: 'FiraSans-Regular' }}>Started at {moment(item.start_time, 'HH:mm:ss').format('h:mm A')}</Text>
-                                                :
-                                                <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Tentative Start: {moment(item.date_time).format('h:mm A')}</Text>
                                             }
 
                                             {isCompleted && (

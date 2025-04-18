@@ -37,12 +37,12 @@ const Index = () => {
             subtitle: 'All Information about Temple.',
             pageName: 'TempleInformationPage',
         },
-        {
-            image: require('../../assets/image/ratha_yatra123.png'),
-            title: 'Ratha Yatra Updates',
-            subtitle: 'All types of information',
-            pageName: 'RathaYatraMainPage',
-        },
+        // {
+        //     image: require('../../assets/image/ratha_yatra123.png'),
+        //     title: 'Ratha Yatra Updates',
+        //     subtitle: 'All types of information',
+        //     pageName: 'RathaYatraMainPage',
+        // },
     ];
 
     const nearByPlaces = [

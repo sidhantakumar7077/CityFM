@@ -162,7 +162,11 @@ const Index = () => {
                                 }}
                             >
                                 <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
-                                    {item.parking_photo && <Image source={{ uri: item.parking_photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />}
+                                    {item.parking_photo ?
+                                        <Image source={{ uri: item.parking_photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                                        :
+                                        <Image source={require('../../assets/image/no_image.jpg')} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                                    }
                                 </View>
 
                                 <View style={{ width: '55%', justifyContent: 'center' }}>
@@ -197,9 +201,9 @@ const Index = () => {
                                             {item.parking_availability} Spots Available
                                         </Text>
                                     </View>
-                                    <TouchableOpacity style={{ marginTop: 5, borderRadius: 5, alignSelf: 'flex-start' }}>
+                                    {/* <TouchableOpacity style={{ marginTop: 5, borderRadius: 5, alignSelf: 'flex-start' }}>
                                         <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-SemiBold' }}>Book Now →</Text>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                 </View>
                             </TouchableOpacity>
                         )}

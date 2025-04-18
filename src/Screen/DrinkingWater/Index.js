@@ -118,7 +118,11 @@ const Index = () => {
                 }}
               >
                 <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
-                  {item.photo && <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />}
+                  {item.photo ?
+                    <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                    :
+                    <Image source={require('../../assets/image/no_image.jpg')} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                  }
                 </View>
 
                 {/* Text Content */}

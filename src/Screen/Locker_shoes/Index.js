@@ -41,7 +41,8 @@ const Index = () => {
             });
             const responseData = await response.json();
             if (responseData.status === true) {
-                const shoeStandsOnly = responseData.data.filter(item => item.service_type === 'shoe_stand');
+                const shoeStandsOnly = responseData.data.filter(item => item.service_type === 'locker');
+                console.log("object", shoeStandsOnly);
                 setAllShoesStands(shoeStandsOnly);
                 setSpinner(false);
             }
@@ -119,11 +120,15 @@ const Index = () => {
                                 }}
                             >
                                 <View style={{ width: '42%', justifyContent: 'center', backgroundColor: '#dedfe0', borderRadius: 6 }}>
-                                    {item.photo && <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />}
+                                    {item.photo ?
+                                        <Image source={{ uri: item.photo }} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                                        :
+                                        <Image source={require('../../assets/image/no_image.jpg')} style={{ height: '100%', width: '100%', borderRadius: 6 }} />
+                                    }
                                 </View>
                                 <View style={{ width: '55%', justifyContent: 'center' }}>
                                     <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
-                                        {item.description || 'Shoe Stand'}
+                                        {item.service_name || 'Shoe Stand'}
                                     </Text>
 
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>

@@ -110,16 +110,16 @@ const Index = () => {
                 // console.log("Darshan List", result.data);
                 const today = moment().format("YYYY-MM-DD");
 
-                const normalDarshans = result.data.filter(item => item.darshan_type === "normal");
+                // const normalDarshans = result.data.filter(item => item.darshan_type === "normal");
                 const specialTodayDarshans = result.data.filter(item => item.darshan_type === "special" && item.date === today);
 
-                // Merge and sort by start_time
-                const combined = [...normalDarshans, ...specialTodayDarshans].sort((a, b) => {
-                    return moment(a.start_time, "HH:mm").diff(moment(b.start_time, "HH:mm"));
-                });
+                // // Merge and sort by start_time
+                // const combined = [...normalDarshans, ...specialTodayDarshans].sort((a, b) => {
+                //     return moment(a.start_time, "HH:mm").diff(moment(b.start_time, "HH:mm"));
+                // });
 
                 setSpecialDarshanToday(specialTodayDarshans[0]);
-                setDarshanData(combined);
+                setDarshanData(result.data);
                 setIsLoading(false);
             } else {
                 console.warn('API responded with status false:', result.message);
@@ -216,13 +216,13 @@ const Index = () => {
                     <View style={{ marginTop: 20 }}>
                         <FlatList
                             data={darshanData}
-                            keyExtractor={(item) => item.id.toString()}
+                            keyExtractor={(item) => item.darshan_id.toString()}
                             scrollEnabled={false}
                             renderItem={({ item, index }) => {
                                 const isLast = index === darshanData.length - 1;
-                                const isCompleted = item.status === 'Completed';
-                                const isRunning = item.status === 'Running';
-                                const isUpcoming = item.status === 'Upcoming';
+                                const isCompleted = item.darshan_status === 'Completed';
+                                const isRunning = item.darshan_status === 'Started';
+                                const isUpcoming = item.darshan_status === 'Upcoming';
 
                                 const getIcon = () => {
                                     if (isCompleted) {
@@ -290,23 +290,18 @@ const Index = () => {
                                         {/* Right Content */}
                                         <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
                                             <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold', textTransform: 'capitalize' }}>{item.darshan_name}</Text>
-                                            <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.start_time}</Text>
+                                            {item.darshan_status !== 'Upcoming' && <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.start_time}</Text>}
 
                                             {isCompleted && (
                                                 <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                    Completed at {item.completedAt}
+                                                    Completed at {item.end_time}
                                                 </Text>
                                             )}
 
                                             {isRunning && (
-                                                <>
-                                                    <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
-                                                        Running Now
-                                                    </Text>
-                                                    <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                        Tentative End: 3:50 PM
-                                                    </Text>
-                                                </>
+                                                <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
+                                                    Running Now
+                                                </Text>
                                             )}
                                         </View>
 

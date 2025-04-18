@@ -107,17 +107,17 @@ const Index = () => {
                 console.log("Darshan List", result.data);
                 const today = moment().format("YYYY-MM-DD");
 
-                const normalPrasad = result.data.filter(item => item.prasad_type === "normal");
+                // const normalPrasad = result.data.filter(item => item.prasad_type === "normal");
                 const specialTodayPrasad = result.data.filter(item => item.prasad_type === "special" && item.date === today);
 
                 // Merge and sort by start_time
-                const combined = [...normalPrasad, ...specialTodayPrasad].sort((a, b) => {
-                    return moment(a.start_time, "HH:mm").diff(moment(b.start_time, "HH:mm"));
-                });
+                // const combined = [...normalPrasad, ...specialTodayPrasad].sort((a, b) => {
+                //     return moment(a.start_time, "HH:mm").diff(moment(b.start_time, "HH:mm"));
+                // });
                 // console.log("Combined Prasad List", combined);
                 // console.log("Special Prasad List", specialTodayPrasad[0]);
                 setSpecialMahaPrasadData(specialTodayPrasad[0]);
-                setMahaPrasadData(combined);
+                setMahaPrasadData(result.data);
                 setIsLoading(false);
             } else {
                 console.warn('API responded with status false:', result.message);
@@ -218,9 +218,9 @@ const Index = () => {
                             scrollEnabled={false}
                             renderItem={({ item, index }) => {
                                 const isLast = index === mahaPrasadData.length - 1;
-                                const isCompleted = item.status === 'Completed';
-                                const isRunning = item.status === 'Running';
-                                const isUpcoming = item.status === 'Upcoming';
+                                const isCompleted = item.master_prasad_status === 'Completed';
+                                const isRunning = item.master_prasad_status === 'Started';
+                                const isUpcoming = item.master_prasad_status === 'Upcoming';
 
                                 const getIcon = () => {
                                     if (isCompleted) {

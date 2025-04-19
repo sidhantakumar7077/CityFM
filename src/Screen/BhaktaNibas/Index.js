@@ -107,8 +107,8 @@ const Index = () => {
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/hotel.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+                        <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
+                            <Image source={require('../../assets/image/bhaktanibash54.png')} style={{ width: 75, height: 75, resizeMode: 'contain' }} />
                         </View>
                     </View>
                 </View>

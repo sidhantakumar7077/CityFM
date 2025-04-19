@@ -6,7 +6,6 @@ import LinearGradient from "react-native-linear-gradient";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
-import Octicons from "react-native-vector-icons/Octicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
@@ -43,185 +42,6 @@ const Index = () => {
         //     subtitle: 'All types of information',
         //     pageName: 'RathaYatraMainPage',
         // },
-    ];
-
-    const nearByPlaces = [
-        {
-            id: 1,
-            type: 'temple',
-            title: 'Nrusingha Temple',
-            mapImage: require('../../assets/image/nearbytemple/narasimhaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/narasimhaTemple.jpg'),
-            images: [
-                require('../../assets/image/nearbytemple/narasimhaTempleInnerImage1.jpg'),
-                require('../../assets/image/nearbytemple/narasimhaTempleInnerImage2.jpg'),
-            ],
-            address: 'SHAWMILL LANE, Sarbodaya Nagar, Puri',
-            mapUrl: 'https://maps.app.goo.gl/NrLPYSHg2FzSzxR7A',
-            distanceFromJagannathTemple: '3 km',
-            description: 'Narasimha Temple  is situated in Puri, Odisha, India, to the western side of Gundicha Temple and to the east of the Indradyumna tank.',
-            history: "As depicted in the Skanda Purana once King Indradyumna stayed near Nilakantheswar temple to make arrangements to perform Ashwamedha Yajna for one thousand years. On the advice of Sage Narada, King Indradyumna made a Nrusimha image out of black stone and placed the image under black sandal wood tree and worshipped Him. It is believed that in front of this temple the Ashwamedha Yajna took place and hence He is known as 'Yajna Narasimha'.",
-        },
-        {
-            id: 2,
-            type: 'temple',
-            title: 'Gundicha Temple',
-            mapImage: require('../../assets/image/nearbytemple/gundichaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/gundichaMandira2.jpg'),
-            images: [
-                require('../../assets/image/nearbytemple/gundichaMandira2.jpg'),
-                require('../../assets/image/nearbytemple/gundichaMandira1.jpg'),
-            ],
-            address: 'Gundicha Temple,   Puri, 752002',
-            mapUrl: 'https://maps.app.goo.gl/1XxnwZ7mjQzpd5jf6',
-            distanceFromJagannathTemple: '2.5 km',
-            description: 'Gundicha Temple (Odia: ଗୁଣ୍ଡିଚା ମନ୍ଦିର), is a Hindu temple, situated in the temple town of Puri in the state of Odisha, India. It is significant for being the destination of the celebrated annual Rath Yatra of Puri.[1] While it remains vacant most of the year, the temple is occupied by images of the deities of Jagannath, his brother Balabhadra and sister Subhadra for seven complete days (total 9 days including the start and concluding day of Ratha Yatra) every year during the annual Rath Yatra festival.',
-            history: "A legend links the temple to Gundicha, the queen of Indradyumna (the legendary builder of the main temple) - after whom the Gundicha Temple is named. Gundicha had a peep at the divine image of Jagannath being created by the celestial architect Vishwakarma. Impressed by the image, she insisted on her husband building the temple for the deity and starting the Ratha Yatra. Another variant suggests that Jagannath was pleased with her temple and promised to visit her house, now the Gundicha Temple.",
-        },
-        {
-            id: 3,
-            type: 'temple',
-            title: 'Lokanatha Temple',
-            mapImage: require('../../assets/image/nearbytemple/lokanathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/lokanathaTemple2.jpg'),
-            images: [
-                require('../../assets/image/nearbytemple/lokanathaTemple2.jpg'),
-                require('../../assets/image/nearbytemple/lokanathaTemple1.jpg'),
-            ],
-            address: 'Puri, Odisha 752001',
-            mapUrl: 'https://maps.app.goo.gl/ywSrzPLof9GdmFEz8',
-            distanceFromJagannathTemple: '2 km',
-            description: "Lokanatha Temple is a Hindu temple in the town of Puri, Odisha, India. It is dedicated to the god Shiva as Lokanatha. It is dedicated to the god Shiva as Lokanatha. As per legend, linga, the symbol of Shiva was established as the central icon by the god Rama. The unique feature is that the linga is always under water which substantiates the legend that the Ganges river flows through the top of the linga as a stream.",
-            history: "The legend says that Lord Rama on his way to Sri Lanka for searching Sita reached Puri and sat with a vow to see Siva here. At that time there was a village (koown as Sabarapalli in local language) nearby. Sabaras (native of that village) presented him a Lau or Lauka (Pumpkin, one type of vegetable) looking like a Siva Linga, Lord Rama installed that as the replica of Siva Linga at that place and prayed Siva to fulfill his desire. From that day this Siva Linga was called ‘Laukanatha’. It is believed that the word Lokanatha is a later innovation from the original word ‘Laukanatha’.",
-        },
-        {
-            id: 4,
-            type: 'temple',
-            title: 'Alarnatha Temple',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/alarnathaTemple.jpg'),
-            images: [
-                require('../../assets/image/nearbytemple/alarnathaTemple2.jpg'),
-                require('../../assets/image/nearbytemple/alarnathaTemple1.jpg'),
-            ],
-            address: 'Alarapur, Brahmagiri, Naragariamatha',
-            mapUrl: 'https://maps.app.goo.gl/98JMyXaj96TFjik88',
-            distanceFromJagannathTemple: '23 km',
-            description: "Alarnatha Mandira or Alvarnaatha Mandira  is a Hindu temple dedicated to Vishnu and located in Brahmagiri, Odisha, near Puri. It becomes crowded during the krishnapaksha of Ashadha, after the Snana Yatra when devotees are not allowed to see the central icon of Jagannath (a form of Vishnu) in his Puri temple. During this period, popularly known as Anasara or 'Anavasara' (literally meaning no opportunity to see the lord of Puri), instead of having darshan in the Puri temple, devotees believe that Jagannath during this time manifests as Alarnath Dev, at the Alarnath Mandira.",
-            history: "The temple is associated with the visit of the saint Ramanujacharya to Odisha.  Chaitanya Mahaprabhu during his stay in Puri used to see the deity form of Jagannath daily. During Anavasara when Jagannath and his sibling deities were taken to the secret chamber for 15 days, he was unable to see the Lord. So as per legend, Jagannath directed him to go to Brahmagiri and visit the Alarnath temple.",
-        },
-        {
-            id: 5,
-            type: 'matha',
-            title: 'Bada Chhata Matha',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/badachatamatha.jpeg'),
-            images: [
-                require('../../assets/image/nearbytemple/badachatamatha1.jpeg'),
-                require('../../assets/image/nearbytemple/badachatamatha.jpeg'),
-            ],
-            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
-            mapUrl: 'https://maps.app.goo.gl/LeWbQUDeLMpaSyJb8',
-            distanceFromJagannathTemple: 'near Singhadwara',
-            description: "Serves as the main Matha of the Atibadi Sampradaya. Plays an important role in Jagannath Temple rituals, especially during Ratha Yatra. Monks from this matha are often involved in temple discussions, religious discourses, and bhajans.It is known for preserving rare manuscripts, scriptures, and age-old traditions.",
-            history: "Bada Chhata Matha is one of the oldest and most important mathas (monastic establishments) associated with the Jagannath Temple. It was established by Atibadi Jagannath Das, a saint-poet and proponent of Utkaliya Vaishnavism, and the author of the Odia Bhagavata. This matha played a pivotal role in promoting Odia language and Bhakti movement in Odisha.",
-        },
-        {
-            id: 6,
-            type: 'matha',
-            title: 'Emar Matha',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/emarmatha1.jpeg'),
-            images: [
-                require('../../assets/image/nearbytemple/emarmatha.jpeg'),
-                require('../../assets/image/nearbytemple/emarmatha1.jpeg'),
-            ],
-            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
-            mapUrl: 'https://maps.app.goo.gl/BJETnN48Qcn3xqzd6',
-            distanceFromJagannathTemple: 'near Singhadwara',
-            description: "Emar Matha is one of the oldest and most significant monasteries in Puri, Odisha, located near the Jagannath Temple. It has a rich history, deep religious importance, and a strong connection with the Sri Jagannath Temple and its rituals.",
-            history: "Founded in the 14th century by Sri Ramanujacharya, the great philosopher and proponent of the Sri Vaishnavism tradition. Linked to the Jagannath Temple, playing a crucial role in its daily rituals and festivals. The Matha has been a center for Vedantic studies and Vaishnavite teachings, promoting the doctrines of Sri Ramanuja.",
-        },
-        {
-            id: 7,
-            type: 'matha',
-            title: 'Bada Odia Matha',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/badaodiamatha.jpeg'),
-            images: [
-                require('../../assets/image/nearbytemple/badaodiamatha1.jpeg'),
-                require('../../assets/image/nearbytemple/badaodiamatha2.jpeg'),
-            ],
-            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
-            mapUrl: 'https://maps.app.goo.gl/oEq9aGzKM3VVpnCY6',
-            distanceFromJagannathTemple: 'near Singhadwara',
-            description: "Bada Odia Matha is one of the most important monasteries (Mathas) in Puri, Odisha, located near the Jagannath Temple. It has been a key center for spiritual activities, temple services, and religious traditions associated with Lord Jagannath.",
-            history: "Founded by Guru Ram Das: The Matha is believed to have been established by Guru Ram Das, a prominent saint and follower of the Ramanandi sect of Vaishnavism. Connection to Lord Jagannath: The Matha has historically played a major role in the Rath Yatra and other temple rituals. Influence of Sikhism: Some legends associate the Matha with Guru Nanak Dev Ji, the founder of Sikhism, who is believed to have visited Puri in the 16th century. The Matha maintains a connection with Sikh devotees and has preserved Guru Granth Sahib, the holy scripture of Sikhism.",
-        },
-        {
-            id: 8,
-            type: 'matha',
-            title: 'Raghaba Das Matha',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/ratha.jpeg'),
-            images: [
-                require('../../assets/image/mangala_alati.jpg'),
-                require('../../assets/image/rathayatra123.jpg'),
-            ],
-            address: 'Near Singhadwara (Lion Gate), Grand Road, Puri',
-            mapUrl: 'https://maps.app.goo.gl/pyzWjebVs59on6VM8',
-            distanceFromJagannathTemple: '100 m',
-            description: "Raghaba Das Matha is a significant monastery situated near the southern gate of the Jagannath Temple in Puri, Odisha. This Matha plays a crucial role in the rituals of the temple, supplying 'tahia' (decorative headgear) for four major festivals: Snana Purnima, Ratha Yatra, Return Ratha Yatra, and Niladri Bije. Additionally, it provides parts of the Hati Besha (elephant attire), 'tuli' for 'pahandi' (ceremonial procession), and sandalwood for 'Sarbanga' rituals on Khalilagi Ekadasi. The Matha also offers flower garlands for 'Nabanka Bedha' and contributes 'Adharapana bhoga' and 'Panti bhoga' on specific festive days.",
-            history: "Raghaba Das Matha is believed to have been established by Sri Raghunandan Das, a great saint and devotee of Lord Jagannath. The Matha follows the Gaudiya Vaishnavism tradition, which was propagated by Sri Chaitanya Mahaprabhu in the 16th century. The Matha is dedicated to the worship of Lord Rama and Lord Jagannath and has contributed significantly to the religious life of Puri.",
-        },
-        {
-            id: 9,
-            type: 'ritualsite',
-            title: 'Markandeshwara Pond',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/markandeshwaraPond1.webp'),
-            images: [
-                require('../../assets/image/nearbytemple/markandeshwaraPond2.jpg'),
-                require('../../assets/image/nearbytemple/markandeshwaraPond3.webp'),
-            ],
-            address: 'Near Markandeshwara Temple',
-            mapUrl: 'https://maps.app.goo.gl/ghLhpDsNZt1t8nWj8',
-            distanceFromJagannathTemple: '500 m',
-            description: "Markandeshwara Pond (ମାର୍କଣ୍ଡେଶ୍ୱର ପୋଖରୀ) is a sacred water tank located in Puri, Odisha, closely linked with Lord Shiva and the spiritual traditions of the Jagannath Temple.",
-            history: "Adjacent to the Markandeshwar Temple, near the northern gate (Uttara Dwara) of Jagannath Temple, Puri. A peaceful area, slightly away from the main Grand Road hustle.",
-        },
-        {
-            id: 10,
-            type: 'ritualsite',
-            title: 'Narendra Pushkarinee',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/narendraPushkarinee.jpg'),
-            images: [
-                require('../../assets/image/nearbytemple/narendraPushkarinee1.jpg'),
-                require('../../assets/image/nearbytemple/narendraPushkarinee2.jpg'),
-            ],
-            address: 'Situated in Mali Sahi, Puri',
-            mapUrl: 'https://maps.app.goo.gl/mBmpZXjLfsfKczjH6',
-            distanceFromJagannathTemple: '2 km',
-            description: "Narendra Pushkarinee (ନରେନ୍ଦ୍ର ପୁଷ୍କରିଣୀ) is one of the most sacred and historic temple tanks in Puri, Odisha, deeply associated with Lord Jagannath and the rituals of the Jagannath Temple.",
-            history: "Believed to be constructed during the reign of Gajapati King Narendra Dev in the 15th century. Hence the name Narendra Pushkarinee. The tank is surrounded by several temples and shrines, including the famous Narendra Sarovara Temple. It is believed that taking a dip in the tank during auspicious occasions brings blessings and purification.",
-        },
-        {
-            id: 11,
-            type: 'ritualsite',
-            title: 'Mahodadhi Aarti',
-            mapImage: require('../../assets/image/nearbytemple/alarnathaTempleMap.png'),
-            coverImage: require('../../assets/image/nearbytemple/mahodadhi1.jpg'),
-            images: [
-                require('../../assets/image/nearbytemple/mahodadhi1.jpg'),
-                require('../../assets/image/nearbytemple/mahodadhi12.jpg'),
-            ],
-            address: 'Puri Sea Beach, near Swargadwar',
-            mapUrl: 'https://maps.app.goo.gl/Hdf66iVDkS8vjBeq9',
-            distanceFromJagannathTemple: '3 km',
-            description: "Mahodadhi Aarti is a spiritual and cultural ritual performed at the seashore of Puri, Odisha, in honor of Lord Jagannath and the Mahodadhi (Bay of Bengal). It draws inspiration from the iconic Ganga Aarti of Varanasi, offering a serene and divine atmosphere for pilgrims and visitors.",
-            history: "Priests dressed in traditional attire perform synchronized aarti with large lamps (deepams), incense sticks, and conch blowing, Mantras and devotional chants fill the air, accompanied by rhythmic ghanta naad (bell sounds), Devotees light floating diyas and set them adrift in the sea and Often accompanied by bhajans and kirtans praising Lord Jagannath.",
-        },
     ];
 
     const conveniences = [
@@ -298,6 +118,15 @@ const Index = () => {
     const [banners, setBanners] = useState([]);
     const [nearbyPlaces, setNearbyPlaces] = useState([]);
     const [previousAmount, setPreviousAmount] = useState(0);
+    const [hundi, setHundi] = useState(
+        {
+            date: "2025-04-19",
+            rupees: 4500,
+            gold: "10 grams",
+            silver: "30 grams"
+        }
+    );
+    const [showHundi, setShowHundi] = useState(false);
 
     const getData = async () => {
         setIsLoading(true);
@@ -620,7 +449,7 @@ const Index = () => {
                                 <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                             </View>
                             <View style={{ alignItems: "center", width: "23%" }}>
-                                <TouchableOpacity style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Festival')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                     <Image source={require('../../assets/image/festival21.png')} style={{ width: 60, height: 60 }} />
                                 </TouchableOpacity>
                                 <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
@@ -675,16 +504,16 @@ const Index = () => {
                                 </View>
                             </TouchableOpacity>
 
-                            <View style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
-                                <View style={{ width: '60%', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={() => setShowHundi(true)} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
+                                <View style={{ width: '60%', alignItems: 'flex-start' }}>
                                     <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Collection</Text>
-                                    <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹5,30,000/-</Text>
+                                    <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹{hundi.rupees}/-</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
                                     {/* <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" /> */}
                                     <Image source={require('../../assets/image/hundiColection654.png')} style={{ width: 33, height: 33 }} />
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
@@ -901,7 +730,7 @@ const Index = () => {
                             </View>
                         ))}
                     </Swiper>
-                </View> */}
+                    </View> */}
 
                     {/* Calendar Section */}
                     {/* <View>
@@ -951,7 +780,7 @@ const Index = () => {
                             />
                         </View>
                     </ImageBackground>
-                </View> */}
+                    </View> */}
 
                     {/* About Temple */}
                     {/* <View style={{ padding: 15, marginTop: 10 }}>
@@ -968,7 +797,7 @@ const Index = () => {
                             </View>
                         ))}
                     </View>
-                </View> */}
+                    </View> */}
 
                     {/* Temples Worldwide */}
                     <View style={{ padding: 15 }}>
@@ -1083,9 +912,99 @@ const Index = () => {
                             ))}
                         </View>
                     </View>
-                </View> */}
+                    </View> */}
                 </ScrollView>
             )}
+
+            {/* Today Hundi Collection Modal */}
+            <Modal
+                visible={showHundi}
+                transparent
+                animationType="fade"
+                onRequestClose={() => setShowHundi(false)}
+            >
+                <View style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <View style={{
+                        width: '85%',
+                        backgroundColor: '#fff',
+                        borderRadius: 14,
+                        padding: 20,
+                        elevation: 10,
+                    }}>
+                        {/* Header */}
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginBottom: 10,
+                        }}>
+                            <Text style={{ fontSize: 18, fontWeight: '700', color: '#B7070A' }}>
+                                🪙  Hundi Collection
+                            </Text>
+                            <TouchableOpacity onPress={() => setShowHundi(false)}>
+                                <Ionicons name="close-circle" size={26} color="#B7070A" />
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Date */}
+                        <Text style={{
+                            fontSize: 14,
+                            color: '#555',
+                            marginBottom: 16,
+                            textAlign: 'center'
+                        }}>
+                            {moment(hundi?.date).format("DD MMM YYYY")}, {moment(hundi?.date).format("dddd")}
+                        </Text>
+
+                        {/* Rupees */}
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginBottom: 12,
+                        }}>
+                            <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                💰 Rupees:
+                            </Text>
+                            <Text style={{ fontSize: 16, color: '#444' }}>
+                                ₹ {hundi?.rupees || 0}
+                            </Text>
+                        </View>
+
+                        {/* Gold */}
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginBottom: 12,
+                        }}>
+                            <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                🥇 Gold:
+                            </Text>
+                            <Text style={{ fontSize: 16, color: '#444' }}>
+                                {hundi?.gold || '0 grams'}
+                            </Text>
+                        </View>
+
+                        {/* Silver */}
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginBottom: 12,
+                        }}>
+                            <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                🥈 Silver:
+                            </Text>
+                            <Text style={{ fontSize: 16, color: '#444' }}>
+                                {hundi?.silver || '0 grams'}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
             {/* Ratha Yatra Button */}
             {/* <View style={{ width: 70, height: 70, position: 'absolute', bottom: 20, right: 20, borderRadius: 100, overflow: 'hidden', elevation: 5 }}>
                 <TouchableOpacity style={{ backgroundColor: 'transparent', flex: 1 }}>

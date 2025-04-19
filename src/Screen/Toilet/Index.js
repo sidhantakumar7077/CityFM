@@ -85,13 +85,13 @@ const Index = () => {
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check Now →</Text>
               </View>
             </View>
-            <View style={{ width: '22%', alignItems: 'center' }}>
-              <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+            <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
+              <Image source={require('../../assets/image/toilet543.png')} style={{ width: 80, height: 80, resizeMode: 'contain' }} />
             </View>
           </View>
         </View>
 
-        {/* Main Locker & Shoes Stands */}
+        {/* Toilet List */}
         {loading ? (
           <View style={{ flex: 1, paddingVertical: 80, alignItems: 'center', justifyContent: 'center' }}>
             <ActivityIndicator size="large" color="#341551" />

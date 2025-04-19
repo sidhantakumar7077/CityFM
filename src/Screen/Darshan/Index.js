@@ -171,8 +171,8 @@ const Index = () => {
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Darshan →</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/darshan.png')} style={{ width: 120, height: 120, resizeMode: 'contain' }} />
+                        <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
+                            <Image source={require('../../assets/image/darshan34.png')} style={{ width: 85, height: 85, resizeMode: 'contain' }} />
                         </View>
                     </View>
                 </View>

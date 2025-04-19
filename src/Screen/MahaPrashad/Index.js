@@ -9,13 +9,6 @@ import Modal from 'react-native-modal';
 import { base_url } from '../../../App';
 import moment from 'moment';
 
-const nitiTimings = [
-    { name: 'Sakala Dhoopa', status: 'Completed', time: '10:00 AM', relativeTime: 'soon' },
-    { name: 'Madhyana Dhoopa', status: 'Completed', time: '12:30 PM', relativeTime: 'in 8 hours' },
-    { name: 'Sandhya Dhoopa', status: 'Running', time: '7:00 PM', relativeTime: '3 hours ago' },
-    { name: 'Bada Singhara Dhoopa', status: 'Upcoming', time: '11:15 PM', relativeTime: '1 hour ago' },
-];
-
 const Index = () => {
 
     const scrollY = useRef(new Animated.Value(0)).current;
@@ -169,8 +162,8 @@ const Index = () => {
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Set Alert →</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/mahaPrasad.png')} style={{ width: 120, height: 120, resizeMode: 'contain' }} />
+                        <View style={{ width: '22%', alignItems: 'center', marginTop: 30 }}>
+                            <Image source={require('../../assets/image/prasad879.png')} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
                         </View>
                     </View>
                 </View>
@@ -285,21 +278,12 @@ const Index = () => {
                                         {/* Right Content */}
                                         <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
                                             <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.prasad_name}</Text>
-                                            <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.start_time}</Text>
-
-                                            {isCompleted && (
-                                                <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                    Completed at {item.end_time}
-                                                </Text>
-                                            )}
+                                            {item.master_prasad_status !== 'Upcoming' && <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.start_time}</Text>}
 
                                             {isRunning && (
                                                 <>
                                                     <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
                                                         Running Now
-                                                    </Text>
-                                                    <Text style={{ fontSize: 13, color: '#999', fontFamily: 'FiraSans-Regular' }}>
-                                                        Tentative End: 3:50 PM
                                                     </Text>
                                                 </>
                                             )}

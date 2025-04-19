@@ -21,6 +21,8 @@ import ParkingPage from './src/Screen/ParkingPage/Index'
 import AllNitePage from './src/Screen/AllNitePage/Index'
 import Darshan from './src/Screen/Darshan/Index'
 import MahaPrashad from './src/Screen/MahaPrashad/Index'
+import Panji from './src/Screen/Panji/Index'
+import Festival from './src/Screen/Festival/Index'
 import BhaktaNibas from './src/Screen/BhaktaNibas/Index'
 import BhaktaNibasDetails from './src/Screen/BhaktaNibasDetails/Index'
 import Locker_shoes from './src/Screen/Locker_shoes/Index'
@@ -45,7 +47,6 @@ import Offering from './src/Screen/Offering/Index'
 import OfferingMenu from './src/Screen/OfferingMenu/Index'
 import OfferingForm from './src/Screen/OfferingForm/Index'
 import OfferingSubmitPage from './src/Screen/OfferingSubmitPage/Index'
-import Panji from './src/Screen/Panji/Index'
 import TempleWorldWide from './src/Screen/TempleWorldWide/Index'
 import Tv from './src/Screen/Tv/Index'
 import RathaYatraMainPage from './src/Screen/RathaYatraMainPage/Index'
@@ -95,6 +96,7 @@ const App = () => {
           <Stack.Screen name="AllNitePage" component={AllNitePage} />
           <Stack.Screen name="Darshan" component={Darshan} />
           <Stack.Screen name="MahaPrashad" component={MahaPrashad} />
+          <Stack.Screen name="Festival" component={Festival} />
           <Stack.Screen name="BhaktaNibas" component={BhaktaNibas} />
           <Stack.Screen name="BhaktaNibasDetails" component={BhaktaNibasDetails} />
           <Stack.Screen name="Locker_shoes" component={Locker_shoes} />

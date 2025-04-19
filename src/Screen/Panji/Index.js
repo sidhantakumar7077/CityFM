@@ -107,8 +107,8 @@ const Index = () => {
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Remind Me →</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+                        <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
+                            <Image source={require('../../assets/image/panji765.png')} style={{ width: 70, height: 70, resizeMode: 'contain' }} />
                         </View>
                     </View>
                 </View>

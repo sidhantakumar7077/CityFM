@@ -117,16 +117,23 @@ const Index = () => {
     const [nitiList, setNitiList] = useState([]);
     const [banners, setBanners] = useState([]);
     const [nearbyPlaces, setNearbyPlaces] = useState([]);
-    const [previousAmount, setPreviousAmount] = useState(0);
-    const [hundi, setHundi] = useState(
-        {
-            date: "2025-04-19",
-            rupees: 4500,
-            gold: "10 grams",
-            silver: "30 grams"
-        }
-    );
+    const [hundi, setHundi] = useState({});
     const [showHundi, setShowHundi] = useState(false);
+
+    const getHundi = async () => {
+        try {
+            const response = await fetch(`${base_url}api/get-hundi-collections`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            console.log('Get Hundi Data:', result.data);
+            setHundi(result.data[0] || {});
+        } catch (error) {
+            console.error('Error fetching hundi data:', error);
+        }
+    };
 
     const getData = async () => {
         setIsLoading(true);
@@ -145,7 +152,6 @@ const Index = () => {
                 setNitiList(niti_master || []);
                 setBanners(banners || []);
                 setNearbyPlaces(nearby_temples || []);
-                setPreviousAmount(totalPreviousAmount || 0);
                 setIsLoading(false);
             } else {
                 console.warn('API responded with status false:', result.message);
@@ -179,6 +185,12 @@ const Index = () => {
         }
     };
 
+    const [donationModal, setDonationModal] = useState(false);
+    const handleOk = () => {
+        Linking.openURL('https://www.shreejagannatha.in/donation/');
+        onClose(); // Optional: close modal after redirect
+    };
+
     const runningNiti = nitiList.find(item => item.niti_status === 'Started');
     const upcomingNitis = nitiList
         .filter(item => item.niti_status === 'Upcoming')
@@ -202,6 +214,7 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             getData();
+            getHundi();
         }
     }, [isFocused]);
 
@@ -494,7 +507,7 @@ const Index = () => {
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <TouchableOpacity style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
+                            <TouchableOpacity onPress={() => setDonationModal(true)} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                                 <View style={{ width: '60%', alignItems: 'center' }}>
                                     <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
                                     <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Donate Now</Text>
@@ -1005,6 +1018,95 @@ const Index = () => {
                     </View>
                 </View>
             </Modal>
+
+            {/* Modal for navigating Donation site */}
+            <Modal
+                visible={donationModal}
+                transparent
+                animationType="fade"
+                onRequestClose={() => setDonationModal(false)}
+            >
+                <View style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <View style={{
+                        width: '88%',
+                        backgroundColor: '#fff',
+                        borderRadius: 20,
+                        padding: 25,
+                        elevation: 8,
+                        shadowColor: '#000',
+                        shadowOpacity: 0.2,
+                        shadowRadius: 10,
+                        shadowOffset: { width: 0, height: 4 }
+                    }}>
+                        {/* Header */}
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginBottom: 20
+                        }}>
+                            <Text style={{
+                                fontSize: 20,
+                                fontWeight: '700',
+                                color: '#B7070A'
+                            }}>
+                                Alert
+                            </Text>
+                            <TouchableOpacity onPress={() => setDonationModal(false)}>
+                                <Ionicons name="close-circle-outline" size={28} color="#B7070A" />
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Info Text */}
+                        <Text style={{
+                            fontSize: 16,
+                            color: '#444',
+                            marginBottom: 30,
+                            lineHeight: 24
+                        }}>
+                            You are navigating to Shree Mandira official Donation Platform.
+                        </Text>
+
+                        {/* Buttons */}
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between'
+                        }}>
+                            <TouchableOpacity
+                                onPress={() => setDonationModal(false)}
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: '#ccc',
+                                    paddingVertical: 12,
+                                    marginRight: 10,
+                                    borderRadius: 10,
+                                    alignItems: 'center'
+                                }}>
+                                <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Cancel</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={handleOk}
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: '#B7070A',
+                                    paddingVertical: 12,
+                                    marginLeft: 10,
+                                    borderRadius: 10,
+                                    alignItems: 'center'
+                                }}>
+                                <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>OK</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
             {/* Ratha Yatra Button */}
             {/* <View style={{ width: 70, height: 70, position: 'absolute', bottom: 20, right: 20, borderRadius: 100, overflow: 'hidden', elevation: 5 }}>
                 <TouchableOpacity style={{ backgroundColor: 'transparent', flex: 1 }}>

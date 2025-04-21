@@ -96,6 +96,7 @@ const App = () => {
           <Stack.Screen name="AllNitePage" component={AllNitePage} />
           <Stack.Screen name="Darshan" component={Darshan} />
           <Stack.Screen name="MahaPrashad" component={MahaPrashad} />
+          <Stack.Screen name="Panji" component={Panji} />
           <Stack.Screen name="Festival" component={Festival} />
           <Stack.Screen name="BhaktaNibas" component={BhaktaNibas} />
           <Stack.Screen name="BhaktaNibasDetails" component={BhaktaNibasDetails} />
@@ -121,7 +122,6 @@ const App = () => {
           <Stack.Screen name="OfferingMenu" component={OfferingMenu} />
           <Stack.Screen name="OfferingForm" component={OfferingForm} />
           <Stack.Screen name="OfferingSubmitPage" component={OfferingSubmitPage} />
-          <Stack.Screen name="Panji" component={Panji} />
           <Stack.Screen name="TempleWorldWide" component={TempleWorldWide} />
           <Stack.Screen name="Tv" component={Tv} />
           <Stack.Screen name="RathaYatraMainPage" component={RathaYatraMainPage} />

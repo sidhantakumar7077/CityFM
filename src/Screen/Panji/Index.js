@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, Dimensions, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 // import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
+import { base_url } from '../../../App';
 
 const { width } = Dimensions.get('window');
 
@@ -27,6 +28,8 @@ const Index = () => {
     );
 
     const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
+    const [panjiDetails, setPanjiDetails] = useState(null); // State to hold Panji details
+    const [isLoading, setIsLoading] = useState(true); // Loading state for API call
     const [weekOffset, setWeekOffset] = useState(0); // Track the week index
     const flatListRef = useRef(null);
     const [isScrolling, setIsScrolling] = useState(false);
@@ -72,6 +75,39 @@ const Index = () => {
             }
             setIsScrolling(false);
         }, 50);
+    };
+
+    useEffect(() => {
+        getPanjiDetailsByDate();
+    }, [selectedDate]);
+
+    const getPanjiDetailsByDate = async () => {
+        setIsLoading(true); // Set loading to true before API call
+        try {
+            const formattedDate = new Date(selectedDate).toISOString().split('T')[0]; // e.g., "2025-04-21"
+
+            const response = await fetch(`${base_url}api/get-panji?date=${formattedDate}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const result = await response.json();
+
+            if (result.status) {
+                console.log("Panji Data:", result.data[0]);
+                setPanjiDetails(result.data[0]); // Set the fetched data to state
+                setIsLoading(false); // Set loading to false after data is fetched
+            } else {
+                console.warn("API returned error:", result.message);
+                setIsLoading(false); // Set loading to false even if API fails
+            }
+        } catch (error) {
+            console.error("Error fetching Panji details:", error);
+            setIsLoading(false); // Set loading to false even if API fails
+        }
     };
 
     return (
@@ -147,57 +183,92 @@ const Index = () => {
                 </View>
 
                 {/* Tithi content */}
-                <View style={{ width: '95%', alignSelf: 'center', marginTop: 20 }}>
-                    {/* Tithi */}
-                    <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-                        <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                            <Feather name="calendar" size={16} color="#F7941D" /> Tithi
-                        </Text>
-                        <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>(20) March, Thursday (Chaitra) Mina Day 7, Sayan Falgun 29th</Text>
+                {isLoading ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', top: '20%' }}>
+                        <ActivityIndicator size="large" color="#F7941D" />
+                        <Text style={{ marginTop: 10, color: '#F7941D', fontSize: 16, fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
                     </View>
-                    {/* Sunrise & Sunset */}
-                    <View style={styles.nitibox}>
-                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <View style={{ width: '48%' }}>
-                                <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunrise" size={16} color="#F7941D" /> Sunrise </Text>
-                                <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunset" size={16} color="#F7941D" /> Sunset </Text>
+                ) : (
+                    <View style={{ width: '95%', alignSelf: 'center', marginVertical: 20 }}>
+                        {/* Tithi */}
+                        {panjiDetails.tithi &&
+                            <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                                <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="calendar" size={16} color="#F7941D" /> Tithi
+                                </Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.tithi}</Text>
                             </View>
-                            <View style={{ width: '48%', alignItems: 'flex-end' }}>
-                                <Text style={{ color: '#606160', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>6:00 AM</Text>
-                                <Text style={{ color: '#606160', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>6:00 PM</Text>
+                        }
+                        {/* Sunrise & Sunset */}
+                        <View style={styles.nitibox}>
+                            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={{ width: '48%' }}>
+                                    <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunrise" size={16} color="#F7941D" /> Sunrise </Text>
+                                    <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunset" size={16} color="#F7941D" /> Sunset </Text>
+                                </View>
+                                <View style={{ width: '48%', alignItems: 'flex-end' }}>
+                                    <Text style={{ color: '#606160', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                        {moment(`${moment().format('YYYY-MM-DD')} ${panjiDetails.sun_rise}`, "YYYY-MM-DD HH:mm").format('hh:mm A')}
+                                    </Text>
+                                    <Text style={{ color: '#606160', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                        {moment(`${moment().format('YYYY-MM-DD')} ${panjiDetails.sun_set}`, "YYYY-MM-DD HH:mm").format('hh:mm A')}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        {/* Nakshatra */}
+                        {panjiDetails.nakshatra &&
+                            <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                                <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="calendar" size={16} color="#F7941D" /> Nakshatra
+                                </Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.nakshatra}</Text>
+                            </View>
+                        }
+                        {/* Yoga */}
+                        {panjiDetails.yoga &&
+                            <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                                <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="calendar" size={16} color="#F7941D" /> Yoga
+                                </Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.yoga}</Text>
+                            </View>
+                        }
+                        {/* Karana */}
+                        {panjiDetails.karana &&
+                            <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                                <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="calendar" size={16} color="#F7941D" /> Karana
+                                </Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.karana}</Text>
+                            </View>
+                        }
+                        {/* Pakshya */}
+                        {panjiDetails.pakshya &&
+                            <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                                <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="calendar" size={16} color="#F7941D" /> Pakshya
+                                </Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.pakshya}</Text>
+                            </View>
+                        }
+                        {/* Auspicious & Inauspicious Time */}
+                        <View style={styles.nitibox}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={{ width: '45%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="clock" size={16} color="#F7941D" /> Auspicious Time
+                                </Text>
+                                <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>{panjiDetails.good_time}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
+                                <Text style={{ width: '45%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="alert-circle" size={16} color="#F7941D" /> Inauspicious Time
+                                </Text>
+                                <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>{panjiDetails.bad_time}</Text>
                             </View>
                         </View>
                     </View>
-                    {/* Nakshatra */}
-                    <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-                        <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                            <Feather name="star" size={16} color="#F7941D" /> Nakshatra
-                        </Text>
-                        <Text style={{ color: '#606160', fontSize: 13 }}>Anuradha</Text>
-                    </View>
-                    {/* Yoga */}
-                    <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-                        <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                            <Feather name="activity" size={16} color="#F7941D" /> Yoga
-                        </Text>
-                        <Text style={{ color: '#606160', fontSize: 13 }}>Braja yoga</Text>
-                    </View>
-                    {/* Auspicious & Inauspicious Time */}
-                    <View style={[styles.nitibox, { marginBottom: 20 }]}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={{ width: '45%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                <Feather name="clock" size={16} color="#F7941D" /> Auspicious Time
-                            </Text>
-                            <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>(Amrit) 1:8 to 3:32 (Mahendra)</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={{ width: '45%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                <Feather name="alert-circle" size={16} color="#F7941D" /> Inauspicious Time
-                            </Text>
-                            <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>Daylight hours 2:52 and sunset hours 5:54.</Text>
-                        </View>
-                    </View>
-                </View>
+                )}
             </ScrollView>
         </View>
     )

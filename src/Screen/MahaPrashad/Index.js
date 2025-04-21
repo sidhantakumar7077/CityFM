@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Easing, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Easing, Image, RefreshControl } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -20,6 +20,16 @@ const Index = () => {
     const [specialMahaPrasadData, setSpecialMahaPrasadData] = useState([]);
     const [isBellActive, setIsBellActive] = useState(false);
     const swingAnim = useRef(new Animated.Value(0)).current;
+
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+            console.log("Refreshing Successful");
+            fetchMahaPrasadData(); 
+        }, 2000);
+    }, []);
 
     const triggerBellSwing = () => {
         // Toggle bell state
@@ -145,6 +155,7 @@ const Index = () => {
 
             <ScrollView
                 style={{ flex: 1 }}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}

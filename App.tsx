@@ -2,7 +2,9 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from "@react-native-community/netinfo";
+import moment from 'moment';
 
 // SplashScreen
 import SplashScreen from './src/Screen/SplashScreen/Index'
@@ -78,6 +80,38 @@ const App = () => {
     setTimeout(() => {
       setShowSplash(false);
     }, 4000)
+  }, []);
+
+  const getNoticeForToday = async () => {
+    try {
+      const response = await fetch(`${base_url}api/latest-temple-notice`);
+      const result = await response.json();
+
+      if (result.status && Array.isArray(result.data)) {
+        const today = moment().format('YYYY-MM-DD');
+
+        // Filter only notices with today's date
+        const todaysNotices = result.data.filter(
+          (notice: { notice_date: string; }) => notice.notice_date === today
+        );
+
+        if (todaysNotices.length > 0) {
+          console.log("Today's Notices:", todaysNotices);
+          // set todaysNotices to async storage
+          await AsyncStorage.setItem('todaysNotices', JSON.stringify(todaysNotices));
+        } else {
+          console.log("No notices for today.");
+        }
+      } else {
+        console.log("Invalid or empty data.");
+      }
+    } catch (error) {
+      console.log("Fetch Notice Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getNoticeForToday();
   }, []);
 
   return (

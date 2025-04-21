@@ -749,6 +749,12 @@ const Index = () => {
     },
   ]
 
+  const today = moment().startOf('day');
+
+  const upcomingFestivals = festival.filter(item =>
+    moment(item.date, 'DD/MM/YYYY').isSameOrAfter(today)
+  );
+
   const scrollY = useRef(new Animated.Value(0)).current;
   const [isScrolled, setIsScrolled] = useState(false);
   const navigation = useNavigation();
@@ -813,7 +819,7 @@ const Index = () => {
           </View>
         ) : (
           <FlatList
-            data={festival}
+            data={upcomingFestivals}
             scrollEnabled={false}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal, ActivityIndicator } from "react-native";
+import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal, ActivityIndicator, RefreshControl } from "react-native";
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { Calendar } from 'react-native-calendars';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -110,6 +111,16 @@ const Index = () => {
     const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+            console.log("Refreshing Successful");
+            getData();
+        }, 2000);
+    }, []);
+
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
     const maxVisibleItems = 3 * itemsPerRow; // Show 2 rows initially
@@ -128,7 +139,7 @@ const Index = () => {
             }
 
             const result = await response.json();
-            console.log('Get Hundi Data:', result.data);
+            // console.log('Get Hundi Data:', result.data);
             setHundi(result.data[0] || {});
         } catch (error) {
             console.error('Error fetching hundi data:', error);
@@ -228,6 +239,57 @@ const Index = () => {
         }
     }, [selectedTab, nearbyPlaces]);
 
+    const [notices, setNotices] = useState([]);
+    const [noticeModalVisible, setNoticeModalVisible] = useState(false);
+
+    // ✅ Get Today's Notices from AsyncStorage
+    const loadNoticesFromStorage = async () => {
+        try {
+            const data = await AsyncStorage.getItem('todaysNotices');
+            if (data !== null) {
+                const parsed = JSON.parse(data);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    setNotices(parsed);
+                    setNoticeModalVisible(true);
+                    console.log('Notices loaded from storage:', parsed);
+                }
+            }
+        } catch (error) {
+            console.log('Error reading notices from storage:', error);
+        }
+    };
+
+    useEffect(() => {
+        loadNoticesFromStorage();
+    }, []);
+
+    const renderItem = ({ item }) => (
+        <View
+            style={{
+                backgroundColor: '#F9FAFB',
+                borderRadius: 12,
+                padding: 15,
+                marginBottom: 12,
+                shadowColor: '#000',
+                shadowOpacity: 0.1,
+                shadowRadius: 5,
+                elevation: 3,
+            }}
+        >
+            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#2D3748', marginBottom: 5 }}>
+                {item.notice_name}
+            </Text>
+            {item.notice_descp ? (
+                <Text style={{ fontSize: 14, color: '#4A5568', marginBottom: 8 }}>
+                    {item.notice_descp}
+                </Text>
+            ) : null}
+            <Text style={{ fontSize: 13, color: '#718096', fontStyle: 'italic' }}>
+                📅 {moment(item.notice_date).format('MMMM Do, YYYY')}
+            </Text>
+        </View>
+    );
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             {isLoading ? (
@@ -236,6 +298,7 @@ const Index = () => {
                 </View>
             ) : (
                 <ScrollView
+                    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                     style={styles.container}
                     showsVerticalScrollIndicator={false}
                     bounces={false} // Prevents bounce effect on iOS
@@ -1103,6 +1166,74 @@ const Index = () => {
                                 <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>OK</Text>
                             </TouchableOpacity>
                         </View>
+                    </View>
+                </View>
+            </Modal>
+
+            {/* Today Notice */}
+            <Modal visible={noticeModalVisible} transparent animationType="slide">
+                <View
+                    style={{
+                        flex: 1,
+                        backgroundColor: 'rgba(0,0,0,0.4)',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <View
+                        style={{
+                            width: width * 0.9,
+                            maxHeight: '80%',
+                            backgroundColor: '#fff',
+                            borderRadius: 15,
+                            padding: 20,
+                            elevation: 10,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: 22,
+                                fontWeight: 'bold',
+                                color: '#222',
+                                marginBottom: 15,
+                                textAlign: 'center',
+                            }}
+                        >
+                            📢 Today's Notices
+                        </Text>
+
+                        <FlatList
+                            data={notices}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={renderItem}
+                            ListEmptyComponent={
+                                <Text style={{ textAlign: 'center', color: '#555', marginTop: 20 }}>
+                                    No notices for today.
+                                </Text>
+                            }
+                            contentContainerStyle={{ paddingBottom: 10 }}
+                        />
+
+                        <TouchableOpacity
+                            style={{
+                                marginTop: 10,
+                                backgroundColor: '#E53E3E',
+                                paddingVertical: 10,
+                                borderRadius: 10,
+                            }}
+                            onPress={() => setNoticeModalVisible(false)}
+                        >
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    color: '#fff',
+                                    fontWeight: 'bold',
+                                    fontSize: 16,
+                                }}
+                            >
+                                Close ✖️
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>

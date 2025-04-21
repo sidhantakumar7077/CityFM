@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, RefreshControl } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -15,6 +15,16 @@ const Index = () => {
     const [spinner, setSpinner] = useState(false);
     const [allBusRailway, setAllBusRailway] = useState([]);
     const [selectedTab, setSelectedTab] = useState('BusStand'); // Default selected tab
+
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+            console.log("Refreshing Successful");
+            getAllBusRailway();
+        }, 2000);
+    }, []);
 
     const filteredData = selectedTab === 'BusStand'
         ? allBusRailway.filter(item => item.commute_type === 'bus')
@@ -85,6 +95,7 @@ const Index = () => {
                 :
                 <ScrollView
                     style={{ flex: 1 }}
+                    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                     onScroll={handleScroll}
                     scrollEventThrottle={16}
                     showsVerticalScrollIndicator={false}

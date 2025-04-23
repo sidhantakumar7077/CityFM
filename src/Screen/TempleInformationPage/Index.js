@@ -21,7 +21,7 @@ const Index = () => {
         // { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
         { id: '4', image: require('../../assets/image/matha678.png'), label: 'Matha & Ashram' },
         { id: '5', image: require('../../assets/image/festival98.png'), label: 'Festivals' },
-        { id: '6', image: require('../../assets/image/36nijoga51.png'), label: '36 Nijoga' },
+        { id: '6', image: require('../../assets/image/36nijog.png'), label: '36 Nijoga' },
         { id: '8', image: require('../../assets/image/management87.png'), label: 'Management' },
     ];
 

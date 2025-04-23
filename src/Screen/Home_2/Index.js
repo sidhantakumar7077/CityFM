@@ -17,19 +17,6 @@ const { height } = Dimensions.get('window');
 
 const Index = () => {
 
-    const bannerData = [
-        {
-            image: require('../../assets/image/temple123.png'),
-            title: 'Jagannatha Temples Worldwide',
-            subtitle: 'Find All Jagannatha Temples.',
-        },
-        {
-            image: require('../../assets/image/SplashLogo.png'),
-            title: 'Exclusive Offers',
-            subtitle: 'Don’t miss out on discounts.',
-        },
-    ];
-
     const TempleBanner = [
         {
             image: require('../../assets/image/temple546.png'),
@@ -78,31 +65,6 @@ const Index = () => {
     const handleCall = (phoneNumber) => {
         Linking.openURL(`tel:${phoneNumber}`);
     };
-
-    const templeInfo = [
-        { id: '1', image: require('../../assets/image/shreemandira.png'), label: 'Shree Mandira' },
-        { id: '2', image: require('../../assets/image/shreekhetra.png'), label: 'Shree Khetra' },
-        { id: '3', image: require('../../assets/image/tradition.png'), label: 'Tradition' },
-        { id: '12', image: require('../../assets/image/rathaYatra.png'), label: 'Ratha yatra' },
-        // { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
-        { id: '4', image: require('../../assets/image/matha22.png'), label: 'Matha & Ashram' },
-        { id: '5', image: require('../../assets/image/festival.png'), label: 'Festivals' },
-        { id: '6', image: require('../../assets/image/36nijog.png'), label: '36 Nijoga' },
-        { id: '7', image: require('../../assets/image/besha.png'), label: 'Besha' },
-        { id: '8', image: require('../../assets/image/people.png'), label: 'Management' },
-    ];
-
-    const eventTypes = [
-        { icon: '☀️', name: 'Sankranti' },
-        { icon: '🌑', name: 'Amavasya' },
-        { icon: '🌕', name: 'Pournami' },
-        { icon: '🪔', name: 'Festival' },
-        { icon: '🌘', name: 'Eclipse' },
-        { icon: '🔥', name: 'Pradosha' },
-        { icon: '🙏', name: 'Sankashti Chaturthi' },
-        { icon: '🕉️', name: 'Shasti' },
-        { icon: '〰️', name: 'Ekadashi' }
-    ];
 
     const navigation = useNavigation();
     const isFocused = useIsFocused();

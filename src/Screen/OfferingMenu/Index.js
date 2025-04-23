@@ -8,17 +8,17 @@ import Modal from 'react-native-modal';
 import CheckBox from '@react-native-community/checkbox';
 
 const images = [
-    require('../../assets/image/besha_luga/cloth1.jpeg'),
-    require('../../assets/image/besha_luga/cloth2.jpeg'),
-    require('../../assets/image/besha_luga/cloth3.jpeg'),
-    require('../../assets/image/besha_luga/cloth4.jpeg'),
-    require('../../assets/image/besha_luga/cloth5.jpeg'),
-    require('../../assets/image/besha_luga/cloth6.webp'),
-    require('../../assets/image/besha_luga/cloth7.webp'),
-    require('../../assets/image/besha_luga/cloth8.jpeg'),
-    require('../../assets/image/besha_luga/cloth9.jpeg'),
-    require('../../assets/image/besha_luga/cloth10.jpeg'),
-    require('../../assets/image/besha_luga/cloth11.webp'),
+    // require('../../assets/image/besha_luga/cloth1.jpeg'),
+    // require('../../assets/image/besha_luga/cloth2.jpeg'),
+    // require('../../assets/image/besha_luga/cloth3.jpeg'),
+    // require('../../assets/image/besha_luga/cloth4.jpeg'),
+    // require('../../assets/image/besha_luga/cloth5.jpeg'),
+    // require('../../assets/image/besha_luga/cloth6.webp'),
+    // require('../../assets/image/besha_luga/cloth7.webp'),
+    // require('../../assets/image/besha_luga/cloth8.jpeg'),
+    // require('../../assets/image/besha_luga/cloth9.jpeg'),
+    // require('../../assets/image/besha_luga/cloth10.jpeg'),
+    // require('../../assets/image/besha_luga/cloth11.webp'),
 ];
 
 const neededItem = [

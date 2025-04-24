@@ -93,6 +93,8 @@ const Index = () => {
     const [hundi, setHundi] = useState({});
     const [showHundi, setShowHundi] = useState(false);
 
+    const [physicalHanducapModalVisible, setPhysicalHanducapModalVisible] = useState(false);
+
     const getHundi = async () => {
         try {
             const response = await fetch(`${base_url}api/get-hundi-collections`);
@@ -692,6 +694,8 @@ const Index = () => {
                                             navigation.navigate(item.page);
                                         } else if (item.label === 'Emergency Contact') {
                                             setEmergencyModalVisible(true);
+                                        } else if (item.label === 'Physical Handicap & Sr Citizen') {
+                                            setPhysicalHanducapModalVisible(true);
                                         }
                                     }}
                                     style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}
@@ -737,6 +741,81 @@ const Index = () => {
 
                                 <TouchableOpacity onPress={() => setEmergencyModalVisible(false)} style={{ marginTop: 20, backgroundColor: '#D64C64', paddingHorizontal: 30, paddingVertical: 10, borderRadius: 25 }}>
                                     <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600' }}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    {/* Physical Handicapped & Sr Citizen */}
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={physicalHanducapModalVisible}
+                        onRequestClose={() => setPhysicalHanducapModalVisible(false)}
+                    >
+                        <View style={{
+                            flex: 1,
+                            backgroundColor: 'rgba(0,0,0,0.5)',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: 20
+                        }}>
+                            <View style={{
+                                width: '100%',
+                                backgroundColor: '#fff',
+                                borderRadius: 20,
+                                paddingVertical: 30,
+                                paddingHorizontal: 25,
+                                shadowColor: '#000',
+                                shadowOffset: { width: 0, height: 6 },
+                                shadowOpacity: 0.3,
+                                shadowRadius: 10,
+                                elevation: 20
+                            }}>
+                                <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                                    <MaterialIcons name="accessible" size={50} color="#D64C64" />
+                                    <Text style={{
+                                        fontSize: 22,
+                                        fontWeight: 'bold',
+                                        color: '#341551',
+                                        textAlign: 'center',
+                                        marginTop: 10
+                                    }}>
+                                        Physical Handicapped & Sr Citizen
+                                    </Text>
+                                </View>
+
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: '#444',
+                                    textAlign: 'justify',
+                                    lineHeight: 24
+                                }}>
+                                    Free service of battery operated vehicles is available from <Text style={{ fontWeight: '600' }}>Jagannatha Ballav Parking place (Market square)</Text> to the <Text style={{ fontWeight: '600' }}>Temple main gate / North gate</Text> for carrying senior citizens and physically challenged people.
+                                </Text>
+
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: '#444',
+                                    textAlign: 'justify',
+                                    marginTop: 15,
+                                    lineHeight: 24
+                                }}>
+                                    Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text> at <Text style={{ fontWeight: '600', color: '#D64C64' }}>06752 – 252527</Text> (wheelchairs are only for differently abled devotees).
+                                </Text>
+
+                                <TouchableOpacity
+                                    onPress={() => setPhysicalHanducapModalVisible(false)}
+                                    style={{
+                                        marginTop: 30,
+                                        backgroundColor: '#D64C64',
+                                        paddingVertical: 12,
+                                        paddingHorizontal: 30,
+                                        borderRadius: 30,
+                                        alignSelf: 'center'
+                                    }}
+                                >
+                                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

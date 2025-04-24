@@ -96,9 +96,9 @@ const Index = () => {
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>
                                 You Can Click On The Map To Navigate To Petrol Pumps.
                             </Text>
-                            <TouchableOpacity style={styles.ctaBtn}>
+                            {/* <TouchableOpacity style={styles.ctaBtn}>
                                 <Text style={styles.ctaText}>Check Now →</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center', marginTop: 60 }}>
                             <Image source={require('../../assets/image/petrolPump21.png')}

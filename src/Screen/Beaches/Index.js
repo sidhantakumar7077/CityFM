@@ -115,9 +115,9 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Famous Beaches In The City</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Some Of The Attractive & Clean Beaches In The City Of Puri</Text>
-                            <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                            {/* <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check out →</Text>
-                            </View>
+                            </View> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
                             <Image source={require('../../assets/image/beaches21.png')} style={{ width: 80, height: 80, resizeMode: 'contain' }} />

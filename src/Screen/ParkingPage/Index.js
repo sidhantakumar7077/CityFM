@@ -100,9 +100,9 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Vehicle Parking</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>You Can Park Your Two, Three & Four Wheelers At The Following Parking Places</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                            {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Online →</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center', marginTop: 30 }}>
                             <Image source={require('../../assets/image/parking765.png')} style={{ width: 80, height: 80, resizeMode: 'contain' }} />
@@ -163,7 +163,7 @@ const Index = () => {
                                 onPress={() => openMap(item.map_url)}
                                 style={{
                                     width: '100%',
-                                    height: 150,
+                                    height: 135,
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
                                     paddingVertical: 12,
@@ -199,7 +199,7 @@ const Index = () => {
                                         </Text>
                                     </View>
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                                         <FontAwesome5 name="parking" size={13} color={'#28a745'} />
                                         <Text
                                             style={{
@@ -211,7 +211,7 @@ const Index = () => {
                                         >
                                             {item.parking_availability} Spots Available
                                         </Text>
-                                    </View>
+                                    </View> */}
                                     {/* <TouchableOpacity style={{ marginTop: 5, borderRadius: 5, alignSelf: 'flex-start' }}>
                                         <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-SemiBold' }}>Book Now →</Text>
                                     </TouchableOpacity> */}

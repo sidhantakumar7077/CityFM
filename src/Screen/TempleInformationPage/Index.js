@@ -3,7 +3,6 @@ import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, 
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Swiper from "react-native-swiper";
 
 const Index = () => {
 
@@ -13,16 +12,13 @@ const Index = () => {
     const { width } = Dimensions.get('window');
 
     const templeInfo = [
-        { id: '1', image: require('../../assets/image/shreeMandira90.png'), label: 'Shree Mandira' },
-        { id: '7', image: require('../../assets/image/besh546.png'), label: 'Besha' },
-        { id: '2', image: require('../../assets/image/shreeKhetra90.png'), label: 'Shree Khetra' },
-        // { id: '3', image: require('../../assets/image/tradition.png'), label: 'Tradition' },
-        { id: '12', image: require('../../assets/image/rathayatra76.png'), label: 'Ratha yatra' },
-        // { id: '13', image: require('../../assets/image/nabakalebala.png'), label: 'Nabakalebala' },
-        { id: '4', image: require('../../assets/image/matha678.png'), label: 'Matha & Ashram' },
-        { id: '5', image: require('../../assets/image/festival98.png'), label: 'Festivals' },
-        { id: '6', image: require('../../assets/image/36nijog.png'), label: '36 Nijoga' },
-        { id: '8', image: require('../../assets/image/management87.png'), label: 'Management' },
+        { id: '1', image: require('../../assets/image/lord_supreme.png'), label: 'Lord Supreme', page: 'LordSupreme' },
+        { id: '7', image: require('../../assets/image/through_the_ages.png'), label: 'Through The Ages', page: 'ThroughTheAges' },
+        { id: '2', image: require('../../assets/image/living_tradition.png'), label: 'Living Tradition', page: 'LivingTradition' },
+        { id: '12', image: require('../../assets/image/festival.png'), label: 'Festivals', page: 'Festivals' },
+        { id: '4', image: require('../../assets/image/rathayatra.png'), label: 'Ratha Yatra', page: 'RathaYatra' },
+        { id: '5', image: require('../../assets/image/devotee.png'), label: 'Visitor Services', page: 'VisitorServices' },
+        { id: '8', image: require('../../assets/image/management.jpg'), label: 'Management', page: 'Management' },
     ];
 
     const TempleBanner = [
@@ -63,7 +59,7 @@ const Index = () => {
                 </ImageBackground>
 
                 {/* Current Niti Box */}
-                <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
+                {/* <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
                     <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
                         <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -118,7 +114,7 @@ const Index = () => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </ScrollView>
+                </ScrollView> */}
 
                 {/* <View style={{ height: 150, marginVertical: 10 }}>
                     <Swiper
@@ -158,12 +154,12 @@ const Index = () => {
 
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 6 }}>
                         {templeInfo.map((item) => (
-                            <View key={item.id} style={{ width: '45%', alignItems: 'center', marginBottom: 20 }}>
+                            <TouchableOpacity key={item.id} onPress={() => navigation.navigate(item.page)} style={{ width: '45%', alignItems: 'center', marginBottom: 20 }}>
                                 <View style={{ width: 120, height: 120, borderRadius: 100, backgroundColor: '#f1ebf5', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
                                     <Image source={item.image} style={{ width: '100%', height: '100%', borderRadius: 100, resizeMode: 'cover' }} />
                                 </View>
                                 <Text style={{ fontSize: 14, color: '#000', textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>{item.label}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                     </View>
                 </View>
@@ -229,7 +225,7 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         width: "100%",
-        height: 350,
+        height: 300,
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,

@@ -39,6 +39,13 @@ import TempleWorldWide from './src/Screen/TempleWorldWide/Index'
 import Tv from './src/Screen/Tv/Index'
 import RathaYatraMainPage from './src/Screen/RathaYatraMainPage/Index'
 import TempleInformationPage from './src/Screen/TempleInformationPage/Index'
+import LordSupreme from './src/Screen/TempleInfoDetailsPage/LordSupreme';
+import ThroughTheAges from './src/Screen/TempleInfoDetailsPage/ThroughTheAges';
+import LivingTradition from './src/Screen/TempleInfoDetailsPage/LivingTradition';
+import Festivals from './src/Screen/TempleInfoDetailsPage/Festivals';
+import RathaYatra from './src/Screen/TempleInfoDetailsPage/RathaYatra';
+import VisitorServices from './src/Screen/TempleInfoDetailsPage/VisitorServices';
+import Management from './src/Screen/TempleInfoDetailsPage/Management';
 
 const Stack = createNativeStackNavigator();
 
@@ -121,6 +128,13 @@ const App = () => {
           <Stack.Screen name="TempleWorldWide" component={TempleWorldWide} />
           <Stack.Screen name="RathaYatraMainPage" component={RathaYatraMainPage} />
           <Stack.Screen name="TempleInformationPage" component={TempleInformationPage} />
+          <Stack.Screen name="LordSupreme" component={LordSupreme} />
+          <Stack.Screen name="ThroughTheAges" component={ThroughTheAges} />
+          <Stack.Screen name="LivingTradition" component={LivingTradition} />
+          <Stack.Screen name="Festivals" component={Festivals} />
+          <Stack.Screen name="RathaYatra" component={RathaYatra} />
+          <Stack.Screen name="VisitorServices" component={VisitorServices} />
+          <Stack.Screen name="Management" component={Management} />
         </>
       </Stack.Navigator>
     </NavigationContainer>

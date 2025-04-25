@@ -46,6 +46,7 @@ import Festivals from './src/Screen/TempleInfoDetailsPage/Festivals';
 import RathaYatra from './src/Screen/TempleInfoDetailsPage/RathaYatra';
 import VisitorServices from './src/Screen/TempleInfoDetailsPage/VisitorServices';
 import Management from './src/Screen/TempleInfoDetailsPage/Management';
+import Privacy_policy from './src/Screen/Privacy_policy/Index';
 
 const Stack = createNativeStackNavigator();
 
@@ -135,6 +136,7 @@ const App = () => {
           <Stack.Screen name="RathaYatra" component={RathaYatra} />
           <Stack.Screen name="VisitorServices" component={VisitorServices} />
           <Stack.Screen name="Management" component={Management} />
+          <Stack.Screen name="Privacy_policy" component={Privacy_policy} />
         </>
       </Stack.Navigator>
     </NavigationContainer>

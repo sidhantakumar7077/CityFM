@@ -275,7 +275,7 @@ const Index = () => {
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('RealsPage')} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Privacy_policy')} style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <SimpleLineIcons name="settings" size={26} color="#fff" />
                             </TouchableOpacity>
                         </View>

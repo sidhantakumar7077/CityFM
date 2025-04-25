@@ -198,8 +198,8 @@ const Index = () => {
             setFilteredPlaces(nearbyPlaces?.filter(place => place.place_type === 'temple'));
         } else if (selectedTab === 'Mathas') {
             setFilteredPlaces(nearbyPlaces?.filter(place => place.place_type === 'matha'));
-        } else if (selectedTab === 'RitualSites') {
-            setFilteredPlaces(nearbyPlaces?.filter(place => place.place_type === 'ritualsite'));
+        } else if (selectedTab === 'ritual_site') {
+            setFilteredPlaces(nearbyPlaces?.filter(place => place.place_type === 'ritual_site'));
         }
     }, [selectedTab, nearbyPlaces]);
 
@@ -626,7 +626,7 @@ const Index = () => {
 
                             {/* Ritual Sites Tab */}
                             <LinearGradient
-                                colors={selectedTab === 'RitualSites' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                                colors={selectedTab === 'ritual_site' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                                 style={{
@@ -635,16 +635,16 @@ const Index = () => {
                                 }}
                             >
                                 <TouchableOpacity
-                                    onPress={() => setSelectedTab('RitualSites')}
+                                    onPress={() => setSelectedTab('ritual_site')}
                                     style={{
                                         flex: 1,
-                                        // backgroundColor: selectedTab === 'RitualSites' ? '#D64C64' : 'transparent',
+                                        // backgroundColor: selectedTab === 'ritual_site' ? '#D64C64' : 'transparent',
                                         borderRadius: 10,
                                         paddingVertical: 8,
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <Text style={{ color: selectedTab === 'RitualSites' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
+                                    <Text style={{ color: selectedTab === 'ritual_site' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
                                         Ritual Sites
                                     </Text>
                                 </TouchableOpacity>

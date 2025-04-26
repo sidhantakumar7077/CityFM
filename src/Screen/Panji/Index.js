@@ -139,9 +139,9 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Today's Tithi</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Jagannatha Panji Details At One Place</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                            {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Remind Me →</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
                             <Image source={require('../../assets/image/panji765.png')} style={{ width: 70, height: 70, resizeMode: 'contain' }} />

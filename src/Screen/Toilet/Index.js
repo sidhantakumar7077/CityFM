@@ -118,7 +118,7 @@ const Index = () => {
                 onPress={() => openMap(item.map_url)}
                 style={{
                   width: '100%',
-                  height: 130,
+                  height: 120,
                   flexDirection: 'row',
                   // alignItems: 'center',
                   justifyContent: 'space-between',
@@ -149,7 +149,7 @@ const Index = () => {
                     </Text>
                   </View>
 
-                  <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                  {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                     <MaterialIcons name="access-time" size={13} color="#999" />
                     <Text style={{ fontSize: 12, color: '#666', marginLeft: 4 }}>Open: {item.opening_time} - {item.closing_time}</Text>
                   </View>
@@ -157,7 +157,7 @@ const Index = () => {
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                     <FontAwesome5 name="air-freshener" size={13} color="#28a745" />
                     <Text style={{ fontSize: 13, marginLeft: 5, color: '#28a745', textTransform: 'capitalize' }}>{item.status}</Text>
-                  </View>
+                  </View> */}
                 </View>
               </TouchableOpacity>
             )}

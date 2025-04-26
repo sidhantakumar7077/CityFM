@@ -11,6 +11,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
 import moment from "moment";
+import DrawerModal from "../../Component/DrawerModal";
 
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
@@ -33,7 +34,7 @@ const Index = () => {
     ];
 
     const conveniences = [
-        { id: '1', label: 'Physical Handicap & Sr Citizen', page: '', image: require('../../assets/image/physical21.png') },
+        { id: '1', label: 'Special Abled Person', page: '', image: require('../../assets/image/physical21.png') },
         { id: '2', label: 'Emergency Contact', page: '', image: require('../../assets/image/emergencyontact.png') },
         { id: '3', label: 'Life Guard    Contacts', page: 'LifeGuardBooth', image: require('../../assets/image/life432.png') },
         { id: '4', label: 'Lost & Found', page: '', image: require('../../assets/image/lost&found21.png') },
@@ -92,6 +93,9 @@ const Index = () => {
     const [nearbyPlaces, setNearbyPlaces] = useState([]);
     const [hundi, setHundi] = useState({});
     const [showHundi, setShowHundi] = useState(false);
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const closeDrawer = () => { setIsDrawerOpen(false); };
 
     const [physicalHanducapModalVisible, setPhysicalHanducapModalVisible] = useState(false);
 
@@ -256,6 +260,7 @@ const Index = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <DrawerModal visible={isDrawerOpen} navigation={navigation} onClose={closeDrawer} />
             {isLoading ? (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ActivityIndicator size="large" color="#fa0000" />
@@ -275,8 +280,8 @@ const Index = () => {
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                             </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('Privacy_policy')} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <SimpleLineIcons name="settings" size={26} color="#fff" />
+                            <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => setIsDrawerOpen(true)}>
+                                <SimpleLineIcons name="menu" size={30} color="#fff" />
                             </TouchableOpacity>
                         </View>
                         <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
@@ -547,7 +552,7 @@ const Index = () => {
                             <TouchableOpacity onPress={() => setShowHundi(true)} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                                 <View style={{ width: '60%', alignItems: 'flex-start' }}>
                                     <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Collection</Text>
-                                    <Text style={{ fontSize: 12, color: '#fc2003', fontFamily: 'FiraSans-Medium', marginTop: 2 }}>₹{hundi.rupees}/-</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Check Now</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
                                     {/* <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" /> */}
@@ -694,7 +699,7 @@ const Index = () => {
                                             navigation.navigate(item.page);
                                         } else if (item.label === 'Emergency Contact') {
                                             setEmergencyModalVisible(true);
-                                        } else if (item.label === 'Physical Handicap & Sr Citizen') {
+                                        } else if (item.label === 'Special Abled Person') {
                                             setPhysicalHanducapModalVisible(true);
                                         }
                                     }}
@@ -739,14 +744,21 @@ const Index = () => {
                                     </TouchableOpacity>
                                 ))}
 
-                                <TouchableOpacity onPress={() => setEmergencyModalVisible(false)} style={{ marginTop: 20, backgroundColor: '#D64C64', paddingHorizontal: 30, paddingVertical: 10, borderRadius: 25 }}>
-                                    <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600' }}>Close</Text>
-                                </TouchableOpacity>
+                                <LinearGradient
+                                    colors={['#FFA726', '#F06292']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={{ marginTop: 20, backgroundColor: '#D64C64', borderRadius: 25 }}
+                                >
+                                    <TouchableOpacity onPress={() => setEmergencyModalVisible(false)} style={{ paddingHorizontal: 30, paddingVertical: 10 }}>
+                                        <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600' }}>Close</Text>
+                                    </TouchableOpacity>
+                                </LinearGradient>
                             </View>
                         </View>
                     </Modal>
 
-                    {/* Physical Handicapped & Sr Citizen */}
+                    {/* Special Abled Person */}
                     <Modal
                         animationType="slide"
                         transparent={true}
@@ -804,19 +816,16 @@ const Index = () => {
                                     Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text> at <Text style={{ fontWeight: '600', color: '#D64C64' }}>06752 – 252527</Text> (wheelchairs are only for differently abled devotees).
                                 </Text>
 
-                                <TouchableOpacity
-                                    onPress={() => setPhysicalHanducapModalVisible(false)}
-                                    style={{
-                                        marginTop: 30,
-                                        backgroundColor: '#D64C64',
-                                        paddingVertical: 12,
-                                        paddingHorizontal: 30,
-                                        borderRadius: 30,
-                                        alignSelf: 'center'
-                                    }}
+                                <LinearGradient
+                                    colors={['#FFA726', '#F06292']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={{ marginTop: 30, backgroundColor: '#D64C64', borderRadius: 30, alignSelf: 'center' }}
                                 >
-                                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
-                                </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => setPhysicalHanducapModalVisible(false)} style={{ paddingVertical: 12, paddingHorizontal: 30 }}>
+                                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
+                                    </TouchableOpacity>
+                                </LinearGradient>
                             </View>
                         </View>
                     </Modal>

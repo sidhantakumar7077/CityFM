@@ -92,9 +92,9 @@ const Index = () => {
             <View style={{ width: '75%' }}>
               <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Clean Drinking Water</Text>
               <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Fresh And Clean Water For Pligrimas.</Text>
-              <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+              {/* <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Drink Now →</Text>
-              </View>
+              </View> */}
             </View>
             <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
               <Image source={require('../../assets/image/drinkingWater32.png')} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
@@ -118,7 +118,7 @@ const Index = () => {
                 onPress={() => openMap(item.google_map_link)}
                 style={{
                   width: '100%',
-                  height: 130,
+                  height: 120,
                   flexDirection: 'row',
                   // alignItems: 'center',
                   justifyContent: 'space-between',
@@ -149,7 +149,7 @@ const Index = () => {
                     </Text>
                   </View>
 
-                  <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                  {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                     <MaterialIcons name="access-time" size={13} color="#999" />
                     <Text style={{ fontSize: 12, color: '#666', marginLeft: 4 }}>Open: {item.opening_time} - {item.closing_time}</Text>
                   </View>
@@ -157,7 +157,7 @@ const Index = () => {
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                     <FontAwesome5 name="air-freshener" size={13} color="#28a745" />
                     <Text style={{ fontSize: 13, marginLeft: 5, color: '#28a745', textTransform: 'capitalize' }}>{item.status}</Text>
-                  </View>
+                  </View> */}
                 </View>
               </TouchableOpacity>
             )}

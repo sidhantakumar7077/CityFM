@@ -27,7 +27,7 @@ const Index = () => {
         setTimeout(() => {
             setRefreshing(false);
             console.log("Refreshing Successful");
-            fetchMahaPrasadData(); 
+            fetchMahaPrasadData();
         }, 2000);
     }, []);
 
@@ -169,9 +169,9 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Maha Prasad Bhoga Timing</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Know The Bhoga Being Offered To Mahaprabhu & Mahaprasad Availability at Ananda Bazar</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                            {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Set Alert →</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center', marginTop: 30 }}>
                             <Image source={require('../../assets/image/prasad879.png')} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
@@ -238,9 +238,10 @@ const Index = () => {
                                         );
                                     }
                                     return (
-                                        <TouchableOpacity onPress={handleAlram}>
-                                            <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
-                                        </TouchableOpacity>
+                                        null
+                                        // <TouchableOpacity onPress={handleAlram}>
+                                        //     <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                        // </TouchableOpacity>
                                     );
                                 };
 

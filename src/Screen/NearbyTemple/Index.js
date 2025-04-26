@@ -137,10 +137,10 @@ const Index = (props) => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.name}</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>This Temple Is Dedicated To Jangya Nrusingha</Text>
-                            <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff', paddingVertical: 3, paddingHorizontal: 10, borderRadius: 10, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
+                            {/* <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff', paddingVertical: 3, paddingHorizontal: 10, borderRadius: 10, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
                                 <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#fff" />
                                 <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Listen</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
                             <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
@@ -176,7 +176,6 @@ const Index = (props) => {
                         </Swiper>
                     </View>
 
-
                     {/* Address */}
                     <View style={{ backgroundColor: '#f0f0f0', borderRadius: 12, padding: 8, marginTop: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ width: '48%' }}>
@@ -189,17 +188,21 @@ const Index = (props) => {
                     </View>
 
                     {/* Highlights Section */}
-                    <View style={{ marginTop: 18 }}>
-                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.description}</Text>
-                    </View>
+                    {nearByTempleData?.description &&
+                        <View style={{ marginTop: 18 }}>
+                            <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.description}</Text>
+                        </View>
+                    }
 
                     {/* History Section */}
-                    <View style={{ marginTop: 18 }}>
-                        <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
-                            History of the Temple
-                        </Text>
-                        <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.history}</Text>
-                    </View>
+                    {nearByTempleData?.history &&
+                        <View style={{ marginTop: 18 }}>
+                            <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
+                                History of the Temple
+                            </Text>
+                            <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.history}</Text>
+                        </View>
+                    }
 
                     {/* Location */}
                     <View style={{ marginTop: 25 }}>

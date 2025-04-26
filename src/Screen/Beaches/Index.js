@@ -154,10 +154,10 @@ const Index = () => {
                                                 <Text style={{ color: '#999' }}>No Image</Text>
                                             </View>
                                         )}
-                                        <TouchableOpacity style={styles.view360Badge}>
+                                        {/* <TouchableOpacity style={styles.view360Badge}>
                                             <Text style={styles.view360Text}>360°</Text>
                                             <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
-                                        </TouchableOpacity>
+                                        </TouchableOpacity> */}
                                     </View>
 
                                     {/* Thumbnail Scroll Section */}

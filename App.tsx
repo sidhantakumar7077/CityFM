@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NetInfo from "@react-native-community/netinfo";
 import moment from 'moment';
 
 // SplashScreen
@@ -103,13 +102,13 @@ const App = () => {
           <Stack.Screen name="Home_2" component={Home_2} />
           <Stack.Screen name="LivePage" component={LivePage} />
           <Stack.Screen name="Tv" component={Tv} />
-          <Stack.Screen name="ParkingPage" component={ParkingPage} />
           <Stack.Screen name="AllNitePage" component={AllNitePage} />
           <Stack.Screen name="Darshan" component={Darshan} />
           <Stack.Screen name="MahaPrashad" component={MahaPrashad} />
           <Stack.Screen name="Panji" component={Panji} />
           <Stack.Screen name="Festival" component={Festival} />
           <Stack.Screen name="BhaktaNibas" component={BhaktaNibas} />
+          <Stack.Screen name="ParkingPage" component={ParkingPage} />
           <Stack.Screen name="Locker_shoes" component={Locker_shoes} />
           <Stack.Screen name="NearbyTemple" component={NearbyTemple} />
           <Stack.Screen name="DrinkingWater" component={DrinkingWater} />

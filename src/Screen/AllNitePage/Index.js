@@ -130,9 +130,9 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Complete List Of Niti's</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Click on the niti's below to know more details of the ritual's & there importants</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                            {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Call To Know →</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
                             <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />

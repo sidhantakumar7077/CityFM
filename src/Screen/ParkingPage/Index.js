@@ -163,7 +163,7 @@ const Index = () => {
                                 onPress={() => openMap(item.map_url)}
                                 style={{
                                     width: '100%',
-                                    height: 135,
+                                    height: 120,
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
                                     paddingVertical: 12,
@@ -192,12 +192,12 @@ const Index = () => {
                                         </Text>
                                     </View>
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                                         <MaterialIcons name="access-time" size={13} color="#999" />
                                         <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
                                             24/7
                                         </Text>
-                                    </View>
+                                    </View> */}
 
                                     {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                                         <FontAwesome5 name="parking" size={13} color={'#28a745'} />

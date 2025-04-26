@@ -114,9 +114,9 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Temple Owned Stay For Pilgrims</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Properties Below Are Owned By Shree Jagannatha Temple Administration</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                            {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
                             <Image source={require('../../assets/image/bhaktanibash54.png')} style={{ width: 75, height: 75, resizeMode: 'contain' }} />
@@ -153,10 +153,10 @@ const Index = () => {
                                                 <Text style={{ color: '#999' }}>No Image</Text>
                                             </View>
                                         )}
-                                        <TouchableOpacity style={styles.view360Badge}>
+                                        {/* <TouchableOpacity style={styles.view360Badge}>
                                             <Text style={styles.view360Text}>360°</Text>
                                             <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
-                                        </TouchableOpacity>
+                                        </TouchableOpacity> */}
                                     </View>
 
                                     {/* Thumbnail Scroll Section */}
@@ -199,7 +199,7 @@ const Index = () => {
 
                                     {/* Buttons */}
                                     <View style={styles.buttonRow}>
-                                        <LinearGradient
+                                        {/* <LinearGradient
                                             colors={['#FFA726', '#F06292']}
                                             start={{ x: 0, y: 0 }}
                                             end={{ x: 1, y: 0 }}
@@ -208,7 +208,7 @@ const Index = () => {
                                             <TouchableOpacity>
                                                 <Text style={styles.bookNowText}>Book Now</Text>
                                             </TouchableOpacity>
-                                        </LinearGradient>
+                                        </LinearGradient> */}
                                         <TouchableOpacity style={styles.callButton}>
                                             <Text style={styles.callText}>📞 {item.contact_no}</Text>
                                         </TouchableOpacity>

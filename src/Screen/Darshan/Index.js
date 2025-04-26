@@ -178,9 +178,9 @@ const Index = () => {
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Know The Darshan Timing</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>You Can Find When The Darshan Start's & Halts As Well As When The Sahana Mela Start's</Text>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+                            {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Darshan →</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
                             <Image source={require('../../assets/image/darshan34.png')} style={{ width: 85, height: 85, resizeMode: 'contain' }} />
@@ -247,9 +247,10 @@ const Index = () => {
                                         );
                                     }
                                     return (
-                                        <TouchableOpacity onPress={handleAlram}>
-                                            <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
-                                        </TouchableOpacity>
+                                        null
+                                        // <TouchableOpacity onPress={handleAlram}>
+                                        //     <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                        // </TouchableOpacity>
                                     );
                                 };
 

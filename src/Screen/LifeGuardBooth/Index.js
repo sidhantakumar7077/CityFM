@@ -90,9 +90,9 @@ const Index = () => {
             <View style={{ width: '75%' }}>
               <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Life Guard Near Beaches</Text>
               <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>You Can Click On The Call Button To Call Life Guard.</Text>
-              <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+              {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Call Now →</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
               <Image source={require('../../assets/image/life432.png')} style={{ width: 80, height: 80, resizeMode: 'contain' }} />
@@ -116,7 +116,7 @@ const Index = () => {
                 onPress={() => openMap(item.google_map_link)}
                 style={{
                   width: '100%',
-                  height: 130,
+                  height: 120,
                   flexDirection: 'row',
                   // alignItems: 'center',
                   justifyContent: 'space-between',
@@ -147,7 +147,7 @@ const Index = () => {
                     </Text>
                   </View>
 
-                  <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+                  {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                     <MaterialIcons name="access-time" size={13} color="#999" />
                     <Text style={{ fontSize: 12, color: '#666', marginLeft: 4 }}>Open: {item.opening_time} - {item.closing_time}</Text>
                   </View>
@@ -155,7 +155,7 @@ const Index = () => {
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                     <FontAwesome5 name="phone" size={13} color="#28a745" />
                     <Text style={{ fontSize: 13, marginLeft: 5, color: '#28a745' }}>{item.contact_no}</Text>
-                  </View>
+                  </View> */}
                 </View>
               </TouchableOpacity>
             )}

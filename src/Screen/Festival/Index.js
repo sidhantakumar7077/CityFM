@@ -818,9 +818,8 @@ const Index = () => {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <View style={styles.festivalCard}>
-                <LinearGradient colors={['#fbe6f2', '#fff']} style={styles.gradientCard}>
+                <LinearGradient colors={['#d6beed', '#fff']} style={styles.gradientCard}>
                   <View style={styles.cardHeader}>
-                    <MaterialCommunityIcons name="party-popper" size={24} color="#B7070A" />
                     <Text style={styles.cardTitle}>{item.name}</Text>
                   </View>
                   <View style={styles.cardDetails}>

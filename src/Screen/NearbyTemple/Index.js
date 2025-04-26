@@ -118,7 +118,7 @@ const Index = (props) => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Nearby Temple</Text>
+                        <Text style={styles.headerText}>Nearby Religious Places</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -136,7 +136,7 @@ const Index = (props) => {
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.name}</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>This Temple Is Dedicated To Jangya Nrusingha</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Divine Destinations Around Puri.</Text>
                             {/* <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff', paddingVertical: 3, paddingHorizontal: 10, borderRadius: 10, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
                                 <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#fff" />
                                 <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Listen</Text>
@@ -152,10 +152,10 @@ const Index = (props) => {
                     {/* Title Row */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                         <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Bold', color: '#431373' }}>{nearByTempleData?.name}</Text>
-                        <View style={{}}>
+                        {/* <View style={{}}>
                             <Text style={{ color: '#f43f5e', fontSize: 11, fontFamily: 'FiraSans-SemiBold' }}>360°</Text>
                             <MaterialIcons name="360" size={20} color="#f43f5e" style={{ marginTop: -8 }} />
-                        </View>
+                        </View> */}
                     </View>
 
                     {/* Main Image */}
@@ -183,7 +183,7 @@ const Index = (props) => {
                         </View>
                         <View style={{ width: 1, height: '100%', backgroundColor: '#474747', alignSelf: 'center' }} />
                         <View style={{ width: '48%' }}>
-                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, lineHeight: 20, textAlign: 'center' }}>Distance From Jagannatha Temple {nearByTempleData?.distanceFromJagannathTemple}.</Text>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, lineHeight: 20, textAlign: 'center' }}>Distance From Jagannatha Temple {nearByTempleData?.distance_from_temple}.</Text>
                         </View>
                     </View>
 

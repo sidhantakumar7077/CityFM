@@ -6,7 +6,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { Calendar } from 'react-native-calendars';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
@@ -167,7 +166,7 @@ const Index = () => {
     const [donationModal, setDonationModal] = useState(false);
     const handleOk = () => {
         Linking.openURL('https://www.shreejagannatha.in/donation/');
-        onClose(); // Optional: close modal after redirect
+        setDonationModal(false); // Optional: close modal after redirect
     };
 
     const runningNiti = nitiList.find(item => item.niti_status === 'Started');
@@ -281,7 +280,9 @@ const Index = () => {
                                 <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                             </View>
                             <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => setIsDrawerOpen(true)}>
-                                <SimpleLineIcons name="menu" size={30} color="#fff" />
+                                <View style={{ width: 28, height: 3, backgroundColor: '#ff5733', marginVertical: 3.5 }} />
+                                <View style={{ width: 28, height: 3, backgroundColor: '#ffc300', marginVertical: 3.5 }} />
+                                <View style={{ width: 28, height: 3, backgroundColor: '#fff', marginVertical: 3.5 }} />
                             </TouchableOpacity>
                         </View>
                         <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
@@ -377,7 +378,7 @@ const Index = () => {
                     </ScrollView>
 
                     {/* Ratha Yatra Banner */}
-                    <View style={{ height: 150, marginVertical: 10 }}>
+                    {/* <View style={{ height: 150, marginVertical: 10 }}>
                         <Swiper
                             // autoplay
                             // autoplayTimeout={4}
@@ -395,7 +396,6 @@ const Index = () => {
                                     key={index}
                                     style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
                                 >
-                                    {/* <View key={index} style={{ width: width * 0.93, alignSelf: 'center', backgroundColor: '#341551', padding: 15, borderRadius: 10, height: 130, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}> */}
                                     <View style={{ width: '70%' }}>
                                         <Text style={{ fontSize: 18, color: '#fff', fontFamily: 'FiraSans-Medium' }}>{item.title}</Text>
                                         <Text style={{ fontSize: 14, color: '#fff', fontFamily: 'FiraSans-Regular' }}>{item.subtitle}</Text>
@@ -406,11 +406,10 @@ const Index = () => {
                                     <View style={{ width: '30%', alignItems: 'flex-end' }}>
                                         <Image source={item.image} style={{ width: 110, height: 100 }} resizeMode="contain" />
                                     </View>
-                                    {/* </View> */}
                                 </LinearGradient>
                             ))}
                         </Swiper>
-                    </View>
+                    </View> */}
 
                     {/* Live Broadcast Section */}
                     {/* <View style={styles.liveCard}>
@@ -460,8 +459,7 @@ const Index = () => {
                     {/* Quick Services Section */}
                     <View style={{ padding: 15 }}>
                         {/* Title Section */}
-                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Quick Services</Text>
-                        {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
+                        {/* <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Quick Services</Text>
                         <LinearGradient
                             colors={['#FFA726', '#F06292']}
                             start={{ x: 0, y: 0 }}
@@ -469,9 +467,9 @@ const Index = () => {
                             style={{
                                 width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
                             }}
-                        />
+                        /> */}
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 18 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                     {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}

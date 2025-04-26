@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, RefreshControl, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
 
@@ -115,7 +114,7 @@ const Index = () => {
             scrollEnabled={false}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => openMap(item.map_url)}
+                onPress={() => openMap(item.google_map_link)}
                 style={{
                   width: '100%',
                   height: 120,

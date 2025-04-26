@@ -795,9 +795,9 @@ const Index = () => {
             <View style={{ width: '75%' }}>
               <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Festival Timing</Text>
               <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Know The Bhoga Being Offered To Mahaprabhu & Mahaprasad Availability at Ananda Bazar</Text>
-              <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
+              {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Set Alert →</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View style={{ width: '22%', alignItems: 'center', marginTop: 40 }}>
               <Image source={require('../../assets/image/festival21.png')} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
@@ -816,21 +816,34 @@ const Index = () => {
             data={upcomingFestivals}
             scrollEnabled={false}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.festivalCard}>
-                <LinearGradient colors={['#d6beed', '#fff']} style={styles.gradientCard}>
-                  <View style={styles.cardHeader}>
-                    <Text style={styles.cardTitle}>{item.name}</Text>
+            renderItem={({ item, index }) => {
+              const isEven = index % 2 === 0;
+              const CardWrapper = isEven ? LinearGradient : View;
+              const cardProps = isEven
+                ? {
+                  colors: ['#F06292', '#FFA726'],
+                  start: { x: 0, y: 0 },
+                  end: { x: 1, y: 0 },
+                  style: styles.festivalCard,
+                }
+                : { style: styles.festivalCard };
+
+              return (
+                <CardWrapper {...cardProps}>
+                  <View style={styles.innerCard}>
+                    <View style={styles.cardHeader}>
+                      <Text style={[styles.cardTitle, { color: isEven ? "#fff" : "#000" }]}>{item.name}</Text>
+                    </View>
+                    <View style={styles.cardDetails}>
+                      <MaterialIcons name="event" size={18} color={isEven ? "#fff" : "#000"} />
+                      <Text style={[styles.cardDate, { color: isEven ? "#fff" : "#000" }]}>
+                        {moment(item.date, 'DD/MM/YYYY').format('DD MMM YYYY')} ({item.day})
+                      </Text>
+                    </View>
                   </View>
-                  <View style={styles.cardDetails}>
-                    <MaterialIcons name="event" size={18} color="#555" />
-                    <Text style={styles.cardDate}>
-                      {moment(item.date, 'DD/MM/YYYY').format('DD MMM YYYY')} ({item.day})
-                    </Text>
-                  </View>
-                </LinearGradient>
-              </View>
-            )}
+                </CardWrapper>
+              );
+            }}
           />
         )}
       </ScrollView>
@@ -883,41 +896,46 @@ const styles = StyleSheet.create({
   // Main content styles
   festivalCard: {
     marginHorizontal: 16,
-    marginVertical: 10,
+    marginVertical: 8,
     borderRadius: 12,
-    overflow: 'hidden',
-    elevation: 4,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 6,
+    shadowOpacity: 0.06,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 8,
+    elevation: 3,
+    overflow: 'hidden', // important for gradient and border radius!
   },
-  gradientCard: {
-    padding: 16,
+
+  innerCard: {
+    padding: 20,
     borderRadius: 12,
+    backgroundColor: 'transparent', // so gradient shows if it's even item
   },
+
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
   },
+
   cardTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
-    marginLeft: 8,
-    color: '#341551',
-    fontFamily: 'FiraSans-Regular',
+    color: '#ffffff', // white for better contrast on gradient
+    fontFamily: 'FiraSans-Medium',
   },
+
   cardDetails: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 5,
+    marginTop: 8,
   },
+
   cardDate: {
     fontSize: 15,
-    color: '#555',
-    marginLeft: 6,
+    color: '#eeeeee', // lighter text on gradient
+    marginLeft: 8,
     fontFamily: 'FiraSans-Regular',
   },
 })

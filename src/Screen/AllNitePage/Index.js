@@ -172,9 +172,10 @@ const Index = () => {
                                         );
                                     }
                                     return (
-                                        <TouchableOpacity onPress={handleAlram}>
-                                            <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
-                                        </TouchableOpacity>
+                                        null
+                                        // <TouchableOpacity onPress={handleAlram}>
+                                        //     <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                        // </TouchableOpacity>
                                     );
                                 };
 

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Modal, TouchableWithoutFeedback, TouchableOpacity, Alert, Image, Pressable, TextInput, ToastAndroid } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 const DrawerModal = ({ visible, onClose }) => {
 
@@ -33,11 +33,13 @@ const DrawerModal = ({ visible, onClose }) => {
                             </View>
                             <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('Privacy_policy'), onClose() }}>
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
-                                    <AntDesign name="notification" size={24} color="#341551" />
+                                    <FontAwesome5 name="user-lock" size={22} color="#341551" />
                                 </View>
                                 <Text style={styles.drawerLable}>Privacy & Policy</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.drawerCell, { marginTop: 0.5 }]}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.drawerCell, { marginTop: 0 }]}>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.drawerCell, { marginTop: 0 }]}>
                             </TouchableOpacity>

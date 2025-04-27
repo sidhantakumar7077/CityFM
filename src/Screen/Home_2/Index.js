@@ -33,32 +33,32 @@ const Index = () => {
     ];
 
     const conveniences = [
-        { id: '1', label: 'Special Abled Person', page: '', image: require('../../assets/image/physical21.png') },
-        { id: '2', label: 'Emergency Contact', page: '', image: require('../../assets/image/emergencyontact.png') },
-        { id: '3', label: 'Life Guard    Contacts', page: 'LifeGuardBooth', image: require('../../assets/image/life432.png') },
-        { id: '4', label: 'Lost & Found', page: '', image: require('../../assets/image/lost&found21.png') },
-        { id: '5', label: 'Drinking Water', page: 'DrinkingWater', image: require('../../assets/image/drinkingWater32.png') },
-        { id: '6', label: 'Toilet', page: 'Toilet', image: require('../../assets/image/toilet543.png') },
-        // { id: '7', label: 'Hotel', page: 'Hotel', image: require('../../assets/image/hotel89.png') },
-        // { id: '8', label: 'Restaurant', page: 'Restaurant', image: require('../../assets/image/restaurant87.png') },
-        { id: '9', label: 'Beaches', page: 'Beaches', image: require('../../assets/image/beaches21.png') },
-        // { id: '10', label: 'Dharmashala', page: 'Dharmashala', image: require('../../assets/image/dharamasala67.png') },
-        { id: '11', label: 'ATM', page: 'Atm', image: require('../../assets/image/atm.png') },
-        { id: '12', label: 'Route Map', page: '', image: require('../../assets/image/routeMap.png') },
-        { id: '13', label: 'Petrol Pump', page: 'PetrolPump', image: require('../../assets/image/petrolPump21.png') },
-        { id: '14', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop', image: require('../../assets/image/busRaily.png') },
-        { id: '15', label: 'Charging Station', page: 'ChargingStation', image: require('../../assets/image/charghingstation89.png') },
+        { id: '1', odiaLabel: 'ବିଶେଷ ସକ୍ଷମ ବ୍ୟକ୍ତି', label: 'Special Abled Person', page: '', image: require('../../assets/image/physical21.png') },
+        { id: '2', odiaLabel: 'ଜରୁରୀକାଳୀନ ଯୋଗାଯୋଗ', label: 'Emergency Contact', page: '', image: require('../../assets/image/emergencyontact.png') },
+        { id: '3', odiaLabel: 'ଲାଇଫ ଗାର୍ଡଙ୍କ ଯୋଗାଯୋଗ', label: 'Life Guard    Contacts', page: 'LifeGuardBooth', image: require('../../assets/image/life432.png') },
+        { id: '4', odiaLabel: 'ହଜିବା ଓ ଖୋଜିବା କେନ୍ଦ୍ର', label: 'Lost & Found', page: '', image: require('../../assets/image/lost&found21.png') },
+        { id: '5', odiaLabel: 'ପାନୀୟ ଜଳ', label: 'Drinking Water', page: 'DrinkingWater', image: require('../../assets/image/drinkingWater32.png') },
+        { id: '6', odiaLabel: 'ଶୌଚାଳୟ', label: 'Toilet', page: 'Toilet', image: require('../../assets/image/toilet543.png') },
+        // { id: '7', odiaLabel: '', label: 'Hotel', page: 'Hotel', image: require('../../assets/image/hotel89.png') },
+        // { id: '8', odiaLabel: '', label: 'Restaurant', page: 'Restaurant', image: require('../../assets/image/restaurant87.png') },
+        { id: '9', odiaLabel: 'ବେଳାଭୂମି', label: 'Beaches', page: 'Beaches', image: require('../../assets/image/beaches21.png') },
+        // { id: '10', odiaLabel: '', label: 'Dharmashala', page: 'Dharmashala', image: require('../../assets/image/dharamasala67.png') },
+        { id: '11', odiaLabel: 'ଏଟିଏମ୍', label: 'ATM', page: 'Atm', image: require('../../assets/image/atm.png') },
+        { id: '12', odiaLabel: 'ଯାତାୟାତ ମାର୍ଗ', label: 'Route Map', page: '', image: require('../../assets/image/routeMap.png') },
+        { id: '13', odiaLabel: 'ପେଟ୍ରୋଲ ପମ୍ପ', label: 'Petrol Pump', page: 'PetrolPump', image: require('../../assets/image/petrolPump21.png') },
+        { id: '14', odiaLabel: 'ବସ୍ ଷ୍ଟାଣ୍ଡ/ରେଳ ଷ୍ଟେସନ୍', label: 'Bus Stand/Railway Station', page: 'BusRailwayStop', image: require('../../assets/image/busRaily.png') },
+        { id: '15', odiaLabel: 'ଚାର୍ଜିଂ ଷ୍ଟେସନ୍', label: 'Charging Station', page: 'ChargingStation', image: require('../../assets/image/charghingstation89.png') },
     ];
 
     const emergencyContacts = [
-        { name: 'Police', phone: '100' },
-        { name: 'Ambulance', phone: '108' },
-        { name: 'Fire Service', phone: '101' },
-        { name: 'Elder Person Helpline', phone: '1090' },
-        { name: 'Child Helpline', phone: '1098' },
-        { name: 'Women Helpline', phone: '1091' },
-        { name: 'Life Guard', phone: '8260777771' },
-        { name: 'National Highway Helpline', phone: '1033' },
+        { name: 'Police', odiaName: 'ପୋଲିସ', phone: '100' },
+        { name: 'Ambulance', odiaName: 'ଆମ୍ବୁଲାନ୍ସ', phone: '108' },
+        { name: 'Fire Service', odiaName: 'ଅଗ୍ନିଶମ ସେବା', phone: '101' },
+        { name: 'Elder Person Helpline', odiaName: 'ବୟସ୍କ ବ୍ୟକ୍ତିଙ୍କ ପାଇଁ ହେଲ୍ପଲାଇନ୍', phone: '1090' },
+        { name: 'Child Helpline', odiaName: 'ଶିଶୁଙ୍କ ପାଇଁ ହେଲ୍ପଲାଇନ୍', phone: '1098' },
+        { name: 'Women Helpline', odiaName: 'ମହିଳାଙ୍କ ହେଲ୍ପଲାଇନ୍', phone: '1091' },
+        { name: 'Life Guard', odiaName: 'ଲାଇଫ ଗାର୍ଡ', phone: '8260777771' },
+        { name: 'National Highway Helpline', odiaName: 'ଜାତୀୟ ରାଜପଥ ହେଲ୍ପଲାଇନ୍', phone: '1033' },
     ];
 
     const [emergencyModalVisible, setEmergencyModalVisible] = useState(false);
@@ -72,6 +72,18 @@ const Index = () => {
     const [selectedTab, setSelectedTab] = useState("temple");
     const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedLanguage, setSelectedLanguage] = useState('');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
 
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -80,6 +92,8 @@ const Index = () => {
             setRefreshing(false);
             console.log("Refreshing Successful");
             getData();
+            getHundi();
+            loadLanguage();
         }, 2000);
     }, []);
 
@@ -97,6 +111,7 @@ const Index = () => {
     const closeDrawer = () => { setIsDrawerOpen(false); };
 
     const [physicalHanducapModalVisible, setPhysicalHanducapModalVisible] = useState(false);
+    const [lostAndFoundModalVisible, setLostAndFoundModalVisible] = useState(false);
 
     const getHundi = async () => {
         try {
@@ -193,8 +208,9 @@ const Index = () => {
         if (isFocused) {
             getData();
             getHundi();
+            loadLanguage();
         }
-    }, [isFocused]);
+    }, [isFocused, selectedLanguage]);
 
     useEffect(() => {
         if (selectedTab === 'temple') {
@@ -259,7 +275,7 @@ const Index = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <DrawerModal visible={isDrawerOpen} navigation={navigation} onClose={closeDrawer} />
+            <DrawerModal visible={isDrawerOpen} navigation={navigation} onClose={closeDrawer} loadLanguageForHomePage={loadLanguage} />
             {isLoading ? (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ActivityIndicator size="large" color="#fa0000" />
@@ -285,13 +301,23 @@ const Index = () => {
                                 <View style={{ width: 28, height: 3, backgroundColor: '#fff', marginVertical: 3.5 }} />
                             </TouchableOpacity>
                         </View>
-                        <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
-                            <View style={{ textAlign: 'center', marginLeft: 8 }}>
-                                <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
-                                <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
-                                <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
+                        {selectedLanguage === 'Odia' ?
+                            <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
+                                <View style={{ textAlign: 'center', marginLeft: 8 }}>
+                                    <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>ଜୟ ଜଗନ୍ନାଥ</Text>
+                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -5 }}>ଶ୍ରୀଜଗନ୍ନାଥ ଧାମକୁ</Text>
+                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -5 }}>ସ୍ଵାଗତ</Text>
+                                </View>
                             </View>
-                        </View>
+                            :
+                            <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
+                                <View style={{ textAlign: 'center', marginLeft: 8 }}>
+                                    <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
+                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
+                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
+                                </View>
+                            </View>
+                        }
                     </ImageBackground>
 
                     {/* Current Niti Box */}
@@ -314,7 +340,11 @@ const Index = () => {
                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                                     <Ionicons name="calendar-outline" size={16} color="#fa0000" />
-                                                    <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>Start Time: {moment(runningNiti.start_time, "HH:mm:ss").format("hh:mm A")}</Text>
+                                                    {selectedLanguage === 'Odia' ?
+                                                        <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>ଆରମ୍ଭ ସମୟ: {moment(runningNiti.start_time, "HH:mm:ss").format("hh:mm A")}</Text>
+                                                        :
+                                                        <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>Start Time: {moment(runningNiti.start_time, "HH:mm:ss").format("hh:mm A")}</Text>
+                                                    }
                                                 </View>
                                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
                                                     <Ionicons name="time-outline" size={16} color="#fa0000" />
@@ -334,7 +364,11 @@ const Index = () => {
                                         </View>
                                     </View>
                                     <View style={{ backgroundColor: 'green', width: 80, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 10, position: 'absolute', top: 10, right: 20 }}>
-                                        <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>Running</Text>
+                                        {selectedLanguage === 'Odia' ?
+                                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>ଚାଲୁଅଛି</Text>
+                                            :
+                                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>Running</Text>
+                                        }
                                     </View>
                                 </View>
                             )}
@@ -349,9 +383,12 @@ const Index = () => {
                                                     <Ionicons name="calendar-outline" size={16} color="#fa0000" />
                                                     <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>{moment(new Date).format("DD MMM YYYY")}</Text>
                                                 </View>
-                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20 }}>
-                                                    <Ionicons name="time-outline" size={16} color="#fa0000" />
-                                                    <Text style={{ color: '#979998', fontFamily: 'FiraSans-Medium', marginLeft: 5 }}>{moment(nextNiti.date_time).format("hh:mm A")}</Text>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5, marginLeft: 20, backgroundColor: '#341551', borderRadius: 10, padding: 2, paddingHorizontal: 5 }}>
+                                                    {selectedLanguage === 'Odia' ?
+                                                        <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 13 }}>ଆରମ୍ଭ ହୋଇନାହିଁ</Text>
+                                                        :
+                                                        <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 13 }}>Not started</Text>
+                                                    }
                                                 </View>
                                             </View>
                                         </View>
@@ -360,14 +397,22 @@ const Index = () => {
                                         </View>
                                     </View>
                                     <View style={{ backgroundColor: 'red', width: 80, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: 10, position: 'absolute', top: 10, right: 20 }}>
-                                        <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>Upcoming</Text>
+                                        {selectedLanguage === 'Odia' ?
+                                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>ଆଗାମୀ</Text>
+                                            :
+                                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Medium', fontSize: 12 }}>Upcoming</Text>
+                                        }
                                     </View>
                                 </View>
                             )}
                             <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 200, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <View style={{ width: '90%' }}>
-                                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>View All Niti</Text>
+                                        {selectedLanguage === 'Odia' ?
+                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>ସମ୍ପୂର୍ଣ ନୀତିକାନ୍ତି</Text>
+                                            :
+                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>View All Niti</Text>
+                                        }
                                     </View>
                                     <View style={{ width: '10%' }}>
                                         <Ionicons name="chevron-forward" size={24} color="#fa0000" />
@@ -475,37 +520,61 @@ const Index = () => {
                                     {/* <MaterialCommunityIcons name={'calendar-check'} size={33} color="white" /> */}
                                     <Image source={require('../../assets/image/darshan34.png')} style={{ width: 45, height: 45 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ଦର୍ଶନ</Text>
+                                    :
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Darshan</Text>
+                                }
                             </View>
                             <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                     {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
                                     <Image source={require('../../assets/image/prasad879.png')} style={{ width: 55, height: 55 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ମହାପ୍ରସାଦ</Text>
+                                    :
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
+                                }
                             </View>
                             <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                     {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
                                     <Image source={require('../../assets/image/panji765.png')} style={{ width: 35, height: 35 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ପଞ୍ଜିକା</Text>
+                                    :
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
+                                }
                             </View>
                             <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Festival')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                     <Image source={require('../../assets/image/festival21.png')} style={{ width: 60, height: 60 }} />
                                 </TouchableOpacity>
-                                <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ପର୍ବପର୍ବାଣୀ</Text>
+                                    :
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
+                                }
                             </View>
                         </View>
 
                         <View style={{ marginTop: 10, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
                                 <View style={{ width: '20%' }}>
-                                    <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
+                                    {selectedLanguage === 'Odia' ?
+                                        <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>ଭକ୍ତ ନିବାସ</Text>
+                                        :
+                                        <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
+                                    }
                                 </View>
                                 <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>Temple owned properties for pligrims to stay Comfortably</Text>
+                                    {selectedLanguage === 'Odia' ?
+                                        <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>ତୀର୍ଥଯାତ୍ରୀମାନଙ୍କ ପାଇଁ ମନ୍ଦିର ପାଖରେ ରହିବା ସ୍ଥାନ</Text>
+                                        :
+                                        <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>Temple owned properties for pligrims to stay Comfortably</Text>
+                                    }
                                 </View>
                                 <View style={{ width: '20%', alignItems: 'flex-end' }}>
                                     <Image source={require('../../assets/image/bhaktanibash54.png')} style={{ width: 50, height: 50 }} />
@@ -516,8 +585,8 @@ const Index = () => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('ParkingPage')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                                 <View style={{ width: '60%', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Parking</Text>
-                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>2, 3, 4 Wheelers</Text>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{selectedLanguage === 'Odia' ? 'ପାର୍କିଂ' : 'Parking'}</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>{selectedLanguage === 'Odia' ? '୨, ୩, ୪ ଚକିଆ' : '2, 3, 4 Wheelers'}</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
                                     {/* <FontAwesome5 name="parking" size={30} color="#D64C64" /> */}
@@ -527,8 +596,8 @@ const Index = () => {
 
                             <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                                 <View style={{ width: '60%', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Locker & Shoes Stand</Text>
-                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Free services</Text>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{selectedLanguage === 'Odia' ? 'ଜୋତା ଷ୍ଟାଣ୍ଡ' : 'Locker & Shoes Stand'}</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>{selectedLanguage === 'Odia' ? 'ନିଃଶୁଳ୍କ  ସେବା' : 'Free services'}</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
                                     <Image source={require('../../assets/image/locker675.png')} style={{ width: 40, height: 40, resizeMode: 'contain' }} />
@@ -539,8 +608,8 @@ const Index = () => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <TouchableOpacity onPress={() => setDonationModal(true)} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                                 <View style={{ width: '60%', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Online Donation</Text>
-                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Donate Now</Text>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{selectedLanguage === 'Odia' ? 'ଅନଲାଇନ୍ ଦାନ' : 'Online Donation'}</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>{selectedLanguage === 'Odia' ? 'ଦାନ କରନ୍ତୁ' : 'Donate Now'}</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
                                     <Image source={require('../../assets/image/donation435.png')} style={{ width: 33, height: 33 }} />
@@ -549,8 +618,8 @@ const Index = () => {
 
                             <TouchableOpacity onPress={() => setShowHundi(true)} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                                 <View style={{ width: '60%', alignItems: 'flex-start' }}>
-                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>Hundi Collection</Text>
-                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>Check Now</Text>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{selectedLanguage === 'Odia' ? 'ହୁଣ୍ଡି ସଂଗ୍ରହ' : 'Hundi Collection'}</Text>
+                                    <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>{selectedLanguage === 'Odia' ? 'ଏବେ ଦେଖନ୍ତୁ' : 'Check Now'}</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
                                     {/* <FontAwesome5 name="rupee-sign" size={27} color="#D64C64" /> */}
@@ -563,7 +632,11 @@ const Index = () => {
                     {/* Nearby Temples */}
                     <View style={styles.nearbyContainer}>
                         {/* Title Section */}
-                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Nearby Religious Places</Text>
+                        {selectedLanguage === 'Odia' ?
+                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>ନିକଟସ୍ଥ ଧାର୍ମିକ ସ୍ଥଳ</Text>
+                            :
+                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Nearby Religious Places</Text>
+                        }
                         {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4 }} /> */}
                         <LinearGradient
                             colors={['#FFA726', '#F06292']}
@@ -596,7 +669,7 @@ const Index = () => {
                                     }}
                                 >
                                     <Text style={{ color: selectedTab === 'temple' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                        Temples
+                                        {selectedLanguage === 'Odia' ? 'ମନ୍ଦିର' : 'Temples'}
                                     </Text>
                                 </TouchableOpacity>
                             </LinearGradient>
@@ -648,7 +721,7 @@ const Index = () => {
                                     }}
                                 >
                                     <Text style={{ color: selectedTab === 'ritual_site' ? '#fff' : '#000', fontFamily: 'FiraSans-Regular' }}>
-                                        Ritual Sites
+                                        {selectedLanguage === 'Odia' ? 'ନୀତିକାନ୍ତି ସ୍ଥଳ' : 'Ritual Sites'}
                                     </Text>
                                 </TouchableOpacity>
                             </LinearGradient>
@@ -677,7 +750,7 @@ const Index = () => {
                     {/* conveniences */}
                     <View style={{ padding: 15 }}>
                         {/* Title */}
-                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Conveniences</Text>
+                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>{selectedLanguage === 'Odia' ? 'ଯାତ୍ରୀମାନଙ୍କ ଆବଶ୍ୟକତା' : 'Conveniences'}</Text>
                         {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} /> */}
                         <LinearGradient
                             colors={['#FFA726', '#F06292']}
@@ -699,6 +772,10 @@ const Index = () => {
                                             setEmergencyModalVisible(true);
                                         } else if (item.label === 'Special Abled Person') {
                                             setPhysicalHanducapModalVisible(true);
+                                        } else if (item.label === 'Route Map') {
+                                            Linking.openURL('https://maps.app.goo.gl/MQEvQykPJo64ghgQA');
+                                        } else if (item.label === 'Lost & Found') {
+                                            setLostAndFoundModalVisible(true);
                                         }
                                     }}
                                     style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}
@@ -707,7 +784,7 @@ const Index = () => {
                                         {/* <item.iconType name={item.icon} size={24} color="#D64C64" /> */}
                                         <Image source={item.image} style={{ width: item.page === 'DrinkingWater' ? 40 : 55, height: item.page === 'DrinkingWater' ? 40 : 55 }} resizeMode="contain" />
                                     </View>
-                                    <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{item.label}</Text>
+                                    <Text style={{ fontSize: 12, color: '#4F4F4F', textAlign: 'center', fontWeight: '500' }}>{selectedLanguage === 'Odia' ? item.odiaLabel : item.label}</Text>
                                 </TouchableOpacity>
 
                             ))}
@@ -730,12 +807,12 @@ const Index = () => {
                         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 16, paddingVertical: 25, paddingHorizontal: 20, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10, elevation: 10, alignItems: 'center' }}>
                                 <MaterialIcons name="local-phone" size={40} color="#D64C64" style={{ marginBottom: 10 }} />
-                                <Text style={{ fontSize: 20, fontWeight: '700', color: '#341551', marginBottom: 15 }}>Emergency Contacts</Text>
+                                <Text style={{ fontSize: 20, fontWeight: '700', color: '#341551', marginBottom: 15 }}>{selectedLanguage === 'Odia' ? 'ଜରୁରୀକାଳୀନ ଯୋଗାଯୋଗ' : 'Emergency Contacts'}</Text>
 
                                 {emergencyContacts.map((contact, index) => (
                                     <TouchableOpacity key={index} onPress={() => handleCall(contact.phone)} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingVertical: 12, borderBottomWidth: index !== emergencyContacts.length - 1 ? 1 : 0, borderBottomColor: '#eee' }}>
                                         <View>
-                                            <Text style={{ fontSize: 16, fontWeight: '500', color: '#333' }}>{contact.name}</Text>
+                                            <Text style={{ fontSize: 16, fontWeight: '500', color: '#333' }}>{selectedLanguage === 'Odia' ? contact.odiaName : contact.name}</Text>
                                             <Text style={{ fontSize: 14, color: '#999' }}>{contact.phone}</Text>
                                         </View>
                                         <MaterialIcons name="call" size={24} color="#D64C64" />
@@ -791,28 +868,50 @@ const Index = () => {
                                         textAlign: 'center',
                                         marginTop: 10
                                     }}>
-                                        Physical Handicapped & Sr Citizen
+                                        {selectedLanguage === 'Odia' ? 'ବିଶେଷ ସକ୍ଷମ ଓ ବରିଷ୍ଠ ନାଗରିକ' : 'Special Abled Person'}
                                     </Text>
                                 </View>
 
-                                <Text style={{
-                                    fontSize: 16,
-                                    color: '#444',
-                                    textAlign: 'justify',
-                                    lineHeight: 24
-                                }}>
-                                    Free service of battery operated vehicles is available from <Text style={{ fontWeight: '600' }}>Jagannatha Ballav Parking place (Market square)</Text> to the <Text style={{ fontWeight: '600' }}>Temple main gate / North gate</Text> for carrying senior citizens and physically challenged people.
-                                </Text>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#444',
+                                        textAlign: 'justify',
+                                        lineHeight: 24
+                                    }}>
+                                        ବରିଷ୍ଠ ନାଗରିକ ଏବଂ ଶାରୀରିକ ଅକ୍ଷମ ଲୋକଙ୍କୁ ପରିବହନ ପାଇଁ ଜଗନ୍ନାଥ ବଲ୍ଲଭ ପାର୍କିଂ ସ୍ଥାନ (ମାର୍କେଟ୍ ଛକ) ରୁ ମନ୍ଦିର ମୁଖ୍ୟ ଦ୍ୱାର / ଉତ୍ତର ଦ୍ୱାର ପର୍ଯ୍ୟନ୍ତ ମାଗଣା ବ୍ୟାଟେରୀ ଚାଳିତ ଯାନବାହାନ ସେବା ଉପଲବ୍ଧ ।
+                                    </Text>
+                                    :
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#444',
+                                        textAlign: 'justify',
+                                        lineHeight: 24
+                                    }}>
+                                        Free service of battery operated vehicles is available from <Text style={{ fontWeight: '600' }}>Jagannatha Ballav Parking place (Market square)</Text> to the <Text style={{ fontWeight: '600' }}>Temple main gate / North gate</Text> for carrying senior citizens and Special Abled Person.
+                                    </Text>
+                                }
 
-                                <Text style={{
-                                    fontSize: 16,
-                                    color: '#444',
-                                    textAlign: 'justify',
-                                    marginTop: 15,
-                                    lineHeight: 24
-                                }}>
-                                    Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text> at <Text style={{ fontWeight: '600', color: '#D64C64' }}>06752 – 252527</Text> (wheelchairs are only for differently abled devotees).
-                                </Text>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#444',
+                                        textAlign: 'justify',
+                                        lineHeight: 24
+                                    }}>
+                                        ଉତ୍ତର ଦ୍ୱାରରେ ହୁଇଲ ଚେୟାର ଏବଂ ରାମ୍ପ ସୁବିଧା ଉପଲବ୍ଧ ଏବଂ ହୁଇଲ ଚେୟାର ପାଇବା ପାଇଁ, ମନ୍ଦିର ପର୍ଯ୍ୟବେକ୍ଷକ / ସହାୟକ ପର୍ଯ୍ୟବେକ୍ଷକଙ୍କ ସହିତ 06752 – 252527 ରେ ଯୋଗାଯୋଗ କରିପାରିବେ (ହୁଇଲ ଚେୟାର କେବଳ ଭିନ୍ନକ୍ଷମ ଭକ୍ତଙ୍କ ପାଇଁ ଉପଲବ୍ଧ)।
+                                    </Text>
+                                    :
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#444',
+                                        textAlign: 'justify',
+                                        marginTop: 15,
+                                        lineHeight: 24
+                                    }}>
+                                        Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text> at <Text style={{ fontWeight: '600', color: '#D64C64' }}>06752 – 252527</Text> (wheelchairs are only for differently abled devotees).
+                                    </Text>
+                                }
 
                                 <LinearGradient
                                     colors={['#FFA726', '#F06292']}
@@ -821,6 +920,80 @@ const Index = () => {
                                     style={{ marginTop: 30, backgroundColor: '#D64C64', borderRadius: 30, alignSelf: 'center' }}
                                 >
                                     <TouchableOpacity onPress={() => setPhysicalHanducapModalVisible(false)} style={{ paddingVertical: 12, paddingHorizontal: 30 }}>
+                                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
+                                    </TouchableOpacity>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    {/* Lost & Found */}
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={lostAndFoundModalVisible}
+                        onRequestClose={() => setLostAndFoundModalVisible(false)}
+                    >
+                        <View style={{
+                            flex: 1,
+                            backgroundColor: 'rgba(0,0,0,0.5)',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: 20
+                        }}>
+                            <View style={{
+                                width: '100%',
+                                backgroundColor: '#fff',
+                                borderRadius: 20,
+                                paddingVertical: 30,
+                                paddingHorizontal: 25,
+                                shadowColor: '#000',
+                                shadowOffset: { width: 0, height: 6 },
+                                shadowOpacity: 0.3,
+                                shadowRadius: 10,
+                                elevation: 20
+                            }}>
+                                <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                                    <Image source={require('../../assets/image/lost&found21.png')} style={{ width: 70, height: 70 }} resizeMode="contain" />
+                                    <Text style={{
+                                        fontSize: 22,
+                                        fontWeight: 'bold',
+                                        color: '#341551',
+                                        textAlign: 'center',
+                                        marginTop: 10
+                                    }}>
+                                        {selectedLanguage === 'Odia' ? 'ହଜିବା ଓ ଖୋଜିବା କେନ୍ଦ୍ର' : 'Lost & Found'}
+                                    </Text>
+                                </View>
+
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#444',
+                                        textAlign: 'justify',
+                                        lineHeight: 24
+                                    }}>
+                                        ଦୟାକରି ପୁରୀର ଶ୍ରୀ ମନ୍ଦିରରେ ଥିବା ସିଂହଦ୍ୱାର ସୂଚନା କେନ୍ଦ୍ର ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।{'\n\n'}
+                                        <Text style={{ fontWeight: '600', color: '#D64C64' }}>ଫୋନ୍ : +୯୧-୬୭୫୨-୨୨୨୦୦୨</Text>
+                                    </Text>
+                                    :
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#444',
+                                        textAlign: 'justify',
+                                        lineHeight: 24
+                                    }}>
+                                        Please contact Information Center at Lion's Gate, Shree Mandira, Puri.{'\n\n'}
+                                        <Text style={{ fontWeight: '600', color: '#D64C64' }}>Phone : +91-6752-222002</Text>
+                                    </Text>
+                                }
+                                <LinearGradient
+                                    colors={['#FFA726', '#F06292']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={{ marginTop: 30, backgroundColor: '#D64C64', borderRadius: 30, alignSelf: 'center' }}
+                                >
+                                    <TouchableOpacity onPress={() => setLostAndFoundModalVisible(false)} style={{ paddingVertical: 12, paddingHorizontal: 30 }}>
                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
                                     </TouchableOpacity>
                                 </LinearGradient>
@@ -925,7 +1098,7 @@ const Index = () => {
 
                     {/* Temples Worldwide */}
                     <View style={{ padding: 15 }}>
-                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Jagannatha Temples Worldwide</Text>
+                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>{selectedLanguage === 'Odia' ? 'ବିଶ୍ୱବ୍ୟାପୀ ଜଗନ୍ନାଥ ମନ୍ଦିର' : 'Jagannatha Temples Worldwide'}</Text>
                         <LinearGradient
                             colors={['#FFA726', '#F06292']}
                             start={{ x: 0, y: 0 }}
@@ -936,7 +1109,7 @@ const Index = () => {
                         />
                         <View style={{ width: 270, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 20 }}>
                             <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                {['World Wide', 'India', 'Odisha'].map((location) => (
+                                {[selectedLanguage === 'Odia' ? 'ବିଶ୍ୱବ୍ୟାପୀ' : 'World Wide', selectedLanguage === 'Odia' ? 'ଭାରତ' : 'India', selectedLanguage === 'Odia' ? 'ଓଡିଶା' : 'Odisha'].map((location) => (
                                     <LinearGradient
                                         key={location}
                                         colors={active === location ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
@@ -965,17 +1138,17 @@ const Index = () => {
                                 ))}
                             </View>
                         </View>
-                        {active === 'World Wide' && (
+                        {active === (selectedLanguage === 'Odia' ? 'ବିଶ୍ୱବ୍ୟାପୀ' : 'World Wide') && (
                             <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
                                 <Image source={require('../../assets/image/world1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
                             </TouchableOpacity>
                         )}
-                        {active === 'India' && (
+                        {active === (selectedLanguage === 'Odia' ? 'ଭାରତ' : 'India') && (
                             <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
                                 <Image source={require('../../assets/image/india1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
                             </TouchableOpacity>
                         )}
-                        {active === 'Odisha' && (
+                        {active === (selectedLanguage === 'Odia' ? 'ଓଡିଶା' : 'Odisha') && (
                             <TouchableOpacity onPress={() => navigation.navigate('TempleWorldWide')}>
                                 <Image source={require('../../assets/image/odisha1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
                             </TouchableOpacity>
@@ -1068,7 +1241,7 @@ const Index = () => {
                             marginBottom: 10,
                         }}>
                             <Text style={{ fontSize: 18, fontWeight: '700', color: '#B7070A' }}>
-                                🪙  Hundi Collection
+                                🪙  {selectedLanguage === 'Odia' ? 'ହୁଣ୍ଡି ସଂଗ୍ରହ' : 'Hundi Collection'}
                             </Text>
                             <TouchableOpacity onPress={() => setShowHundi(false)}>
                                 <Ionicons name="close-circle" size={26} color="#B7070A" />
@@ -1092,7 +1265,7 @@ const Index = () => {
                             marginBottom: 12,
                         }}>
                             <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
-                                💰 Rupees:
+                                💰 {selectedLanguage === 'Odia' ? 'ମୁଦ୍ରା:' : 'Rupees:'}:
                             </Text>
                             <Text style={{ fontSize: 16, color: '#444' }}>
                                 ₹ {hundi?.rupees || 0}
@@ -1106,7 +1279,7 @@ const Index = () => {
                             marginBottom: 12,
                         }}>
                             <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
-                                🥇 Gold:
+                                🥇 {selectedLanguage === 'Odia' ? 'ସୁନା' : 'Gold'}:
                             </Text>
                             <Text style={{ fontSize: 16, color: '#444' }}>
                                 {hundi?.gold || '0 grams'}
@@ -1120,7 +1293,7 @@ const Index = () => {
                             marginBottom: 12,
                         }}>
                             <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
-                                🥈 Silver:
+                                🥈 {selectedLanguage === 'Odia' ? 'ରୂପା' : 'Silver'}:
                             </Text>
                             <Text style={{ fontSize: 16, color: '#444' }}>
                                 {hundi?.silver || '0 grams'}
@@ -1166,25 +1339,74 @@ const Index = () => {
                                 fontWeight: '700',
                                 color: '#B7070A'
                             }}>
-                                Alert
+                                🏦  {selectedLanguage === 'Odia' ? 'ଦାନ କରନ୍ତୁ' : 'Donation'}
                             </Text>
                             <TouchableOpacity onPress={() => setDonationModal(false)}>
                                 <Ionicons name="close-circle-outline" size={28} color="#B7070A" />
                             </TouchableOpacity>
                         </View>
 
+                        {selectedLanguage === 'Odia' ?
+                            <Text style={{
+                                fontSize: 16,
+                                color: '#444',
+                                marginBottom: 20,
+                                lineHeight: 24,
+                                paddingHorizontal: 10
+                            }}>
+                                ଆପଣ ଶ୍ରୀ ଜଗନ୍ନାଥ ମନ୍ଦିରର ସରକାରୀ ୱେବସାଇଟ୍ ମାଧ୍ୟମରେ ଅନଲାଇନରେ ଦାନ କରିପାରିବେ।{"\n\n"}
+
+                                <Text style={{ fontWeight: '700' }}>ଦାନ ବିଷୟରେ ଅଧିକ ସୂଚନା ପାଇଁ, ଦୟାକରି ଯୋଗାଯୋଗ କରନ୍ତୁ:{"\n\n"}</Text>
+                                ପୁରୀର ଗ୍ରାଣ୍ଡ ରୋଡରେ ଥିବା ମୁଖ୍ୟ କାର୍ଯ୍ୟାଳୟରେ ଦାନ ପ୍ରକୋଷ୍ଠ ଫୋନ୍ : (୦୬୭୫୨) ୨୫୨୬୦୧{"\n"}
+                                ଶାଖା କାର୍ଯ୍ୟାଳୟ, ଶ୍ରୀଜଗନ୍ନାଥ ମନ୍ଦିର ଭିତରେ, ପୁରୀ।{"\n\n"}
+
+                                ଶ୍ରୀ ଜଗନ୍ନାଥ ମନ୍ଦିରର ସୂଚନା କେନ୍ଦ୍ର:{"\n"}
+                                (a) ସିଂହଦ୍ଵାର, ପୁରୀ{"\n"}
+                                (b) ଗୁଣ୍ଡିଚା ମନ୍ଦିର, ପୁରୀ{"\n"}
+                                (c) ରେଳ ଷ୍ଟେସନ, ପୁରୀ{"\n"}
+                                (d) ଜୟଦେବ ଭବନ, ସଚିବାଳୟ ମାର୍ଗ, ଭୂବନେଶ୍ବର{"\n\n"}
+
+                                📧 ଇମେଲ୍: jagannatha.or@nic.in
+                            </Text>
+                            :
+                            <Text style={{
+                                fontSize: 16,
+                                color: '#444',
+                                marginBottom: 20,
+                                lineHeight: 24,
+                                paddingHorizontal: 10
+                            }}>
+                                You can donate online through{"\n"}
+                                Shree Jagannath Temple official website.{"\n\n"}
+
+                                <Text style={{ fontWeight: '700' }}>For more information about donations, please contact:{"\n\n"}</Text>
+
+                                Donation Cell at Head office on the Grand Road, Puri{"\n"}
+                                📞 Ph: (06752) 252601{"\n"}
+                                Branch office, inside the Shree Jagannath Temple, Puri.{"\n\n"}
+
+                                Information Centers of Shree Jagannath Temple located at:{"\n"}
+                                (a) Lions Gate, Puri{"\n"}
+                                (b) Gundicha Temple, Puri{"\n"}
+                                (c) Railway Station, Puri{"\n"}
+                                (d) Jaydev Bhawan, Sachivalaya Marg, Bhubaneswar{"\n\n"}
+
+                                📧 Email: jagannatha.or@nic.in
+                            </Text>
+                        }
+
                         {/* Info Text */}
-                        <Text style={{
+                        {/* <Text style={{
                             fontSize: 16,
                             color: '#444',
                             marginBottom: 30,
                             lineHeight: 24
                         }}>
                             You are navigating to Shree Mandira official Donation Platform.
-                        </Text>
+                        </Text> */}
 
                         {/* Buttons */}
-                        <View style={{
+                        {/* <View style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between'
                         }}>
@@ -1213,7 +1435,7 @@ const Index = () => {
                                 }}>
                                 <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>OK</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </Modal>

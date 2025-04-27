@@ -66,8 +66,9 @@ const Index = () => {
             const responseData = await response.json();
             if (responseData.status === true) {
                 const shoeStandsOnly = responseData.data.filter(item => item.service_type === 'locker');
-                console.log("object", shoeStandsOnly);
-                setAllShoesStands(shoeStandsOnly);
+                const filteredData = shoeStandsOnly.filter(item => item.language === selectedLanguage);
+                // console.log("object", filteredData);
+                setAllShoesStands(filteredData);
                 setSpinner(false);
             }
         } catch (error) {

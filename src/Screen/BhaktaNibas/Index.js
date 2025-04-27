@@ -77,6 +77,7 @@ const Index = () => {
             if (responseData.status === true) {
                 const bhaktaNiwasOnly = responseData.data.filter(item => item.accomodation_type === 'bhakta_niwas');
                 setAllBhaaktaNibas(bhaktaNiwasOnly);
+                // console.log("Bhakta Nibas Data: ", bhaktaNiwasOnly);
 
                 const initialImageSelection = {};
                 bhaktaNiwasOnly.forEach(item => {

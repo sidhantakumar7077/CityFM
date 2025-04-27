@@ -72,7 +72,9 @@ const Index = () => {
             const responseData = await response.json();
             if (responseData.status === true) {
                 setSpinner(false);
-                setAllParking(responseData.data);
+                const filteredData = responseData.data.filter(item => item.language === selectedLanguage);
+                setAllParking(filteredData);
+                // console.log("Parking Data:", filteredData);
             }
         } catch (error) {
             console.log('Error fetching parking data:', error);

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, RefreshControl, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
@@ -14,6 +15,19 @@ const Index = () => {
     const [spinner, setSpinner] = useState(false);
     const [allBhaktaNibas, setAllBhaaktaNibas] = useState([]);
 
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
+
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -21,6 +35,7 @@ const Index = () => {
             setRefreshing(false);
             console.log("Refreshing Successful");
             getAllBhaktaNibas();
+            loadLanguage();
         }, 2000);
     }, []);
 
@@ -81,8 +96,9 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             getAllBhaktaNibas();
+            loadLanguage();
         }
-    }, [isFocused]);
+    }, [isFocused, selectedLanguage]);
 
     return (
         <View style={styles.container}>
@@ -94,7 +110,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Bhakta Nibas</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଭକ୍ତ ନିବାସ' : 'Bhakta Nibas'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -112,8 +128,8 @@ const Index = () => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Temple Owned Stay For Pilgrims</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Properties Below Are Owned By Shree Jagannatha Temple Administration</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ତୀର୍ଥଯାତ୍ରୀମାନଙ୍କ ପାଇଁ ମନ୍ଦିର ପାଖରେ ରହିବା ସ୍ଥାନ' : 'Temple Owned Stay For Pilgrims'}</Text>
+                            {/* <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>All The Properties Below Are Owned By Shree Jagannatha Temple Administration</Text> */}
                             {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Now →</Text>
                             </TouchableOpacity> */}

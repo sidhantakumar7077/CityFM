@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ImageBackground, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +16,23 @@ const Index = (props) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const navigation = useNavigation();
     const [nearByTempleData, setNearByTempleData] = useState(props.route.params);
+
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
+
+    useEffect(() => {
+        loadLanguage();
+    }, [selectedLanguage]);
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -118,7 +136,7 @@ const Index = (props) => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Nearby Religious Places</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ନିକଟସ୍ଥ ଧାର୍ମିକ ସ୍ଥଳ' : 'Nearby Religious Places'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -136,7 +154,7 @@ const Index = (props) => {
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.name}</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Divine Destinations Around Puri.</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ପୁରୀ ଚାରିପାଖରେ ଥିବା ଧାର୍ମିକ ସ୍ଥଳ' : 'Divine Destinations Around Puri.'}</Text>
                             {/* <TouchableOpacity onPress={() => togglePlayback(allContent)} style={{ marginTop: 10, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#fff', paddingVertical: 3, paddingHorizontal: 10, borderRadius: 10, alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center' }}>
                                 <MaterialIcons name={currentTrack === allContent?.id && playbackState.state === "playing" ? 'pause' : 'play-arrow'} size={25} color="#fff" />
                                 <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Listen</Text>
@@ -183,7 +201,7 @@ const Index = (props) => {
                         </View>
                         <View style={{ width: 1, height: '100%', backgroundColor: '#474747', alignSelf: 'center' }} />
                         <View style={{ width: '48%' }}>
-                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, lineHeight: 20, textAlign: 'center' }}>Distance From Jagannatha Temple {nearByTempleData?.distance_from_temple}.</Text>
+                            <Text style={{ fontSize: 13, color: '#474747', fontFamily: 'FiraSans-Regular', marginLeft: 2, lineHeight: 20, textAlign: 'center' }}>{selectedLanguage === 'Odia' ? "ଜଗନ୍ନାଥ ମନ୍ଦିରଠାରୁ ଦୂରତା" : "Distance From Jagannatha Temple"} {nearByTempleData?.distance_from_temple}.</Text>
                         </View>
                     </View>
 
@@ -198,7 +216,7 @@ const Index = (props) => {
                     {nearByTempleData?.history &&
                         <View style={{ marginTop: 18 }}>
                             <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 6 }}>
-                                History of the Temple
+                                {selectedLanguage === 'Odia' ? 'ମନ୍ଦିରର ଇତିହାସ' : 'History of the Temple'}
                             </Text>
                             <Text style={{ fontSize: 14, color: '#4b5563', lineHeight: 20, fontFamily: 'FiraSans-Regular' }}>{nearByTempleData?.history}</Text>
                         </View>
@@ -207,7 +225,7 @@ const Index = (props) => {
                     {/* Location */}
                     <View style={{ marginTop: 25 }}>
                         <Text style={{ fontSize: 16, fontFamily: 'FiraSans-SemiBold', color: '#1f2937', marginBottom: 8 }}>
-                            Location
+                            {selectedLanguage === 'Odia' ? 'ସ୍ଥାନ ' : 'Location'}
                         </Text>
 
                         <TouchableOpacity

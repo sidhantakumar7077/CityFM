@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, ActivityIndicator, RefreshControl } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
 
@@ -14,6 +14,19 @@ const Index = () => {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
+
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -21,6 +34,7 @@ const Index = () => {
             setRefreshing(false);
             console.log("Refreshing Successful");
             getShoesStands();
+            loadLanguage();
         }, 2000);
     }, []);
 
@@ -65,8 +79,9 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             getShoesStands();
+            loadLanguage();
         }
-    }, [isFocused]);
+    }, [isFocused, selectedLanguage]);
 
     return (
         <View style={styles.container}>
@@ -77,7 +92,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Locker & Shoes Stand</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଲକର୍ ଏବଂ ଜୋତା ଷ୍ଟାଣ୍ଡ' : 'Locker & Shoes Stand'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -94,8 +109,8 @@ const Index = () => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Cloakroom & Lockers</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Some Of The Available Lockers & Stands Near To The Temple</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଜିନିଷ ରଖିବା ସ୍ଥାନ ଓ ଜୋତାଷ୍ଟାଣ୍ଡ' : 'Cloakroom & Lockers'}</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ମନ୍ଦିର ନିକଟରେ ଉପଲବ୍ଧ କିଛି ଲକର ଏବଂ ଜୋତାଷ୍ଟାଣ୍ଡ|' : 'Some Of The Available Lockers & Stands Near To The Temple.'}</Text>
                             {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check Now →</Text>
                             </TouchableOpacity> */}

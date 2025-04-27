@@ -9,7 +9,7 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
 
     const navigation = useNavigation()
     const [languageModalVisible, setLanguageModalVisible] = useState(false)
-    const [selectedLanguage, setSelectedLanguage] = useState('');
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
 
     useEffect(() => {
         loadLanguage();
@@ -20,7 +20,12 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
                 setSelectedLanguage(value);
-                console.log("Selected Language:", value);
+                console.log('Selected Language from Storage:', value);
+            } else {
+                // If no language found, set English by default
+                await AsyncStorage.setItem('selectedLanguage', 'English');
+                setSelectedLanguage('English');
+                console.log('No Language Found. Setting Default: English');
             }
         } catch (error) {
             console.log('Error loading language from storage:', error);

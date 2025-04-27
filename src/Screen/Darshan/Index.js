@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Easing, Image, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image, RefreshControl } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Modal from 'react-native-modal';
 import { base_url } from "../../../App";
@@ -26,10 +25,19 @@ const Index = () => {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const [isLoading, setIsLoading] = useState(true);
-    const [darshanData, setDarshanData] = useState([]);
-    const [specialDarshanToday, setSpecialDarshanToday] = useState([]);
-    const [isBellActive, setIsBellActive] = useState(false);
-    const swingAnim = useRef(new Animated.Value(0)).current;
+    const [darshanData, setDarshanData] = useState({});
+    const [selectedLanguage, setSelectedLanguage] = useState('');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
 
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -38,55 +46,9 @@ const Index = () => {
             setRefreshing(false);
             console.log("Refreshing Successful");
             getDarshanList();
+            loadLanguage();
         }, 2000);
     }, []);
-
-    const triggerBellSwing = () => {
-        // Toggle bell state
-        setIsBellActive(prev => !prev);
-
-        // Reset animation
-        swingAnim.setValue(0);
-
-        // Perform the swing animation
-        Animated.sequence([
-            Animated.timing(swingAnim, {
-                toValue: 1,
-                duration: 100,
-                easing: Easing.linear,
-                useNativeDriver: true,
-            }),
-            Animated.timing(swingAnim, {
-                toValue: -1,
-                duration: 100,
-                easing: Easing.linear,
-                useNativeDriver: true,
-            }),
-            Animated.timing(swingAnim, {
-                toValue: 0.6,
-                duration: 100,
-                easing: Easing.linear,
-                useNativeDriver: true,
-            }),
-            Animated.timing(swingAnim, {
-                toValue: -0.6,
-                duration: 100,
-                easing: Easing.linear,
-                useNativeDriver: true,
-            }),
-            Animated.timing(swingAnim, {
-                toValue: 0,
-                duration: 100,
-                easing: Easing.linear,
-                useNativeDriver: true,
-            }),
-        ]).start();
-    };
-
-    const rotateInterpolate = swingAnim.interpolate({
-        inputRange: [-1, 1],
-        outputRange: ['-20deg', '20deg'],
-    });
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -117,26 +79,24 @@ const Index = () => {
             // console.log('Get Darshan Data:', result);
 
             if (result.status) {
-                // console.log("Darshan List", result.data);
-                const today = moment().format("YYYY-MM-DD");
+                // Filter or Find the Darshan item with status "Started"
+                const startedDarshan = result.data.find(item => item.darshan_status === 'Started');
+                console.log("Started Darshan", startedDarshan);
 
-                // const normalDarshans = result.data.filter(item => item.darshan_type === "normal");
-                const specialTodayDarshans = result.data.filter(item => item.darshan_type === "special" && item.date === today);
+                if (startedDarshan) {
+                    setDarshanData(startedDarshan); // Set only the Started Darshan
+                } else {
+                    console.log('No Darshan with status "Started" found.');
+                    setDarshanData(null); // Optional: set empty if not found
+                }
 
-                // // Merge and sort by start_time
-                // const combined = [...normalDarshans, ...specialTodayDarshans].sort((a, b) => {
-                //     return moment(a.start_time, "HH:mm").diff(moment(b.start_time, "HH:mm"));
-                // });
-
-                setSpecialDarshanToday(specialTodayDarshans[0]);
-                setDarshanData(result.data);
                 setIsLoading(false);
             } else {
                 console.warn('API responded with status false:', result.message);
                 setIsLoading(false);
             }
         } catch (error) {
-            console.error('Error fetching home section data:', error);
+            console.error('Error fetching darshan data:', error);
             setIsLoading(false);
         }
     };
@@ -144,8 +104,9 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             getDarshanList();
+            loadLanguage();
         }
-    }, []);
+    }, [isFocused, selectedLanguage]);
 
     return (
         <View style={styles.container}>
@@ -157,7 +118,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Darshan</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଦର୍ଶନ' : 'Darshan'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -176,8 +137,8 @@ const Index = () => {
                     {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Know The Darshan Timing</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>You Can Find When The Darshan Start's & Halts As Well As When The Sahana Mela Start's</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଦର୍ଶନ ସ୍ଥିତିକୁ ଜାଣନ୍ତୁ |' : 'Know The Darshan Status'}</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଏଠାରେ ସମସ୍ତ ଦର୍ଶନର ବିବରଣୀ ପାଇପାରିବେ । ଯଥା ଭିତର କାଠ ଦର୍ଶନ ଓ ବାହାର କାଠ ଦର୍ଶନ ଏବଂ ଦର୍ଶନ କେତେବେଳେ ବନ୍ଦ ରହୁଛି ।' : "You Can Find When The Darshan Start's & Halts As Well As When The Bhitara Katha Darshan Start's."}</Text>
                             {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Darshan →</Text>
                             </TouchableOpacity> */}
@@ -188,44 +149,10 @@ const Index = () => {
                     </View>
                 </View>
 
-                {/* Today Special Darshan */}
-                {specialDarshanToday &&
-                    <LinearGradient
-                        colors={['#F06292', '#FFA726']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={styles.nitiItem}
-                    >
-                        {/* Status Indicator */}
-                        <View style={styles.statusIndicator} />
-
-                        {/* Niti Details */}
-                        <View style={styles.nitiDetails}>
-                            <Text style={styles.nitiName}>Today Special Darshan</Text>
-                            <Text style={{ color: '#333', fontSize: 14, fontFamily: 'FiraSans-SemiBold' }}>{specialDarshanToday?.darshan_name}</Text>
-                            <Text style={styles.nitiTime}>
-                                <Text style={styles.nitiStatus}>Tentative Start </Text>
-                                <Text style={{ color: '#000' }}> | {specialDarshanToday?.start_time}</Text>
-                            </Text>
-                        </View>
-
-                        {/* Bell Icon for Upcoming Niti Only */}
-                        <TouchableOpacity onPress={triggerBellSwing}>
-                            <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
-                                <MaterialCommunityIcons
-                                    name={isBellActive ? 'bell-ring' : 'bell-outline'}
-                                    size={30}
-                                    color={'#dd4c2f'}
-                                />
-                            </Animated.View>
-                        </TouchableOpacity>
-                    </LinearGradient>
-                }
-
                 {/* Darshan List */}
                 {!isLoading ? (
                     <View style={{ marginTop: 20 }}>
-                        <FlatList
+                        {/* <FlatList
                             data={darshanData}
                             keyExtractor={(item) => item.darshan_id.toString()}
                             scrollEnabled={false}
@@ -262,12 +189,7 @@ const Index = () => {
 
                                 return (
                                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 15 }}>
-                                        {/* Left Indicator */}
                                         <View style={{ alignItems: 'center', width: 40 }}>
-                                            {/* Line above */}
-                                            {/* {index !== 0 && <View style={{ height: 12, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />} */}
-
-                                            {/* Number Circle */}
                                             <LinearGradient
                                                 colors={isUpcoming ? ['#C5C5C5', '#C5C5C5'] : ['#FFA726', '#F06292']}
                                                 start={{ x: 0, y: 0 }}
@@ -295,11 +217,9 @@ const Index = () => {
                                                 )}
                                             </LinearGradient>
 
-                                            {/* Line below */}
                                             {!isLast && <View style={{ flex: 1, width: 2, backgroundColor: isCompleted ? getColor() : '#DADADA' }} />}
                                         </View>
 
-                                        {/* Right Content */}
                                         <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
                                             <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold', textTransform: 'capitalize' }}>{item.darshan_name}</Text>
                                             {item.darshan_status !== 'Upcoming' && <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.start_time}</Text>}
@@ -317,14 +237,49 @@ const Index = () => {
                                             )}
                                         </View>
 
-                                        {/* Right-side icon */}
                                         <View style={{ marginTop: 5 }}>
                                             {getIcon()}
                                         </View>
                                     </View>
                                 );
                             }}
-                        />
+                        /> */}
+                        {darshanData ?
+                            <LinearGradient
+                                colors={['#F06292', '#FFA726']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={styles.nitiItem}
+                            >
+                                {/* Status Indicator */}
+                                <View style={styles.statusIndicator} />
+
+                                {/* Niti Details */}
+                                <View style={styles.nitiDetails}>
+                                    <Text style={styles.nitiName}>{selectedLanguage === 'Odia' ? 'ଦର୍ଶନ ଚାଲୁଅଛି' : 'Darshan Running'}</Text>
+                                    <Text style={{ color: '#333', fontSize: 14, fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === 'Odia' ? darshanData?.darshan_name : darshanData?.english_darshan_name}</Text>
+                                    <Text style={styles.nitiTime}>
+                                        <Text style={styles.nitiStatus}>{selectedLanguage === 'Odia' ? 'ଆରମ୍ଭ ହୋଇଥିଲା ' : 'Started at '}</Text>
+                                        <Text style={{ color: '#000' }}> | {moment(darshanData?.start_time, 'HH:mm:ss').format('hh:mm A')}</Text>
+                                    </Text>
+                                </View>
+                            </LinearGradient>
+                            :
+                            <LinearGradient
+                                colors={['#F06292', '#FFA726']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={styles.nitiItem}
+                            >
+                                {/* Status Indicator */}
+                                <View style={styles.statusIndicator} />
+
+                                {/* Niti Details */}
+                                <View style={styles.nitiDetails}>
+                                    <Text style={{ color: '#333', fontSize: 14, fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === 'Odia' ? 'ଦର୍ଶନ ବନ୍ଦ ଅଛି |' : 'Darshan is on halt.'}</Text>
+                                </View>
+                            </LinearGradient>
+                        }
                     </View>
                 ) : (
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', top: '50%' }}>

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Easing, Image, RefreshControl } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -21,6 +22,19 @@ const Index = () => {
     const [isBellActive, setIsBellActive] = useState(false);
     const swingAnim = useRef(new Animated.Value(0)).current;
 
+    const [selectedLanguage, setSelectedLanguage] = useState('');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
+
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -28,6 +42,7 @@ const Index = () => {
             setRefreshing(false);
             console.log("Refreshing Successful");
             fetchMahaPrasadData();
+            loadLanguage();
         }, 2000);
     }, []);
 
@@ -107,7 +122,7 @@ const Index = () => {
             // console.log('Get Darshan Data:', result);
 
             if (result.status) {
-                console.log("Darshan List", result.data);
+                // console.log("Darshan List", result.data);
                 const today = moment().format("YYYY-MM-DD");
 
                 // const normalPrasad = result.data.filter(item => item.prasad_type === "normal");
@@ -135,8 +150,9 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             fetchMahaPrasadData();
+            loadLanguage();
         }
-    }, [isFocused]);
+    }, [isFocused, selectedLanguage]);
 
     return (
         <View style={styles.container}>
@@ -148,7 +164,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Maha Prashad</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ' : 'Maha Prashad'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -167,8 +183,8 @@ const Index = () => {
                     {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Maha Prasad Bhoga Timing</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Know The Bhoga Being Offered To Mahaprabhu & Mahaprasad Availability at Ananda Bazar</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ ଭୋଗ ଟେଣ୍ଟେଟିଭ୍ ଟାଇମିଂ |' : 'MahaPrasad Bhoga Tentative Timing'}</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ ଭୋଗ ଟେଣ୍ଟେଟିଭ୍ ଟାଇମିଂ' : 'Know The Bhoga Being Offered To Mahaprabhu & Mahaprasad Availability at Ananda Bazar.'}</Text>
                             {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Set Alert →</Text>
                             </TouchableOpacity> */}
@@ -289,16 +305,16 @@ const Index = () => {
 
                                         {/* Right Content */}
                                         <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
-                                            <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{item.prasad_name}</Text>
-                                            {item.master_prasad_status !== 'Upcoming' && <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>Started at {item.start_time}</Text>}
+                                            <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === 'Odia' ? item.prasad_name : item.english_prasad_name}</Text>
+                                            {item.master_prasad_status !== 'Upcoming' && <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? "ଆରମ୍ଭ ହୋଇଥିଲା" : "Started at"} {moment(item.start_time, "HH:mm:ss").format("hh:mm A")}</Text>}
 
-                                            {isRunning && (
+                                            {/* {isRunning && (
                                                 <>
                                                     <Text style={{ fontSize: 13, color: '#FFA726', fontFamily: 'FiraSans-Regular' }}>
-                                                        Running Now
+                                                       {selectedLanguage === 'Odia' ? "ବର୍ତ୍ତମାନ ଚାଲୁଛି" : "Running Now"}
                                                     </Text>
                                                 </>
-                                            )}
+                                            )} */}
                                         </View>
 
                                         {/* Right-side icon */}

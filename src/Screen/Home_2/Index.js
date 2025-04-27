@@ -68,11 +68,25 @@ const Index = () => {
 
     const navigation = useNavigation();
     const isFocused = useIsFocused();
-    const [active, setActive] = useState('World Wide');
+    // const [active, setActive] = useState('');
+    // useEffect(() => {
+    //     if (selectedLanguage === 'Odia') {
+    //         setActive('ବିଶ୍ୱବ୍ୟାପୀ');
+    //     } else {
+    //         setActive('World Wide');
+    //     }
+    // }, [selectedLanguage]);
+
+    // const locationOptions = [
+    //     selectedLanguage === 'Odia' ? 'ବିଶ୍ୱବ୍ୟାପୀ' : 'World Wide',
+    //     selectedLanguage === 'Odia' ? 'ଭାରତ' : 'India',
+    //     selectedLanguage === 'Odia' ? 'ଓଡିଶା' : 'Odisha'
+    //   ];
+
     const [selectedTab, setSelectedTab] = useState("temple");
     const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedLanguage, setSelectedLanguage] = useState('');
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
 
     const loadLanguage = async () => {
         try {
@@ -144,7 +158,9 @@ const Index = () => {
 
                 setNitiList(niti_master || []);
                 setBanners(banners || []);
-                setNearbyPlaces(nearby_temples || []);
+
+                const filteredNearbyPlaces = nearby_temples.filter(place => place.language === selectedLanguage);
+                setNearbyPlaces(filteredNearbyPlaces || []);
                 setIsLoading(false);
             } else {
                 console.warn('API responded with status false:', result.message);
@@ -184,7 +200,9 @@ const Index = () => {
         setDonationModal(false); // Optional: close modal after redirect
     };
 
-    const runningNiti = nitiList.find(item => item.niti_status === 'Started');
+    const runningNiti = nitiList.find(
+        item => item.niti_status === 'Started'
+    );
     const upcomingNitis = nitiList
         .filter(item => item.niti_status === 'Upcoming')
         .sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
@@ -335,7 +353,7 @@ const Index = () => {
                                 <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <View style={{ width: '90%' }}>
-                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>{runningNiti.niti_name}</Text>
+                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>{selectedLanguage === 'Odia' ? runningNiti.niti_name : runningNiti.english_niti_name}</Text>
                                             <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -376,7 +394,7 @@ const Index = () => {
                                 <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <View style={{ width: '90%' }}>
-                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>{nextNiti.niti_name}</Text>
+                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>{selectedLanguage === 'Odia' ? nextNiti.niti_name : nextNiti.english_niti_name}</Text>
                                             <View style={{ backgroundColor: '#fa0000', width: 80, height: 1.5, marginVertical: 8 }}></View>
                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -1097,7 +1115,7 @@ const Index = () => {
                     </View> */}
 
                     {/* Temples Worldwide */}
-                    <View style={{ padding: 15 }}>
+                    {/* <View style={{ padding: 15 }}>
                         <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>{selectedLanguage === 'Odia' ? 'ବିଶ୍ୱବ୍ୟାପୀ ଜଗନ୍ନାଥ ମନ୍ଦିର' : 'Jagannatha Temples Worldwide'}</Text>
                         <LinearGradient
                             colors={['#FFA726', '#F06292']}
@@ -1109,7 +1127,7 @@ const Index = () => {
                         />
                         <View style={{ width: 270, alignSelf: 'center', backgroundColor: '#f2f0f0', padding: 5, borderRadius: 10, marginTop: 20 }}>
                             <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                {[selectedLanguage === 'Odia' ? 'ବିଶ୍ୱବ୍ୟାପୀ' : 'World Wide', selectedLanguage === 'Odia' ? 'ଭାରତ' : 'India', selectedLanguage === 'Odia' ? 'ଓଡିଶା' : 'Odisha'].map((location) => (
+                            {locationOptions.map((location) => (
                                     <LinearGradient
                                         key={location}
                                         colors={active === location ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
@@ -1153,7 +1171,7 @@ const Index = () => {
                                 <Image source={require('../../assets/image/odisha1.png')} style={{ width: width * 0.9, height: 220, borderRadius: 12, padding: 20, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 15, resizeMode: 'contain' }} />
                             </TouchableOpacity>
                         )}
-                    </View>
+                    </View> */}
 
                     {/* Extra Section */}
                     {/* <View style={{ padding: 15 }}>

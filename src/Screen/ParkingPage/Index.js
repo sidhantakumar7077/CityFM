@@ -142,7 +142,7 @@ const Index = () => {
                     >
                         <TouchableOpacity onPress={() => setSelectedTab('FourWheelers')}>
                             <Text style={{ color: selectedTab === 'FourWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
-                                Four Wheelers
+                                {selectedLanguage === 'Odia' ? 'ଚାରି ଚକିଆ' : 'Four Wheelers'}
                             </Text>
                         </TouchableOpacity>
                     </LinearGradient>
@@ -160,7 +160,7 @@ const Index = () => {
                     >
                         <TouchableOpacity onPress={() => setSelectedTab('TwoWheelers')}>
                             <Text style={{ color: selectedTab === 'TwoWheelers' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
-                                Two Wheelers
+                                {selectedLanguage === 'Odia' ? 'ଦୁଇ ଚକିଆ' : 'Two Wheelers'}
                             </Text>
                         </TouchableOpacity>
                     </LinearGradient>

@@ -1466,23 +1466,31 @@ const Index = () => {
                         backgroundColor: 'rgba(0,0,0,0.4)',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        paddingHorizontal: 20,
                     }}
                 >
                     <View
                         style={{
-                            width: width * 0.9,
+                            width: '100%',
+                            maxWidth: 360,
                             maxHeight: '80%',
                             backgroundColor: '#fff',
-                            borderRadius: 15,
-                            padding: 20,
-                            elevation: 10,
+                            borderRadius: 16,
+                            paddingVertical: 25,
+                            paddingHorizontal: 20,
+                            elevation: 12,
+                            shadowColor: '#000',
+                            shadowOpacity: 0.25,
+                            shadowOffset: { width: 0, height: 6 },
+                            shadowRadius: 10,
                         }}
                     >
+                        {/* Title */}
                         <Text
                             style={{
                                 fontSize: 22,
                                 fontWeight: 'bold',
-                                color: '#222',
+                                color: '#341551',
                                 marginBottom: 15,
                                 textAlign: 'center',
                             }}
@@ -1490,37 +1498,36 @@ const Index = () => {
                             📢 Today's Notices
                         </Text>
 
+                        {/* Notice List */}
                         <FlatList
                             data={notices}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={renderItem}
                             ListEmptyComponent={
-                                <Text style={{ textAlign: 'center', color: '#555', marginTop: 20 }}>
+                                <Text style={{ textAlign: 'center', color: '#999', marginTop: 20, fontSize: 14 }}>
                                     No notices for today.
                                 </Text>
                             }
-                            contentContainerStyle={{ paddingBottom: 10 }}
+                            contentContainerStyle={{
+                                paddingBottom: 10,
+                                paddingTop: 5,
+                            }}
+                            showsVerticalScrollIndicator={false}
                         />
 
+                        {/* Close Button */}
                         <TouchableOpacity
                             style={{
-                                marginTop: 10,
-                                backgroundColor: '#E53E3E',
-                                paddingVertical: 10,
+                                marginTop: 20,
+                                backgroundColor: '#341551',
+                                paddingVertical: 12,
                                 borderRadius: 10,
+                                alignItems: 'center',
                             }}
                             onPress={() => setNoticeModalVisible(false)}
+                            activeOpacity={0.8}
                         >
-                            <Text
-                                style={{
-                                    textAlign: 'center',
-                                    color: '#fff',
-                                    fontWeight: 'bold',
-                                    fontSize: 16,
-                                }}
-                            >
-                                Close ✖️
-                            </Text>
+                            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Close</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

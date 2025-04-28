@@ -134,34 +134,40 @@ const Index = () => {
                     </View>
 
                     <View style={{ flexDirection: 'row', backgroundColor: '#F5EEF8', borderRadius: 10, margin: 15, padding: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => setSelectedTab('BusStand')}
+                        <LinearGradient
+                            colors={selectedTab === 'BusStand' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                             style={{
                                 flex: 1,
-                                backgroundColor: selectedTab === 'BusStand' ? '#4B0082' : 'transparent',
                                 borderRadius: 10,
                                 paddingVertical: 8,
                                 alignItems: 'center',
                             }}
                         >
-                            <Text style={{ color: selectedTab === 'BusStand' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
-                                Bus Stands
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setSelectedTab('Railway')}
+                            <TouchableOpacity onPress={() => setSelectedTab('BusStand')}>
+                                <Text style={{ color: selectedTab === 'BusStand' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                                    {selectedLanguage === 'Odia' ? 'ବସ୍ ଷ୍ଟାଣ୍ଡ' : 'Bus Stand'}
+                                </Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
+                        <LinearGradient
+                            colors={selectedTab === 'Railway' ? ['#FFA726', '#F06292'] : ['transparent', 'transparent']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                             style={{
                                 flex: 1,
-                                backgroundColor: selectedTab === 'Railway' ? '#4B0082' : 'transparent',
                                 borderRadius: 10,
                                 paddingVertical: 8,
                                 alignItems: 'center',
                             }}
                         >
-                            <Text style={{ color: selectedTab === 'Railway' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
-                                Railway Station
-                            </Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setSelectedTab('Railway')}>
+                                <Text style={{ color: selectedTab === 'Railway' ? '#fff' : '#4B0082', fontFamily: 'FiraSans-Regular' }}>
+                                    {selectedLanguage === 'Odia' ? 'ରେଳ ଷ୍ଟେସନ' : 'Railway Station'}
+                                </Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
                     </View>
 
                     {/* Main Locker & Shoes Stands */}

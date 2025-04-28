@@ -164,7 +164,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ' : 'Maha Prashad'}</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ' : 'Mahaprashad'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -183,7 +183,7 @@ const Index = () => {
                     {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ ଭୋଗ ଟେଣ୍ଟେଟିଭ୍ ଟାଇମିଂ |' : 'MahaPrasad Bhoga Tentative Timing'}</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ ଭୋଗ ଆନୁମାନିକ ଟାଇମିଂ |' : 'MahaPrasad Bhoga Tentative Timing'}</Text>
                             <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ମହାପ୍ରସାଦ ଭୋଗ ଟେଣ୍ଟେଟିଭ୍ ଟାଇମିଂ' : 'Know The Bhoga Being Offered To Mahaprabhu & Mahaprasad Availability at Ananda Bazar.'}</Text>
                             {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Set Alert →</Text>

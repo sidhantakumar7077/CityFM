@@ -552,7 +552,7 @@ const Index = () => {
                                 {selectedLanguage === 'Odia' ?
                                     <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ମହାପ୍ରସାଦ</Text>
                                     :
-                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>MahaPrashad</Text>
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Mahaprashad</Text>
                                 }
                             </View>
                             <View style={{ alignItems: "center", width: "23%" }}>

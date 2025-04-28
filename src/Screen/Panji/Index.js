@@ -29,7 +29,7 @@ const Index = () => {
     );
 
     const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
-    const [panjiDetails, setPanjiDetails] = useState(null); // State to hold Panji details
+    const [panjiDetails, setPanjiDetails] = useState({}); // State to hold Panji details
     const [isLoading, setIsLoading] = useState(true); // Loading state for API call
     const [weekOffset, setWeekOffset] = useState(0); // Track the week index
     const flatListRef = useRef(null);
@@ -113,15 +113,19 @@ const Index = () => {
 
             if (result.status) {
                 console.log("Panji Data:", result.data[0]);
-                setPanjiDetails(result.data[0]); // Set the fetched data to state
-                setIsLoading(false); // Set loading to false after data is fetched
+                setIsLoading(false);
+                if (selectedLanguage === 'Odia') {
+                    setPanjiDetails(result.data.Odia[0]);
+                } else {
+                    setPanjiDetails(result.data.English[0]);
+                }
             } else {
                 console.warn("API returned error:", result.message);
-                setIsLoading(false); // Set loading to false even if API fails
+                setIsLoading(false);
             }
         } catch (error) {
             console.error("Error fetching Panji details:", error);
-            setIsLoading(false); // Set loading to false even if API fails
+            setIsLoading(false);
         }
     };
 
@@ -205,81 +209,81 @@ const Index = () => {
                     </View>
                 ) : (
                     <View style={{ width: '95%', alignSelf: 'center', marginVertical: 20 }}>
-                        {/* Tithi */}
-                        {panjiDetails.tithi &&
-                            <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-                                <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                    <Feather name="calendar" size={16} color="#F7941D" /> Tithi
-                                </Text>
-                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.tithi}</Text>
-                            </View>
-                        }
                         {/* Sunrise & Sunset */}
                         <View style={styles.nitibox}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ width: '48%' }}>
-                                    <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunrise" size={16} color="#F7941D" /> Sunrise </Text>
-                                    <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunset" size={16} color="#F7941D" /> Sunset </Text>
+                                    <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunrise" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? "ସୂର୍ଯ୍ୟୋଦୟ" : "Sunrise"} </Text>
+                                    <Text style={{ color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}><Feather name="sunset" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? "ସୂର୍ଯ୍ୟାସ୍ତ" : "Sunset"}</Text>
                                 </View>
                                 <View style={{ width: '48%', alignItems: 'flex-end' }}>
                                     <Text style={{ color: '#606160', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                        {moment(`${moment().format('YYYY-MM-DD')} ${panjiDetails.sun_rise}`, "YYYY-MM-DD HH:mm").format('hh:mm A')}
+                                        {panjiDetails?.sun_rise}
                                     </Text>
                                     <Text style={{ color: '#606160', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                        {moment(`${moment().format('YYYY-MM-DD')} ${panjiDetails.sun_set}`, "YYYY-MM-DD HH:mm").format('hh:mm A')}
+                                        {panjiDetails?.sun_rise}
                                     </Text>
                                 </View>
                             </View>
                         </View>
-                        {/* Nakshatra */}
-                        {panjiDetails.nakshatra &&
+                        {/* Tithi */}
+                        {panjiDetails?.tithi &&
                             <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
                                 <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                    <Feather name="calendar" size={16} color="#F7941D" /> Nakshatra
+                                    <Feather name="calendar" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? 'ତିଥି' : 'Tithi'}
                                 </Text>
-                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.nakshatra}</Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails?.tithi}</Text>
+                            </View>
+                        }
+                        {/* Nakshatra */}
+                        {panjiDetails?.nakshatra &&
+                            <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                                <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
+                                    <Feather name="calendar" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? 'ନକ୍ଷତ୍ର' : 'Nakshatra'}
+                                </Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails?.nakshatra}</Text>
                             </View>
                         }
                         {/* Yoga */}
-                        {panjiDetails.yoga &&
+                        {panjiDetails?.yoga &&
                             <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
                                 <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                    <Feather name="calendar" size={16} color="#F7941D" /> Yoga
+                                    <Feather name="calendar" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? 'ଯୋଗ' : 'Yoga'}
                                 </Text>
-                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.yoga}</Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails?.yoga}</Text>
                             </View>
                         }
                         {/* Karana */}
-                        {panjiDetails.karana &&
+                        {panjiDetails?.karana &&
                             <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
                                 <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                    <Feather name="calendar" size={16} color="#F7941D" /> Karana
+                                    <Feather name="calendar" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? 'କରଣ' : 'Karana'}
                                 </Text>
-                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.karana}</Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails?.karana}</Text>
                             </View>
                         }
                         {/* Pakshya */}
-                        {panjiDetails.pakshya &&
+                        {panjiDetails?.pakshya &&
                             <View style={[styles.nitibox, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
                                 <Text style={{ width: '29%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                    <Feather name="calendar" size={16} color="#F7941D" /> Pakshya
+                                    <Feather name="calendar" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? 'ପକ୍ଷ' : 'Pakshya'}
                                 </Text>
-                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails.pakshya}</Text>
+                                <Text style={{ color: '#606160', fontSize: 13, width: '69%' }}>{panjiDetails?.pakshya}</Text>
                             </View>
                         }
                         {/* Auspicious & Inauspicious Time */}
                         <View style={styles.nitibox}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Text style={{ width: '45%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                    <Feather name="clock" size={16} color="#F7941D" /> Auspicious Time
+                                    <Feather name="clock" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? 'ଶୁଭ ସମୟ' : 'Auspicious Time'}
                                 </Text>
-                                <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>{panjiDetails.good_time}</Text>
+                                <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>{panjiDetails?.good_time}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
                                 <Text style={{ width: '45%', color: '#000', fontSize: 14, fontFamily: 'FiraSans-Regular', lineHeight: 23 }}>
-                                    <Feather name="alert-circle" size={16} color="#F7941D" /> Inauspicious Time
+                                    <Feather name="alert-circle" size={16} color="#F7941D" /> {selectedLanguage === 'Odia' ? 'ଅଶୁଭ ସମୟ' : 'Inauspicious Time'}
                                 </Text>
-                                <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>{panjiDetails.bad_time}</Text>
+                                <Text style={{ width: '55%', color: '#606160', fontSize: 13 }}>{panjiDetails?.bad_time}</Text>
                             </View>
                         </View>
                     </View>

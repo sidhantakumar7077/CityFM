@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, RefreshControl, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
@@ -13,6 +14,19 @@ const Index = () => {
     const isFocused = useIsFocused();
     const [spinner, setSpinner] = useState(false);
     const [beachList, setBeachList] = useState([]);
+
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
 
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -63,7 +77,8 @@ const Index = () => {
                 // console.log("get Bhakta Nibas List-------", responseData.data);
                 setSpinner(false);
                 const filtered = responseData.data.filter(item => item.service_type === 'beach');
-                setBeachList(filtered);
+                const filteredData = filtered.filter(item => item.language === selectedLanguage);
+                setBeachList(filteredData);
 
                 const initialImageSelection = {};
                 filtered.forEach(item => {
@@ -82,8 +97,9 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             getAllBeaches();
+            loadLanguage();
         }
-    }, [isFocused]);
+    }, [isFocused, selectedLanguage]);
 
     return (
         <View style={styles.container}>
@@ -95,7 +111,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Beaches</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ବେଳାଭୂମି' : 'Beaches'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -113,8 +129,8 @@ const Index = () => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Famous Beaches In The City</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Some Of The Attractive & Clean Beaches In The City Of Puri</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ସହରର ପ୍ରସିଦ୍ଧ ବେଳାଭୂମି' : 'Famous Beaches In The City'}</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ପୁରୀ ସହରର କିଛି ଆକର୍ଷଣୀୟ ଏବଂ ପରିଷ୍କାର ବେଳାଭୂମି' : 'Some Of The Attractive & Clean Beaches In The City Of Puri'}</Text>
                             {/* <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check out →</Text>
                             </View> */}
@@ -191,12 +207,16 @@ const Index = () => {
                                     {/* Offers & Address */}
                                     <View style={styles.infoRow}>
                                         <View style={styles.infoColumn}>
-                                            <Text style={styles.label}>Facility Available:</Text>
-                                            <Text style={styles.value}>Parking/Toilet/Park/{"\n"}Sitting Chair</Text>
+                                            <Text style={styles.label}>{selectedLanguage === 'Odia' ? "ଉପଲବ୍ଧ ସୁବିଧା" : "Facility Available"}:</Text>
+                                            {selectedLanguage === 'Odia' ?
+                                                <Text style={styles.value}>ପାର୍କିଂ/ଶୌଚାଳୟ/ପାର୍କ/{"\n"}ବସିବା ଆସନ</Text>
+                                                :
+                                                <Text style={styles.value}>Parking/Toilet/Park/{"\n"}Sitting Chair</Text>
+                                            }
                                         </View>
                                         <View style={styles.infoColumn}>
-                                            <Text style={styles.label}>Location Address:</Text>
-                                            <Text style={styles.value}>{item.landmark}{"\n"}{item.city_village}, {item.state}, {item.pincode}</Text>
+                                            <Text style={styles.label}>{selectedLanguage === 'Odia' ? "ଠିକଣା" : "Address"}:</Text>
+                                            <Text style={styles.value}>{item.landmark}{"\n"}{item.district}, {item.state}, {item.pincode}</Text>
                                         </View>
                                     </View>
 

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, RefreshControl, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
@@ -13,6 +14,19 @@ const Index = () => {
     const isFocused = useIsFocused();
     const [spinner, setSpinner] = useState(false);
     const [allATM, setAllATM] = useState([]);
+
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
 
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -46,7 +60,8 @@ const Index = () => {
             const result = await response.json();
             if (result.status) {
                 const atmList = result.data.filter(item => item.service_type === 'atm');
-                setAllATM(atmList);
+                const filteredData = atmList.filter(item => item.language === selectedLanguage);
+                setAllATM(filteredData);
             }
         } catch (error) {
             console.error('Error fetching ATM data:', error);
@@ -58,8 +73,9 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             getATMList();
+            loadLanguage();
         }
-    }, [isFocused]);
+    }, [isFocused, selectedLanguage]);
 
     return (
         <View style={styles.container}>
@@ -71,7 +87,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>ATM</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଏଟିଏମ୍' : 'ATM'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -89,8 +105,8 @@ const Index = () => {
                 <View style={styles.headerContainer}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
-                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Nearby ATM Services</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Accessible ATM Services Around You.</Text>
+                            <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ନିକଟସ୍ଥ ଏଟିଏମ୍ ସେବା' : 'Nearby ATM Services'}</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଆପଣଙ୍କ ଚାରିପାଖରେ ଉପଲବ୍ଧ ଏଟିଏମ୍ ସେବା |' : 'Accessible ATM Services Around You.'}</Text>
                             {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check Now →</Text>
                             </TouchableOpacity> */}

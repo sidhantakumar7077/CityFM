@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, RefreshControl } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
 
@@ -15,6 +15,19 @@ const Index = () => {
     const [spinner, setSpinner] = useState(false);
     const [allBusRailway, setAllBusRailway] = useState([]);
     const [selectedTab, setSelectedTab] = useState('BusStand'); // Default selected tab
+
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
 
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -59,7 +72,8 @@ const Index = () => {
             if (responseData.status === true) {
                 // console.log("get Bus & Railway List-------", responseData.data);
                 setSpinner(false);
-                setAllBusRailway(responseData.data);
+                const filteredData = responseData.data.filter(item => item.language === selectedLanguage);
+                setAllBusRailway(filteredData);
             }
         } catch (error) {
             console.log('Error fetching Bus & Railway List:', error);
@@ -70,8 +84,9 @@ const Index = () => {
     useEffect(() => {
         if (isFocused) {
             getAllBusRailway();
+            loadLanguage();
         }
-    }, [isFocused]);
+    }, [isFocused, selectedLanguage]);
 
     return (
         <View style={styles.container}>
@@ -83,7 +98,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>Bus & Railway Station</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ବସ୍ ଷ୍ଟାଣ୍ଡ ଏବଂ ରେଳ ଷ୍ଟେସନ' : 'Bus & Railway Station'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>
@@ -106,8 +121,8 @@ const Index = () => {
                     <View style={styles.headerContainer}>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                             <View style={{ width: '75%' }}>
-                                <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Bus Stand & Railway Station</Text>
-                                <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Find the nearest bus stand and railway stations</Text>
+                                <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ବସ୍ ଷ୍ଟାଣ୍ଡ ଏବଂ ରେଳ ଷ୍ଟେସନ' : 'Bus Stand & Railway Station'}</Text>
+                                <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ନିକଟତମ ବସ୍ ଷ୍ଟାଣ୍ଡ ଏବଂ ରେଳ ଷ୍ଟେସନ |' : 'Find the nearest bus stand and railway stations.'}</Text>
                                 {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                     <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Check Now →</Text>
                                 </TouchableOpacity> */}
@@ -186,7 +201,7 @@ const Index = () => {
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                                         <MaterialIcons name="location-on" size={14} color="#999" />
                                         <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
-                                            {item.landmark}, {item.city_village}
+                                            {item.landmark}, {item.district}, {item.pincode}
                                         </Text>
                                     </View>
 

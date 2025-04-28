@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking, ScrollView, Animated, Image, RefreshControl, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
 
@@ -14,6 +14,19 @@ const Index = () => {
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
   const [drinkingWater, setDrinkingWater] = useState([]);
+
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+  const loadLanguage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('selectedLanguage');
+      if (value !== null) {
+        setSelectedLanguage(value);
+      }
+    } catch (error) {
+      console.log('Error loading language from storage:', error);
+    }
+  };
 
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
@@ -47,7 +60,8 @@ const Index = () => {
       const responseData = await response.json();
       if (responseData.status) {
         const filtered = responseData.data.filter(item => item.service_type === 'drinking_water');
-        setDrinkingWater(filtered);
+        const filteredData = filtered.filter(item => item.language === selectedLanguage);
+        setDrinkingWater(filteredData);
       }
     } catch (error) {
       console.error('Error fetching life guard booths:', error);
@@ -59,8 +73,9 @@ const Index = () => {
   useEffect(() => {
     if (isFocused) {
       getDrinkingWater();
+      loadLanguage();
     }
-  }, [isFocused])
+  }, [isFocused, selectedLanguage]);
 
   return (
     <View style={styles.container}>
@@ -72,7 +87,7 @@ const Index = () => {
         >
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
             <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-            <Text style={styles.headerText}>Drinking Water</Text>
+            <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ପାନୀୟ ଜଳ' : 'Drinking Water'}</Text>
           </TouchableOpacity>
         </LinearGradient>
       </Animated.View>
@@ -90,8 +105,8 @@ const Index = () => {
         <View style={styles.headerContainer}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
             <View style={{ width: '75%' }}>
-              <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>Clean Drinking Water</Text>
-              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>Fresh And Clean Water For Pligrimas.</Text>
+              <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ବିଶୁଦ୍ଧ ପାନୀୟ ଜଳ' : 'Clean Drinking Water'}</Text>
+              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ତୀର୍ଥଯାତ୍ରୀଙ୍କ ପାଇଁ ମଧୁର ଏବଂ ପରିଷ୍କାର ପାଣି।' : 'Fresh And Clean Water For Pligrimas.'}</Text>
               {/* <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Drink Now →</Text>
               </View> */}
@@ -139,7 +154,7 @@ const Index = () => {
                 {/* Text Content */}
                 <View style={{ width: '55%', justifyContent: 'center' }}>
                   <Text style={{ fontSize: 14, fontWeight: '600', color: '#341551', fontFamily: 'FiraSans-SemiBold' }}>
-                    {item.description || 'Drinking Water'}
+                    {item.service_name || 'Drinking Water'}
                   </Text>
 
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>

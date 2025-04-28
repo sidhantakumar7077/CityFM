@@ -76,7 +76,8 @@ const Index = () => {
             const responseData = await response.json();
             if (responseData.status === true) {
                 const bhaktaNiwasOnly = responseData.data.filter(item => item.accomodation_type === 'bhakta_niwas');
-                setAllBhaaktaNibas(bhaktaNiwasOnly);
+                const filteredData = bhaktaNiwasOnly.filter(item => item.language === selectedLanguage);
+                setAllBhaaktaNibas(filteredData);
                 // console.log("Bhakta Nibas Data: ", bhaktaNiwasOnly);
 
                 const initialImageSelection = {};
@@ -205,27 +206,31 @@ const Index = () => {
                                     {/* Offers & Address */}
                                     <View style={styles.infoRow}>
                                         <View style={styles.infoColumn}>
-                                            <Text style={styles.label}>Property Offers:</Text>
-                                            <Text style={styles.value}>Breakfast/Lunch/Dinner{"\n"}AC Rooms</Text>
+                                            <Text style={styles.label}>{selectedLanguage === 'Odia' ? "ସମ୍ପତ୍ତି ଅଫରଗୁଡ଼ିକ" : "Property Offers"}:</Text>
+                                            {selectedLanguage === 'Odia' ?
+                                                <Text style={styles.value}>ଜଳଖିଆ/ମଧ୍ୟାହ୍ନ ଭୋଜନ/ରାତ୍ରୀଭୋଜନ{"\n"}ଏସି ରୁମ</Text>
+                                                :
+                                                <Text style={styles.value}>Breakfast/Lunch/Dinner{"\n"}AC Rooms</Text>
+                                            }
                                         </View>
                                         <View style={styles.infoColumn}>
-                                            <Text style={styles.label}>Location Address:</Text>
+                                            <Text style={styles.label}>{selectedLanguage === 'Odia' ? "ଠିକଣା" : "Address"}:</Text>
                                             <Text style={styles.value}>{item.landmark}{"\n"}{item.district}, {item.state}, {item.pincode}</Text>
                                         </View>
                                     </View>
 
                                     {/* Buttons */}
                                     <View style={styles.buttonRow}>
-                                        {/* <LinearGradient
+                                        <LinearGradient
                                             colors={['#FFA726', '#F06292']}
                                             start={{ x: 0, y: 0 }}
                                             end={{ x: 1, y: 0 }}
                                             style={styles.bookNowButton}
                                         >
-                                            <TouchableOpacity>
-                                                <Text style={styles.bookNowText}>Book Now</Text>
+                                            <TouchableOpacity onPress={() => openMap(item.google_map_link)}>
+                                                <Text style={styles.bookNowText}>Direction</Text>
                                             </TouchableOpacity>
-                                        </LinearGradient> */}
+                                        </LinearGradient>
                                         <TouchableOpacity style={styles.callButton}>
                                             <Text style={styles.callText}>📞 {item.contact_no}</Text>
                                         </TouchableOpacity>

@@ -116,6 +116,7 @@ const Index = () => {
     const maxVisibleItems = 3 * itemsPerRow; // Show 2 rows initially
 
     const [nitiList, setNitiList] = useState([]);
+    const [information, setInformation] = useState(null);
     const [banners, setBanners] = useState([]);
     const [nearbyPlaces, setNearbyPlaces] = useState([]);
     const [hundi, setHundi] = useState({});
@@ -151,13 +152,14 @@ const Index = () => {
             }
 
             const result = await response.json();
-            // console.log('Get Home Page Data:', result);
+            // console.log('Get Home Page Data:', result.data);
 
             if (result.status) {
-                const { niti_master, banners, nearby_temples, totalPreviousAmount } = result.data;
+                const { niti_master, banners, nearby_temples, information } = result.data;
 
                 setNitiList(niti_master || []);
                 setBanners(banners || []);
+                setInformation(information);
 
                 const filteredNearbyPlaces = nearby_temples.filter(place => place.language === selectedLanguage);
                 setNearbyPlaces(filteredNearbyPlaces || []);
@@ -185,6 +187,7 @@ const Index = () => {
 
             if (result.status) {
                 setNitiList(result.data.niti_master || []);
+                setInformation(result.data.information);
             } else {
                 console.warn('API responded with status false:', result.message);
             }
@@ -371,9 +374,9 @@ const Index = () => {
                                                     </Text>
                                                 </View>
                                             </View>
-                                            {runningNiti.running_sub_niti && runningNiti.running_sub_niti.sub_niti_name && (
+                                            {information && (
                                                 <Text style={{ color: '#fa0000', fontFamily: 'FiraSans-Medium', marginTop: 5, fontSize: 14 }}>
-                                                    {runningNiti.running_sub_niti.sub_niti_name}
+                                                    {information.niti_notice}
                                                 </Text>
                                             )}
                                         </View>

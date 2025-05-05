@@ -196,17 +196,15 @@ const Index = () => {
                 </View>
 
                 {/* Today Special Prasad */}
-                {specialMahaPrasadData &&
+                {/* {specialMahaPrasadData &&
                     <LinearGradient
                         colors={['#F06292', '#FFA726']}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                         style={styles.nitiItem}
                     >
-                        {/* Status Indicator */}
                         <View style={styles.statusIndicator} />
 
-                        {/* Niti Details */}
                         <View style={styles.nitiDetails}>
                             <Text style={styles.nitiName}>Today Special MahaPrasad</Text>
                             <Text style={{ color: '#333', fontSize: 14, fontFamily: 'FiraSans-SemiBold' }}>{specialMahaPrasadData?.prasad_name}</Text>
@@ -216,7 +214,6 @@ const Index = () => {
                             </Text>
                         </View>
 
-                        {/* Bell Icon for Upcoming Niti Only */}
                         <TouchableOpacity onPress={triggerBellSwing}>
                             <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
                                 <MaterialCommunityIcons
@@ -227,7 +224,7 @@ const Index = () => {
                             </Animated.View>
                         </TouchableOpacity>
                     </LinearGradient>
-                }
+                } */}
 
                 {/* Prashad List */}
                 {!isLoading ? (

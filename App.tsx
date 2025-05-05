@@ -49,6 +49,7 @@ import Privacy_policy from './src/Screen/Privacy_policy/Index';
 
 const Stack = createNativeStackNavigator();
 
+// export const base_url = "http://temple.mandirparikrama.com/";
 export const base_url = "http://temple.mandirparikrama.com/";
 
 const App = () => {

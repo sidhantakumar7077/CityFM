@@ -439,18 +439,48 @@ const Index = () => {
                     </ScrollView>
 
                     {/* Information */}
-                    {information &&
-                        <View style={{ width: '90%', alignSelf: 'center', backgroundColor: '#fff', borderRadius: 10, padding: 15, marginTop: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ width: '10%', alignItems: 'center', justifyContent: 'center' }}>
-                                    <AntDesign name="infocirlce" size={20} color="#fa0000" />
-                                </View>
-                                <View style={{ width: '90%', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#000' }}>{information?.niti_notice}</Text>
+                    {information && (
+                        <View style={{
+                            width: '90%',
+                            alignSelf: 'center',
+                            backgroundColor: '#fff8f8',
+                            borderRadius: 12,
+                            padding: 16,
+                            marginTop: 10,
+                            shadowColor: '#000',
+                            shadowOpacity: 0.15,
+                            shadowOffset: { width: 0, height: 4 },
+                            shadowRadius: 6,
+                            elevation: 3,
+                            borderLeftWidth: 4,
+                            borderLeftColor: '#fa0000',
+                        }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                <AntDesign name="infocirlce" size={22} color="#fa0000" style={{ marginRight: 10, marginTop: 3 }} />
+
+                                <View style={{ flex: 1 }}>
+                                    <Text style={{
+                                        fontSize: 16,
+                                        fontFamily: 'FiraSans-Medium',
+                                        color: '#341551',
+                                        marginBottom: 6
+                                    }}>
+                                        {information?.niti_notice}
+                                    </Text>
+
+                                    <Text style={{
+                                        fontSize: 13,
+                                        fontFamily: 'FiraSans-Regular',
+                                        color: '#666',
+                                        textAlign: 'right'
+                                    }}>
+                                        {selectedLanguage === 'Odia' ? 'ତାରିଖ: ' : 'Date: '}
+                                        {moment(information?.created_at).format('DD/MM/YYYY')}
+                                    </Text>
                                 </View>
                             </View>
                         </View>
-                    }
+                    )}
 
                     {/* Ratha Yatra Banner */}
                     {/* <View style={{ height: 150, marginVertical: 10 }}>

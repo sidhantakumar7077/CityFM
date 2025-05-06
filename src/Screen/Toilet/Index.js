@@ -56,12 +56,12 @@ const Index = () => {
   const getToilet = async () => {
     try {
       setLoading(true);
-      const response = await fetch(base_url + 'api/get-all-service-list');
+      const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
       const responseData = await response.json();
       if (responseData.status) {
         const filtered = responseData.data.filter(item => item.service_type === 'toilet');
-        const filteredData = filtered.filter(item => item.language === selectedLanguage);
-        setToilet(filteredData);
+        // const filteredData = filtered.filter(item => item.language === selectedLanguage);
+        setToilet(filtered);
       }
     } catch (error) {
       console.error('Error fetching life guard booths:', error);

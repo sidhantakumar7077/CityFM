@@ -65,7 +65,7 @@ const Index = () => {
     const getAllBeaches = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/get-all-service-list', {
+            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -77,8 +77,8 @@ const Index = () => {
                 // console.log("get Bhakta Nibas List-------", responseData.data);
                 setSpinner(false);
                 const filtered = responseData.data.filter(item => item.service_type === 'beach');
-                const filteredData = filtered.filter(item => item.language === selectedLanguage);
-                setBeachList(filteredData);
+                // const filteredData = filtered.filter(item => item.language === selectedLanguage);
+                setBeachList(filtered);
 
                 const initialImageSelection = {};
                 filtered.forEach(item => {

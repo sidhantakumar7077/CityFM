@@ -61,7 +61,7 @@ const Index = () => {
     const getAllBusRailway = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/get-commute', {
+            const response = await fetch(`${base_url}api/get-commute/${selectedLanguage}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -72,8 +72,8 @@ const Index = () => {
             if (responseData.status === true) {
                 // console.log("get Bus & Railway List-------", responseData.data);
                 setSpinner(false);
-                const filteredData = responseData.data.filter(item => item.language === selectedLanguage);
-                setAllBusRailway(filteredData);
+                // const filteredData = responseData.data.filter(item => item.language === selectedLanguage);
+                setAllBusRailway(responseData.data);
             }
         } catch (error) {
             console.log('Error fetching Bus & Railway List:', error);

@@ -101,7 +101,7 @@ const Index = () => {
         try {
             const formattedDate = new Date(selectedDate).toISOString().split('T')[0]; // e.g., "2025-04-21"
 
-            const response = await fetch(`${base_url}api/get-panji?date=${formattedDate}`, {
+            const response = await fetch(`${base_url}api/get-panji/${selectedLanguage}/${formattedDate}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -112,13 +112,9 @@ const Index = () => {
             const result = await response.json();
 
             if (result.status) {
-                console.log("Panji Data:", result.data[0]);
+                console.log("Panji Data:", result.Events);
                 setIsLoading(false);
-                if (selectedLanguage === 'Odia') {
-                    setPanjiDetails(result.data.Odia[0]);
-                } else {
-                    setPanjiDetails(result.data.English[0]);
-                }
+                setPanjiDetails(result.Events);
             } else {
                 console.warn("API returned error:", result.message);
                 setIsLoading(false);

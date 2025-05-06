@@ -66,7 +66,7 @@ const Index = () => {
     const getAllBhaktaNibas = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/get-accomodation', {
+            const response = await fetch(`${base_url}api/get-accomodation/${selectedLanguage}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -76,8 +76,8 @@ const Index = () => {
             const responseData = await response.json();
             if (responseData.status === true) {
                 const bhaktaNiwasOnly = responseData.data.filter(item => item.accomodation_type === 'bhakta_niwas');
-                const filteredData = bhaktaNiwasOnly.filter(item => item.language === selectedLanguage);
-                setAllBhaaktaNibas(filteredData);
+                // const filteredData = bhaktaNiwasOnly.filter(item => item.language === selectedLanguage);
+                setAllBhaaktaNibas(bhaktaNiwasOnly);
                 // console.log("Bhakta Nibas Data: ", bhaktaNiwasOnly);
 
                 const initialImageSelection = {};

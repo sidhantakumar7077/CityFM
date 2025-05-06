@@ -62,7 +62,7 @@ const Index = () => {
     const getAllParking = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/get-parking', {
+            const response = await fetch(`${base_url}api/get-parking/${selectedLanguage}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -72,8 +72,8 @@ const Index = () => {
             const responseData = await response.json();
             if (responseData.status === true) {
                 setSpinner(false);
-                const filteredData = responseData.data.filter(item => item.language === selectedLanguage);
-                setAllParking(filteredData);
+                // const filteredData = responseData.data.filter(item => item.language === selectedLanguage);
+                setAllParking(responseData.data);
                 // console.log("Parking Data:", filteredData);
             }
         } catch (error) {

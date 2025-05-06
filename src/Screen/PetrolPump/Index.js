@@ -55,12 +55,12 @@ const Index = () => {
     const getPetrolData = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/get-all-service-list');
+            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
             const result = await response.json();
             if (result.status) {
                 const petrolPumpOnly = result.data.filter(item => item.service_type === 'petrol_pump');
-                const filteredData = petrolPumpOnly.filter(item => item.language === selectedLanguage);
-                setPetrolData(filteredData);
+                // const filteredData = petrolPumpOnly.filter(item => item.language === selectedLanguage);
+                setPetrolData(petrolPumpOnly);
             }
         } catch (error) {
             console.error('Error fetching petrol pump data:', error);

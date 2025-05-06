@@ -56,12 +56,12 @@ const Index = () => {
     const getATMList = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/get-all-service-list');
+            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
             const result = await response.json();
             if (result.status) {
                 const atmList = result.data.filter(item => item.service_type === 'atm');
-                const filteredData = atmList.filter(item => item.language === selectedLanguage);
-                setAllATM(filteredData);
+                // const filteredData = atmList.filter(item => item.language === selectedLanguage);
+                setAllATM(atmList);
             }
         } catch (error) {
             console.error('Error fetching ATM data:', error);

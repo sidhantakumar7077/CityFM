@@ -56,7 +56,7 @@ const Index = () => {
     const getShoesStands = async () => {
         try {
             setSpinner(true);
-            const response = await fetch(base_url + 'api/get-all-service-list', {
+            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -66,9 +66,9 @@ const Index = () => {
             const responseData = await response.json();
             if (responseData.status === true) {
                 const shoeStandsOnly = responseData.data.filter(item => item.service_type === 'locker');
-                const filteredData = shoeStandsOnly.filter(item => item.language === selectedLanguage);
+                // const filteredData = shoeStandsOnly.filter(item => item.language === selectedLanguage);
                 // console.log("object", filteredData);
-                setAllShoesStands(filteredData);
+                setAllShoesStands(shoeStandsOnly);
                 setSpinner(false);
             }
         } catch (error) {

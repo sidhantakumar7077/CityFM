@@ -57,12 +57,12 @@ const Index = () => {
     const getChargingStation = async () => {
         try {
             setLoading(true);
-            const response = await fetch(base_url + 'api/get-all-service-list');
+            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
             const responseData = await response.json();
             if (responseData.status) {
                 const filtered = responseData.data.filter(item => item.service_type === 'charging_station');
-                const filteredData = filtered.filter(item => item.language === selectedLanguage);
-                setChargingStation(filteredData);
+                // const filteredData = filtered.filter(item => item.language === selectedLanguage);
+                setChargingStation(filtered);
             }
         } catch (error) {
             console.error('Error fetching life guard booths:', error);

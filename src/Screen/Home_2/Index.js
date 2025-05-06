@@ -374,11 +374,6 @@ const Index = () => {
                                                     </Text>
                                                 </View>
                                             </View>
-                                            {information && (
-                                                <Text style={{ color: '#fa0000', fontFamily: 'FiraSans-Medium', marginTop: 5, fontSize: 14 }}>
-                                                    {information.niti_notice}
-                                                </Text>
-                                            )}
                                         </View>
                                         <View style={{ width: '10%' }}>
                                             <Ionicons name="chevron-forward" size={24} color="#fa0000" />
@@ -442,6 +437,20 @@ const Index = () => {
                             </View>
                         </View>
                     </ScrollView>
+
+                    {/* Information */}
+                    {information &&
+                        <View style={{ width: '90%', alignSelf: 'center', backgroundColor: '#fff', borderRadius: 10, padding: 15, marginTop: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={{ width: '10%', alignItems: 'center', justifyContent: 'center' }}>
+                                    <AntDesign name="infocirlce" size={20} color="#fa0000" />
+                                </View>
+                                <View style={{ width: '90%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#000' }}>{information?.niti_notice}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    }
 
                     {/* Ratha Yatra Banner */}
                     {/* <View style={{ height: 150, marginVertical: 10 }}>

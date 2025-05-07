@@ -118,13 +118,13 @@ const Index = () => {
             Animated.sequence([
                 Animated.timing(opacity, {
                     toValue: 0,
-                    duration: 500,
+                    duration: 1000,
                     useNativeDriver: true,
                     easing: Easing.linear,
                 }),
                 Animated.timing(opacity, {
                     toValue: 1,
-                    duration: 500,
+                    duration: 1000,
                     useNativeDriver: true,
                     easing: Easing.linear,
                 }),
@@ -464,12 +464,13 @@ const Index = () => {
                     {/* Information */}
                     {information && (
                         <Animated.View style={{ width: '90%', alignSelf: 'center', marginTop: 10, flexDirection: 'row', opacity: opacity }}>
-                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ flex: 1, width: '5%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                 <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#ffaa00', marginRight: 10, marginTop: -5 }} />
-                                <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#341551', marginBottom: 4 }}>
-                                    ସକାଳ ଧୂପ ପ୍ରସାଦ ବାହାରି ପାଣି ପଡିଲା
+                                <Text style={{ width: '75%', fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#341551', marginBottom: 4 }}>
+                                    {/* ସକାଳ ଧୂପ ପ୍ରସାଦ ବାହାରି ପାଣି ପଡିଲା */}
+                                   {information?.niti_notice}
                                 </Text>
-                                <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#666', marginLeft: 20, marginBottom: 4 }}>
+                                <Text style={{ width: '20%', fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#666', marginLeft: 20, marginBottom: 4 }}>
                                     {moment(information?.created_at).format('hh:mm A')}
                                 </Text>
                             </View>

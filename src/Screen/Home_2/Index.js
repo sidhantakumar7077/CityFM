@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal, ActivityIndicator, RefreshControl } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal, ActivityIndicator, RefreshControl, Animated, Easing } from "react-native";
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import Swiper from 'react-native-swiper';
+// import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
 import moment from "moment";
 import DrawerModal from "../../Component/DrawerModal";
@@ -109,6 +109,29 @@ const Index = () => {
             getHundi();
             loadLanguage();
         }, 2000);
+    }, []);
+
+    const opacity = useRef(new Animated.Value(1)).current;
+
+    useEffect(() => {
+        const loop = Animated.loop(
+            Animated.sequence([
+                Animated.timing(opacity, {
+                    toValue: 0,
+                    duration: 500,
+                    useNativeDriver: true,
+                    easing: Easing.linear,
+                }),
+                Animated.timing(opacity, {
+                    toValue: 1,
+                    duration: 500,
+                    useNativeDriver: true,
+                    easing: Easing.linear,
+                }),
+            ])
+        );
+        loop.start();
+        return () => loop.stop();
     }, []);
 
     const [expanded, setExpanded] = useState(false);
@@ -440,46 +463,17 @@ const Index = () => {
 
                     {/* Information */}
                     {information && (
-                        <View style={{
-                            width: '90%',
-                            alignSelf: 'center',
-                            backgroundColor: '#fff8f8',
-                            borderRadius: 12,
-                            padding: 16,
-                            marginTop: 10,
-                            shadowColor: '#000',
-                            shadowOpacity: 0.15,
-                            shadowOffset: { width: 0, height: 4 },
-                            shadowRadius: 6,
-                            elevation: 3,
-                            borderLeftWidth: 4,
-                            borderLeftColor: '#fa0000',
-                        }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <AntDesign name="infocirlce" size={22} color="#fa0000" style={{ marginRight: 10, marginTop: 3 }} />
-
-                                <View style={{ flex: 1 }}>
-                                    <Text style={{
-                                        fontSize: 16,
-                                        fontFamily: 'FiraSans-Medium',
-                                        color: '#341551',
-                                        marginBottom: 6
-                                    }}>
-                                        {information?.niti_notice}
-                                    </Text>
-
-                                    <Text style={{
-                                        fontSize: 13,
-                                        fontFamily: 'FiraSans-Regular',
-                                        color: '#666',
-                                        textAlign: 'right'
-                                    }}>
-                                        {selectedLanguage === 'Odia' ? 'ତାରିଖ: ' : 'Date: '}
-                                        {moment(information?.created_at).format('DD/MM/YYYY')}
-                                    </Text>
-                                </View>
+                        <Animated.View style={{ width: '90%', alignSelf: 'center', marginTop: 10, flexDirection: 'row', opacity: opacity }}>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#ffaa00', marginRight: 10, marginTop: -5 }} />
+                                <Text style={{ fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#341551', marginBottom: 4 }}>
+                                    ସକାଳ ଧୂପ ପ୍ରସାଦ ବାହାରି ପାଣି ପଡିଲା
+                                </Text>
+                                <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#666', marginLeft: 20, marginBottom: 4 }}>
+                                    {moment(information?.created_at).format('hh:mm A')}
+                                </Text>
                             </View>
-                        </View>
+                        </Animated.View>
                     )}
 
                     {/* Ratha Yatra Banner */}

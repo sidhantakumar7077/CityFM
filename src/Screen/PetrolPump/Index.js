@@ -14,7 +14,7 @@ const Index = () => {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
 
     const loadLanguage = async () => {
         try {

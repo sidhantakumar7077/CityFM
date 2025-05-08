@@ -16,7 +16,7 @@ const Index = () => {
     const [allParking, setAllParking] = useState([]);
     const [selectedTab, setSelectedTab] = useState('FourWheelers');
 
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
 
     const loadLanguage = async () => {
         try {

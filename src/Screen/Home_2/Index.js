@@ -86,7 +86,7 @@ const Index = () => {
     const [selectedTab, setSelectedTab] = useState("temple");
     const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
 
     const loadLanguage = async () => {
         try {
@@ -463,7 +463,7 @@ const Index = () => {
 
                     {/* Information */}
                     {information && (
-                        <Animated.View style={{ width: '90%', alignSelf: 'center', marginTop: 10, flexDirection: 'row', opacity: opacity }}>
+                        <Animated.View style={{ width: '82%', alignSelf: 'center', marginTop: 10, flexDirection: 'row', opacity: opacity }}>
                             <View style={{ flex: 1, width: '5%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                 <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#ffaa00', marginRight: 10, marginTop: -5 }} />
                                 <Text style={{ width: '75%', fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#341551', marginBottom: 4 }}>

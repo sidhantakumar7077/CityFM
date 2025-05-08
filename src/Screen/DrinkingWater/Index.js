@@ -15,7 +15,7 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [drinkingWater, setDrinkingWater] = useState([]);
 
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   const loadLanguage = async () => {
     try {

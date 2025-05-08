@@ -16,7 +16,7 @@ const Index = () => {
     const [allBusRailway, setAllBusRailway] = useState([]);
     const [selectedTab, setSelectedTab] = useState('BusStand'); // Default selected tab
 
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
 
     const loadLanguage = async () => {
         try {

@@ -17,7 +17,7 @@ const Index = (props) => {
     const navigation = useNavigation();
     const [nearByTempleData, setNearByTempleData] = useState(props.route.params);
 
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
 
     const loadLanguage = async () => {
         try {

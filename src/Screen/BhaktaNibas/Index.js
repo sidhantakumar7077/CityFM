@@ -15,7 +15,7 @@ const Index = () => {
     const [spinner, setSpinner] = useState(false);
     const [allBhaktaNibas, setAllBhaaktaNibas] = useState([]);
 
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
 
     const loadLanguage = async () => {
         try {

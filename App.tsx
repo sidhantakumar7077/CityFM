@@ -49,8 +49,8 @@ import Privacy_policy from './src/Screen/Privacy_policy/Index';
 
 const Stack = createNativeStackNavigator();
 
-// export const base_url = "http://temple.mandirparikrama.com/";
 export const base_url = "http://temple.mandirparikrama.com/";
+// export const base_url = "https://shreejagannathadham.com/";
 
 const App = () => {
 
@@ -68,16 +68,18 @@ const App = () => {
       const result = await response.json();
 
       if (result.status && Array.isArray(result.data)) {
-        const today = moment().format('YYYY-MM-DD');
+        const today = moment().startOf('day');
 
-        // Filter only notices with today's date
-        const todaysNotices = result.data.filter(
-          (notice: { notice_date: string; }) => notice.notice_date === today
-        );
+        // Filter notices where today is within start_date and end_date (inclusive)
+        const todaysNotices = result.data.filter((notice: { start_date: moment.MomentInput; end_date: moment.MomentInput; }) => {
+          const start = moment(notice.start_date, 'YYYY-MM-DD').startOf('day');
+          const end = moment(notice.end_date, 'YYYY-MM-DD').endOf('day');
+
+          return today.isBetween(start, end, undefined, '[]'); // [] = inclusive
+        });
 
         if (todaysNotices.length > 0) {
           console.log("Today's Notices:", todaysNotices);
-          // set todaysNotices to async storage
           await AsyncStorage.setItem('todaysNotices', JSON.stringify(todaysNotices));
         } else {
           console.log("No notices for today.");

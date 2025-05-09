@@ -286,8 +286,41 @@ const Index = () => {
         }
     };
 
+    const getNoticeForToday = async () => {
+        try {
+            const response = await fetch(`${base_url}api/latest-temple-notice`);
+            const result = await response.json();
+
+            if (result.status && Array.isArray(result.data)) {
+                const today = moment().startOf('day');
+
+                // Filter notices where today is within start_date and end_date (inclusive)
+                const todaysNotices = result.data.filter((notice) => {
+                    const start = moment(notice.start_date, 'YYYY-MM-DD').startOf('day');
+                    const end = moment(notice.end_date, 'YYYY-MM-DD').endOf('day');
+
+                    return today.isBetween(start, end, undefined, '[]'); // [] = inclusive
+                });
+
+                if (todaysNotices.length > 0) {
+                    console.log("Today's Notices:", todaysNotices);
+                    setNotices(todaysNotices);
+                    setNoticeModalVisible(true);
+                    // await AsyncStorage.setItem('todaysNotices', JSON.stringify(todaysNotices));
+                } else {
+                    console.log("No notices for today.");
+                }
+            } else {
+                console.log("Invalid or empty data.");
+            }
+        } catch (error) {
+            console.log("Fetch Notice Error:", error);
+        }
+    };
+
     useEffect(() => {
-        loadNoticesFromStorage();
+        // loadNoticesFromStorage();
+        getNoticeForToday();
     }, []);
 
     const renderItem = ({ item }) => (
@@ -468,7 +501,7 @@ const Index = () => {
                                 <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#ffaa00', marginRight: 10, marginTop: -5 }} />
                                 <Text style={{ width: '75%', fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#341551', marginBottom: 4 }}>
                                     {/* ସକାଳ ଧୂପ ପ୍ରସାଦ ବାହାରି ପାଣି ପଡିଲା */}
-                                   {information?.niti_notice}
+                                    {information?.niti_notice}
                                 </Text>
                                 <Text style={{ width: '20%', fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#666', marginLeft: 20, marginBottom: 4 }}>
                                     {moment(information?.created_at).format('hh:mm A')}

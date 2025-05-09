@@ -93,7 +93,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    getNoticeForToday();
+    // getNoticeForToday();
   }, []);
 
   return (

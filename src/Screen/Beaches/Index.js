@@ -21,6 +21,7 @@ const Index = () => {
         try {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
+                getAllBeaches(value);
                 setSelectedLanguage(value);
             }
         } catch (error) {
@@ -34,7 +35,7 @@ const Index = () => {
         setTimeout(() => {
             setRefreshing(false);
             console.log("Refreshing Successful");
-            getAllBeaches();
+            getAllBeaches(selectedLanguage);
         }, 2000);
     }, []);
 
@@ -62,10 +63,10 @@ const Index = () => {
         }));
     };
 
-    const getAllBeaches = async () => {
+    const getAllBeaches = async (language) => {
         try {
             setSpinner(true);
-            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`, {
+            const response = await fetch(`${base_url}api/get-all-service-list/${language}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -96,7 +97,7 @@ const Index = () => {
 
     useEffect(() => {
         if (isFocused) {
-            getAllBeaches();
+            getAllBeaches(selectedLanguage);
             loadLanguage();
         }
     }, [isFocused, selectedLanguage]);

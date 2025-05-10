@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 const Index = () => {
 
@@ -22,6 +23,7 @@ const Index = () => {
         try {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
+                getAllParking(value);
                 setSelectedLanguage(value);
             }
         } catch (error) {
@@ -35,7 +37,7 @@ const Index = () => {
         setTimeout(() => {
             setRefreshing(false);
             console.log("Refreshing Successful");
-            getAllParking();
+            getAllParking(selectedLanguage);
             loadLanguage();
         }, 2000);
     }, []);
@@ -59,10 +61,10 @@ const Index = () => {
         Linking.openURL(url);
     };
 
-    const getAllParking = async () => {
+    const getAllParking = async (language) => {
         try {
             setSpinner(true);
-            const response = await fetch(`${base_url}api/get-parking/${selectedLanguage}`, {
+            const response = await fetch(`${base_url}api/get-parking/${language}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -84,7 +86,7 @@ const Index = () => {
 
     useEffect(() => {
         if (isFocused) {
-            getAllParking();
+            getAllParking(selectedLanguage);
             loadLanguage();
         }
     }, [isFocused, selectedLanguage])

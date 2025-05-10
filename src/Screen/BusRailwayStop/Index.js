@@ -22,6 +22,7 @@ const Index = () => {
         try {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
+                getAllBusRailway(value);
                 setSelectedLanguage(value);
             }
         } catch (error) {
@@ -35,7 +36,7 @@ const Index = () => {
         setTimeout(() => {
             setRefreshing(false);
             console.log("Refreshing Successful");
-            getAllBusRailway();
+            getAllBusRailway(selectedLanguage);
         }, 2000);
     }, []);
 
@@ -58,10 +59,10 @@ const Index = () => {
         Linking.openURL(url);
     };
 
-    const getAllBusRailway = async () => {
+    const getAllBusRailway = async (language) => {
         try {
             setSpinner(true);
-            const response = await fetch(`${base_url}api/get-commute/${selectedLanguage}`, {
+            const response = await fetch(`${base_url}api/get-commute/${language}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -83,7 +84,7 @@ const Index = () => {
 
     useEffect(() => {
         if (isFocused) {
-            getAllBusRailway();
+            getAllBusRailway(selectedLanguage);
             loadLanguage();
         }
     }, [isFocused, selectedLanguage]);

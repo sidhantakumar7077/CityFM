@@ -21,6 +21,7 @@ const Index = () => {
     try {
       const value = await AsyncStorage.getItem('selectedLanguage');
       if (value !== null) {
+        getToilet(value);
         setSelectedLanguage(value);
       }
     } catch (error) {
@@ -34,7 +35,7 @@ const Index = () => {
     setTimeout(() => {
       setRefreshing(false);
       console.log("Refreshing Successful");
-      getToilet();
+      getToilet(selectedLanguage);
     }, 2000);
   }, []);
 
@@ -53,10 +54,10 @@ const Index = () => {
     Linking.openURL(url);
   };
 
-  const getToilet = async () => {
+  const getToilet = async (language) => {
     try {
       setLoading(true);
-      const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
+      const response = await fetch(`${base_url}api/get-all-service-list/${language}`);
       const responseData = await response.json();
       if (responseData.status) {
         const filtered = responseData.data.filter(item => item.service_type === 'toilet');
@@ -72,7 +73,7 @@ const Index = () => {
 
   useEffect(() => {
     if (isFocused) {
-      getToilet();
+      getToilet(selectedLanguage);
       loadLanguage();
     }
   }, [isFocused, selectedLanguage]);

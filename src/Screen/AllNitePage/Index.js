@@ -49,6 +49,7 @@ const Index = () => {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
                 setSelectedLanguage(value);
+                getAllNiti();
             }
         } catch (error) {
             console.log('Error loading language from storage:', error);

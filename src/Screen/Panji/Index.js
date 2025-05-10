@@ -41,6 +41,7 @@ const Index = () => {
         try {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
+                getPanjiDetailsByDate(value); // Fetch Panji details when selectedLanguage changes
                 setSelectedLanguage(value);
             }
         } catch (error) {
@@ -92,16 +93,16 @@ const Index = () => {
     };
 
     useEffect(() => {
-        getPanjiDetailsByDate();
+        getPanjiDetailsByDate(selectedLanguage); // Fetch Panji details when selectedDate changes
         loadLanguage(); // Load the selected language when the component mounts
     }, [selectedDate, selectedLanguage]);
 
-    const getPanjiDetailsByDate = async () => {
+    const getPanjiDetailsByDate = async (language) => {
         setIsLoading(true); // Set loading to true before API call
         try {
             const formattedDate = new Date(selectedDate).toISOString().split('T')[0]; // e.g., "2025-04-21"
 
-            const response = await fetch(`${base_url}api/get-panji/${selectedLanguage}/${formattedDate}`, {
+            const response = await fetch(`${base_url}api/get-panji/${language}/${formattedDate}`, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',

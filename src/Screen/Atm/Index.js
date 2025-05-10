@@ -21,6 +21,7 @@ const Index = () => {
         try {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
+                getATMList(value);
                 setSelectedLanguage(value);
             }
         } catch (error) {
@@ -34,7 +35,7 @@ const Index = () => {
         setTimeout(() => {
             setRefreshing(false);
             console.log("Refreshing Successful");
-            getATMList();
+            getATMList(selectedLanguage);
         }, 2000);
     }, []);
 
@@ -53,10 +54,10 @@ const Index = () => {
         Linking.openURL(url);
     };
 
-    const getATMList = async () => {
+    const getATMList = async (language) => {
         try {
             setSpinner(true);
-            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
+            const response = await fetch(`${base_url}api/get-all-service-list/${language}`);
             const result = await response.json();
             if (result.status) {
                 const atmList = result.data.filter(item => item.service_type === 'atm');
@@ -72,7 +73,7 @@ const Index = () => {
 
     useEffect(() => {
         if (isFocused) {
-            getATMList();
+            getATMList(selectedLanguage);
             loadLanguage();
         }
     }, [isFocused, selectedLanguage]);

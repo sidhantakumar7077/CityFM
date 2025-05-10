@@ -20,6 +20,7 @@ const Index = () => {
         try {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
+                getPetrolData(value);
                 setSelectedLanguage(value);
             }
         } catch (error) {
@@ -33,7 +34,7 @@ const Index = () => {
         setTimeout(() => {
             setRefreshing(false);
             console.log("Refreshing Successful");
-            getPetrolData();
+            getPetrolData(selectedLanguage);
         }, 2000);
     }, []);
 
@@ -52,10 +53,10 @@ const Index = () => {
         Linking.openURL(url);
     };
 
-    const getPetrolData = async () => {
+    const getPetrolData = async (language) => {
         try {
             setSpinner(true);
-            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
+            const response = await fetch(`${base_url}api/get-all-service-list/${language}`);
             const result = await response.json();
             if (result.status) {
                 const petrolPumpOnly = result.data.filter(item => item.service_type === 'petrol_pump');
@@ -71,7 +72,7 @@ const Index = () => {
 
     useEffect(() => {
         if (isFocused) {
-            getPetrolData();
+            getPetrolData(selectedLanguage);
             loadLanguage();
         }
     }, [isFocused, selectedLanguage]);

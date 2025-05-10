@@ -22,6 +22,7 @@ const Index = () => {
     try {
       const value = await AsyncStorage.getItem('selectedLanguage');
       if (value !== null) {
+        getLifeguards(value);
         setSelectedLanguage(value);
       }
     } catch (error) {
@@ -35,7 +36,7 @@ const Index = () => {
     setTimeout(() => {
       setRefreshing(false);
       console.log("Refreshing Successful");
-      getLifeguards();
+      getLifeguards(selectedLanguage);
     }, 2000);
   }, []);
 
@@ -54,10 +55,10 @@ const Index = () => {
     Linking.openURL(url);
   };
 
-  const getLifeguards = async () => {
+  const getLifeguards = async (language) => {
     try {
       setLoading(true);
-      const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
+      const response = await fetch(`${base_url}api/get-all-service-list/${language}`);
       const responseData = await response.json();
       if (responseData.status) {
         const filtered = responseData.data.filter(item => item.service_type === 'life_guard_booth');
@@ -73,7 +74,7 @@ const Index = () => {
 
   useEffect(() => {
     if (isFocused) {
-      getLifeguards();
+      getLifeguards(selectedLanguage);
       loadLanguage();
     }
   }, [isFocused, selectedLanguage]);

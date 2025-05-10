@@ -21,6 +21,7 @@ const Index = () => {
         try {
             const value = await AsyncStorage.getItem('selectedLanguage');
             if (value !== null) {
+                getChargingStation(value);
                 setSelectedLanguage(value);
             }
         } catch (error) {
@@ -34,7 +35,7 @@ const Index = () => {
         setTimeout(() => {
             setRefreshing(false);
             console.log("Refreshing Successful");
-            getChargingStation();
+            getChargingStation(selectedLanguage);
             loadLanguage();
         }, 2000);
     }, []);
@@ -54,10 +55,10 @@ const Index = () => {
         Linking.openURL(url);
     };
 
-    const getChargingStation = async () => {
+    const getChargingStation = async (language) => {
         try {
             setLoading(true);
-            const response = await fetch(`${base_url}api/get-all-service-list/${selectedLanguage}`);
+            const response = await fetch(`${base_url}api/get-all-service-list/${language}`);
             const responseData = await response.json();
             if (responseData.status) {
                 const filtered = responseData.data.filter(item => item.service_type === 'charging_station');
@@ -73,7 +74,7 @@ const Index = () => {
 
     useEffect(() => {
         if (isFocused) {
-            getChargingStation();
+            getChargingStation(selectedLanguage);
             loadLanguage();
         }
     }, [isFocused, selectedLanguage])

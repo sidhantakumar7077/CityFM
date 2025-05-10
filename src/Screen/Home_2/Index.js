@@ -159,8 +159,23 @@ const Index = () => {
             }
 
             const result = await response.json();
-            // console.log('Get Hundi Data:', result.data);
-            setHundi(result.data[0] || {});
+
+            if (result.status && Array.isArray(result.data)) {
+                const today = moment().format('YYYY-MM-DD');
+
+                // Step 1: Filter data for today
+                const todaysData = result.data.filter(item => item.date === today);
+
+                // Step 2: Sort by `created_at` in descending order and pick latest
+                const latestToday = todaysData
+                    .sort((a, b) => moment(b.created_at).valueOf() - moment(a.created_at).valueOf())[0];
+
+                // Step 3: Set it (or empty object if none)
+                setHundi(latestToday || {});
+            } else {
+                console.warn("No valid hundi data.");
+                setHundi({});
+            }
         } catch (error) {
             console.error('Error fetching hundi data:', error);
         }
@@ -1369,7 +1384,7 @@ const Index = () => {
                                 🥇 {selectedLanguage === 'Odia' ? 'ସୁନା' : 'Gold'}:
                             </Text>
                             <Text style={{ fontSize: 16, color: '#444' }}>
-                                {hundi?.gold || '0 grams'}
+                                {hundi?.gold + ' Gm' || '0 Gm'}
                             </Text>
                         </View>
 
@@ -1383,7 +1398,7 @@ const Index = () => {
                                 🥈 {selectedLanguage === 'Odia' ? 'ରୂପା' : 'Silver'}:
                             </Text>
                             <Text style={{ fontSize: 16, color: '#444' }}>
-                                {hundi?.silver || '0 grams'}
+                                {hundi?.silver + ' Gm' || '0 Gm'}
                             </Text>
                         </View>
                     </View>

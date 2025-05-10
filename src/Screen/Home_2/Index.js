@@ -247,7 +247,6 @@ const Index = () => {
         return () => clearInterval(interval);
     }, [runningNiti?.start_time]);
 
-
     useEffect(() => {
         if (isFocused) {
             getData();

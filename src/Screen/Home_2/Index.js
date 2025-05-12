@@ -33,7 +33,7 @@ const Index = () => {
     ];
 
     const conveniences = [
-        { id: '1', odiaLabel: 'ବିଶେଷ ସକ୍ଷମ ବ୍ୟକ୍ତି', label: 'Special Abled Person', page: '', image: require('../../assets/image/physical21.png') },
+        { id: '1', odiaLabel: 'ବିଶେଷ ସକ୍ଷମ ବ୍ୟକ୍ତି', label: 'Specially Abled Person', page: '', image: require('../../assets/image/physical21.png') },
         { id: '2', odiaLabel: 'ଜରୁରୀକାଳୀନ ଯୋଗାଯୋଗ', label: 'Emergency Contact', page: '', image: require('../../assets/image/emergencyontact.png') },
         { id: '3', odiaLabel: 'ଲାଇଫ ଗାର୍ଡଙ୍କ ଯୋଗାଯୋଗ', label: 'Life Guard    Contacts', page: 'LifeGuardBooth', image: require('../../assets/image/life432.png') },
         { id: '4', odiaLabel: 'ହଜିବା ଓ ଖୋଜିବା କେନ୍ଦ୍ର', label: 'Lost & Found', page: '', image: require('../../assets/image/lost&found21.png') },
@@ -640,16 +640,6 @@ const Index = () => {
                                     <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Mahaprashad</Text>
                                 }
                             </View>
-                            <View style={{ alignItems: "center", width: "23%" }}>
-                                <TouchableOpacity onPress={() => setDoDontsModal(true)} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                    <Image source={require('../../assets/image/dodonts.png')} style={{ width: 75, height: 75 }} />
-                                </TouchableOpacity>
-                                {selectedLanguage === 'Odia' ?
-                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>କରନ୍ତୁ ଏବଂ କରନ୍ତୁ ନାହିଁ</Text>
-                                    :
-                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>do and don'ts</Text>
-                                }
-                            </View>
                             {/* <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                     <Image source={require('../../assets/image/panji765.png')} style={{ width: 35, height: 35 }} />
@@ -668,6 +658,16 @@ const Index = () => {
                                     <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ପର୍ବପର୍ବାଣୀ</Text>
                                     :
                                     <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
+                                }
+                            </View>
+                            <View style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity onPress={() => setDoDontsModal(true)} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                    <Image source={require('../../assets/image/dodonts.png')} style={{ width: 75, height: 75 }} />
+                                </TouchableOpacity>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>କରନ୍ତୁ ଏବଂ କରନ୍ତୁ ନାହିଁ</Text>
+                                    :
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Do and Don'ts</Text>
                                 }
                             </View>
                         </View>
@@ -701,14 +701,13 @@ const Index = () => {
                                     <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>{selectedLanguage === 'Odia' ? '୨, ୩, ୪ ଚକିଆ' : '2, 3, 4 Wheelers'}</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
-                                    {/* <FontAwesome5 name="parking" size={30} color="#D64C64" /> */}
                                     <Image source={require('../../assets/image/parking765.png')} style={{ width: 38, height: 38, resizeMode: 'contain' }} />
                                 </View>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={() => navigation.navigate('Locker_shoes')} style={{ width: '48%', height: 80, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 12, padding: 15, justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 1 }}>
                                 <View style={{ width: '60%', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{selectedLanguage === 'Odia' ? 'ଜୋତା ଷ୍ଟାଣ୍ଡ' : 'Locker & Shoes Stand'}</Text>
+                                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#333' }}>{selectedLanguage === 'Odia' ? 'ଜୋତା ଷ୍ଟାଣ୍ଡ' : 'Locker & Shoe Stand'}</Text>
                                     <Text style={{ fontSize: 12, color: '#777', marginTop: 2 }}>{selectedLanguage === 'Odia' ? 'ନିଃଶୁଳ୍କ  ସେବା' : 'Free services'}</Text>
                                 </View>
                                 <View style={{ width: '40%', alignItems: 'center' }}>
@@ -924,76 +923,97 @@ const Index = () => {
                         }}>
                             <View style={{
                                 width: '90%',
-                                backgroundColor: '#fff',
-                                borderRadius: 16,
-                                padding: 20,
                                 maxHeight: '85%',
+                                backgroundColor: '#fff',
+                                paddingVertical: 15,
+                                borderRadius: 16,
+                                overflow: 'hidden',
                             }}>
-                                <Text style={{
-                                    fontSize: 20,
-                                    fontWeight: '700',
-                                    marginBottom: 15,
-                                    textAlign: 'center',
-                                    color: '#B7070A'
-                                }}>
-                                    Do’s & Don’ts at Jagannatha Dham Puri
-                                </Text>
-
-                                {/* ✅ DOs */}
-                                <Text style={{
-                                    fontSize: 16,
-                                    fontWeight: '600',
-                                    color: '#008000',
-                                    marginBottom: 8,
-                                }}>✅ Do’s:</Text>
-
-                                {[
-                                    'Maintain cleanliness within temple premises.',
-                                    'Respect temple rituals and timings.',
-                                    'Use designated donation boxes for offerings.',
-                                    'Dress modestly and appropriately.',
-                                    'Keep mobile phones on silent mode.'
-                                ].map((item, index) => (
-                                    <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5 }}>
-                                        • {item}
+                                <ScrollView
+                                    contentContainerStyle={{ padding: 20 }}
+                                    showsVerticalScrollIndicator={false}
+                                >
+                                    <Text style={{
+                                        fontSize: 20,
+                                        fontWeight: '700',
+                                        textAlign: 'center',
+                                        color: '#B7070A'
+                                    }}>
+                                        Do’s & Dont’s at Jagannatha Dham Puri
                                     </Text>
-                                ))}
 
-                                {/* 🚫 DON'Ts */}
-                                <Text style={{
-                                    fontSize: 16,
-                                    fontWeight: '600',
-                                    color: '#B7070A',
-                                    marginTop: 15,
-                                    marginBottom: 8,
-                                }}>🚫 Don’ts:</Text>
+                                    {/* ✅ DOs */}
+                                    <Text style={{
+                                        fontSize: 16,
+                                        fontWeight: '600',
+                                        color: '#008000',
+                                        marginBottom: 8,
+                                    }}>Do’s:</Text>
 
-                                {[
-                                    'Do not carry leather items inside.',
-                                    'Avoid photography inside the temple.',
-                                    'Do not engage in loud conversations.',
-                                    'Do not touch idols or sacred objects.',
-                                    'Avoid feeding animals inside temple grounds.'
-                                ].map((item, index) => (
-                                    <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5 }}>
-                                        • {item}
-                                    </Text>
-                                ))}
+                                    {[
+                                        "Follow the Queue System for hassle free darshan of Deities.",
+                                        "Respect ancient customs and usages while at Shree Jagannatha Temple and promote religious sentiments among co-pilgrims.",
+                                        "Observe absolute silence inside the temple.",
+                                        "Deposit your offerings in the Hundi and Branch Office inside the temple premises.",
+                                        "Keep clean the premises of Shree Jagannatha Temple.",
+                                        "Bath and wear clean clothes before you enter the shrine.",
+                                        "Beware of Pickpocket and monkeys.",
+                                    ].map((item, index) => (
+                                        <Text key={index} style={{
+                                            fontSize: 14,
+                                            color: '#333',
+                                            marginBottom: 5,
+                                            lineHeight: 20
+                                        }}>
+                                            ✅ {item}
+                                        </Text>
+                                    ))}
 
-                                {/* Close Button */}
-                                <View style={{ alignItems: 'center', marginTop: 20 }}>
-                                    <TouchableOpacity
-                                        onPress={() => setDoDontsModal(false)}
-                                        style={{
-                                            backgroundColor: '#B7070A',
-                                            paddingVertical: 10,
-                                            paddingHorizontal: 30,
-                                            borderRadius: 8,
-                                        }}
-                                    >
-                                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                    {/* 🚫 DON'Ts */}
+                                    <Text style={{
+                                        fontSize: 16,
+                                        fontWeight: '600',
+                                        color: '#B7070A',
+                                        marginTop: 15,
+                                        marginBottom: 8,
+                                    }}>Don’ts:</Text>
+
+                                    {[
+                                        'Consume liquor or other intoxicants during Darshan of the Deities.',
+                                        'Eat non-vegetarian food.',
+                                        'Carry cooked food.',
+                                        'Encourage beggary.',
+                                        'Split or commit nuisance.',
+                                        'Waste water.',
+                                        'Spit, urinate or defecate in the premises of temple.',
+                                        'Foot wear and leather items in and around the premises of the temple.',
+                                        'Carry umbrella, mobile telephone, electronic gadgets, leather items etc.',
+                                    ].map((item, index) => (
+                                        <Text key={index} style={{
+                                            fontSize: 14,
+                                            color: '#333',
+                                            marginBottom: 5,
+                                            lineHeight: 20
+                                        }}>
+                                            🚫 {item}
+                                        </Text>
+                                    ))}
+
+                                    {/* Close Button */}
+                                    <View style={{ alignItems: 'center', marginTop: 20 }}>
+                                        <TouchableOpacity
+                                            onPress={() => setDoDontsModal(false)}
+                                            style={{
+                                                backgroundColor: '#B7070A',
+                                                paddingVertical: 10,
+                                                paddingHorizontal: 30,
+                                                borderRadius: 8,
+                                            }}
+                                        >
+                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </ScrollView>
                             </View>
                         </View>
                     </Modal>

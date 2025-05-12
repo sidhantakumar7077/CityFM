@@ -1,4 +1,4 @@
-package com.shreejagannathadham
+package com.shreejagannatha.dham
 
 import android.app.Application
 import com.facebook.react.PackageList

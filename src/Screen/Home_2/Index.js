@@ -148,6 +148,8 @@ const Index = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const closeDrawer = () => { setIsDrawerOpen(false); };
 
+    const [doDontsModal, setDoDontsModal] = useState(false);
+
     const [physicalHanducapModalVisible, setPhysicalHanducapModalVisible] = useState(false);
     const [lostAndFoundModalVisible, setLostAndFoundModalVisible] = useState(false);
 
@@ -630,7 +632,6 @@ const Index = () => {
                             </View>
                             <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('MahaPrashad')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                    {/* <MaterialCommunityIcons name={'food-apple'} size={33} color="white" /> */}
                                     <Image source={require('../../assets/image/prasad879.png')} style={{ width: 55, height: 55 }} />
                                 </TouchableOpacity>
                                 {selectedLanguage === 'Odia' ?
@@ -640,8 +641,17 @@ const Index = () => {
                                 }
                             </View>
                             <View style={{ alignItems: "center", width: "23%" }}>
+                                <TouchableOpacity onPress={() => setDoDontsModal(true)} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
+                                    <Image source={require('../../assets/image/dodonts.png')} style={{ width: 75, height: 75 }} />
+                                </TouchableOpacity>
+                                {selectedLanguage === 'Odia' ?
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>କରନ୍ତୁ ଏବଂ କରନ୍ତୁ ନାହିଁ</Text>
+                                    :
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>do and don'ts</Text>
+                                }
+                            </View>
+                            {/* <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Panji')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
-                                    {/* <MaterialCommunityIcons name={'calendar-month'} size={33} color="white" /> */}
                                     <Image source={require('../../assets/image/panji765.png')} style={{ width: 35, height: 35 }} />
                                 </TouchableOpacity>
                                 {selectedLanguage === 'Odia' ?
@@ -649,7 +659,7 @@ const Index = () => {
                                     :
                                     <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Panji</Text>
                                 }
-                            </View>
+                            </View> */}
                             <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Festival')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
                                     <Image source={require('../../assets/image/festival21.png')} style={{ width: 60, height: 60 }} />
@@ -898,6 +908,95 @@ const Index = () => {
                             </TouchableOpacity>
                         )}
                     </View>
+
+                    {/* Do and don'ts Modal */}
+                    <Modal
+                        visible={doDontsModal}
+                        transparent={true}
+                        animationType="fade"
+                        onRequestClose={() => setDoDontsModal(false)}
+                    >
+                        <View style={{
+                            flex: 1,
+                            backgroundColor: 'rgba(0,0,0,0.5)',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <View style={{
+                                width: '90%',
+                                backgroundColor: '#fff',
+                                borderRadius: 16,
+                                padding: 20,
+                                maxHeight: '85%',
+                            }}>
+                                <Text style={{
+                                    fontSize: 20,
+                                    fontWeight: '700',
+                                    marginBottom: 15,
+                                    textAlign: 'center',
+                                    color: '#B7070A'
+                                }}>
+                                    Do’s & Don’ts at Jagannatha Dham Puri
+                                </Text>
+
+                                {/* ✅ DOs */}
+                                <Text style={{
+                                    fontSize: 16,
+                                    fontWeight: '600',
+                                    color: '#008000',
+                                    marginBottom: 8,
+                                }}>✅ Do’s:</Text>
+
+                                {[
+                                    'Maintain cleanliness within temple premises.',
+                                    'Respect temple rituals and timings.',
+                                    'Use designated donation boxes for offerings.',
+                                    'Dress modestly and appropriately.',
+                                    'Keep mobile phones on silent mode.'
+                                ].map((item, index) => (
+                                    <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5 }}>
+                                        • {item}
+                                    </Text>
+                                ))}
+
+                                {/* 🚫 DON'Ts */}
+                                <Text style={{
+                                    fontSize: 16,
+                                    fontWeight: '600',
+                                    color: '#B7070A',
+                                    marginTop: 15,
+                                    marginBottom: 8,
+                                }}>🚫 Don’ts:</Text>
+
+                                {[
+                                    'Do not carry leather items inside.',
+                                    'Avoid photography inside the temple.',
+                                    'Do not engage in loud conversations.',
+                                    'Do not touch idols or sacred objects.',
+                                    'Avoid feeding animals inside temple grounds.'
+                                ].map((item, index) => (
+                                    <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5 }}>
+                                        • {item}
+                                    </Text>
+                                ))}
+
+                                {/* Close Button */}
+                                <View style={{ alignItems: 'center', marginTop: 20 }}>
+                                    <TouchableOpacity
+                                        onPress={() => setDoDontsModal(false)}
+                                        style={{
+                                            backgroundColor: '#B7070A',
+                                            paddingVertical: 10,
+                                            paddingHorizontal: 30,
+                                            borderRadius: 8,
+                                        }}
+                                    >
+                                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
 
                     {/* Emergency Contact */}
                     <Modal

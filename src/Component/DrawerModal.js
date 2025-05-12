@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Modal, TouchableWithoutFeedback, TouchableOpaci
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import LinearGradient from 'react-native-linear-gradient'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -45,6 +46,8 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
 
     return (
         <View>
+
+            {/* Drawer Section */}
             <Modal
                 visible={visible}
                 animationType="none"
@@ -165,13 +168,20 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
                                 </Text>
 
                                 {/* English Language Option */}
+                                <LinearGradient
+                                    colors={selectedLanguage === 'English' ? ['#FFA726', '#F06292'] : ['#f2f2f2', '#f2f2f2']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
+                                    style={{
+                                        borderRadius: 10,
+                                        marginBottom: 15,
+                                    }}
+                                >
                                 <TouchableOpacity
                                     onPress={() => saveLanguage('English')}
                                     style={{
-                                        backgroundColor: selectedLanguage === 'English' ? '#F06292' : '#f2f2f2',
                                         paddingVertical: 14,
                                         borderRadius: 10,
-                                        marginBottom: 15,
                                         alignItems: 'center',
                                     }}
                                     activeOpacity={0.85}
@@ -184,26 +194,35 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
                                         English
                                     </Text>
                                 </TouchableOpacity>
+                                </LinearGradient>
 
                                 {/* Odia Language Option */}
-                                <TouchableOpacity
-                                    onPress={() => saveLanguage('Odia')}
+                                <LinearGradient
+                                    colors={selectedLanguage === 'Odia' ? ['#FFA726', '#F06292'] : ['#f2f2f2', '#f2f2f2']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 0 }}
                                     style={{
-                                        backgroundColor: selectedLanguage === 'Odia' ? '#F06292' : '#f2f2f2',
-                                        paddingVertical: 14,
                                         borderRadius: 10,
-                                        alignItems: 'center',
                                     }}
-                                    activeOpacity={0.85}
                                 >
-                                    <Text style={{
-                                        fontSize: 18,
-                                        color: selectedLanguage === 'Odia' ? '#fff' : '#000',
-                                        fontWeight: '600',
-                                    }}>
-                                        ଓଡ଼ିଆ
-                                    </Text>
-                                </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => saveLanguage('Odia')}
+                                        activeOpacity={0.85}
+                                        style={{
+                                            paddingVertical: 14,
+                                            borderRadius: 10,
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <Text style={{
+                                            fontSize: 18,
+                                            color: selectedLanguage === 'Odia' ? '#fff' : '#000',
+                                            fontWeight: '600',
+                                        }}>
+                                            ଓଡ଼ିଆ
+                                        </Text>
+                                    </TouchableOpacity>
+                                </LinearGradient>
 
                             </View>
                         </TouchableWithoutFeedback>

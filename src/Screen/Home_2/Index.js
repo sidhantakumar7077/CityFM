@@ -421,7 +421,7 @@ const Index = () => {
                         scrollEventThrottle={16}
                         decelerationRate="fast"
                         nestedScrollEnabled={true}
-                        onScroll={() => hendlegetNitiFOrRefresh()}
+                        // onScroll={() => hendlegetNitiFOrRefresh()}
                     >
                         <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
                             {runningNiti && (

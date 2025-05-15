@@ -78,9 +78,8 @@ const Index = () => {
       name: "Shree Mandira re Bhaunri",
       date: "19/05/2025",
       day: 'Monday',
-      odiaName: "",
-      odiaDate: "ଭଉଁରୀ",
-      odiaDay: "୧୯/୦୫/୨୦୨୫",
+      odiaName: "ଭଉଁରୀ",
+      odiaDate: "୧୯/୦୫/୨୦୨୫",
       odiaDay: "ସୋମବାର",
     },
     {

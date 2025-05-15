@@ -259,7 +259,7 @@ const Index = () => {
                                             {isRunning && (
                                                 <>
                                                     <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
-                                                        {selectedLanguage === 'Odia' ? "ଚାଲୁଅଛି" : "Running Now"} {moment(item.start_time, 'HH:mm:ss').format('h:mm A')}
+                                                        {selectedLanguage === 'Odia' ? "ଚାଲୁଅଛି" : "Running Now"}
                                                     </Text>
                                                 </>
                                             )}

@@ -973,7 +973,7 @@ const Index = () => {
                                     </Text>
 
                                     {/* ✅ DOs */}
-                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#008000', marginBottom: 8 }}>Do’s:</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#008000', marginBottom: 8 }}>{selectedLanguage === 'Odia' ? 'କରନ୍ତୁ:' : 'Do’s:'}</Text>
 
                                     {(selectedLanguage === 'Odia' ? doList.or : doList.en).map((item, index) => (
                                         <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5, lineHeight: 20 }}>
@@ -982,7 +982,7 @@ const Index = () => {
                                     ))}
 
                                     {/* 🚫 DON'Ts */}
-                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#B7070A', marginTop: 15, marginBottom: 8 }}>Don’ts:</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#B7070A', marginTop: 15, marginBottom: 8 }}>{selectedLanguage === 'Odia' ? 'କରନ୍ତୁ ନାହିଁ:' : 'Don’ts:'}</Text>
 
                                     {(selectedLanguage === 'Odia' ? dontList.or : dontList.en).map((item, index) => (
                                         <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5, lineHeight: 20 }}>
@@ -992,9 +992,16 @@ const Index = () => {
 
                                     {/* Close Button */}
                                     <View style={{ alignItems: 'center', marginTop: 20 }}>
-                                        <TouchableOpacity onPress={() => setDoDontsModal(false)} style={{ backgroundColor: '#B7070A', paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8 }}>
-                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
-                                        </TouchableOpacity>
+                                        <LinearGradient
+                                            colors={['#FFA726', '#F06292']}
+                                            start={{ x: 0, y: 0 }}
+                                            end={{ x: 1, y: 0 }}
+                                            style={{ backgroundColor: '#B7070A', paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8 }}
+                                        >
+                                            <TouchableOpacity onPress={() => setDoDontsModal(false)}>
+                                                <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
+                                            </TouchableOpacity>
+                                        </LinearGradient>
                                     </View>
                                 </ScrollView>
                             </View>

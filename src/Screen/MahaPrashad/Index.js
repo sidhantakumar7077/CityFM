@@ -227,7 +227,18 @@ const Index = () => {
                 } */}
 
                 {/* Prashad List */}
-                {!isLoading ? (
+                {isLoading ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 150 }}>
+                        <Text style={{ fontSize: 16, color: '#999', fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
+                    </View>
+                ) : mahaPrasadData.length === 0 ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 150 }}>
+                        <Text style={{ fontSize: 16, color: '#999', fontFamily: 'FiraSans-Regular' }}>No Maha PrasadData Found</Text>
+                        <TouchableOpacity onPress={onRefresh} style={{ marginTop: 10, backgroundColor: '#341551', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5 }}>
+                            <Text style={{ color: '#fff', fontFamily: 'FiraSans-Regular' }}>Refresh</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (
                     <View style={{ marginTop: 20 }}>
                         <FlatList
                             data={mahaPrasadData}
@@ -323,12 +334,7 @@ const Index = () => {
                             }}
                         />
                     </View>
-                ) : (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', top: '50%' }}>
-                        <Text style={{ fontSize: 16, color: '#999', fontFamily: 'FiraSans-Regular' }}>Loading...</Text>
-                    </View>
                 )}
-                <View style={{ height: 400 }} />
             </ScrollView>
 
             <Modal

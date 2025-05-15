@@ -61,6 +61,52 @@ const Index = () => {
         { name: 'National Highway Helpline', odiaName: 'ଜାତୀୟ ରାଜପଥ ହେଲ୍ପଲାଇନ୍', phone: '1033' },
     ];
 
+    const doList = {
+        en: [
+            "Follow the Queue System for hassle free darshan of Deities.",
+            "Respect ancient customs and usages while at Shree Jagannatha Temple and promote religious sentiments among co-pilgrims.",
+            "Observe absolute silence inside the temple.",
+            "Deposit your offerings in the Hundi and Branch Office inside the temple premises.",
+            "Keep clean the premises of Shree Jagannatha Temple.",
+            "Bath and wear clean clothes before you enter the shrine.",
+            "Beware of Pickpocket and monkeys.",
+        ],
+        or: [
+            "ଅନୁଗତ ଶ୍ରୀମନ୍ଦିରରେ ଶାନ୍ତି ଓ ସୁବ୍ୟବସ୍ଥିତ ଦର୍ଶନ ପାଇଁ ଧାଡ଼ିରେ ଆସନ୍ତୁ।",
+            "ଶ୍ରୀଜଗନ୍ନାଥ ମନ୍ଦିରରେ ପ୍ରାଚୀନ ରୀତି ଓ ପ୍ରଥାକୁ ସମ୍ମାନ ଦିଅନ୍ତୁ ଏବଂ ସହ-ତୀର୍ଥଯାତ୍ରୀଙ୍କ ମଧ୍ୟରେ ଧାର୍ମିକ ଭାବନାକୁ ପ୍ରୋତ୍ସାହିତ କରନ୍ତୁ ।",
+            "ମନ୍ଦିର ଭିତରେ ପୂର୍ଣ୍ଣ ନିରବତା ପାଳନ କରନ୍ତୁ ।",
+            "ମନ୍ଦିର ପରିସରରେ ଥିବା ହୁଣ୍ଡି ଓ ଶାଖା କାର୍ଯ୍ୟାଳୟରେ ଆପଣଙ୍କର ଦାନ ଅର୍ପଣ କରନ୍ତୁ ।",
+            "ଶ୍ରୀଜଗନ୍ନାଥ ମନ୍ଦିର ପରିସରକୁ ପରିଷ୍କାର ରଖନ୍ତୁ।",
+            "ସ୍ନାନ ଓ ଶୌଚ କରି ସଫା ପୋଷାକ ପିନ୍ଧି ମନ୍ଦିରରେ ପ୍ରବେଶ କରନ୍ତୁ ।",
+            "ପକେଟମାର ଓ ମାଙ୍କଡ଼ମାନଙ୍କଠାରୁ  ସତର୍କ ରୁହନ୍ତୁ।",
+        ]
+    };
+
+    const dontList = {
+        en: [
+            "Consume liquor or other intoxicants during Darshan of the Deities.",
+            "Eat non-vegetarian food.",
+            "Carry cooked food.",
+            "Encourage beggary.",
+            "Split or commit nuisance.",
+            "Waste water.",
+            "Spit, urinate or defecate in the premises of temple.",
+            "Foot wear and leather items in and around the premises of the temple.",
+            "Carry umbrella, mobile telephone, electronic gadgets, leather items etc.",
+        ],
+        or: [
+            "ଦେବତାଙ୍କ ଦର୍ଶନ ସମୟରେ ମଦ ବା ଅନ୍ୟ କୋଣସି ମାଦକ ଦ୍ରବ୍ୟ ସେବନ କରିବା ନିଷିଦ୍ଧ।",
+            "ମନ୍ଦିର ପରିସରକୁ ମାଂସାହାର କରି ଯିବା ନିଷିଦ୍ଧ।",
+            "ମନ୍ଦିର ପରିସରକୁ ରନ୍ଧା ଖାଦ୍ୟ ନେଇଯିବା ନିଷିଦ୍ଧ।",
+            "ମନ୍ଦିର ପରିସରରେ ଭିକ୍ଷାବୃତ୍ତି କରିବା ଅନୁଚିତ ।",
+            "ଛେପ ପକାଇବା କିମ୍ବା ଅସଭ୍ୟ ଆଚରଣ କରିବା ନିଷିଦ୍ଧ।",
+            "ଜଳକୁ ନଷ୍ଟ କରନ୍ତୁ ନାହିଁ ।",
+            "ମନ୍ଦିର ପରିସରରେ ଛେପ ପକାଇବା, ପରିଶ୍ରା କରିବା ବା ଶୌଚ କରିବା ନିଷିଦ୍ଧ।",
+            "ମନ୍ଦିର ପରିସର ଭିତରେ ଏବଂ ଚାରିପାଖରେ ଜୋତା ଓ ଚମଡା ଜିନିଷ ନିଷିଦ୍ଧ ଅଟେ।",
+            "ଛତା, ମୋବାଇଲ୍ ଫୋନ୍, ଇଲେକ୍ଟ୍ରୋନିକ୍ ଉପକରଣ, ଚମଡା ଜିନିଷ ଇତ୍ୟାଦି ନେଇଯିବାକୁ ନିଷିଦ୍ଧ।"
+        ]
+    };
+
     const [emergencyModalVisible, setEmergencyModalVisible] = useState(false);
     const handleCall = (phoneNumber) => {
         Linking.openURL(`tel:${phoneNumber}`);
@@ -421,7 +467,11 @@ const Index = () => {
                         scrollEventThrottle={16}
                         decelerationRate="fast"
                         nestedScrollEnabled={true}
-                        // onScroll={() => hendlegetNitiFOrRefresh()}
+                        onMomentumScrollEnd={() => {
+                            console.log('Scroll ended – refreshing Niti...');
+                            hendlegetNitiFOrRefresh(); // ✅ This will trigger only once per scroll
+                        }}
+                    // onScroll={throttledRefresh}
                     >
                         <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
                             {runningNiti && (
@@ -915,101 +965,34 @@ const Index = () => {
                         animationType="fade"
                         onRequestClose={() => setDoDontsModal(false)}
                     >
-                        <View style={{
-                            flex: 1,
-                            backgroundColor: 'rgba(0,0,0,0.5)',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}>
-                            <View style={{
-                                width: '90%',
-                                maxHeight: '85%',
-                                backgroundColor: '#fff',
-                                paddingVertical: 15,
-                                borderRadius: 16,
-                                overflow: 'hidden',
-                            }}>
-                                <ScrollView
-                                    contentContainerStyle={{ padding: 20 }}
-                                    showsVerticalScrollIndicator={false}
-                                >
-                                    <Text style={{
-                                        fontSize: 20,
-                                        fontWeight: '700',
-                                        textAlign: 'center',
-                                        color: '#B7070A'
-                                    }}>
-                                        Do’s & Dont’s at Jagannatha Dham Puri
+                        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={{ width: '90%', maxHeight: '85%', backgroundColor: '#fff', paddingVertical: 15, borderRadius: 16, overflow: 'hidden' }}>
+                                <ScrollView contentContainerStyle={{ padding: 20 }} showsVerticalScrollIndicator={false}>
+                                    <Text style={{ fontSize: 20, fontWeight: '700', textAlign: 'center', color: '#B7070A' }}>
+                                        {selectedLanguage === 'Odia' ? "ଶ୍ରୀଜଗନ୍ନାଥ ଧାମ ପୁରୀରେ କରିବା ଓ ନକରିବା କାମ" : "Do’s & Dont’s at Jagannatha Dham Puri"}
                                     </Text>
 
                                     {/* ✅ DOs */}
-                                    <Text style={{
-                                        fontSize: 16,
-                                        fontWeight: '600',
-                                        color: '#008000',
-                                        marginBottom: 8,
-                                    }}>Do’s:</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#008000', marginBottom: 8 }}>Do’s:</Text>
 
-                                    {[
-                                        "Follow the Queue System for hassle free darshan of Deities.",
-                                        "Respect ancient customs and usages while at Shree Jagannatha Temple and promote religious sentiments among co-pilgrims.",
-                                        "Observe absolute silence inside the temple.",
-                                        "Deposit your offerings in the Hundi and Branch Office inside the temple premises.",
-                                        "Keep clean the premises of Shree Jagannatha Temple.",
-                                        "Bath and wear clean clothes before you enter the shrine.",
-                                        "Beware of Pickpocket and monkeys.",
-                                    ].map((item, index) => (
-                                        <Text key={index} style={{
-                                            fontSize: 14,
-                                            color: '#333',
-                                            marginBottom: 5,
-                                            lineHeight: 20
-                                        }}>
+                                    {(selectedLanguage === 'Odia' ? doList.or : doList.en).map((item, index) => (
+                                        <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5, lineHeight: 20 }}>
                                             ✅ {item}
                                         </Text>
                                     ))}
 
                                     {/* 🚫 DON'Ts */}
-                                    <Text style={{
-                                        fontSize: 16,
-                                        fontWeight: '600',
-                                        color: '#B7070A',
-                                        marginTop: 15,
-                                        marginBottom: 8,
-                                    }}>Don’ts:</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#B7070A', marginTop: 15, marginBottom: 8 }}>Don’ts:</Text>
 
-                                    {[
-                                        'Consume liquor or other intoxicants during Darshan of the Deities.',
-                                        'Eat non-vegetarian food.',
-                                        'Carry cooked food.',
-                                        'Encourage beggary.',
-                                        'Split or commit nuisance.',
-                                        'Waste water.',
-                                        'Spit, urinate or defecate in the premises of temple.',
-                                        'Foot wear and leather items in and around the premises of the temple.',
-                                        'Carry umbrella, mobile telephone, electronic gadgets, leather items etc.',
-                                    ].map((item, index) => (
-                                        <Text key={index} style={{
-                                            fontSize: 14,
-                                            color: '#333',
-                                            marginBottom: 5,
-                                            lineHeight: 20
-                                        }}>
+                                    {(selectedLanguage === 'Odia' ? dontList.or : dontList.en).map((item, index) => (
+                                        <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5, lineHeight: 20 }}>
                                             🚫 {item}
                                         </Text>
                                     ))}
 
                                     {/* Close Button */}
                                     <View style={{ alignItems: 'center', marginTop: 20 }}>
-                                        <TouchableOpacity
-                                            onPress={() => setDoDontsModal(false)}
-                                            style={{
-                                                backgroundColor: '#B7070A',
-                                                paddingVertical: 10,
-                                                paddingHorizontal: 30,
-                                                borderRadius: 8,
-                                            }}
-                                        >
+                                        <TouchableOpacity onPress={() => setDoDontsModal(false)} style={{ backgroundColor: '#B7070A', paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8 }}>
                                             <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>Close</Text>
                                         </TouchableOpacity>
                                     </View>

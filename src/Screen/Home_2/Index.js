@@ -1709,19 +1709,16 @@ const Index = () => {
                         />
 
                         {/* Close Button */}
-                        <TouchableOpacity
-                            style={{
-                                marginTop: 20,
-                                backgroundColor: '#341551',
-                                paddingVertical: 12,
-                                borderRadius: 10,
-                                alignItems: 'center',
-                            }}
-                            onPress={() => setNoticeModalVisible(false)}
-                            activeOpacity={0.8}
+                        <LinearGradient
+                            colors={['#FFA726', '#F06292']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={{ marginTop: 20, backgroundColor: '#341551', paddingVertical: 12, borderRadius: 10, alignItems: 'center' }}
                         >
-                            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Close</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setNoticeModalVisible(false)} activeOpacity={0.8}>
+                                <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Close</Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
                     </View>
                 </View>
             </Modal>

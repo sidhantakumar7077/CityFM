@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Animated, Image, RefreshControl, Modal } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation, useIsFocused } from '@react-navigation/native'
-import Modal from 'react-native-modal';
+import Modal1 from 'react-native-modal';
 import { base_url } from '../../../App';
 import moment from 'moment';
 
@@ -43,6 +42,13 @@ const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [allNiti, setAllNiti] = useState([]);
     const [selectedLanguage, setSelectedLanguage] = useState('');
+    const [isDescModalVisible, setIsDescModalVisible] = useState(false);
+    const [desc, setDesc] = useState('');
+
+    const showDescModal = (desc) => {
+        setIsDescModalVisible(!isDescModalVisible);
+        setDesc(desc);
+    };
 
     const loadLanguage = async () => {
         try {
@@ -179,24 +185,24 @@ const Index = () => {
                                 const isRunning = item.niti_status === 'Started';
                                 const isUpcoming = item.niti_status === 'Upcoming';
 
-                                const getIcon = () => {
-                                    if (isCompleted) {
-                                        return <Feather name="check-circle" size={20} color="#999" />;
-                                    }
-                                    if (isRunning) {
-                                        return (
-                                            <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
-                                                <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
-                                            </View>
-                                        );
-                                    }
-                                    return (
-                                        null
-                                        // <TouchableOpacity onPress={handleAlram}>
-                                        //     <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
-                                        // </TouchableOpacity>
-                                    );
-                                };
+                                // const getIcon = () => {
+                                //     if (isCompleted) {
+                                //         return <Feather name="check-circle" size={20} color="#999" />;
+                                //     }
+                                //     if (isRunning) {
+                                //         return (
+                                //             <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
+                                //                 <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
+                                //             </View>
+                                //         );
+                                //     }
+                                //     return (
+                                //         null
+                                //         // <TouchableOpacity onPress={handleAlram}>
+                                //         //     <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                //         // </TouchableOpacity>
+                                //     );
+                                // };
 
                                 const getColor = () => {
                                     if (isCompleted) return '#FFA726'; // purple
@@ -267,7 +273,11 @@ const Index = () => {
 
                                         {/* Right-side icon */}
                                         <View style={{ marginTop: 5 }}>
-                                            {getIcon()}
+                                            {/* {getIcon()} */}
+                                            {/* Info Icon For show description Modal */}
+                                            <TouchableOpacity onPress={() => showDescModal(item?.desc)}>
+                                                <AntDesign name="infocirlce" size={20} color="#999" />
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 );
@@ -277,7 +287,36 @@ const Index = () => {
                 )}
             </ScrollView>
 
+            {/* Niti Description Modal */}
             <Modal
+                transparent
+                visible={isDescModalVisible}
+                animationType="slide"
+                onRequestClose={() => setIsDescModalVisible(false)}
+            >
+                <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ backgroundColor: '#fff', padding: 20, borderRadius: 10, width: '80%', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Niti Description</Text>
+                        {/* <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', marginBottom: 20 }}>{desc}</Text> */}
+                        <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', marginBottom: 20 }}>
+                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+                        </Text>
+                        <LinearGradient
+                            colors={['#FFA726', '#F06292']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={{ backgroundColor: '#2196F3', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }}
+                        >
+                            <TouchableOpacity onPress={() => setIsDescModalVisible(false)}>
+                                <Text style={{ color: '#fff', fontWeight: 'bold' }}>Close</Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
+                    </View>
+                </View>
+            </Modal>
+
+            {/* Alarm Modal */}
+            <Modal1
                 isVisible={alramModalVisible}
                 onBackdropPress={handleAlram}
                 style={{ justifyContent: 'flex-end', margin: 0 }}
@@ -306,7 +345,7 @@ const Index = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            </Modal1>
         </View>
     );
 };

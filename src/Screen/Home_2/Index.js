@@ -443,8 +443,8 @@ const Index = () => {
                         {selectedLanguage === 'Odia' ?
                             <View style={{ position: 'absolute', top: 110, width: '100%', left: 13 }}>
                                 <View style={{ textAlign: 'center', marginLeft: 8 }}>
-                                    <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>ଜୟ ଜଗନ୍ନାଥ</Text>
-                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -5 }}>ଶ୍ରୀଜଗନ୍ନାଥ ଧାମକୁ</Text>
+                                    <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>ଜୟ ଶ୍ରୀ ଜଗନ୍ନାଥ</Text>
+                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -5 }}>ଶ୍ରୀଜଗନ୍ନାଥ ଧାମ ପୁରୀକୁ</Text>
                                     <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -5 }}>ସ୍ଵାଗତ</Text>
                                 </View>
                             </View>
@@ -453,7 +453,7 @@ const Index = () => {
                                 <View style={{ textAlign: 'center', marginLeft: 8 }}>
                                     <Text style={{ color: '#fff', fontSize: 14, fontFamily: 'FiraSans-Regular', letterSpacing: 0.8, marginBottom: 2 }}>Welcome to</Text>
                                     <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -8 }}>Shree Jagannatha</Text>
-                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham</Text>
+                                    <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'FiraSans-Medium', letterSpacing: 0.8, marginTop: -10 }}>Dham Puri</Text>
                                 </View>
                             </View>
                         }
@@ -705,7 +705,7 @@ const Index = () => {
                                     <Image source={require('../../assets/image/festival21.png')} style={{ width: 60, height: 60 }} />
                                 </TouchableOpacity>
                                 {selectedLanguage === 'Odia' ?
-                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ପର୍ବପର୍ବାଣୀ</Text>
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>ପର୍ବପର୍ବାଣି</Text>
                                     :
                                     <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Festivals</Text>
                                 }
@@ -911,7 +911,7 @@ const Index = () => {
                     {/* conveniences */}
                     <View style={{ padding: 15 }}>
                         {/* Title */}
-                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>{selectedLanguage === 'Odia' ? 'ଯାତ୍ରୀମାନଙ୍କ ଆବଶ୍ୟକତା' : 'Conveniences'}</Text>
+                        <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>{selectedLanguage === 'Odia' ? 'ଯାତ୍ରୀ ତଥା ଭକ୍ତମାନଙ୍କ ଆବଶ୍ୟକତା' : 'Conveniences'}</Text>
                         {/* <View style={{ backgroundColor: 'red', width: 45, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 20 }} /> */}
                         <LinearGradient
                             colors={['#FFA726', '#F06292']}
@@ -931,7 +931,7 @@ const Index = () => {
                                             navigation.navigate(item.page);
                                         } else if (item.label === 'Emergency Contact') {
                                             setEmergencyModalVisible(true);
-                                        } else if (item.label === 'Special Abled Person') {
+                                        } else if (item.label === 'Specially Abled Person') {
                                             setPhysicalHanducapModalVisible(true);
                                         } else if (item.label === 'Route Map') {
                                             Linking.openURL('https://maps.app.goo.gl/MQEvQykPJo64ghgQA');

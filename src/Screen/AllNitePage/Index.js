@@ -258,7 +258,7 @@ const Index = () => {
 
                                             {isCompleted && (
                                                 <Text style={{ fontSize: 13, color: '#341551', fontFamily: 'FiraSans-Regular' }}>
-                                                    {selectedLanguage === 'Odia' ? "ସମାପ୍ତ ହୋଇଛି" : "Completed at"} {moment(item.end_time, 'HH:mm:ss').format('h:mm A')}
+                                                    {selectedLanguage === 'Odia' ? "ସମାପନ ସମୟ" : "Completed at"} {moment(item.end_time, 'HH:mm:ss').format('h:mm A')}
                                                 </Text>
                                             )}
 

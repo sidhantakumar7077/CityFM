@@ -43,11 +43,11 @@ const Index = () => {
     const [allNiti, setAllNiti] = useState([]);
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isDescModalVisible, setIsDescModalVisible] = useState(false);
-    const [desc, setDesc] = useState('');
+    const [niti, setNiti] = useState(null);
 
-    const showDescModal = (desc) => {
+    const showDescModal = (niti) => {
         setIsDescModalVisible(!isDescModalVisible);
-        setDesc(desc);
+        setNiti(niti);
     };
 
     const loadLanguage = async () => {
@@ -275,7 +275,7 @@ const Index = () => {
                                         <View style={{ marginTop: 5 }}>
                                             {/* {getIcon()} */}
                                             {/* Info Icon For show description Modal */}
-                                            <TouchableOpacity onPress={() => showDescModal(item?.desc)}>
+                                            <TouchableOpacity onPress={() => showDescModal(item)}>
                                                 <AntDesign name="infocirlce" size={20} color="#999" />
                                             </TouchableOpacity>
                                         </View>
@@ -296,10 +296,11 @@ const Index = () => {
             >
                 <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
                     <View style={{ backgroundColor: '#fff', padding: 20, borderRadius: 10, width: '80%', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Niti Description</Text>
-                        {/* <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', marginBottom: 20 }}>{desc}</Text> */}
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>{selectedLanguage === 'Odia' ? niti?.niti_name : niti?.english_niti_name}</Text>
                         <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', marginBottom: 20 }}>
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+                            {selectedLanguage === 'Odia'
+                                ? (niti?.description || "No Niti Description Found")
+                                : (niti?.english_description || "No Niti Description Found")}
                         </Text>
                         <LinearGradient
                             colors={['#FFA726', '#F06292']}

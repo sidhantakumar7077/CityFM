@@ -1,9 +1,11 @@
-import { StatusBar } from 'react-native'
+import { StatusBar, StyleSheet, View, Text, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
+import VersionCheck from 'react-native-version-check';
 
 // SplashScreen
 import SplashScreen from './src/Screen/SplashScreen/Index';
@@ -55,6 +57,39 @@ export const base_url = "https://shreejagannathadham.com/";
 const App = () => {
 
   const [showSplash, setShowSplash] = useState(true);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [latestVersion, setLatestVersion] = useState('');
+
+  useEffect(() => {
+    const checkForUpdates = async () => {
+      try {
+        const currentVersion = await VersionCheck.getCurrentVersion(); // Ensure this is awaited
+        const storeVersion = await VersionCheck.getLatestVersion({
+          provider: 'playStore', // For iOS, use 'appStore'
+        });
+
+        console.log("storeVersion:", storeVersion);
+        console.log("currentVersion:", currentVersion);
+
+        const updateInfo = await VersionCheck.needUpdate({
+          currentVersion,
+          latestVersion: storeVersion,
+        });
+
+        console.log("Update needed:", updateInfo.isNeeded);
+
+        if (updateInfo.isNeeded) {
+          setLatestVersion(storeVersion);
+          setShowUpdateModal(true);
+          console.log("Update is required to version:", storeVersion);
+        }
+      } catch (error) {
+        console.error('Error checking app version:', error);
+      }
+    };
+
+    checkForUpdates();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -141,8 +176,81 @@ const App = () => {
           <Stack.Screen name="Privacy_policy" component={Privacy_policy} />
         </>
       </Stack.Navigator>
+
+      {/* Version Update Modal */}
+      <Modal isVisible={showUpdateModal} style={styles.modalContainer}>
+        <View style={styles.modalBox}>
+          <Text style={styles.modalHeader}>Update Available</Text>
+          <Text style={styles.modalText}>
+            A new version of the app is available. Please update to version <Text style={styles.modalVersion}>{latestVersion}</Text> for the best experience.
+          </Text>
+          <View style={styles.modalButtonContainer}>
+            <Text
+              style={styles.modalButton}
+              onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.shreejagannatha.dham')}
+            >
+              Update Now
+            </Text>
+          </View>
+        </View>
+      </Modal>
+
     </NavigationContainer>
   )
 }
 
 export default App
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalBox: {
+    backgroundColor: '#ffffff',
+    padding: 25,
+    borderRadius: 15,
+    width: '85%',
+    alignItems: 'center',
+    elevation: 5, // Add shadow for Android
+    shadowColor: '#000', // Add shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+  modalHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#c9170a', // Highlight color for the header
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  modalText: {
+    fontSize: 16,
+    color: '#555',
+    textAlign: 'center',
+    marginBottom: 20,
+    lineHeight: 24,
+  },
+  modalVersion: {
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  modalButtonContainer: {
+    marginTop: 10,
+    width: '100%',
+    alignItems: 'center',
+  },
+  modalButton: {
+    backgroundColor: '#c9170a',
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    width: '80%',
+  },
+});

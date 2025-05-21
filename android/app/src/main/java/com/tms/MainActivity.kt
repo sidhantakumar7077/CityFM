@@ -1,4 +1,4 @@
-package com.shree.jagannathadham
+package com.shreejagannatha.dham
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

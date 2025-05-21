@@ -77,23 +77,13 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    // First build variant
-    // namespace "com.shreejagannatha.dham"
-    // defaultConfig {
-    //     applicationId "com.shreejagannatha.dham"
-    //     minSdkVersion rootProject.ext.minSdkVersion
-    //     targetSdkVersion rootProject.ext.targetSdkVersion
-    //     versionCode 5
-    //     versionName "1.4"
-    // }
-    // Second build variant
-    namespace "com.shree.jagannathadham"
+    namespace "com.shreejagannatha.dham"
     defaultConfig {
-        applicationId "com.shree.jagannathadham"
+        applicationId "com.shreejagannatha.dham"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "2.0"
+        versionCode 6
+        versionName "1.5"
     }
     signingConfigs {
         release {

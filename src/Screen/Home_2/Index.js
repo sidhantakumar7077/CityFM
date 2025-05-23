@@ -84,15 +84,16 @@ const Index = () => {
 
     const dontList = {
         en: [
-            "Consume liquor or other intoxicants during Darshan of the Deities.",
-            "Eat non-vegetarian food.",
-            "Carry cooked food.",
-            "Encourage beggary.",
-            "Spit or commit nuisance.",
-            "Waste water.",
-            "Spit, urinate or defecate in the premises of temple.",
-            "Foot wear and leather items in and around the premises of the temple.",
-            "Carry umbrella, mobile telephone, electronic gadgets, leather items etc.",
+            "Do not Consume liquor or other intoxicants during Darshan of the Deities.",
+            "Do not Eat non-vegetarian food.",
+            "Do not Carry cooked food.",
+            "Do not Encourage beggary.",
+            "Do not Spit or commit nuisance.",
+            "Do not Waste water.",
+            "Do not Spit, urinate or defecate in the premises of temple.",
+            "Do not Foot wear and leather items in and around the premises of the temple.",
+            "Do not wear cap inside temple premises",
+            "Do not Carry umbrella, mobile telephone, electronic gadgets, leather items etc.",
         ],
         or: [
             "ଦେବତାଙ୍କ ଦର୍ଶନ ସମୟରେ ମଦ ବା ଅନ୍ୟ କୋଣସି ମାଦକ ଦ୍ରବ୍ୟ ସେବନ କରିବା ନିଷିଦ୍ଧ।",
@@ -103,7 +104,8 @@ const Index = () => {
             "ଜଳକୁ ନଷ୍ଟ କରନ୍ତୁ ନାହିଁ ।",
             "ମନ୍ଦିର ପରିସରରେ ଛେପ ପକାଇବା, ପରିଶ୍ରା କରିବା ବା ଶୌଚ କରିବା ନିଷିଦ୍ଧ ଅଟେ।",
             "ମନ୍ଦିର ପରିସର ଭିତରେ ଏବଂ ଚାରିପାଖରେ ଜୋତା ଓ ଚମଡା ଜିନିଷ ବ୍ୟବହାର ନିଷିଦ୍ଧ ଅଟେ।",
-            "ଛତା, ମୋବାଇଲ୍ ଫୋନ୍, ଇଲେକ୍ଟ୍ରୋନିକ୍ ଉପକରଣ, ଚମଡା ଜିନିଷ ଇତ୍ୟାଦି ସାଙ୍ଗରେ ନେଇଯିବାକୁ ନିଷିଦ୍ଧ ଅଟେ।"
+            "ଛତା, ମୋବାଇଲ୍ ଫୋନ୍, ଇଲେକ୍ଟ୍ରୋନିକ୍ ଉପକରଣ, ଚମଡା ଜିନିଷ ଇତ୍ୟାଦି ସାଙ୍ଗରେ ନେଇଯିବାକୁ ନିଷିଦ୍ଧ ଅଟେ।",
+            "ମନ୍ଦିର ପରିସର ମଧ୍ୟରେ ଟୋପି ପିନ୍ଧନ୍ତୁ ନାହିଁ।"
         ]
     };
 
@@ -220,6 +222,7 @@ const Index = () => {
 
                 // Step 3: Set it (or empty object if none)
                 setHundi(latestToday || {});
+                // console.log("Hundi", latestToday);
             } else {
                 console.warn("No valid hundi data.");
                 setHundi({});
@@ -728,7 +731,7 @@ const Index = () => {
                                     {selectedLanguage === 'Odia' ?
                                         <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>ଭକ୍ତ ନିବାସ</Text>
                                         :
-                                        <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nibas</Text>
+                                        <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nivas</Text>
                                     }
                                 </View>
                                 <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -982,7 +985,7 @@ const Index = () => {
                                     ))}
 
                                     {/* 🚫 DON'Ts */}
-                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#B7070A', marginTop: 15, marginBottom: 8 }}>{selectedLanguage === 'Odia' ? 'କରନ୍ତୁ ନାହିଁ:' : 'Don’ts:'}</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#B7070A', marginTop: 15, marginBottom: 8 }}>{selectedLanguage === 'Odia' ? 'କରନ୍ତୁ ନାହିଁ:' : 'Dont’s:'}</Text>
 
                                     {(selectedLanguage === 'Odia' ? dontList.or : dontList.en).map((item, index) => (
                                         <Text key={index} style={{ fontSize: 14, color: '#333', marginBottom: 5, lineHeight: 20 }}>
@@ -1431,26 +1434,10 @@ const Index = () => {
                 animationType="fade"
                 onRequestClose={() => setShowHundi(false)}
             >
-                <View style={{
-                    flex: 1,
-                    backgroundColor: 'rgba(0,0,0,0.4)',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <View style={{
-                        width: '85%',
-                        backgroundColor: '#fff',
-                        borderRadius: 14,
-                        padding: 20,
-                        elevation: 10,
-                    }}>
+                <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: '85%', backgroundColor: '#fff', borderRadius: 14, padding: 20, elevation: 10 }}>
                         {/* Header */}
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: 10,
-                        }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
                             <Text style={{ fontSize: 18, fontWeight: '700', color: '#B7070A' }}>
                                 🪙  {selectedLanguage === 'Odia' ? 'ହୁଣ୍ଡି ସଂଗ୍ରହ' : 'Hundi Collection'}
                             </Text>
@@ -1460,56 +1447,47 @@ const Index = () => {
                         </View>
 
                         {/* Date */}
-                        <Text style={{
-                            fontSize: 14,
-                            color: '#555',
-                            marginBottom: 16,
-                            textAlign: 'center'
-                        }}>
+                        <Text style={{ fontSize: 14, color: '#555', marginBottom: 16, textAlign: 'center' }}>
                             {moment(hundi?.date).format("DD MMM YYYY")}, {moment(hundi?.date).format("dddd")}
                         </Text>
 
-                        {/* Rupees */}
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginBottom: 12,
-                        }}>
-                            <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
-                                💰 {selectedLanguage === 'Odia' ? 'ମୁଦ୍ରା:' : 'Rupees:'}:
-                            </Text>
-                            <Text style={{ fontSize: 16, color: '#444' }}>
-                                ₹ {hundi?.rupees || 0}
-                            </Text>
-                        </View>
+                        {hundi && hundi.date ?
+                            <>
+                                {/* Rupees */}
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                                    <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                        💰 {selectedLanguage === 'Odia' ? 'ମୁଦ୍ରା:' : 'Rupees:'}:
+                                    </Text>
+                                    <Text style={{ fontSize: 16, color: '#444' }}>
+                                        ₹ {hundi?.rupees || 0}
+                                    </Text>
+                                </View>
 
-                        {/* Gold */}
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginBottom: 12,
-                        }}>
-                            <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
-                                🥇 {selectedLanguage === 'Odia' ? 'ସୁନା' : 'Gold'}:
-                            </Text>
-                            <Text style={{ fontSize: 16, color: '#444' }}>
-                                {hundi?.gold + ' Gm' || '0 Gm'}
-                            </Text>
-                        </View>
+                                {/* Gold */}
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                                    <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                        🥇 {selectedLanguage === 'Odia' ? 'ସୁନା' : 'Gold'}:
+                                    </Text>
+                                    <Text style={{ fontSize: 16, color: '#444' }}>
+                                        {parseFloat(hundi?.gold) || 0} Gm
+                                    </Text>
+                                </View>
 
-                        {/* Silver */}
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginBottom: 12,
-                        }}>
-                            <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
-                                🥈 {selectedLanguage === 'Odia' ? 'ରୂପା' : 'Silver'}:
-                            </Text>
-                            <Text style={{ fontSize: 16, color: '#444' }}>
-                                {hundi?.silver + ' Gm' || '0 Gm'}
-                            </Text>
-                        </View>
+                                {/* Silver */}
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                                    <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                        🥈 {selectedLanguage === 'Odia' ? 'ରୂପା' : 'Silver'}:
+                                    </Text>
+                                    <Text style={{ fontSize: 16, color: '#444' }}>
+                                        {parseFloat(hundi?.silver) || 0} Gm
+                                    </Text>
+                                </View>
+                            </>
+                            :
+                            <View style={{ width: '80%', alignSelf: 'center', alignItems: 'center', marginVertical: 20 }}>
+                                <Text style={{ fontSize: 16, color: '#555', textAlign: 'center' }}>No Hundi collection data available for today.</Text>
+                            </View>
+                        }
                     </View>
                 </View>
             </Modal>

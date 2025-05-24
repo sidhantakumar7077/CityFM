@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-// import Swiper from 'react-native-swiper';
+import Swiper from 'react-native-swiper';
 import { base_url } from "../../../App";
 import moment from "moment";
 import DrawerModal from "../../Component/DrawerModal";
@@ -18,18 +18,18 @@ const { height } = Dimensions.get('window');
 const Index = () => {
 
     const TempleBanner = [
-        {
-            image: require('../../assets/image/temple546.png'),
-            title: 'Shree Jagannatha',
-            subtitle: 'All Information about Temple.',
-            pageName: 'TempleInformationPage',
-        },
         // {
-        //     image: require('../../assets/image/ratha_yatra123.png'),
-        //     title: 'Ratha Yatra Updates',
-        //     subtitle: 'All types of information',
-        //     pageName: 'RathaYatraMainPage',
+        //     image: require('../../assets/image/temple546.png'),
+        //     title: 'Shree Jagannatha',
+        //     subtitle: 'All Information about Temple.',
+        //     pageName: 'TempleInformationPage',
         // },
+        {
+            image: require('../../assets/image/ratha_yatra123.png'),
+            title: 'Ratha Yatra Updates',
+            subtitle: 'All types of information',
+            pageName: 'RathaYatraMainPage',
+        },
     ];
 
     const conveniences = [
@@ -580,7 +580,7 @@ const Index = () => {
                     )}
 
                     {/* Ratha Yatra Banner */}
-                    {/* <View style={{ height: 150, marginVertical: 10 }}>
+                    <View style={{ height: 150, marginVertical: 10 }}>
                         <Swiper
                             // autoplay
                             // autoplayTimeout={4}
@@ -611,7 +611,7 @@ const Index = () => {
                                 </LinearGradient>
                             ))}
                         </Swiper>
-                    </View> */}
+                    </View>
 
                     {/* Live Broadcast Section */}
                     {/* <View style={styles.liveCard}>

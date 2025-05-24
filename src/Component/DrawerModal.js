@@ -70,17 +70,29 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
                                     </View>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('Privacy_policy'), onClose() }}>
+                            <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('Home_2'), onClose() }}>
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
-                                    <FontAwesome5 name="user-lock" size={22} color="#341551" />
+                                    <FontAwesome5 name="home" size={22} color="#341551" />
                                 </View>
-                                <Text style={styles.drawerLable}>Privacy & Policy</Text>
+                                <Text style={styles.drawerLable}>Home</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.drawerCell, { marginTop: 0.5 }]} onPress={() => { setLanguageModalVisible(true), onClose() }}>
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
                                     <Ionicons name="language" size={22} color="#341551" />
                                 </View>
                                 <Text style={styles.drawerLable}>Language</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('RathaYatraMainPage'), onClose() }}>
+                                <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
+                                    <FontAwesome5 name="user-lock" size={22} color="#341551" />
+                                </View>
+                                <Text style={styles.drawerLable}>Ratha Yatra</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('Privacy_policy'), onClose() }}>
+                                <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
+                                    <FontAwesome5 name="user-lock" size={22} color="#341551" />
+                                </View>
+                                <Text style={styles.drawerLable}>Privacy & Policy</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.drawerCell, { marginTop: 0.5 }]}>
                             </TouchableOpacity>

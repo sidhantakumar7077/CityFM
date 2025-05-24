@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal } from "react-native";
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Octicons from "react-native-vector-icons/Octicons";
@@ -10,10 +11,25 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Feather from 'react-native-vector-icons/Feather';
+import DrawerModal from "../../Component/DrawerModal";
 
 const Index = () => {
 
     const navigation = useNavigation();
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const closeDrawer = () => { setIsDrawerOpen(false); };
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+    const loadLanguage = async () => {
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
+        }
+    };
 
     const conveniences = [
         // { id: '3', iconType: FontAwesome5, icon: 'wheelchair', label: 'Physical Handicap & Sr Citizen', page: '' },
@@ -134,6 +150,7 @@ const Index = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <DrawerModal visible={isDrawerOpen} navigation={navigation} onClose={closeDrawer} loadLanguageForHomePage={loadLanguage} />
             <ScrollView
                 style={styles.container}
                 showsVerticalScrollIndicator={false}
@@ -147,8 +164,10 @@ const Index = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
                         </View>
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#c91306', padding: 7, borderRadius: 50 }}>
-                            <Ionicons name="home-sharp" size={18} color="#fff" />
+                        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => setIsDrawerOpen(true)}>
+                            <View style={{ width: 28, height: 3, backgroundColor: '#ff5733', marginVertical: 3.5 }} />
+                            <View style={{ width: 28, height: 3, backgroundColor: '#ffc300', marginVertical: 3.5 }} />
+                            <View style={{ width: 28, height: 3, backgroundColor: '#fff', marginVertical: 3.5 }} />
                         </TouchableOpacity>
                     </View>
                     <View style={{ position: 'absolute', top: 100, width: '100%', left: 13 }}>
@@ -163,7 +182,7 @@ const Index = () => {
                 {/* Current Niti Box */}
                 <ScrollView style={{ padding: 8, alignSelf: 'center', marginTop: -50 }} horizontal={true} showsHorizontalScrollIndicator={false} scrollEventThrottle={16} decelerationRate="fast" nestedScrollEnabled={true}>
                     <View style={{ flexDirection: 'row', paddingLeft: 3 }}>
-                        <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
+                        {/* <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '90%' }}>
                                     <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#6A0DAD' }}>Akhaya Trutiya</Text>
@@ -183,7 +202,7 @@ const Index = () => {
                                     <Ionicons name="chevron-forward" size={24} color="#fa0000" />
                                 </View>
                             </View>
-                        </View>
+                        </View> */}
                         <View style={{ backgroundColor: '#fff', paddingHorizontal: 20, paddingVertical: 25, borderRadius: 20, justifyContent: 'center', marginRight: 10, width: 330, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, elevation: 5 }}>
                             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ width: '90%' }}>

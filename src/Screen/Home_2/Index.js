@@ -580,7 +580,7 @@ const Index = () => {
                     )}
 
                     {/* Ratha Yatra Banner */}
-                    <View style={{ height: 150, marginVertical: 10 }}>
+                    <View style={{ height: 150, marginTop: 10 }}>
                         <Swiper
                             // autoplay
                             // autoplayTimeout={4}
@@ -659,18 +659,7 @@ const Index = () => {
                         </View> */}
 
                     {/* Quick Services Section */}
-                    <View style={{ padding: 15 }}>
-                        {/* Title Section */}
-                        {/* <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Regular', color: '#341551', textAlign: 'center' }}>Quick Services</Text>
-                        <LinearGradient
-                            colors={['#FFA726', '#F06292']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={{
-                                width: 50, height: 2, marginTop: 8, marginLeft: 4, marginBottom: 0, alignSelf: 'center'
-                            }}
-                        /> */}
-
+                    <View style={{ padding: 15, marginTop: -10 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ alignItems: "center", width: "23%" }}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Darshan')} style={{ width: 75, height: 78, borderRadius: 15, alignItems: 'center', justifyContent: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 3, backgroundColor: '#fff' }}>
@@ -944,7 +933,7 @@ const Index = () => {
                                     }}
                                     style={{ width: '30%', alignItems: 'center', marginBottom: 20 }}
                                 >
-                                    <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: item.page === 'DrinkingWater' ? "#feefec" : 'transparent', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
+                                    <View style={{ width: 54, height: 54, borderRadius: 30, backgroundColor: item.page === 'DrinkingWater' ? "#feefec" : 'transparent', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
                                         {/* <item.iconType name={item.icon} size={24} color="#D64C64" /> */}
                                         <Image source={item.image} style={{ width: item.page === 'DrinkingWater' ? 40 : 55, height: item.page === 'DrinkingWater' ? 40 : 55 }} resizeMode="contain" />
                                     </View>

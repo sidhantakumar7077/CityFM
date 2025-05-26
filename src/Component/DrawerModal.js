@@ -84,7 +84,7 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('RathaYatraMainPage'), onClose() }}>
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
-                                    <FontAwesome5 name="user-lock" size={22} color="#341551" />
+                                    <FontAwesome5 name="calendar-alt" size={22} color="#341551" />
                                 </View>
                                 <Text style={styles.drawerLable}>Ratha Yatra</Text>
                             </TouchableOpacity>

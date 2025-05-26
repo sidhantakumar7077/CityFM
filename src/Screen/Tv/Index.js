@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, ImageBackground, Image, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import YoutubePlayer from "react-native-youtube-iframe";
 

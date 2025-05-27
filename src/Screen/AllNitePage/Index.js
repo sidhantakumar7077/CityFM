@@ -4,6 +4,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import Modal1 from 'react-native-modal';
 import { base_url } from '../../../App';
@@ -185,24 +187,25 @@ const Index = () => {
                                 const isRunning = item.niti_status === 'Started';
                                 const isUpcoming = item.niti_status === 'Upcoming';
 
-                                // const getIcon = () => {
-                                //     if (isCompleted) {
-                                //         return <Feather name="check-circle" size={20} color="#999" />;
-                                //     }
-                                //     if (isRunning) {
-                                //         return (
-                                //             <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
-                                //                 <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
-                                //             </View>
-                                //         );
-                                //     }
-                                //     return (
-                                //         null
-                                //         // <TouchableOpacity onPress={handleAlram}>
-                                //         //     <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
-                                //         // </TouchableOpacity>
-                                //     );
-                                // };
+                                const getIcon = () => {
+                                    if (isCompleted) {
+                                        return <Feather name="check-circle" size={20} color="#999" />;
+                                    }
+                                    if (isRunning) {
+                                        return (
+                                            <View style={{ backgroundColor: '#dce8e0', padding: 6, borderRadius: 100 }}>
+                                                <MaterialCommunityIcons name="timer-outline" size={30} color="#059629" />
+                                            </View>
+                                        );
+                                    }
+                                    return (
+                                        // null
+                                        // onPress={handleAlram}
+                                        <TouchableOpacity>
+                                            <MaterialCommunityIcons name="bell-outline" size={22} color="#999" />
+                                        </TouchableOpacity>
+                                    );
+                                };
 
                                 const getColor = () => {
                                     if (isCompleted) return '#FFA726'; // purple
@@ -273,11 +276,11 @@ const Index = () => {
 
                                         {/* Right-side icon */}
                                         <View style={{ marginTop: 5 }}>
-                                            {/* {getIcon()} */}
+                                            {getIcon()}
                                             {/* Info Icon For show description Modal */}
-                                            <TouchableOpacity onPress={() => showDescModal(item)}>
+                                            {/* <TouchableOpacity onPress={() => showDescModal(item)}>
                                                 <AntDesign name="infocirlce" size={20} color="#999" />
-                                            </TouchableOpacity>
+                                            </TouchableOpacity> */}
                                         </View>
                                     </View>
                                 );

@@ -1161,7 +1161,7 @@ const Index = () => {
         >
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
             <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-            <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ପର୍ବପର୍ବାଣୀ' : 'Festivals'}</Text>
+            <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ପର୍ବପର୍ବାଣି' : 'Festivals'}</Text>
           </TouchableOpacity>
         </LinearGradient>
       </Animated.View>
@@ -1179,8 +1179,8 @@ const Index = () => {
           {/* <ImageBackground source={require('../../assets/image/mangala_alati.jpg')} style={styles.headerImage} /> */}
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
             <View style={{ width: '75%' }}>
-              <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ପର୍ବପର୍ବାଣୀ ସମୟ' : 'Festival Timing'}</Text>
-              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ପୁରୀ ମନ୍ଦିରର ସମସ୍ତ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ପର୍ବପର୍ବାଣୀ।' : 'All important festivals in Puri Temple.'}</Text>
+              <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ପର୍ବପର୍ବାଣି ସମୟ' : 'Festival Timing'}</Text>
+              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ପୁରୀ ମନ୍ଦିରର ସମସ୍ତ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ପର୍ବପର୍ବାଣି।' : 'All important festivals in Puri Temple.'}</Text>
               {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Set Alert →</Text>
               </TouchableOpacity> */}

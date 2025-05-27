@@ -10,6 +10,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import DrawerModal from "../../Component/DrawerModal";
 import YoutubePlayer from "react-native-youtube-iframe";
 import moment from "moment";
+import { base_url } from "../../../App";
 
 const Index = () => {
 
@@ -306,9 +307,34 @@ const Index = () => {
         }));
     };
 
+    const [rathaYatraLiveVideoSectionVisible, setRathaYatraLiveVideoSectionVisible] = useState(false);
+
+    const getRathaYatraLiveVideo = async () => {
+        try {
+            const response = await fetch(`${base_url}api/rathayatra/status`);
+            if (!response.ok) {
+                console.log('Network response was not ok');
+                setRathaYatraLiveVideoSectionVisible(false); // fail-safe
+                return;
+            }
+
+            const result = await response.json();
+            if (result.status) {
+                setRathaYatraLiveVideoSectionVisible(result.data.live_video === "active");
+            } else {
+                console.log('API responded with status false:', result.message);
+                setRathaYatraLiveVideoSectionVisible(false);
+            }
+        } catch (error) {
+            console.log('Error fetching Ratha Yatra Live Video section status:', error);
+            setRathaYatraLiveVideoSectionVisible(false);
+        }
+    };
+
     useEffect(() => {
         if (isFocused) {
             loadLanguage();
+            getRathaYatraLiveVideo();
         }
     }, [isFocused, selectedLanguage]);
 
@@ -401,7 +427,7 @@ const Index = () => {
                 <View style={styles.liveCard}>
                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ width: '30%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/ratha_yatra123.png')} style={{ width: 80, height: 50 }} />
+                            <Image source={require('../../assets/image/ratha432.png')} style={{ width: 90, height: 50, resizeMode: 'contain' }} />
                         </View>
                         <View style={{ width: '30%', alignItems: 'center' }}>
                             <Text style={styles.liveTitle}>{selectedLanguage === 'Odia' ? 'ରଥଯାତ୍ରା ଲାଇଭ୍' : 'Ratha Yatra Live'}</Text>

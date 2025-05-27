@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
+const DrawerModal = ({ visible, onClose, loadLanguageForHomePage, rathaYatraSectionActive }) => {
 
     const navigation = useNavigation()
     const [languageModalVisible, setLanguageModalVisible] = useState(false)
@@ -82,12 +82,14 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
                                 </View>
                                 <Text style={styles.drawerLable}>Language</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('RathaYatraMainPage'), onClose() }}>
-                                <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
-                                    <FontAwesome5 name="calendar-alt" size={22} color="#341551" />
-                                </View>
-                                <Text style={styles.drawerLable}>Ratha Yatra</Text>
-                            </TouchableOpacity>
+                            {rathaYatraSectionActive &&
+                                <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('RathaYatraMainPage'), onClose() }}>
+                                    <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
+                                        <FontAwesome5 name="calendar-alt" size={22} color="#341551" />
+                                    </View>
+                                    <Text style={styles.drawerLable}>Ratha Yatra</Text>
+                                </TouchableOpacity>
+                            }
                             <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('Privacy_policy'), onClose() }}>
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
                                     <FontAwesome5 name="user-lock" size={22} color="#341551" />
@@ -189,23 +191,23 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage }) => {
                                         marginBottom: 15,
                                     }}
                                 >
-                                <TouchableOpacity
-                                    onPress={() => saveLanguage('English')}
-                                    style={{
-                                        paddingVertical: 14,
-                                        borderRadius: 10,
-                                        alignItems: 'center',
-                                    }}
-                                    activeOpacity={0.85}
-                                >
-                                    <Text style={{
-                                        fontSize: 18,
-                                        color: selectedLanguage === 'English' ? '#fff' : '#000',
-                                        fontWeight: '600',
-                                    }}>
-                                        English
-                                    </Text>
-                                </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => saveLanguage('English')}
+                                        style={{
+                                            paddingVertical: 14,
+                                            borderRadius: 10,
+                                            alignItems: 'center',
+                                        }}
+                                        activeOpacity={0.85}
+                                    >
+                                        <Text style={{
+                                            fontSize: 18,
+                                            color: selectedLanguage === 'English' ? '#fff' : '#000',
+                                            fontWeight: '600',
+                                        }}>
+                                            English
+                                        </Text>
+                                    </TouchableOpacity>
                                 </LinearGradient>
 
                                 {/* Odia Language Option */}
@@ -251,7 +253,7 @@ export default DrawerModal
 const styles = StyleSheet.create({
     variantModalContainer: {
         width: '70%',
-        height: '75%',
+        height: '100%',
         left: 0,
         top: 0,
         backgroundColor: '#341551',

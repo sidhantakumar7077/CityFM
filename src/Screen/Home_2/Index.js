@@ -607,7 +607,7 @@ const Index = () => {
                     )}
 
                     {/* Ratha Yatra Banner */}
-                    {rathaYatraSectionActive &&
+                    {/* {rathaYatraSectionActive &&
                         <View style={{ height: 150, marginTop: 10 }}>
                             <Swiper
                                 // autoplay
@@ -640,7 +640,7 @@ const Index = () => {
                                 ))}
                             </Swiper>
                         </View>
-                    }
+                    } */}
 
                     {/* Live Broadcast Section */}
                     {/* <View style={styles.liveCard}>

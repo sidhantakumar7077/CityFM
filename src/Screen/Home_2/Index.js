@@ -51,9 +51,9 @@ const Index = () => {
     ];
 
     const emergencyContacts = [
-        { name: 'Police', odiaName: 'ପୋଲିସ', phone: '100' },
-        { name: 'Ambulance', odiaName: 'ଆମ୍ବୁଲାନ୍ସ', phone: '108' },
-        { name: 'Fire Service', odiaName: 'ଅଗ୍ନିଶମ ସେବା', phone: '101' },
+        { name: 'Police', odiaName: 'ପୋଲିସ', phone: '112' },
+        { name: 'Ambulance', odiaName: 'ଆମ୍ବୁଲାନ୍ସ', phone: '112' },
+        { name: 'Fire Service', odiaName: 'ଅଗ୍ନିଶମ ସେବା', phone: '112' },
         { name: 'Elder Person Helpline', odiaName: 'ବୟସ୍କ ବ୍ୟକ୍ତିଙ୍କ ପାଇଁ ହେଲ୍ପଲାଇନ୍', phone: '1090' },
         { name: 'Child Helpline', odiaName: 'ଶିଶୁଙ୍କ ପାଇଁ ହେଲ୍ପଲାଇନ୍', phone: '1098' },
         { name: 'Women Helpline', odiaName: 'ମହିଳାଙ୍କ ହେଲ୍ପଲାଇନ୍', phone: '1091' },
@@ -1144,7 +1144,7 @@ const Index = () => {
                                         Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text> at <Text style={{ fontWeight: '600', color: '#D64C64' }}>06752 – 252527</Text>.
                                     </Text>
                                 }
-                                {selectedLanguage === 'Odia' ?
+                                {/* {selectedLanguage === 'Odia' ?
                                     <View style={{
                                         backgroundColor: '#fff5f5',
                                         padding: 12,
@@ -1182,7 +1182,7 @@ const Index = () => {
                                             <Text style={{ fontWeight: 'bold', color: '#E91E63' }}>🚫 Note:</Text> Wheelchairs are strictly prohibited inside the temple.
                                         </Text>
                                     </View>
-                                }
+                                } */}
 
                                 <LinearGradient
                                     colors={['#FFA726', '#F06292']}
@@ -1513,7 +1513,7 @@ const Index = () => {
                                 {/* Rupees */}
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
                                     <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
-                                        💰 {selectedLanguage === 'Odia' ? 'ମୁଦ୍ରା:' : 'Rupees:'}:
+                                        💰 {selectedLanguage === 'Odia' ? 'ମୁଦ୍ରା' : 'Rupees'}:
                                     </Text>
                                     <Text style={{ fontSize: 16, color: '#444' }}>
                                         ₹ {hundi?.rupees || 0}
@@ -1526,9 +1526,21 @@ const Index = () => {
                                         🥇 {selectedLanguage === 'Odia' ? 'ସୁନା' : 'Gold'}:
                                     </Text>
                                     <Text style={{ fontSize: 16, color: '#444' }}>
-                                        {parseFloat(hundi?.gold) || 0} Gm
+                                        {(hundi?.gold) || "0 Gm"}
                                     </Text>
                                 </View>
+
+                                {/* Mix Gold */}
+                                {hundi?.mix_gold &&
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                                        <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                            🥇 {selectedLanguage === 'Odia' ? 'ମିଶ୍ରିତ ସୁନା' : 'Mixed Gold'}:
+                                        </Text>
+                                        <Text style={{ fontSize: 16, color: '#444' }}>
+                                            {(hundi?.mix_gold) || "0 Gm"}
+                                        </Text>
+                                    </View>
+                                }
 
                                 {/* Silver */}
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
@@ -1536,9 +1548,22 @@ const Index = () => {
                                         🥈 {selectedLanguage === 'Odia' ? 'ରୂପା' : 'Silver'}:
                                     </Text>
                                     <Text style={{ fontSize: 16, color: '#444' }}>
-                                        {parseFloat(hundi?.silver) || 0} Gm
+                                        {(hundi?.silver) || "0 Gm"}
                                     </Text>
                                 </View>
+
+                                {/* Mix Silver */}
+                                {hundi?.mix_silver &&
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                                        <Text style={{ fontSize: 16, color: '#333', fontWeight: '600' }}>
+                                            🥈 {selectedLanguage === 'Odia' ? 'ମିଶ୍ରିତ ରୂପା' : 'Mixed Silver'}
+                                        </Text>
+                                        <Text style={{ fontSize: 16, color: '#444' }}>
+                                            {(hundi?.mix_silver) || "0 Gm"}
+                                        </Text>
+                                    </View>
+                                }
+
                             </>
                             :
                             <View style={{ width: '80%', alignSelf: 'center', alignItems: 'center', marginVertical: 20 }}>

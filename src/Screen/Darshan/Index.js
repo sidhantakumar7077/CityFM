@@ -258,10 +258,10 @@ const Index = () => {
                                 <View style={styles.nitiDetails}>
                                     <Text style={styles.nitiName}>{selectedLanguage === 'Odia' ? 'ଦର୍ଶନ ଚାଲୁଅଛି' : 'Darshan Running'}</Text>
                                     <Text style={{ color: '#333', fontSize: 14, fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === 'Odia' ? darshanData?.darshan_name : darshanData?.english_darshan_name}</Text>
-                                    <Text style={styles.nitiTime}>
+                                    {/* <Text style={styles.nitiTime}>
                                         <Text style={styles.nitiStatus}>{selectedLanguage === 'Odia' ? 'ଆରମ୍ଭ ହୋଇଥିଲା ' : 'Started at '}</Text>
                                         <Text style={{ color: '#000' }}> | {moment(darshanData?.start_time, 'HH:mm:ss').format('hh:mm A')}</Text>
-                                    </Text>
+                                    </Text> */}
                                 </View>
                             </LinearGradient>
                             :

@@ -435,9 +435,9 @@ const Index = () => {
                     {item.notice_descp}
                 </Text>
             ) : null}
-            <Text style={{ fontSize: 13, color: '#718096', fontStyle: 'italic' }}>
+            {/* <Text style={{ fontSize: 13, color: '#718096', fontStyle: 'italic' }}>
                 📅 {moment(item.notice_date).format('MMMM Do, YYYY')}
-            </Text>
+            </Text> */}
         </View>
     );
 
@@ -1748,7 +1748,7 @@ const Index = () => {
                                 textAlign: 'center',
                             }}
                         >
-                            📢 Today's Notices
+                            Today's Notices
                         </Text>
 
                         {/* Notice List */}

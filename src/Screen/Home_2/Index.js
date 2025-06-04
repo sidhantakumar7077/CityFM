@@ -1633,7 +1633,7 @@ const Index = () => {
                                 ଫୋନ୍ : (୦୬୭୫୨) ୨୫୨୬୦୧{"\n\n"}
 
 
-                                ପୁରୀର ଗ୍ରାଣ୍ଡ ରୋଡରେ ଥିବା ମୁଖ୍ୟ କାର୍ଯ୍ୟାଳୟରେ ଦାନ ପ୍ରକୋଷ୍ଠ 
+                                ପୁରୀର ଗ୍ରାଣ୍ଡ ରୋଡରେ ଥିବା ମୁଖ୍ୟ କାର୍ଯ୍ୟାଳୟରେ ଦାନ ପ୍ରକୋଷ୍ଠ
                                 ଶାଖା କାର୍ଯ୍ୟାଳୟ, ଶ୍ରୀଜଗନ୍ନାଥ ମନ୍ଦିର ଭିତରେ, ପୁରୀ।{"\n\n"}
 
                                 ଶ୍ରୀ ଜଗନ୍ନାଥ ମନ୍ଦିରର ସୂଚନା କେନ୍ଦ୍ର:{"\n"}
@@ -1742,17 +1742,7 @@ const Index = () => {
                         }}
                     >
                         {/* Title */}
-                        <Text
-                            style={{
-                                fontSize: 22,
-                                fontWeight: 'bold',
-                                color: '#341551',
-                                marginBottom: 15,
-                                textAlign: 'center',
-                            }}
-                        >
-                            Today's Notices
-                        </Text>
+                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#341551', marginBottom: 15, textAlign: 'center' }}>{selectedLanguage === 'Odia' ? "ସୂଚନା" : "Notices"}</Text>
 
                         {/* Notice List */}
                         <FlatList

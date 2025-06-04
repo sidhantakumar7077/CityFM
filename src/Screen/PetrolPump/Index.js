@@ -35,6 +35,7 @@ const Index = () => {
             setRefreshing(false);
             console.log("Refreshing Successful");
             getPetrolData(selectedLanguage);
+            loadLanguage();
         }, 2000);
     }, []);
 

@@ -138,7 +138,7 @@ const Index = () => {
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
                         <View style={{ width: '75%' }}>
                             <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଦର୍ଶନ ସ୍ଥିତିକୁ ଜାଣନ୍ତୁ |' : 'Know The Darshan Status'}</Text>
-                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଏଠାରେ ସମସ୍ତ ଦର୍ଶନର ବିବରଣୀ ପାଇପାରିବେ । ଯଥା ଭିତର କାଠ ଦର୍ଶନ ଓ ବାହାର କାଠ ଦର୍ଶନ ଏବଂ ଦର୍ଶନ କେତେବେଳେ ବନ୍ଦ ରହୁଛି ।' : "You Can Find When The Darshan Start's & Halts As Well As When The Bhitara Katha Darshan Start's."}</Text>
+                            <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଏଠାରେ ସମସ୍ତ ଦର୍ଶନର ବିବରଣୀ ପାଇପାରିବେ । ଯଥା ଭିତର କାଠ ଦର୍ଶନ ଓ ବାହାର କାଠ ଦର୍ଶନ ଏବଂ ଦର୍ଶନ କେତେବେଳେ ବନ୍ଦ ରହୁଛି ।' : "You Can Find When The Darshan Starts & Halts As Well As When The Bhitara Katha Darshan Starts."}</Text>
                             {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Book Darshan →</Text>
                             </TouchableOpacity> */}

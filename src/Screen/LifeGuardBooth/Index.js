@@ -35,8 +35,8 @@ const Index = () => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-      console.log("Refreshing Successful");
       getLifeguards(selectedLanguage);
+      loadLanguage();
     }, 2000);
   }, []);
 
@@ -55,7 +55,13 @@ const Index = () => {
     Linking.openURL(url);
   };
 
+  const linkPhone = (number) => {
+    const phoneNumber = `tel:${number}`;
+    Linking.openURL(phoneNumber).catch(err => console.warn("Failed to open dialer:", err));
+  };
+
   const getLifeguards = async (language) => {
+    // console.log("selectedLanguage", selectedLanguage);
     try {
       setLoading(true);
       const response = await fetch(`${base_url}api/get-all-service-list/${language}`);
@@ -108,7 +114,7 @@ const Index = () => {
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
             <View style={{ width: '75%' }}>
               <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ବେଳାଭୂମି ନିକଟରେ ଉପଲବ୍ଧ ଲାଇଫ ଗାର୍ଡ ସେବା' : 'Lifeguard Services Near Beaches'}</Text>
-              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଏକ ନିରାପଦ ବେଳାଭୂମି ଅଭିଜ୍ଞତା ନିଶ୍ଚିତ କରିବାକୁ ନିକଟତମ ଲାଇଫ୍ ଗାର୍ଡ ବୁଥ୍ ସନ୍ଧାନ କରନ୍ତୁ |' : 'Find the nearest life guard booths to ensure a safe beach experience.'}</Text>
+              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ଏକ ନିରାପଦ ବେଳାଭୂମିର ଅଭିଜ୍ଞତା ନିଶ୍ଚିତ କରିବାକୁ ନିକଟତମ ଲାଇଫ୍ ଗାର୍ଡ ବୁଥ୍ ସନ୍ଧାନ କରନ୍ତୁ |' : 'Find the nearest life guard booths to ensure a safe beach experience.'}</Text>
               {/* <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Call Now →</Text>
               </TouchableOpacity> */}
@@ -131,11 +137,10 @@ const Index = () => {
             keyExtractor={(item) => item.id}
             scrollEnabled={false}
             renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => openMap(item.google_map_link)}
+              <View
                 style={{
                   width: '100%',
-                  height: 120,
+                  height: 135,
                   flexDirection: 'row',
                   // alignItems: 'center',
                   justifyContent: 'space-between',
@@ -165,6 +170,22 @@ const Index = () => {
                       {item.landmark}, {item.district}, {item.state}, {item.pincode}
                     </Text>
                   </View>
+                  {/* Buttons */}
+                  <View style={styles.buttonRow}>
+                    <LinearGradient
+                      colors={['#FFA726', '#F06292']}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                      style={styles.bookNowButton}
+                    >
+                      <TouchableOpacity onPress={() => openMap(item.google_map_link)}>
+                        <Text style={styles.bookNowText}>Direction</Text>
+                      </TouchableOpacity>
+                    </LinearGradient>
+                    <TouchableOpacity style={styles.callButton} onPress={() => linkPhone(item.contact_no)}>
+                      <Text style={styles.callText}>📞 {item.contact_no}</Text>
+                    </TouchableOpacity>
+                  </View>
 
                   {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                     <MaterialIcons name="access-time" size={13} color="#999" />
@@ -176,7 +197,7 @@ const Index = () => {
                     <Text style={{ fontSize: 13, marginLeft: 5, color: '#28a745' }}>{item.contact_no}</Text>
                   </View> */}
                 </View>
-              </TouchableOpacity>
+              </View>
             )}
           />
         )}
@@ -297,4 +318,35 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     padding: 8
   },
+  buttonRow: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  bookNowButton: {
+    backgroundColor: '#7e22ce',
+    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 10
+  },
+  bookNowText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '600',
+    letterSpacing: 1
+  },
+  callButton: {
+    borderWidth: 1,
+    borderColor: '#b8b8b8',
+    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 7
+  },
+  callText: {
+    fontSize: 11,
+    color: '#000',
+    fontWeight: '600'
+  }
 });

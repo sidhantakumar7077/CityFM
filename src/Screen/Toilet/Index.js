@@ -36,6 +36,7 @@ const Index = () => {
       setRefreshing(false);
       console.log("Refreshing Successful");
       getToilet(selectedLanguage);
+      loadLanguage();
     }, 2000);
   }, []);
 

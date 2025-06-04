@@ -37,6 +37,7 @@ const Index = () => {
             setRefreshing(false);
             console.log("Refreshing Successful");
             getAllBusRailway(selectedLanguage);
+            loadLanguage();
         }, 2000);
     }, []);
 

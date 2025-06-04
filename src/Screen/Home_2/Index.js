@@ -577,7 +577,7 @@ const Index = () => {
                                 <TouchableOpacity onPress={() => navigation.navigate('AllNitePage')} style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <View style={{ width: '90%' }}>
                                         {selectedLanguage === 'Odia' ?
-                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>ସମ୍ପୂର୍ଣ ନୀତିକାନ୍ତି</Text>
+                                            <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>ସମ୍ପୂର୍ଣ୍ଣ ନୀତିକାନ୍ତି</Text>
                                             :
                                             <Text style={{ fontSize: 20, fontFamily: 'FiraSans-Light', color: '#341551' }}>View All Niti</Text>
                                         }
@@ -738,7 +738,7 @@ const Index = () => {
                                 {selectedLanguage === 'Odia' ?
                                     <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>କରନ୍ତୁ ଏବଂ କରନ୍ତୁ ନାହିଁ</Text>
                                     :
-                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Do and Don'ts</Text>
+                                    <Text style={{ fontSize: 12, color: '#333', marginTop: 5, textAlign: 'center', fontFamily: 'FiraSans-Regular' }}>Do's and Don'ts</Text>
                                 }
                             </View>
                         </View>
@@ -1111,7 +1111,7 @@ const Index = () => {
                                         textAlign: 'justify',
                                         lineHeight: 24
                                     }}>
-                                        ବରିଷ୍ଠ ନାଗରିକ ଏବଂ ଶାରୀରିକ ଅକ୍ଷମ ଲୋକଙ୍କୁ ପରିବହନ ପାଇଁ ଜଗନ୍ନାଥ ବଲ୍ଲଭ ପାର୍କିଂ ସ୍ଥାନ (ମାର୍କେଟ୍ ଛକ) ରୁ ମନ୍ଦିର ମୁଖ୍ୟ ଦ୍ୱାର / ଉତ୍ତର ଦ୍ୱାର ପର୍ଯ୍ୟନ୍ତ ମାଗଣା ବ୍ୟାଟେରୀ ଚାଳିତ ଯାନବାହାନ ସେବା ଉପଲବ୍ଧ ।
+                                        ବରିଷ୍ଠ ନାଗରିକ ଏବଂ ଶାରୀରିକ ଅକ୍ଷମ ଲୋକଙ୍କୁ ପରିବହନ ପାଇଁ ଜଗନ୍ନାଥ ବଲ୍ଲଭ ପାର୍କିଂ ସ୍ଥାନ (ମାର୍କେଟ୍ ଛକ) ରୁ ମନ୍ଦିର ପୂର୍ବ ଦ୍ୱାର (ସିଂହ ଦ୍ୱାର) / ଉତ୍ତର ଦ୍ୱାର ପର୍ଯ୍ୟନ୍ତ ମାଗଣା ବ୍ୟାଟେରୀ ଚାଳିତ ଯାନବାହାନ ସେବା ଉପଲବ୍ଧ ।
                                     </Text>
                                     :
                                     <Text style={{
@@ -1120,7 +1120,7 @@ const Index = () => {
                                         textAlign: 'justify',
                                         lineHeight: 24
                                     }}>
-                                        Free service of battery operated vehicles is available from <Text style={{ fontWeight: '600' }}>Jagannatha Ballav Parking place (Market square)</Text> to the <Text style={{ fontWeight: '600' }}>Temple main gate / North gate</Text> for carrying senior citizens and Special Abled Person.
+                                        Free service of battery operated vehicles is available from <Text style={{ fontWeight: '600' }}>Jagannatha Ballav Parking place (Market square)</Text> to the <Text style={{ fontWeight: '600' }}>Temple East gate (Singha Dwara) / North gate</Text> for carrying senior citizens and Special Abled Person.
                                     </Text>
                                 }
 
@@ -1131,7 +1131,7 @@ const Index = () => {
                                         textAlign: 'justify',
                                         lineHeight: 24
                                     }}>
-                                        ଉତ୍ତର ଦ୍ୱାରରେ ହୁଇଲ ଚେୟାର ଏବଂ ରାମ୍ପ ସୁବିଧା ଉପଲବ୍ଧ ଏବଂ ହୁଇଲ ଚେୟାର ପାଇବା ପାଇଁ, ମନ୍ଦିର ପର୍ଯ୍ୟବେକ୍ଷକ / ସହାୟକ ପର୍ଯ୍ୟବେକ୍ଷକଙ୍କ ସହିତ 06752 – 252527 ରେ ଯୋଗାଯୋଗ କରିପାରିବେ ।
+                                        ଉତ୍ତର ଦ୍ୱାରରେ ହୁଇଲ ଚେୟାର ଏବଂ ରାମ୍ପ ସୁବିଧା ଉପଲବ୍ଧ ଏବଂ ହୁଇଲ ଚେୟାର ପାଇବା ପାଇଁ, ମନ୍ଦିର ପର୍ଯ୍ୟବେକ୍ଷକ / ସହାୟକ ପର୍ଯ୍ୟବେକ୍ଷକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରିପାରିବେ ।
                                     </Text>
                                     :
                                     <Text style={{
@@ -1141,7 +1141,7 @@ const Index = () => {
                                         marginTop: 15,
                                         lineHeight: 24
                                     }}>
-                                        Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text> at <Text style={{ fontWeight: '600', color: '#D64C64' }}>06752 – 252527</Text>.
+                                        Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text>.
                                     </Text>
                                 }
                                 {/* {selectedLanguage === 'Odia' ?
@@ -1628,16 +1628,19 @@ const Index = () => {
                                 ଆପଣ ଶ୍ରୀ ଜଗନ୍ନାଥ ମନ୍ଦିରର ସରକାରୀ ୱେବସାଇଟ୍ ମାଧ୍ୟମରେ ଅନଲାଇନରେ ଦାନ କରିପାରିବେ।{"\n\n"}
 
                                 <Text style={{ fontWeight: '700' }}>ଦାନ ବିଷୟରେ ଅଧିକ ସୂଚନା ପାଇଁ, ଦୟାକରି ଯୋଗାଯୋଗ କରନ୍ତୁ:{"\n\n"}</Text>
-                                ପୁରୀର ଗ୍ରାଣ୍ଡ ରୋଡରେ ଥିବା ମୁଖ୍ୟ କାର୍ଯ୍ୟାଳୟରେ ଦାନ ପ୍ରକୋଷ୍ଠ ଫୋନ୍ : (୦୬୭୫୨) ୨୫୨୬୦୧{"\n"}
+                                www.shreejagannatha.in{"\n"}
+                                ଇମେଲ୍: jagannatha.or@nic.in{"\n"}
+                                ଫୋନ୍ : (୦୬୭୫୨) ୨୫୨୬୦୧{"\n\n"}
+
+
+                                ପୁରୀର ଗ୍ରାଣ୍ଡ ରୋଡରେ ଥିବା ମୁଖ୍ୟ କାର୍ଯ୍ୟାଳୟରେ ଦାନ ପ୍ରକୋଷ୍ଠ 
                                 ଶାଖା କାର୍ଯ୍ୟାଳୟ, ଶ୍ରୀଜଗନ୍ନାଥ ମନ୍ଦିର ଭିତରେ, ପୁରୀ।{"\n\n"}
 
                                 ଶ୍ରୀ ଜଗନ୍ନାଥ ମନ୍ଦିରର ସୂଚନା କେନ୍ଦ୍ର:{"\n"}
                                 (a) ସିଂହଦ୍ଵାର, ପୁରୀ{"\n"}
                                 (b) ଗୁଣ୍ଡିଚା ମନ୍ଦିର, ପୁରୀ{"\n"}
                                 (c) ରେଳ ଷ୍ଟେସନ, ପୁରୀ{"\n"}
-                                (d) ଜୟଦେବ ଭବନ, ସଚିବାଳୟ ମାର୍ଗ, ଭୂବନେଶ୍ବର{"\n\n"}
-
-                                📧 ଇମେଲ୍: jagannatha.or@nic.in
+                                (d) ଜୟଦେବ ଭବନ, ସଚିବାଳୟ ମାର୍ଗ, ଭୂବନେଶ୍ବର{"\n"}
                             </Text>
                             :
                             <Text style={{
@@ -1651,18 +1654,18 @@ const Index = () => {
                                 Shree Jagannath Temple official website.{"\n\n"}
 
                                 <Text style={{ fontWeight: '700' }}>For more information about donations, please contact:{"\n\n"}</Text>
+                                www.shreejagannatha.in{"\n"}
+                                📧 Email: jagannatha.or@nic.in{"\n"}
+                                📞 Ph: (06752) 252601{"\n\n"}
 
                                 Donation Cell at Head office on the Grand Road, Puri{"\n"}
-                                📞 Ph: (06752) 252601{"\n"}
                                 Branch office, inside the Shree Jagannath Temple, Puri.{"\n\n"}
 
                                 Information Centers of Shree Jagannath Temple located at:{"\n"}
                                 (a) Lions Gate, Puri{"\n"}
                                 (b) Gundicha Temple, Puri{"\n"}
                                 (c) Railway Station, Puri{"\n"}
-                                (d) Jaydev Bhawan, Sachivalaya Marg, Bhubaneswar{"\n\n"}
-
-                                📧 Email: jagannatha.or@nic.in
+                                (d) Jaydev Bhawan, Sachivalaya Marg, Bhubaneswar{"\n"}
                             </Text>
                         }
 

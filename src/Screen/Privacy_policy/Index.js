@@ -102,7 +102,7 @@ const Index = ({ navigation }) => {
           },
           {
             title: 'For Queries',
-            body: 'If you have any questions or concerns about your privacy, contact us at:\nmunicipalitypuri@gmail.com'
+            body: 'If you have any questions or concerns about your privacy, contact us at:\nPurim.hud@nic.in'
           }
         ].map((section, index) => (
           <View key={index} style={{ marginBottom: 20 }}>

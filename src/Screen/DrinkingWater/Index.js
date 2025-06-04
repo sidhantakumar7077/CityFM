@@ -36,6 +36,7 @@ const Index = () => {
       setRefreshing(false);
       console.log("Refreshing Successful");
       getDrinkingWater(selectedLanguage);
+      loadLanguage();
     }, 2000);
   }, []);
 
@@ -107,7 +108,7 @@ const Index = () => {
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, paddingHorizontal: 15 }}>
             <View style={{ width: '75%' }}>
               <Text style={{ color: '#fff', fontSize: 18, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ବିଶୁଦ୍ଧ ପାନୀୟ ଜଳ' : 'Clean Drinking Water'}</Text>
-              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ତୀର୍ଥଯାତ୍ରୀଙ୍କ ପାଇଁ ମଧୁର ଏବଂ ପରିଷ୍କାର ପାଣି।' : 'Fresh And Clean Water For Pligrimas.'}</Text>
+              <Text style={{ color: '#ddd', fontSize: 12, marginTop: 5, fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? 'ତୀର୍ଥଯାତ୍ରୀଙ୍କ ପାଇଁ ମଧୁର ଏବଂ ପରିଷ୍କାର ପାଣି।' : 'Fresh And Clean Water For Pligrims.'}</Text>
               {/* <View style={{ marginTop: 10, backgroundColor: '#fff', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 5, alignSelf: 'flex-start' }}>
                 <Text style={{ color: '#4B0082', fontFamily: 'FiraSans-Regular' }}>Drink Now →</Text>
               </View> */}

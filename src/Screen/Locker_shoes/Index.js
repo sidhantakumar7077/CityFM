@@ -95,7 +95,7 @@ const Index = () => {
                 >
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerContent}>
                         <MaterialIcons name="arrow-back-ios" size={20} color="white" />
-                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଲକର୍ ଏବଂ ଜୋତା ଷ୍ଟାଣ୍ଡ' : 'Locker & Shoes Stand'}</Text>
+                        <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଲକର୍ ଏବଂ ଜୋତା ଷ୍ଟାଣ୍ଡ' : 'Locker & Shoe Stand'}</Text>
                     </TouchableOpacity>
                 </LinearGradient>
             </Animated.View>

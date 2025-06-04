@@ -162,7 +162,7 @@ const Index = () => {
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
                                         <MaterialIcons name="location-on" size={14} color="#999" />
                                         <Text style={{ fontSize: 12, color: '#666', marginLeft: 4, fontFamily: 'FiraSans-Regular' }}>
-                                            {item.city_village}, {item.pincode}
+                                            {item.landmark}, {item.district}, {item.state}, {item.pincode}
                                         </Text>
                                     </View>
 

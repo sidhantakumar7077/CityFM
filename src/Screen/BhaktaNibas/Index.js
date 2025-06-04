@@ -55,6 +55,11 @@ const Index = () => {
         Linking.openURL(url);
     };
 
+    const linkPhone = (number) => {
+        const phoneNumber = `tel:${number}`;
+        Linking.openURL(phoneNumber).catch(err => console.warn("Failed to open dialer:", err));
+    };
+
     const [selectedImages, setSelectedImages] = useState({});
 
     const handleImageSelect = (nibasId, imageUri) => {
@@ -232,7 +237,7 @@ const Index = () => {
                                                 <Text style={styles.bookNowText}>Direction</Text>
                                             </TouchableOpacity>
                                         </LinearGradient>
-                                        <TouchableOpacity style={styles.callButton}>
+                                        <TouchableOpacity style={styles.callButton} onPress={() => linkPhone(item.contact_no)}>
                                             <Text style={styles.callText}>📞 {item.contact_no}</Text>
                                         </TouchableOpacity>
                                     </View>

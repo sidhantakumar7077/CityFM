@@ -177,7 +177,7 @@ const Index = () => {
       id: 19,
       name: "Raja Sankranti",
       date: "15/06/2025",
-      day: 'Thursday',
+      day: 'Sunday',
       odiaName: "ରଜ ସଂକ୍ରାନ୍ତି",
       odiaDate: "୧୫/୦୬/୨୦୨୫",
       odiaDay: "ରବିବାର",

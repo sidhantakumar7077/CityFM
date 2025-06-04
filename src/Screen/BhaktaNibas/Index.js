@@ -212,7 +212,7 @@ const Index = () => {
                                     {/* Offers & Address */}
                                     <View style={styles.infoRow}>
                                         <View style={styles.infoColumn}>
-                                            <Text style={styles.label}>{selectedLanguage === 'Odia' ? "ସମ୍ପତ୍ତି ଅଫରଗୁଡ଼ିକ" : "Property Offers"}:</Text>
+                                            <Text style={styles.label}>{selectedLanguage === 'Odia' ? "ଉପଲବ୍ଧ ସୁବିଧା" : "Property Offers"}:</Text>
                                             {selectedLanguage === 'Odia' ?
                                                 <Text style={styles.value}>ଜଳଖିଆ/ମଧ୍ୟାହ୍ନ ଭୋଜନ/ରାତ୍ରୀଭୋଜନ{"\n"}ଏସି ରୁମ</Text>
                                                 :

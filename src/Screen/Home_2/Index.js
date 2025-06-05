@@ -462,7 +462,7 @@ const Index = () => {
                         <LinearGradient colors={["rgba(0,0,0,0.5)", "transparent"]} style={styles.overlay} />
                         <View style={styles.header}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Image source={require("../../assets/image/SJDlogo.png")} style={styles.logo} />
+                                <Image source={require("../../assets/image/mainLogo.png")} style={styles.logo} />
                             </View>
                             <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => setIsDrawerOpen(true)}>
                                 <View style={{ width: 28, height: 3, backgroundColor: '#ff5733', marginVertical: 3.5 }} />
@@ -1811,8 +1811,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     logo: {
-        width: 70,
-        height: 70,
+        width: 80,
+        height: 80,
         resizeMode: "contain",
     },
     liveCard: {

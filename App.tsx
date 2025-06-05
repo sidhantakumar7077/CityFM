@@ -135,7 +135,7 @@ const App = () => {
     <NavigationContainer>
       <StatusBar backgroundColor="#341551" barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
+        {/* {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null} */}
         <>
           <Stack.Screen name="Home_2" component={Home_2} />
           <Stack.Screen name="LivePage" component={LivePage} />

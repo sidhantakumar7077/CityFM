@@ -743,6 +743,17 @@ const Index = () => {
                             </View>
                         </View>
 
+                        {/* <View style={{ marginTop: 10, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('QueueAndDarshan')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
+                                <View style={{ width: '80%' }}>
+                                    <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Temple Queue & Darshan Information</Text>
+                                </View>
+                                <View style={{ width: '20%', alignItems: 'flex-end' }}>
+                                    <Image source={require('../../assets/image/Livequeue.png')} style={{ width: 50, height: 50 }} />
+                                </View>
+                            </TouchableOpacity>
+                        </View> */}
+
                         <View style={{ marginTop: 10, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
                                 <View style={{ width: '20%' }}>
@@ -809,6 +820,28 @@ const Index = () => {
                                 </View>
                             </TouchableOpacity>
                         </View>
+
+                        {/* <View style={{ marginTop: 10, height: 90, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 15, shadowColor: '#000', shadowOpacity: 0.05, shadowOffset: { width: 0, height: 5 }, elevation: 1 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('BhaktaNibas')} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
+                                <View style={{ width: '20%' }}>
+                                    {selectedLanguage === 'Odia' ?
+                                        <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>ଭକ୍ତ ନିବାସ</Text>
+                                        :
+                                        <Text style={{ fontSize: 14, fontFamily: 'FiraSans-SemiBold', color: '#333', lineHeight: 20 }}>Bhakta Nivas</Text>
+                                    }
+                                </View>
+                                <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    {selectedLanguage === 'Odia' ?
+                                        <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>ତୀର୍ଥଯାତ୍ରୀମାନଙ୍କ ପାଇଁ ମନ୍ଦିର ପାଖରେ ରହିବା ସ୍ଥାନ</Text>
+                                        :
+                                        <Text style={{ fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#474747', lineHeight: 20 }}>Temple owned properties for Pilgrims to stay Comfortably</Text>
+                                    }
+                                </View>
+                                <View style={{ width: '20%', alignItems: 'flex-end' }}>
+                                    <Image source={require('../../assets/image/bhaktanibash54.png')} style={{ width: 50, height: 50 }} />
+                                </View>
+                            </TouchableOpacity>
+                        </View> */}
                     </View>
 
                     {/* Nearby Temples */}

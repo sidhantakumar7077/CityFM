@@ -61,11 +61,11 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage, rathaYatraSect
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, height: '100%' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                            <Image style={{ height: 70, width: 60, borderRadius: 50 }} source={require('../assets/image/SJDlogo.png')} resizeMode='contain' />
+                                            {/* <Image style={{ height: 70, width: 60, borderRadius: 50 }} source={require('../assets/image/SJDlogo.png')} resizeMode='contain' /> */}
                                         </View>
                                         <View style={{ marginLeft: 10 }}>
-                                            <Text style={{ fontSize: 18, color: '#fff', marginLeft: 5, fontFamily: 'FiraSans-SemiBold' }}>Shree Jagannatha</Text>
-                                            <Text style={{ fontSize: 18, color: '#fff', marginLeft: 5, fontFamily: 'FiraSans-SemiBold' }}>Dham</Text>
+                                            <Text style={{ fontSize: 18, color: '#fff', marginLeft: 5, fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === "Odia" ? 'ଶ୍ରୀଜଗନ୍ନାଥ' : 'Shree Jagannatha'}</Text>
+                                            <Text style={{ fontSize: 18, color: '#fff', marginLeft: 5, fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === "Odia" ? 'ଧାମ' : 'Dham'}</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -74,13 +74,13 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage, rathaYatraSect
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
                                     <FontAwesome5 name="home" size={22} color="#341551" />
                                 </View>
-                                <Text style={styles.drawerLable}>Home</Text>
+                                <Text style={styles.drawerLable}>{selectedLanguage === "Odia" ? 'ମୁଖ୍ୟ ପୃଷ୍ଠା' : 'Home'}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.drawerCell, { marginTop: 0.5 }]} onPress={() => { setLanguageModalVisible(true), onClose() }}>
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
                                     <Ionicons name="language" size={22} color="#341551" />
                                 </View>
-                                <Text style={styles.drawerLable}>Language</Text>
+                                <Text style={styles.drawerLable}>{selectedLanguage === "Odia" ? 'ଭାଷା ଚୟନ' : 'Language'}</Text>
                             </TouchableOpacity>
                             {/* {rathaYatraSectionActive &&
                                 <TouchableOpacity style={styles.drawerCell} onPress={() => { navigation.navigate('RathaYatraMainPage'), onClose() }}>
@@ -94,7 +94,7 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage, rathaYatraSect
                                 <View style={{ width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
                                     <FontAwesome5 name="user-lock" size={22} color="#341551" />
                                 </View>
-                                <Text style={styles.drawerLable}>Privacy & Policy</Text>
+                                <Text style={styles.drawerLable}>{selectedLanguage === "Odia" ? 'ଆପ୍ ନିୟମ' : 'Privacy & Policy'}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.drawerCell, { marginTop: 0.5 }]}>
                             </TouchableOpacity>
@@ -178,7 +178,7 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage, rathaYatraSect
                                     textAlign: 'center',
                                     marginBottom: 20,
                                 }}>
-                                    Select Language
+                                    {selectedLanguage === "Odia" ? 'ଭାଷା ଚୟନ କରନ୍ତୁ' : 'Select Language'}
                                 </Text>
 
                                 {/* English Language Option */}

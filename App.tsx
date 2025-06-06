@@ -19,6 +19,9 @@ import Darshan from './src/Screen/Darshan/Index';
 import MahaPrashad from './src/Screen/MahaPrashad/Index';
 import Panji from './src/Screen/Panji/Index';
 import Festival from './src/Screen/Festival/Index';
+import QueueAndDarshan from './src/Screen/QueueAndDarshan/Index';
+import LiveQueue from './src/Screen/LiveQueue/Index';
+import FestivalAlerts from './src/Screen/FestivalAlerts/Index';
 import BhaktaNibas from './src/Screen/BhaktaNibas/Index';
 import Locker_shoes from './src/Screen/Locker_shoes/Index';
 import NearbyTemple from './src/Screen/NearbyTemple/Index';
@@ -135,7 +138,7 @@ const App = () => {
     <NavigationContainer>
       <StatusBar backgroundColor="#341551" barStyle="light-content" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null} */}
+        {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
         <>
           <Stack.Screen name="Home_2" component={Home_2} />
           <Stack.Screen name="LivePage" component={LivePage} />
@@ -145,6 +148,9 @@ const App = () => {
           <Stack.Screen name="MahaPrashad" component={MahaPrashad} />
           <Stack.Screen name="Panji" component={Panji} />
           <Stack.Screen name="Festival" component={Festival} />
+          <Stack.Screen name="QueueAndDarshan" component={QueueAndDarshan} />
+          <Stack.Screen name="LiveQueue" component={LiveQueue} />
+          <Stack.Screen name="FestivalAlerts" component={FestivalAlerts} />
           <Stack.Screen name="BhaktaNibas" component={BhaktaNibas} />
           <Stack.Screen name="ParkingPage" component={ParkingPage} />
           <Stack.Screen name="Locker_shoes" component={Locker_shoes} />

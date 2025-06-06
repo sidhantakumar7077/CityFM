@@ -95,7 +95,7 @@ const Index = () => {
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
                             <Image
-                                source={require('../../assets/image/SplashLogo.png')}
+                                source={require('../../assets/image/mainLogo.png')}
                                 style={{ width: 100, height: 100, resizeMode: 'contain' }}
                             />
                         </View>

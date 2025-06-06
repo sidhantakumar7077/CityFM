@@ -161,7 +161,7 @@ const Index = (props) => {
                             </TouchableOpacity> */}
                         </View>
                         <View style={{ width: '22%', alignItems: 'center' }}>
-                            <Image source={require('../../assets/image/SplashLogo.png')} style={{ width: 110, height: 120, resizeMode: 'contain' }} />
+                            <Image source={require('../../assets/image/mainLogo.png')} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
                         </View>
                     </View>
                 </View>

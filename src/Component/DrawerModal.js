@@ -61,9 +61,9 @@ const DrawerModal = ({ visible, onClose, loadLanguageForHomePage, rathaYatraSect
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, height: '100%' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                            {/* <Image style={{ height: 70, width: 60, borderRadius: 50 }} source={require('../assets/image/SJDlogo.png')} resizeMode='contain' /> */}
+                                            <Image style={{ height: 70, width: 60, borderRadius: 50 }} source={require('../assets/image/mainLogo.png')} resizeMode='contain' />
                                         </View>
-                                        <View style={{ marginLeft: 10 }}>
+                                        <View style={{ marginLeft: 3 }}>
                                             <Text style={{ fontSize: 18, color: '#fff', marginLeft: 5, fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === "Odia" ? 'ଶ୍ରୀଜଗନ୍ନାଥ' : 'Shree Jagannatha'}</Text>
                                             <Text style={{ fontSize: 18, color: '#fff', marginLeft: 5, fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === "Odia" ? 'ଧାମ' : 'Dham'}</Text>
                                         </View>

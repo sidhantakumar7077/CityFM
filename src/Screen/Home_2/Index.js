@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal, ActivityIndicator, RefreshControl, Animated, Easing } from "react-native";
+import { View, ScrollView, Text, ImageBackground, TouchableOpacity, StyleSheet, Image, FlatList, Dimensions, SafeAreaView, Linking, Modal, ActivityIndicator, RefreshControl, Animated, Easing, BackHandler, ToastAndroid } from "react-native";
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import LinearGradient from "react-native-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -183,6 +183,32 @@ const Index = () => {
         return () => loop.stop();
     }, []);
 
+    const [backPressCount, setBackPressCount] = useState(0);
+
+    useEffect(() => {
+        const handleBackPress = () => {
+            if (backPressCount === 1) {
+                BackHandler.exitApp(); // Exit the app if back button is pressed twice within 2 seconds
+                return true;
+            }
+
+            ToastAndroid.show('Press back again to exit', ToastAndroid.SHORT);
+            setBackPressCount(1);
+
+            const timeout = setTimeout(() => {
+                setBackPressCount(0);
+            }, 2000); // Reset back press count after 2 seconds
+
+            return true; // Prevent default behavior
+        };
+
+        if (isFocused) {
+            const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+            return () => backHandler.remove(); // Cleanup the event listener when the component unmounts or navigates away
+        }
+    }, [backPressCount, isFocused]);
+
     const [expanded, setExpanded] = useState(false);
     const itemsPerRow = 3;
     const maxVisibleItems = 3 * itemsPerRow; // Show 2 rows initially
@@ -213,19 +239,25 @@ const Index = () => {
 
             if (result.status && Array.isArray(result.data)) {
                 const today = moment().format('YYYY-MM-DD');
+                const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
 
-                // Step 1: Filter data for today
-                const todaysData = result.data.filter(item => item.date === today);
+                // First, look for today's record
+                const todayData = result.data.find(item => item.date === today);
 
-                // Step 2: Sort by `created_at` in descending order and pick latest
-                const latestToday = todaysData
-                    .sort((a, b) => moment(b.created_at).valueOf() - moment(a.created_at).valueOf())[0];
-
-                // Step 3: Set it (or empty object if none)
-                setHundi(latestToday || {});
-                // console.log("Hundi", latestToday);
+                if (todayData) {
+                    setHundi(todayData);
+                } else {
+                    // If not found, look for yesterday's record
+                    const yesterdayData = result.data.find(item => item.date === yesterday);
+                    if (yesterdayData) {
+                        setHundi(yesterdayData);
+                    } else {
+                        console.log("No hundi data found for today or yesterday.");
+                        setHundi({});
+                    }
+                }
             } else {
-                console.warn("No valid hundi data.");
+                console.warn("Invalid hundi data format.");
                 setHundi({});
             }
         } catch (error) {
@@ -1157,7 +1189,7 @@ const Index = () => {
                                     </Text>
                                 }
 
-                                {selectedLanguage === 'Odia' ?
+                                {/* {selectedLanguage === 'Odia' ?
                                     <Text style={{
                                         fontSize: 16,
                                         color: '#444',
@@ -1176,7 +1208,7 @@ const Index = () => {
                                     }}>
                                         Wheelchair and ramp facilities are available at the North gate. To avail a wheelchair, please contact <Text style={{ fontWeight: '600' }}>Temple Supervisor / Asst. Supervisor</Text>.
                                     </Text>
-                                }
+                                } */}
                                 {/* {selectedLanguage === 'Odia' ?
                                     <View style={{
                                         backgroundColor: '#fff5f5',

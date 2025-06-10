@@ -12,6 +12,7 @@ import SplashScreen from './src/Screen/SplashScreen/Index';
 
 // Pages
 import LivePage from './src/Screen/LivePage/Index';
+import LanguagePage from './src/Screen/LanguagePage/Index';
 import Home_2 from './src/Screen/Home_2/Index';
 import ParkingPage from './src/Screen/ParkingPage/Index';
 import AllNitePage from './src/Screen/AllNitePage/Index';
@@ -54,8 +55,8 @@ import Privacy_policy from './src/Screen/Privacy_policy/Index';
 
 const Stack = createNativeStackNavigator();
 
-// export const base_url = "http://temple.mandirparikrama.com/";
-export const base_url = "https://shreejagannathadham.com/";
+export const base_url = "http://temple.mandirparikrama.com/";
+// export const base_url = "https://shreejagannathadham.com/";
 
 const App = () => {
 
@@ -140,6 +141,7 @@ const App = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {showSplash ? (<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ presentation: 'modal', animationTypeForReplace: 'push', animation: 'slide_from_right' }} />) : null}
         <>
+          <Stack.Screen name="LanguagePage" component={LanguagePage} />
           <Stack.Screen name="Home_2" component={Home_2} />
           <Stack.Screen name="LivePage" component={LivePage} />
           <Stack.Screen name="Tv" component={Tv} />

@@ -82,7 +82,7 @@ const Index = ({ navigation }) => {
           },
           {
             title: '2. How We Use Your Data',
-            body: '• To improve our website experience and customer support.\n• To comply with legal requirements and prevent fraud.'
+            body: '• To improve our app experience and customer support.\n• To comply with legal requirements and prevent fraud.'
           },
           {
             title: '3. Data Protection Measures',
@@ -98,7 +98,7 @@ const Index = ({ navigation }) => {
           },
           {
             title: '6. Updates to Privacy Policy',
-            body: 'We may update this policy periodically. Any changes will be communicated through our website and email notifications.'
+            body: 'We may update this policy periodically. Any changes will be communicated through our app.'
           },
           {
             title: 'For Queries',

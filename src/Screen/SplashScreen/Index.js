@@ -49,7 +49,7 @@ const Index = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar hidden={true} />
             <Video
-                source={require('../../assets/video/splash2.mp4')} // Add your video here
+                source={require('../../assets/video/splash1.mp4')} // Add your video here
                 style={styles.backgroundVideo}
                 resizeMode="cover" // Fullscreen cover
                 muted={false} // No sound

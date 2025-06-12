@@ -41,41 +41,24 @@ const LanguageSelection = () => {
         }
     };
 
-    // const loadLanguage = async () => {
-    //     try {
-    //         const value = await AsyncStorage.getItem('selectedLanguage');
-    //         if (value !== null) {
-    //             setSelectedLanguage(value);
-    //             console.log('Selected Language from Storage:', value);
-    //         } else {
-    //             // If no language found, set English by default
-    //             await AsyncStorage.setItem('selectedLanguage', 'English');
-    //             setSelectedLanguage('English');
-    //             console.log('No Language Found. Setting Default: English');
-    //         }
-    //     } catch (error) {
-    //         console.log('Error loading language from storage:', error);
-    //     }
-    // };
-
     const loadLanguage = async () => {
-    try {
-        const value = await AsyncStorage.getItem('selectedLanguage');
-        if (value !== null) {
-            setSelectedLanguage(value);
-            console.log('Selected Language from Storage:', value);
-            // Navigate directly if language is already selected
-            navigation.navigate('Home_2');
-        } else {
-            // If no language found, set English by default
-            await AsyncStorage.setItem('selectedLanguage', 'English');
-            setSelectedLanguage(null);
-            console.log('No Language Found. Setting Default: English');
+        try {
+            const value = await AsyncStorage.getItem('selectedLanguage');
+            if (value !== null) {
+                setSelectedLanguage(value);
+                console.log('Selected Language from Storage:', value);
+                // Navigate directly if language is already selected
+                navigation.navigate('Home_2');
+            } else {
+                // If no language found, set English by default
+                // await AsyncStorage.setItem('selectedLanguage', 'English');
+                setSelectedLanguage(null);
+                console.log('No Language Found. Setting Default: None');
+            }
+        } catch (error) {
+            console.log('Error loading language from storage:', error);
         }
-    } catch (error) {
-        console.log('Error loading language from storage:', error);
-    }
-};
+    };
 
     useEffect(() => {
         loadLanguage();
@@ -84,7 +67,10 @@ const LanguageSelection = () => {
     return (
         <View style={styles.fullScreen}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଓଡ଼ିଆ ଭାଷା ଚୟନ ହୋଇଛି' : 'English Language Selected'}</Text>
+                {/* <Text style={styles.headerText}>{selectedLanguage === 'Odia' ? 'ଓଡ଼ିଆ ଭାଷା ଚୟନ ହୋଇଛି' : 'English Language Selected'}</Text> */}
+                { selectedLanguage === 'Odia' && <Text style={styles.headerText}>ଓଡ଼ିଆ ଭାଷା ଚୟନ ହୋଇଛି</Text> }
+                { selectedLanguage === 'English' && <Text style={styles.headerText}>English Language Selected</Text> }
+                { !selectedLanguage && <Text style={styles.headerText}>Please Select a Language</Text> }
             </View>
 
             {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>

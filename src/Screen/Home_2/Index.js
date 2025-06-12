@@ -237,27 +237,32 @@ const Index = () => {
 
             const result = await response.json();
 
-            if (result.status && Array.isArray(result.data)) {
-                const today = moment().format('YYYY-MM-DD');
-                const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
+            if (result.status) {
+                const data = result.data;
 
-                // First, look for today's record
-                const todayData = result.data.find(item => item.date === today);
+                if (Array.isArray(data)) {
+                    const today = moment().format('YYYY-MM-DD');
+                    const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
 
-                if (todayData) {
-                    setHundi(todayData);
-                } else {
-                    // If not found, look for yesterday's record
-                    const yesterdayData = result.data.find(item => item.date === yesterday);
-                    if (yesterdayData) {
-                        setHundi(yesterdayData);
+                    const todayData = data.find(item => item.date === today);
+
+                    if (todayData) {
+                        setHundi(todayData);
                     } else {
-                        console.log("No hundi data found for today or yesterday.");
-                        setHundi({});
+                        const yesterdayData = data.find(item => item.date === yesterday);
+                        if (yesterdayData) {
+                            setHundi(yesterdayData);
+                        } else {
+                            console.log("No hundi data found for today or yesterday.");
+                            setHundi({});
+                        }
                     }
+                } else {
+                    console.log("No hundi collection data available.");
+                    setHundi({});
                 }
             } else {
-                console.warn("Invalid hundi data format.");
+                console.warn("Hundi API response status was false.");
                 setHundi({});
             }
         } catch (error) {
@@ -460,13 +465,13 @@ const Index = () => {
             }}
         >
             <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#2D3748', marginBottom: 5 }}>
-                {item.notice_name}
+                {selectedLanguage === 'Odia' ? item.notice_name : item.notice_name_english}
             </Text>
-            {item.notice_descp ? (
+            {/* {item.notice_descp ? (
                 <Text style={{ fontSize: 14, color: '#4A5568', marginBottom: 8 }}>
                     {item.notice_descp}
                 </Text>
-            ) : null}
+            ) : null} */}
             {/* <Text style={{ fontSize: 13, color: '#718096', fontStyle: 'italic' }}>
                 📅 {moment(item.notice_date).format('MMMM Do, YYYY')}
             </Text> */}
@@ -628,8 +633,7 @@ const Index = () => {
                             <View style={{ flex: 1, width: '5%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                 <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#ffaa00', marginRight: 10, marginTop: -5 }} />
                                 <Text style={{ width: '75%', fontSize: 16, fontFamily: 'FiraSans-Medium', color: '#341551', marginBottom: 4 }}>
-                                    {/* ସକାଳ ଧୂପ ପ୍ରସାଦ ବାହାରି ପାଣି ପଡିଲା */}
-                                    {information?.niti_notice}
+                                    {selectedLanguage === 'Odia' ? information?.niti_notice : information?.niti_notice_english}
                                 </Text>
                                 <Text style={{ width: '20%', fontSize: 13, fontFamily: 'FiraSans-Regular', color: '#666', marginLeft: 20, marginBottom: 4 }}>
                                     {moment(information?.created_at).format('hh:mm A')}

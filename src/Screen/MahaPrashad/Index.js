@@ -312,9 +312,21 @@ const Index = () => {
                                         </View>
 
                                         {/* Right Content */}
-                                        <View style={{ flex: 1, paddingBottom: 30, marginLeft: 7 }}>
+                                        <View style={{ flex: 1, paddingBottom: 40, marginLeft: 7 }}>
                                             <Text style={{ fontSize: 15, color: '#222', fontFamily: 'FiraSans-SemiBold' }}>{selectedLanguage === 'Odia' ? item.prasad_name : item.english_prasad_name}</Text>
-                                            {item.master_prasad_status !== 'Upcoming' && <Text style={{ fontSize: 13, color: '#333', fontFamily: 'FiraSans-Regular' }}>{selectedLanguage === 'Odia' ? "ସମାପନ ହୋଇଥିଲା" : "Started at"} {moment(item.start_time, "HH:mm:ss").format("hh:mm A")}</Text>}
+                                            {item.master_prasad_status !== 'Upcoming' && (
+                                                <View>
+                                                    <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
+                                                        {selectedLanguage === 'Odia' ? "ସମାପନ ହୋଇଥିଲା" : "Completed at"}{' '}
+                                                        {moment(item.start_time, "HH:mm:ss").format("hh:mm A")}
+                                                    </Text>
+                                                    <Text style={{ fontSize: 13, color: '#059629', fontFamily: 'FiraSans-Regular' }}>
+                                                        {selectedLanguage === 'Odia'
+                                                            ? `ଆନନ୍ଦ ବଜାରରେ ${moment(item.start_time, "HH:mm:ss").add(10, 'minutes').format("hh:mm A")} ମଧ୍ୟରେ ମହାପ୍ରସାଦ ଉପଲବ୍ଧ ହେବ।`
+                                                            : `Mahaprashad will be available at Ananda Bazar by ${moment(item.start_time, "HH:mm:ss").add(10, 'minutes').format("hh:mm A")}.`}
+                                                    </Text>
+                                                </View>
+                                            )}
 
                                             {/* {isRunning && (
                                                 <>

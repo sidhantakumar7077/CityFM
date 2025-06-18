@@ -5,7 +5,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { base_url } from '../../../App';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 const Index = () => {
 
